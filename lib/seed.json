@@ -1,0 +1,1413 @@
+[
+  {
+    "id": "kopaonik",
+    "type": "mountain",
+    "region": {
+      "sr": "Raška oblast",
+      "en": "Raška district"
+    },
+    "name": {
+      "sr": "Kopaonik",
+      "en": "Kopaonik"
+    },
+    "short": {
+      "sr": "Najveći planinski i ski centar Srbije.",
+      "en": "Serbia's largest mountain and ski resort."
+    },
+    "desc": {
+      "sr": "Kopaonik je najpoznatija planina Srbije i njen najveći skijaški centar, sa preko 55 km uređenih staza i više od 200 sunčanih dana godišnje. Nacionalni park bogat je endemskom florom, izvorima i šetnim stazama, a leti je idealan za planinarenje i bicikl.",
+      "en": "Kopaonik is Serbia's best-known mountain and its largest ski resort, with over 55 km of groomed slopes and more than 200 sunny days a year. The national park is rich in endemic flora, springs and walking trails, and in summer it is perfect for hiking and cycling."
+    },
+    "elevation": 2017,
+    "price": 0,
+    "rating": 4.8,
+    "img": "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1551524559-8af4e6624178",
+      "1486078695445-0497c2f58cfe",
+      "1517825738774-7de9363ef735"
+    ],
+    "features": {
+      "sr": [
+        "55+ km ski staza",
+        "Nacionalni park",
+        "Planinarske staze",
+        "Wellness i spa hoteli",
+        "Letnji i zimski turizam"
+      ],
+      "en": [
+        "55+ km of ski runs",
+        "National park",
+        "Hiking trails",
+        "Wellness & spa hotels",
+        "Summer & winter tourism"
+      ]
+    }
+  },
+  {
+    "id": "zlatibor",
+    "type": "mountain",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Zlatibor",
+      "en": "Zlatibor"
+    },
+    "short": {
+      "sr": "Blaga klima, panorame i moderna turistička ponuda.",
+      "en": "Mild climate, panoramas and a modern resort scene."
+    },
+    "desc": {
+      "sr": "Zlatibor je poznat po blagoj planinskoj klimi, prostranim livadama i razvijenoj turističkoj infrastrukturi. Gondola „Gold Gondola“, jezera, etno sela i bogata gastronomija čine ga celogodišnjom destinacijom za odmor i rekreaciju.",
+      "en": "Zlatibor is famous for its mild mountain climate, open meadows and well-developed tourist infrastructure. The Gold Gondola, lakes, ethno villages and rich cuisine make it a year-round destination for rest and recreation."
+    },
+    "elevation": 1496,
+    "price": 0,
+    "rating": 4.7,
+    "img": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1464822759023-fed622ff2c3b",
+      "1506905925346-21bda4d32df4",
+      "1454496522488-7a8e488e8606"
+    ],
+    "features": {
+      "sr": [
+        "Gold Gondola",
+        "Blaga klima",
+        "Etno sela u okolini",
+        "Bogata gastronomija",
+        "Šetne i biciklističke staze"
+      ],
+      "en": [
+        "Gold Gondola",
+        "Mild climate",
+        "Nearby ethno villages",
+        "Rich cuisine",
+        "Walking & cycling trails"
+      ]
+    }
+  },
+  {
+    "id": "tara",
+    "type": "mountain",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Tara",
+      "en": "Tara"
+    },
+    "short": {
+      "sr": "Netaknuta priroda, kanjon Drine i vidikovac Banjska stena.",
+      "en": "Pristine nature, the Drina canyon and the Banjska Stena viewpoint."
+    },
+    "desc": {
+      "sr": "Nacionalni park Tara obuhvata guste šume, kanjon reke Drine i čuveni vidikovac Banjska stena nad smaragdnim Perućačkim jezerom. Dom je endemske Pančićeve omorike i bogatog životinjskog sveta.",
+      "en": "Tara National Park covers dense forests, the canyon of the Drina river and the famous Banjska Stena viewpoint above the emerald Perućac lake. It is home to the endemic Serbian spruce and abundant wildlife."
+    },
+    "elevation": 1591,
+    "price": 0,
+    "rating": 4.8,
+    "img": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1469474968028-56623f02e42e",
+      "1441974231531-c6227db76b6e",
+      "1426604966848-d7adac402bff"
+    ],
+    "features": {
+      "sr": [
+        "Nacionalni park",
+        "Vidikovac Banjska stena",
+        "Kanjon Drine",
+        "Pančićeva omorika",
+        "Splavarenje i vožnja čamcem"
+      ],
+      "en": [
+        "National park",
+        "Banjska Stena viewpoint",
+        "Drina canyon",
+        "Serbian spruce",
+        "Rafting & boat rides"
+      ]
+    }
+  },
+  {
+    "id": "stara-planina",
+    "type": "mountain",
+    "region": {
+      "sr": "Pirotski okrug",
+      "en": "Pirot district"
+    },
+    "name": {
+      "sr": "Stara planina",
+      "en": "Stara Planina (Old Mountain)"
+    },
+    "short": {
+      "sr": "Vodopadi, Babin Zub i prostrani pašnjaci na istoku Srbije.",
+      "en": "Waterfalls, Babin Zub and vast pastures in eastern Serbia."
+    },
+    "desc": {
+      "sr": "Stara planina je park prirode na istoku Srbije, poznata po vodopadima poput Tupavice i Čungulja, stenovitom vrhu Babin Zub i ski centru. Idealna je za ljubitelje netaknute prirode i autentičnih sela.",
+      "en": "Stara Planina is a nature park in eastern Serbia known for waterfalls such as Tupavica and Čungulj, the rocky Babin Zub peak and a ski centre. It is ideal for lovers of untouched nature and authentic villages."
+    },
+    "elevation": 2169,
+    "price": 0,
+    "rating": 4.6,
+    "img": "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1454496522488-7a8e488e8606",
+      "1483728642387-6c3bdd6c93e5",
+      "1470770841072-f978cf4d019e"
+    ],
+    "features": {
+      "sr": [
+        "Vodopadi Tupavica i Čungulj",
+        "Vrh Babin Zub",
+        "Ski centar",
+        "Park prirode",
+        "Autentična sela"
+      ],
+      "en": [
+        "Tupavica & Čungulj waterfalls",
+        "Babin Zub peak",
+        "Ski centre",
+        "Nature park",
+        "Authentic villages"
+      ]
+    }
+  },
+  {
+    "id": "divcibare",
+    "type": "mountain",
+    "region": {
+      "sr": "Kolubarski okrug",
+      "en": "Kolubara district"
+    },
+    "name": {
+      "sr": "Divčibare",
+      "en": "Divčibare"
+    },
+    "short": {
+      "sr": "Vazdušna banja na Maljenu, blizu Beograda.",
+      "en": "An air spa on Maljen, close to Belgrade."
+    },
+    "desc": {
+      "sr": "Divčibare su omiljeno izletište na planini Maljen, na svega sat i po vožnje od Beograda. Poznate kao „vazdušna banja“, nude četinarske šume, blage staze i miran odmor tokom cele godine.",
+      "en": "Divčibare is a favourite resort on Mount Maljen, just an hour and a half from Belgrade. Known as an 'air spa', it offers pine forests, gentle trails and quiet rest throughout the year."
+    },
+    "elevation": 980,
+    "price": 0,
+    "rating": 4.4,
+    "img": "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1483728642387-6c3bdd6c93e5",
+      "1500382017468-9049fed747ef",
+      "1426604966848-d7adac402bff"
+    ],
+    "features": {
+      "sr": [
+        "Blizu Beograda",
+        "Vazdušna banja",
+        "Četinarske šume",
+        "Blage staze",
+        "Porodični odmor"
+      ],
+      "en": [
+        "Close to Belgrade",
+        "Air spa climate",
+        "Pine forests",
+        "Gentle trails",
+        "Family getaways"
+      ]
+    }
+  },
+  {
+    "id": "goc",
+    "type": "mountain",
+    "region": {
+      "sr": "Raški okrug",
+      "en": "Raška district"
+    },
+    "name": {
+      "sr": "Goč",
+      "en": "Goč"
+    },
+    "short": {
+      "sr": "Šumovita planina iznad Vrnjačke Banje.",
+      "en": "A forested mountain above Vrnjačka Banja."
+    },
+    "desc": {
+      "sr": "Goč je pošumljena planina iznad Vrnjačke Banje, idealna za spoj banjskog i planinskog odmora. Bogata je izvorima, šetnim stazama i mirnim odmaralištima okruženim bukovim i četinarskim šumama.",
+      "en": "Goč is a forested mountain above Vrnjačka Banja, ideal for combining spa and mountain holidays. It is rich in springs, walking trails and quiet resorts surrounded by beech and conifer forests."
+    },
+    "elevation": 1147,
+    "price": 0,
+    "rating": 4.3,
+    "img": "https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1426604966848-d7adac402bff",
+      "1441974231531-c6227db76b6e",
+      "1469474968028-56623f02e42e"
+    ],
+    "features": {
+      "sr": [
+        "Uz Vrnjačku Banju",
+        "Bukove i četinarske šume",
+        "Izvori",
+        "Šetne staze",
+        "Mir i tišina"
+      ],
+      "en": [
+        "Next to Vrnjačka Banja",
+        "Beech & conifer forests",
+        "Springs",
+        "Walking trails",
+        "Peace and quiet"
+      ]
+    }
+  },
+  {
+    "id": "palicko-jezero",
+    "type": "lake",
+    "region": {
+      "sr": "Severnobački okrug",
+      "en": "North Bačka district"
+    },
+    "name": {
+      "sr": "Palićko jezero",
+      "en": "Lake Palić"
+    },
+    "short": {
+      "sr": "Vojvođanska oaza secesije, parka i plaže.",
+      "en": "A Vojvodina oasis of Art Nouveau, parkland and beach."
+    },
+    "desc": {
+      "sr": "Palićko jezero kraj Subotice okruženo je secesijskim zdanjima, uređenim parkom i šetalištem. Poznato je po zoološkom vrtu, vinarijama u okolini i mirnom porodičnom odmoru na ravnici Vojvodine.",
+      "en": "Lake Palić near Subotica is surrounded by Art Nouveau buildings, a landscaped park and a promenade. It is known for its zoo, nearby wineries and relaxed family holidays on the Vojvodina plain."
+    },
+    "elevation": 102,
+    "price": 0,
+    "rating": 4.4,
+    "img": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1500382017468-9049fed747ef",
+      "1437482078695-73f5ca6c96e2",
+      "1439066615861-d1af74d74000"
+    ],
+    "features": {
+      "sr": [
+        "Secesijska arhitektura",
+        "Zoološki vrt",
+        "Vinarije u okolini",
+        "Uređen park",
+        "Plaža i šetalište"
+      ],
+      "en": [
+        "Art Nouveau architecture",
+        "Zoo",
+        "Nearby wineries",
+        "Landscaped park",
+        "Beach & promenade"
+      ]
+    }
+  },
+  {
+    "id": "srebrno-jezero",
+    "type": "lake",
+    "region": {
+      "sr": "Braničevski okrug",
+      "en": "Braničevo district"
+    },
+    "name": {
+      "sr": "Srebrno jezero",
+      "en": "Silver Lake"
+    },
+    "short": {
+      "sr": "„Srpsko more“ na Dunavu kod Velikog Gradišta.",
+      "en": "The 'Serbian sea' on the Danube near Veliko Gradište."
+    },
+    "desc": {
+      "sr": "Srebrno jezero je popularno odmaralište na obali Dunava, sa peščanim plažama, šetalištem i bogatom ponudom vodenih sportova. Blizu je Nacionalnog parka Đerdap i tvrđave Golubac.",
+      "en": "Silver Lake is a popular resort on the bank of the Danube, with sandy beaches, a promenade and plenty of water sports. It is close to Đerdap National Park and Golubac Fortress."
+    },
+    "elevation": 72,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1437482078695-73f5ca6c96e2",
+      "1439066615861-d1af74d74000",
+      "1500382017468-9049fed747ef"
+    ],
+    "features": {
+      "sr": [
+        "Peščane plaže",
+        "Vodeni sportovi",
+        "Uz Dunav",
+        "Blizu Golupca i Đerdapa",
+        "Letnja odmarališta"
+      ],
+      "en": [
+        "Sandy beaches",
+        "Water sports",
+        "On the Danube",
+        "Near Golubac & Đerdap",
+        "Summer resorts"
+      ]
+    }
+  },
+  {
+    "id": "perucac",
+    "type": "lake",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Perućačko jezero",
+      "en": "Lake Perućac"
+    },
+    "short": {
+      "sr": "Smaragdno jezero u kanjonu Drine ispod Tare.",
+      "en": "An emerald lake in the Drina canyon below Tara."
+    },
+    "desc": {
+      "sr": "Perućačko jezero je veštačko jezero na Drini, smešteno u dramatičnom kanjonu ispod planine Tare. Poznato je po vožnji čamcem do izvora Vrelo („reka godina“) i spektakularnim vidicima.",
+      "en": "Lake Perućac is a reservoir on the Drina, set in the dramatic canyon below Mount Tara. It is known for boat trips to the Vrelo spring (the 'year river') and spectacular views."
+    },
+    "elevation": 290,
+    "price": 0,
+    "rating": 4.7,
+    "img": "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1439066615861-d1af74d74000",
+      "1469474968028-56623f02e42e",
+      "1437482078695-73f5ca6c96e2"
+    ],
+    "features": {
+      "sr": [
+        "Kanjon Drine",
+        "Vožnja čamcem",
+        "Izvor Vrelo",
+        "Ispod planine Tare",
+        "Smaragdna voda"
+      ],
+      "en": [
+        "Drina canyon",
+        "Boat trips",
+        "Vrelo spring",
+        "Below Mount Tara",
+        "Emerald water"
+      ]
+    }
+  },
+  {
+    "id": "zlatarsko-jezero",
+    "type": "lake",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Zlatarsko jezero",
+      "en": "Zlatar Lake"
+    },
+    "short": {
+      "sr": "Mirno planinsko jezero na Zlataru.",
+      "en": "A calm mountain lake on Zlatar."
+    },
+    "desc": {
+      "sr": "Zlatarsko jezero leži na planini Zlatar, okruženo četinarskim šumama i čistim vazduhom. Idealno je za ribolov, kajak i miran odmor daleko od gradske vreve.",
+      "en": "Zlatar Lake lies on Mount Zlatar, surrounded by conifer forests and clean air. It is ideal for fishing, kayaking and a peaceful break far from the city bustle."
+    },
+    "elevation": 880,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1470770841072-f978cf4d019e",
+      "1439066615861-d1af74d74000",
+      "1426604966848-d7adac402bff"
+    ],
+    "features": {
+      "sr": [
+        "Planinsko jezero",
+        "Ribolov",
+        "Kajak i čamci",
+        "Četinarske šume",
+        "Čist vazduh"
+      ],
+      "en": [
+        "Mountain lake",
+        "Fishing",
+        "Kayaks & boats",
+        "Conifer forests",
+        "Clean air"
+      ]
+    }
+  },
+  {
+    "id": "vlasinsko-jezero",
+    "type": "lake",
+    "region": {
+      "sr": "Pčinjski okrug",
+      "en": "Pčinja district"
+    },
+    "name": {
+      "sr": "Vlasinsko jezero",
+      "en": "Vlasina Lake"
+    },
+    "short": {
+      "sr": "Najveće veštačko jezero u Srbiji s plutajućim ostrvima.",
+      "en": "Serbia's largest artificial lake with floating islands."
+    },
+    "desc": {
+      "sr": "Vlasinsko jezero na jugoistoku Srbije poznato je po čistoj vodi i jedinstvenim plutajućim tresavskim ostrvima. Okruženo je visoravni bogatom florom i faunom, idealnom za rekreaciju i posmatranje ptica.",
+      "en": "Vlasina Lake in south-eastern Serbia is known for its clean water and unique floating peat islands. It is surrounded by a plateau rich in flora and fauna, ideal for recreation and bird watching."
+    },
+    "elevation": 1211,
+    "price": 0,
+    "rating": 4.6,
+    "img": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1441974231531-c6227db76b6e",
+      "1470770841072-f978cf4d019e",
+      "1500382017468-9049fed747ef"
+    ],
+    "features": {
+      "sr": [
+        "Plutajuća ostrva",
+        "Najčistija voda",
+        "Posmatranje ptica",
+        "Visoravan",
+        "Rekreacija"
+      ],
+      "en": [
+        "Floating islands",
+        "Pristine water",
+        "Bird watching",
+        "High plateau",
+        "Recreation"
+      ]
+    }
+  },
+  {
+    "id": "gazivode",
+    "type": "lake",
+    "region": {
+      "sr": "Kosovo i Metohija",
+      "en": "Kosovo and Metohija"
+    },
+    "name": {
+      "sr": "Gazivode (Ujmansko jezero)",
+      "en": "Gazivode Lake"
+    },
+    "short": {
+      "sr": "Veliko planinsko jezero pod Mokrom gorom.",
+      "en": "A large mountain lake below Mokra Gora."
+    },
+    "desc": {
+      "sr": "Gazivode je prostrano veštačko jezero okruženo planinama, s kristalno čistom vodom pogodnom za kupanje, ribolov i vožnju čamcem. Okolina nudi mir i netaknute predele.",
+      "en": "Gazivode is a spacious reservoir surrounded by mountains, with crystal-clear water suited to swimming, fishing and boating. The surroundings offer quiet and untouched landscapes."
+    },
+    "elevation": 693,
+    "price": 0,
+    "rating": 4.3,
+    "img": "https://images.unsplash.com/photo-1505765050516-f72dca9c960e?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1505765050516-f72dac9c60e1",
+      "1439066615861-d1af74d74000",
+      "1470770841072-f978cf4d019e"
+    ],
+    "features": {
+      "sr": [
+        "Veliko jezero",
+        "Kristalno čista voda",
+        "Ribolov",
+        "Vožnja čamcem",
+        "Netaknuti predeli"
+      ],
+      "en": [
+        "Large lake",
+        "Crystal-clear water",
+        "Fishing",
+        "Boating",
+        "Untouched scenery"
+      ]
+    }
+  },
+  {
+    "id": "vrnjacka-banja",
+    "type": "spa",
+    "region": {
+      "sr": "Raški okrug",
+      "en": "Raška district"
+    },
+    "name": {
+      "sr": "Vrnjačka Banja",
+      "en": "Vrnjačka Banja"
+    },
+    "short": {
+      "sr": "Najpoznatija i najposećenija banja u Srbiji.",
+      "en": "Serbia's most famous and most visited spa."
+    },
+    "desc": {
+      "sr": "Vrnjačka Banja je najpoznatije banjsko lečilište u Srbiji, sa termomineralnim izvorima poznatim još iz rimskog doba. Uređene parkove, Most ljubavi i bogat kulturni program prati moderna wellness ponuda.",
+      "en": "Vrnjačka Banja is Serbia's best-known spa, with thermo-mineral springs used since Roman times. Its landscaped parks, the Bridge of Love and a rich cultural programme are paired with modern wellness facilities."
+    },
+    "elevation": 220,
+    "price": 0,
+    "rating": 4.6,
+    "img": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1571902943202-507ec2618e8f",
+      "1540555700478-4be289fbecef",
+      "1582719478250-c89cae4dc85b"
+    ],
+    "features": {
+      "sr": [
+        "Termomineralni izvori",
+        "Wellness i spa centri",
+        "Uređeni parkovi",
+        "Most ljubavi",
+        "Bogat kulturni program"
+      ],
+      "en": [
+        "Thermo-mineral springs",
+        "Wellness & spa centres",
+        "Landscaped parks",
+        "Bridge of Love",
+        "Rich cultural programme"
+      ]
+    }
+  },
+  {
+    "id": "sokobanja",
+    "type": "spa",
+    "region": {
+      "sr": "Zaječarski okrug",
+      "en": "Zaječar district"
+    },
+    "name": {
+      "sr": "Sokobanja",
+      "en": "Sokobanja"
+    },
+    "short": {
+      "sr": "„Soko grade, Sokobanjo“ — vazdušna banja istoka.",
+      "en": "An air and water spa in eastern Serbia."
+    },
+    "desc": {
+      "sr": "Sokobanja je jedna od najstarijih banja, okružena planinama Ozren i Rtanj. Poznata je po termalnim kupatilima, čistom vazduhu i tradicionalnoj atmosferi opevanoj u narodnoj pesmi.",
+      "en": "Sokobanja is one of the oldest spas, surrounded by the Ozren and Rtanj mountains. It is known for thermal baths, clean air and a traditional atmosphere celebrated in folk song."
+    },
+    "elevation": 400,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1540555700478-4be289fbecef",
+      "1571902943202-507ec2618e8f",
+      "1556228578-0d85b1a4d571"
+    ],
+    "features": {
+      "sr": [
+        "Termalna kupatila",
+        "Planine Ozren i Rtanj",
+        "Vazdušna banja",
+        "Šetne staze",
+        "Tradicionalna atmosfera"
+      ],
+      "en": [
+        "Thermal baths",
+        "Ozren & Rtanj mountains",
+        "Air spa",
+        "Walking trails",
+        "Traditional atmosphere"
+      ]
+    }
+  },
+  {
+    "id": "banja-koviljaca",
+    "type": "spa",
+    "region": {
+      "sr": "Mačvanski okrug",
+      "en": "Mačva district"
+    },
+    "name": {
+      "sr": "Banja Koviljača",
+      "en": "Banja Koviljača"
+    },
+    "short": {
+      "sr": "Kraljevska banja s prelepim parkom na Drini.",
+      "en": "A royal spa with a beautiful park on the Drina."
+    },
+    "desc": {
+      "sr": "Banja Koviljača na obali Drine poznata je po sumporovitim i gvožđevitim izvorima i raskošnom parku s fontanama. Nekadašnje omiljeno odmaralište kraljevske porodice Karađorđević danas je centar za rehabilitaciju.",
+      "en": "Banja Koviljača on the bank of the Drina is known for its sulphur and iron springs and a lavish park with fountains. Once a favourite retreat of the Karađorđević royal family, today it is a rehabilitation centre."
+    },
+    "elevation": 130,
+    "price": 0,
+    "rating": 4.4,
+    "img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1582719478250-c89cae4dc85b",
+      "1540555700478-4be289fbecef",
+      "1571902943202-507ec2618e8f"
+    ],
+    "features": {
+      "sr": [
+        "Sumporoviti izvori",
+        "Raskošan park",
+        "Rehabilitacija",
+        "Kraljevsko nasleđe",
+        "Uz reku Drinu"
+      ],
+      "en": [
+        "Sulphur springs",
+        "Lavish park",
+        "Rehabilitation",
+        "Royal heritage",
+        "On the Drina river"
+      ]
+    }
+  },
+  {
+    "id": "niska-banja",
+    "type": "spa",
+    "region": {
+      "sr": "Nišavski okrug",
+      "en": "Nišava district"
+    },
+    "name": {
+      "sr": "Niška Banja",
+      "en": "Niška Banja"
+    },
+    "short": {
+      "sr": "Banja srca uz grad Niš.",
+      "en": "The 'spa of the heart' beside the city of Niš."
+    },
+    "desc": {
+      "sr": "Niška Banja, poznata kao „banja srca“, nadomak je Niša i specijalizovana za lečenje kardiovaskularnih i reumatskih oboljenja zahvaljujući radioaktivnoj termomineralnoj vodi i prijatnoj klimi.",
+      "en": "Niška Banja, known as the 'spa of the heart', lies just outside Niš and specialises in treating cardiovascular and rheumatic conditions thanks to its radioactive thermo-mineral water and pleasant climate."
+    },
+    "elevation": 250,
+    "price": 0,
+    "rating": 4.2,
+    "img": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1556228578-0d85b1a4d571",
+      "1571902943202-507ec2618e8f",
+      "1540555700478-4be289fbecef"
+    ],
+    "features": {
+      "sr": [
+        "Lečenje srca",
+        "Termomineralna voda",
+        "Uz grad Niš",
+        "Reumatologija",
+        "Prijatna klima"
+      ],
+      "en": [
+        "Heart treatments",
+        "Thermo-mineral water",
+        "Beside Niš",
+        "Rheumatology",
+        "Pleasant climate"
+      ]
+    }
+  },
+  {
+    "id": "prolom-banja",
+    "type": "spa",
+    "region": {
+      "sr": "Toplički okrug",
+      "en": "Toplica district"
+    },
+    "name": {
+      "sr": "Prolom Banja",
+      "en": "Prolom Banja"
+    },
+    "short": {
+      "sr": "Lekovita voda i čuvena Đavolja varoš u blizini.",
+      "en": "Healing water with the famous Devil's Town nearby."
+    },
+    "desc": {
+      "sr": "Prolom Banja poznata je po svetski cenjenoj „Prolom vodi“ i lečenju kožnih, bubrežnih i digestivnih tegoba. U blizini je prirodni spomenik Đavolja varoš, jedinstvene kamene kule.",
+      "en": "Prolom Banja is famous for its internationally valued 'Prolom water' and for treating skin, kidney and digestive conditions. Nearby lies the natural monument of Devil's Town, with its unique stone towers."
+    },
+    "elevation": 550,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1559599189-fe84dea4eb79?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1559599189-fe84dea4eb79",
+      "1556228578-0d85b1a4d571",
+      "1582719478250-c89cae4dc85b"
+    ],
+    "features": {
+      "sr": [
+        "Prolom voda",
+        "Blizu Đavolje varoši",
+        "Lečenje kože i bubrega",
+        "Planinski vazduh",
+        "Moderni spa hoteli"
+      ],
+      "en": [
+        "Prolom water",
+        "Near Devil's Town",
+        "Skin & kidney treatments",
+        "Mountain air",
+        "Modern spa hotels"
+      ]
+    }
+  },
+  {
+    "id": "ribarska-banja",
+    "type": "spa",
+    "region": {
+      "sr": "Rasinski okrug",
+      "en": "Rasina district"
+    },
+    "name": {
+      "sr": "Ribarska Banja",
+      "en": "Ribarska Banja"
+    },
+    "short": {
+      "sr": "Mirno lečilište u podnožju Jastrepca.",
+      "en": "A tranquil spa at the foot of Jastrebac."
+    },
+    "desc": {
+      "sr": "Ribarska Banja smeštena je u mirnoj dolini u podnožju planine Jastrebac, okružena šumama. Termomineralni izvori koriste se za lečenje reumatskih i neuroloških oboljenja.",
+      "en": "Ribarska Banja sits in a quiet valley at the foot of Mount Jastrebac, surrounded by forests. Its thermo-mineral springs are used to treat rheumatic and neurological conditions."
+    },
+    "elevation": 540,
+    "price": 0,
+    "rating": 4.3,
+    "img": "https://images.unsplash.com/photo-1531112763834-ca6ca7f0e8e0?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1531112763834-cb6ca7e0e8e0",
+      "1556228578-0d85b1a4d571",
+      "1540555700478-4be289fbecef"
+    ],
+    "features": {
+      "sr": [
+        "Podnožje Jastrepca",
+        "Termomineralni izvori",
+        "Reumatologija",
+        "Šume i mir",
+        "Rehabilitacija"
+      ],
+      "en": [
+        "Foot of Jastrebac",
+        "Thermo-mineral springs",
+        "Rheumatology",
+        "Forests & quiet",
+        "Rehabilitation"
+      ]
+    }
+  },
+  {
+    "id": "drvengrad",
+    "type": "ethno",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Drvengrad (Mećavnik)",
+      "en": "Drvengrad (Mećavnik)"
+    },
+    "short": {
+      "sr": "Etno selo Emira Kusturice na Mokroj Gori.",
+      "en": "Emir Kusturica's ethno village on Mokra Gora."
+    },
+    "desc": {
+      "sr": "Drvengrad je tradicionalno etno selo koje je sagradio reditelj Emir Kusturica na Mokroj Gori. Drvene kuće, kaldrmisane ulice i filmski festival Küstendorf čine ga jedinstvenom destinacijom uz čuvenu Šargansku osmicu.",
+      "en": "Drvengrad is a traditional ethno village built by director Emir Kusturica on Mokra Gora. Wooden houses, cobbled streets and the Küstendorf film festival make it a unique destination beside the famous Šargan Eight railway."
+    },
+    "elevation": 1000,
+    "price": 0,
+    "rating": 4.6,
+    "img": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1518780664697-55e3ad937233",
+      "1449158743715-0a90ebb6d2d8",
+      "1513584684374-8bab748fbf90"
+    ],
+    "features": {
+      "sr": [
+        "Etno selo Kusturice",
+        "Šarganska osmica",
+        "Festival Küstendorf",
+        "Drvene kuće",
+        "Tradicionalna kuhinja"
+      ],
+      "en": [
+        "Kusturica's ethno village",
+        "Šargan Eight railway",
+        "Küstendorf festival",
+        "Wooden houses",
+        "Traditional cuisine"
+      ]
+    }
+  },
+  {
+    "id": "sirogojno",
+    "type": "ethno",
+    "region": {
+      "sr": "Zlatiborski okrug",
+      "en": "Zlatibor district"
+    },
+    "name": {
+      "sr": "Sirogojno — Staro selo",
+      "en": "Sirogojno — Old Village"
+    },
+    "short": {
+      "sr": "Muzej na otvorenom zlatiborske arhitekture.",
+      "en": "An open-air museum of Zlatibor architecture."
+    },
+    "desc": {
+      "sr": "Muzej „Staro selo“ u Sirogojnu na Zlatiboru čuva autentične brvnare i predmete seoskog života 19. veka. Poznato je i po tradiciji pletenja vunenih džempera i radionicama starih zanata.",
+      "en": "The 'Old Village' museum in Sirogojno on Zlatibor preserves authentic log houses and objects of 19th-century rural life. It is also known for its tradition of knitting woollen sweaters and old-craft workshops."
+    },
+    "elevation": 920,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1449158743715-0a90ebb6d2d8",
+      "1518780664697-55e3ad937233",
+      "1513584684374-8bab748fbf90"
+    ],
+    "features": {
+      "sr": [
+        "Muzej na otvorenom",
+        "Brvnare 19. veka",
+        "Stari zanati",
+        "Vuneni džemperi",
+        "Radionice"
+      ],
+      "en": [
+        "Open-air museum",
+        "19th-century log houses",
+        "Old crafts",
+        "Woollen sweaters",
+        "Workshops"
+      ]
+    }
+  },
+  {
+    "id": "latkovac",
+    "type": "ethno",
+    "region": {
+      "sr": "Rasinski okrug",
+      "en": "Rasina district"
+    },
+    "name": {
+      "sr": "Etno selo Latkovac",
+      "en": "Latkovac Ethno Village"
+    },
+    "short": {
+      "sr": "Vinogradarsko etno selo kod Aleksandrovca.",
+      "en": "A wine-country ethno village near Aleksandrovac."
+    },
+    "desc": {
+      "sr": "Etno selo Latkovac u Župi aleksandrovačkoj spaja tradicionalno graditeljstvo, domaću kuhinju i vinsku tradiciju ovog poznatog vinogradarskog kraja. Idealno za miran odmor i degustacije.",
+      "en": "Latkovac ethno village in the Župa wine region near Aleksandrovac blends traditional architecture, home cooking and the wine heritage of this famous grape-growing area. Ideal for quiet stays and tastings."
+    },
+    "elevation": 280,
+    "price": 0,
+    "rating": 4.4,
+    "img": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1513584684374-8bab748fbf90",
+      "1449158743715-0a90ebb6d2d8",
+      "1518780664697-55e3ad937233"
+    ],
+    "features": {
+      "sr": [
+        "Vinski kraj Župa",
+        "Domaća kuhinja",
+        "Degustacije vina",
+        "Tradicionalno graditeljstvo",
+        "Miran odmor"
+      ],
+      "en": [
+        "Župa wine region",
+        "Home cooking",
+        "Wine tastings",
+        "Traditional building",
+        "Quiet stays"
+      ]
+    }
+  },
+  {
+    "id": "moravski-konaci",
+    "type": "ethno",
+    "region": {
+      "sr": "Podunavski okrug",
+      "en": "Podunavlje district"
+    },
+    "name": {
+      "sr": "Moravski Konaci",
+      "en": "Moravski Konaci"
+    },
+    "short": {
+      "sr": "Etno kompleks u srcu Šumadije.",
+      "en": "An ethno complex in the heart of Šumadija."
+    },
+    "desc": {
+      "sr": "Moravski Konaci kod Velike Plane rekonstruisano je šumadijsko selo s konacima, vodenicom i etno restoranom. Nudi smeštaj u tradicionalnim kućama i bogat program seoskog turizma.",
+      "en": "Moravski Konaci near Velika Plana is a reconstructed Šumadija village with lodges, a watermill and an ethno restaurant. It offers accommodation in traditional houses and a rich rural-tourism programme."
+    },
+    "elevation": 110,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1500076656116-558758c991c1",
+      "1513584684374-8bab748fbf90",
+      "1449158743715-0a90ebb6d2d8"
+    ],
+    "features": {
+      "sr": [
+        "Šumadijski konaci",
+        "Vodenica",
+        "Etno restoran",
+        "Seoski turizam",
+        "Tradicionalni smeštaj"
+      ],
+      "en": [
+        "Šumadija lodges",
+        "Watermill",
+        "Ethno restaurant",
+        "Rural tourism",
+        "Traditional lodging"
+      ]
+    }
+  },
+  {
+    "id": "trsic",
+    "type": "ethno",
+    "region": {
+      "sr": "Mačvanski okrug",
+      "en": "Mačva district"
+    },
+    "name": {
+      "sr": "Tršić",
+      "en": "Tršić"
+    },
+    "short": {
+      "sr": "Rodno selo Vuka Karadžića kraj Loznice.",
+      "en": "The birthplace of Vuk Karadžić near Loznica."
+    },
+    "desc": {
+      "sr": "Tršić je etno-ambijentalna celina i rodno mesto Vuka Stefanovića Karadžića, reformatora srpskog jezika. Obnovljene brvnare, manifestacija „Vukov sabor“ i obližnji manastir Tronoša čine ga važnom kulturnom destinacijom.",
+      "en": "Tršić is a heritage village and the birthplace of Vuk Stefanović Karadžić, reformer of the Serbian language. Restored log houses, the 'Vuk's Assembly' festival and the nearby Tronoša monastery make it an important cultural destination."
+    },
+    "elevation": 230,
+    "price": 0,
+    "rating": 4.5,
+    "img": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1464822759023-fed622ff2c3b",
+      "1518780664697-55e3ad937233",
+      "1500076656116-558758c991c1"
+    ],
+    "features": {
+      "sr": [
+        "Rodno selo Vuka Karadžića",
+        "Obnovljene brvnare",
+        "Vukov sabor",
+        "Manastir Tronoša",
+        "Kulturno nasleđe"
+      ],
+      "en": [
+        "Vuk Karadžić's birthplace",
+        "Restored log houses",
+        "Vuk's Assembly festival",
+        "Tronoša monastery",
+        "Cultural heritage"
+      ]
+    }
+  },
+  {
+    "id": "grand-kopaonik",
+    "type": "stay",
+    "category": "hotel",
+    "place": "Kopaonik",
+    "region": {
+      "sr": "Kopaonik",
+      "en": "Kopaonik"
+    },
+    "name": {
+      "sr": "Grand Hotel & Spa Kopaonik",
+      "en": "Grand Hotel & Spa Kopaonik"
+    },
+    "short": {
+      "sr": "Ski-in/ski-out hotel u centru Kopaonika.",
+      "en": "A ski-in/ski-out hotel in the centre of Kopaonik."
+    },
+    "desc": {
+      "sr": "Veliki hotel u srcu ski centra, sa direktnim pristupom stazama, zatvorenim bazenom, spa centrom i nekoliko restorana. Idealan za zimski odmor i porodice.",
+      "en": "A large hotel in the heart of the ski resort, with direct access to the slopes, an indoor pool, a spa centre and several restaurants. Ideal for winter holidays and families."
+    },
+    "price": 95,
+    "rating": 4.5,
+    "capacity": 4,
+    "img": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1551882547-ff40c63fe5fa",
+      "1566073771259-6a8506099945",
+      "1542314831-068cd1dbfeeb"
+    ],
+    "features": {
+      "sr": [
+        "Ski-in/ski-out",
+        "Zatvoreni bazen",
+        "Spa i wellness",
+        "Restorani",
+        "Parking"
+      ],
+      "en": [
+        "Ski-in/ski-out",
+        "Indoor pool",
+        "Spa & wellness",
+        "Restaurants",
+        "Parking"
+      ]
+    }
+  },
+  {
+    "id": "mona-zlatibor",
+    "type": "stay",
+    "category": "hotel",
+    "place": "Zlatibor",
+    "region": {
+      "sr": "Zlatibor",
+      "en": "Zlatibor"
+    },
+    "name": {
+      "sr": "Hotel Mona Zlatibor",
+      "en": "Hotel Mona Zlatibor"
+    },
+    "short": {
+      "sr": "Moderni planinski hotel sa wellness centrom.",
+      "en": "A modern mountain hotel with a wellness centre."
+    },
+    "desc": {
+      "sr": "Elegantan hotel na Zlatiboru sa wellness i spa centrom, zatvorenim bazenom i panoramskim pogledom. Blizu gondole i centra, pogodan za odmor tokom cele godine.",
+      "en": "An elegant Zlatibor hotel with a wellness and spa centre, an indoor pool and panoramic views. Close to the gondola and centre, suitable for year-round stays."
+    },
+    "price": 80,
+    "rating": 4.6,
+    "capacity": 3,
+    "img": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1566073771259-6a8506099945",
+      "1611892440504-42a792e24d32",
+      "1542314831-068cd1dbfeeb"
+    ],
+    "features": {
+      "sr": [
+        "Wellness i spa",
+        "Zatvoreni bazen",
+        "Panoramski pogled",
+        "Blizu gondole",
+        "Restoran"
+      ],
+      "en": [
+        "Wellness & spa",
+        "Indoor pool",
+        "Panoramic views",
+        "Near the gondola",
+        "Restaurant"
+      ]
+    }
+  },
+  {
+    "id": "omorika-tara",
+    "type": "stay",
+    "category": "hotel",
+    "place": "Tara",
+    "region": {
+      "sr": "Tara",
+      "en": "Tara"
+    },
+    "name": {
+      "sr": "Hotel Omorika Tara",
+      "en": "Hotel Omorika Tara"
+    },
+    "short": {
+      "sr": "Planinski hotel okružen šumama Tare.",
+      "en": "A mountain hotel surrounded by Tara's forests."
+    },
+    "desc": {
+      "sr": "Hotel u srcu Nacionalnog parka Tara, okružen četinarskim šumama i pešačkim stazama. Polazna tačka za izlete do vidikovaca i jezera Perućac.",
+      "en": "A hotel in the heart of Tara National Park, surrounded by conifer forests and hiking trails. A starting point for trips to the viewpoints and Lake Perućac."
+    },
+    "price": 55,
+    "rating": 4.3,
+    "capacity": 4,
+    "img": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1542314831-068cd1dbfeeb",
+      "1551882547-ff40c63fe5fa",
+      "1469474968028-56623f02e42e"
+    ],
+    "features": {
+      "sr": [
+        "U nacionalnom parku",
+        "Pešačke staze",
+        "Restoran",
+        "Polupansion",
+        "Mir i priroda"
+      ],
+      "en": [
+        "Inside the national park",
+        "Hiking trails",
+        "Restaurant",
+        "Half board",
+        "Peace & nature"
+      ]
+    }
+  },
+  {
+    "id": "izvor-arandjelovac",
+    "type": "stay",
+    "category": "hotel",
+    "place": "Bukovička Banja",
+    "region": {
+      "sr": "Aranđelovac",
+      "en": "Aranđelovac"
+    },
+    "name": {
+      "sr": "Hotel Izvor Aranđelovac",
+      "en": "Hotel Izvor Aranđelovac"
+    },
+    "short": {
+      "sr": "Spa hotel uz park Bukovičke banje.",
+      "en": "A spa hotel beside Bukovička Banja park."
+    },
+    "desc": {
+      "sr": "Veliki spa hotel uz čuveni park Bukovičke banje, sa termalnim bazenima, wellness ponudom i kongresnim kapacitetima. Pogodan za odmor i poslovne skupove.",
+      "en": "A large spa hotel beside the famous Bukovička Banja park, with thermal pools, wellness facilities and conference capacity. Suitable for leisure and business stays."
+    },
+    "price": 70,
+    "rating": 4.4,
+    "capacity": 3,
+    "img": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1611892440504-42a792e24d32",
+      "1566073771259-6a8506099945",
+      "1582719478250-c89cae4dc85b"
+    ],
+    "features": {
+      "sr": [
+        "Termalni bazeni",
+        "Wellness",
+        "Kongresni centar",
+        "Uz park",
+        "Restoran"
+      ],
+      "en": [
+        "Thermal pools",
+        "Wellness",
+        "Conference centre",
+        "Beside the park",
+        "Restaurant"
+      ]
+    }
+  },
+  {
+    "id": "konak-vrnjci",
+    "type": "stay",
+    "category": "private",
+    "place": "Vrnjačka Banja",
+    "region": {
+      "sr": "Vrnjačka Banja",
+      "en": "Vrnjačka Banja"
+    },
+    "name": {
+      "sr": "Apartmani Konak — Vrnjačka Banja",
+      "en": "Konak Apartments — Vrnjačka Banja"
+    },
+    "short": {
+      "sr": "Privatni apartmani u centru banje.",
+      "en": "Private apartments in the spa centre."
+    },
+    "desc": {
+      "sr": "Komforni privatni apartmani na nekoliko minuta od glavne promenade i izvora. Sopstvena kuhinja, parking i ljubazni domaćini — idealno za porodice i duže boravke.",
+      "en": "Comfortable private apartments a few minutes from the main promenade and springs. Own kitchen, parking and friendly hosts — ideal for families and longer stays."
+    },
+    "price": 35,
+    "rating": 4.7,
+    "capacity": 4,
+    "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1502672260266-1c1ef2d93688",
+      "1560448204-e02f11c3d0e2",
+      "1493809842364-78817add7ffb"
+    ],
+    "features": {
+      "sr": [
+        "Sopstvena kuhinja",
+        "Centar banje",
+        "Parking",
+        "Wi-Fi",
+        "Pogodno za porodice"
+      ],
+      "en": [
+        "Own kitchen",
+        "Spa centre",
+        "Parking",
+        "Wi-Fi",
+        "Family friendly"
+      ]
+    }
+  },
+  {
+    "id": "vila-zlatibor",
+    "type": "stay",
+    "category": "private",
+    "place": "Zlatibor",
+    "region": {
+      "sr": "Zlatibor",
+      "en": "Zlatibor"
+    },
+    "name": {
+      "sr": "Vila Borovi — Zlatibor",
+      "en": "Villa Borovi — Zlatibor"
+    },
+    "short": {
+      "sr": "Privatna vila sa pogledom na planinu.",
+      "en": "A private villa with mountain views."
+    },
+    "desc": {
+      "sr": "Moderno opremljena vila s nekoliko apartmana, terasama i pogledom na zlatiborske livade. Mirna lokacija na desetak minuta hoda od centra.",
+      "en": "A modern villa with several apartments, terraces and views of the Zlatibor meadows. A quiet location about ten minutes' walk from the centre."
+    },
+    "price": 45,
+    "rating": 4.6,
+    "capacity": 6,
+    "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1560448204-e02f11c3d0e2",
+      "1502672260266-1c1ef2d93688",
+      "1464822759023-fed622ff2c3b"
+    ],
+    "features": {
+      "sr": [
+        "Pogled na planinu",
+        "Terase",
+        "Sopstvena kuhinja",
+        "Parking",
+        "Mirna lokacija"
+      ],
+      "en": [
+        "Mountain views",
+        "Terraces",
+        "Own kitchen",
+        "Parking",
+        "Quiet location"
+      ]
+    }
+  },
+  {
+    "id": "etno-domacinstvo-stara-planina",
+    "type": "stay",
+    "category": "private",
+    "place": "Stara planina",
+    "region": {
+      "sr": "Stara planina",
+      "en": "Stara Planina"
+    },
+    "name": {
+      "sr": "Etno domaćinstvo — Stara planina",
+      "en": "Ethno Homestead — Stara Planina"
+    },
+    "short": {
+      "sr": "Autentičan seoski smeštaj s domaćom hranom.",
+      "en": "Authentic village lodging with home-cooked food."
+    },
+    "desc": {
+      "sr": "Tradicionalno seosko domaćinstvo u podnožju Stare planine, s domaćom organskom hranom, rakijom i toplim gostoprimstvom. Idealno za autentičan doživljaj sela.",
+      "en": "A traditional homestead at the foot of Stara Planina, with home-grown organic food, rakija and warm hospitality. Ideal for an authentic village experience."
+    },
+    "price": 30,
+    "rating": 4.8,
+    "capacity": 5,
+    "img": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1493809842364-78817add7ffb",
+      "1449158743715-0a90ebb6d2d8",
+      "1500076656116-558758c991c1"
+    ],
+    "features": {
+      "sr": [
+        "Domaća organska hrana",
+        "Tradicionalno gostoprimstvo",
+        "Seoski mir",
+        "Pešačke staze",
+        "Domaća rakija"
+      ],
+      "en": [
+        "Home-grown food",
+        "Traditional hospitality",
+        "Village quiet",
+        "Hiking trails",
+        "Homemade rakija"
+      ]
+    }
+  },
+  {
+    "id": "apartmani-palic",
+    "type": "stay",
+    "category": "private",
+    "place": "Palić",
+    "region": {
+      "sr": "Palić",
+      "en": "Palić"
+    },
+    "name": {
+      "sr": "Apartmani Jezero — Palić",
+      "en": "Lake Apartments — Palić"
+    },
+    "short": {
+      "sr": "Apartmani na korak od Palićkog jezera.",
+      "en": "Apartments steps from Lake Palić."
+    },
+    "desc": {
+      "sr": "Svetli apartmani uz obalu Palićkog jezera i park, na nekoliko minuta od plaže i šetališta. Pogodno za parove i porodice koje vole ravničarski mir.",
+      "en": "Bright apartments by the shore of Lake Palić and the park, a few minutes from the beach and promenade. Suitable for couples and families who enjoy the calm of the plains."
+    },
+    "price": 38,
+    "rating": 4.5,
+    "capacity": 4,
+    "img": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+    "gallery": [
+      "1505693416388-ac5ce068fe85",
+      "1500382017468-9049fed747ef",
+      "1502672260266-1c1ef2d93688"
+    ],
+    "features": {
+      "sr": [
+        "Uz jezero",
+        "Blizu plaže",
+        "Sopstvena kuhinja",
+        "Parking",
+        "Bicikli"
+      ],
+      "en": [
+        "By the lake",
+        "Near the beach",
+        "Own kitchen",
+        "Parking",
+        "Bicycles"
+      ]
+    }
+  }
+]
