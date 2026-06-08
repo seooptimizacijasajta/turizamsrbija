@@ -22,7 +22,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
   const [type, setType] = useState("mountain");
   const [q, setQ] = useState("");
 
-  const featuredSlugs = ["kopaonik", "zlatibor", "tara", "vrnjacka-banja", "drvengrad", "srebrno-jezero"];
+  const featuredSlugs = ["kopaonik", "zlatibor", "tara", "vrnjacka-banja", "drvengrad-mecavnik", "srebrno-jezero"];
   const featured = featuredSlugs
     .map((slug) => all.find((d) => slugify(d.name.sr) === slug))
     .filter(Boolean) as Listing[];

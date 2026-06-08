@@ -11,6 +11,7 @@ const NAV = [
   { href: "/banje", key: "nav_spas" },
   { href: "/etno-sela", key: "nav_ethno" },
   { href: "/smestaj", key: "nav_stays" },
+  { href: "/nalog", key: "nav_account" },
 ];
 
 export default function Header() {
