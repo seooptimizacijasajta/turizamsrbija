@@ -4,6 +4,11 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  promo_featured: { sr: "Izdvojeno", en: "Featured" },
+  promo_home_title: { sr: "Izdvojeni smeštaji", en: "Featured listings" },
+
+  nav_destinations: { sr: "Destinacije", en: "Destinations" },
+
   nav_belgrade: { sr: "Apartmani Beograd", en: "Belgrade apartments" },
   nav_list: { sr: "Oglasi smeštaj", en: "List your space" },
 

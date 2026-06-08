@@ -26,6 +26,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
     .map((slug) => all.find((d) => slugify(d.name.sr) === slug))
     .filter(Boolean) as Listing[];
   const fallbackFeatured = featured.length ? featured : all.filter((d) => d.type !== "stay").slice(0, 6);
+  const featuredHome = all.filter((d) => d.featuredHome);
   const stays = all.filter((d) => d.type === "stay").slice(0, 4);
   const destCount = all.filter((d) => d.type !== "stay").length;
   const stayCount = all.filter((d) => d.type === "stay").length;
@@ -72,6 +73,18 @@ export default function HomeClient({ all }: { all: Listing[] }) {
           </div>
         </div>
       </section>
+
+      {featuredHome.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{t("promo_featured")}</div>
+              <h2 className="section-title">{t("promo_home_title")}</h2>
+            </div>
+            <div className="card-grid">{featuredHome.slice(0, 8).map((d) => <ListingCard key={d.id} item={d} />)}</div>
+          </div>
+        </section>
+      )}
 
       <section className="section section--soft">
         <div className="container">

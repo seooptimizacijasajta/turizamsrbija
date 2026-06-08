@@ -41,6 +41,7 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
     if (sort === "rating") out = [...out].sort((a, b) => b.rating - a.rating);
     else if (sort === "price_low") out = [...out].sort((a, b) => a.price - b.price);
     else if (sort === "price_high") out = [...out].sort((a, b) => b.price - a.price);
+    out = [...out].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     return out;
   }, [items, q, region, cat, sort, lang]);
 

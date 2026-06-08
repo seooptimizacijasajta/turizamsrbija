@@ -83,6 +83,12 @@ export default function Account() {
     if (userId) loadListings(userId);
   }
 
+  async function togglePromo(r: any, field: "featured" | "featured_home" | "bold") {
+    if (!sb || !userId) return;
+    await sb.from("listings").update({ [field]: !r[field] }).eq("id", r.id);
+    loadListings(userId);
+  }
+
   function statusBadge(s: string) {
     const map: Record<string, string> = { pending: t("acc_pending"), approved: t("acc_approved"), rejected: t("acc_rejected") };
     const color: Record<string, string> = { pending: "var(--sun)", approved: "var(--green-600)", rejected: "var(--danger)" };
@@ -167,7 +173,12 @@ export default function Account() {
                     <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {t("type_" + r.kind)}{r.price ? ` · €${r.price}` : ""}</span>
                     <div style={{ marginTop: 6 }}>{statusBadge(r.status)}</div>
                   </div>
-                  <div style={{ display: "flex", gap: 8 }}>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    {isAdmin && (<>
+                      <button className={"btn btn--outline" + (r.featured ? " promo-on" : "")} title="Izdvoj u kategoriji" onClick={() => togglePromo(r, "featured")}>★ Kat</button>
+                      <button className={"btn btn--outline" + (r.featured_home ? " promo-on" : "")} title="Izdvoj na početnoj" onClick={() => togglePromo(r, "featured_home")}>★ Poč</button>
+                      <button className={"btn btn--outline" + (r.bold ? " promo-on" : "")} title="Podebljaj" onClick={() => togglePromo(r, "bold")}>Bold</button>
+                    </>)}
                     <button className="btn btn--outline" onClick={() => setCalFor(calFor?.id === r.id ? null : r)}>Kalendar</button>
                     <button className="btn btn--outline" onClick={() => { setEditing(r); setShowForm(true); }}>{t("acc_edit")}</button>
                     <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => del(r.id)}>{t("acc_delete")}</button>

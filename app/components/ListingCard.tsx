@@ -9,11 +9,12 @@ export default function ListingCard({ item }: { item: Listing }) {
   const tags = (item.features[lang] || []).slice(0, 2);
   const href = listingPath(item.type, item.name.sr, lang);
   return (
-    <Link className="card" href={href}>
+    <Link className={"card" + (item.bold ? " card--bold" : "")} href={href}>
       <div className="card-media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img loading="lazy" src={item.img} alt={L(item.name, lang)} />
         <span className="card-badge">{t("type_" + item.type)}</span>
+        {item.bold && <span className="card-promo">★ {t("promo_featured")}</span>}
       </div>
       <div className="card-body">
         <span className="card-region">{L(item.region, lang)}</span>

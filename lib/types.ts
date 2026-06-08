@@ -22,4 +22,7 @@ export interface Listing {
   lat?: number;
   lng?: number;
   googlePlaceId?: string;
+  featured?: boolean;
+  featuredHome?: boolean;
+  bold?: boolean;
 }

@@ -33,6 +33,9 @@ function rowToListing(r: any): Listing {
     lat: r.lat ?? undefined,
     lng: r.lng ?? undefined,
     googlePlaceId: r.google_place_id || undefined,
+    featured: !!r.featured,
+    featuredHome: !!r.featured_home,
+    bold: !!r.bold,
   };
 }
 
