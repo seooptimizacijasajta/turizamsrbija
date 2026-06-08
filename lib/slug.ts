@@ -1,4 +1,4 @@
-import { Kind } from "./types";
+import { Kind, Lang } from "./types";
 
 /** Serbian-aware URL slugifier: Šabac -> sabac, Vrnjačka Banja -> vrnjacka-banja */
 export function slugify(input: string): string {
@@ -12,23 +12,61 @@ export function slugify(input: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+/* Category segment per language */
 export const KIND_TO_SLUG: Record<Kind, string> = {
-  mountain: "planine",
-  lake: "jezera",
-  spa: "banje",
-  ethno: "etno-sela",
-  stay: "smestaj",
+  mountain: "planine", lake: "jezera", spa: "banje", ethno: "etno-sela", stay: "smestaj",
 };
-
+export const KIND_TO_SLUG_EN: Record<Kind, string> = {
+  mountain: "mountains", lake: "lakes", spa: "spas", ethno: "ethno-villages", stay: "accommodation",
+};
 export const SLUG_TO_KIND: Record<string, Kind> = {
-  planine: "mountain",
-  jezera: "lake",
-  banje: "spa",
-  "etno-sela": "ethno",
-  smestaj: "stay",
+  planine: "mountain", jezera: "lake", banje: "spa", "etno-sela": "ethno", smestaj: "stay",
+};
+export const SLUG_TO_KIND_EN: Record<string, Kind> = {
+  mountains: "mountain", lakes: "lake", spas: "spa", "ethno-villages": "ethno", accommodation: "stay",
 };
 
-/** Pretty path for a listing, e.g. /planine/kopaonik */
-export function listingPath(kind: Kind, nameSr: string): string {
-  return `/${KIND_TO_SLUG[kind]}/${slugify(nameSr)}`;
+export function catSlug(kind: Kind, locale: Lang): string {
+  return locale === "en" ? KIND_TO_SLUG_EN[kind] : KIND_TO_SLUG[kind];
+}
+export function kindFromSlug(seg: string): Kind | undefined {
+  return SLUG_TO_KIND[seg] || SLUG_TO_KIND_EN[seg];
+}
+
+const base = (locale: Lang) => (locale === "en" ? "/en" : "");
+
+/** /planine/kopaonik  or  /en/mountains/kopaonik  (place slug stays Serbian-based & identical across langs) */
+export function listingPath(kind: Kind, nameSr: string, locale: Lang = "sr"): string {
+  return `${base(locale)}/${catSlug(kind, locale)}/${slugify(nameSr)}`;
+}
+export function sectionPath(kind: Kind, locale: Lang = "sr"): string {
+  return `${base(locale)}/${catSlug(kind, locale)}`;
+}
+export function homePath(locale: Lang): string {
+  return locale === "en" ? "/en" : "/";
+}
+
+/** Map the current pathname to its equivalent in the target language (keeps the place slug). */
+export function switchLangPath(pathname: string, target: Lang): string {
+  let p = pathname || "/";
+  if (p.startsWith("/en")) p = p.slice(3) || "/"; // strip /en -> Serbian-shaped body
+  const segs = p.split("/").filter(Boolean); // [] | [cat] | [cat, slug] | ['nalog']
+  if (segs.length > 0) {
+    const k = kindFromSlug(segs[0]);
+    if (k) segs[0] = catSlug(k, target);
+  }
+  const body = segs.length ? "/" + segs.join("/") : "";
+  return target === "en" ? "/en" + body : (body || "/");
+}
+
+/** Per-page metadata: canonical + hreflang alternates (Serbian default, English twin). */
+export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
+  const sr = kind ? (slug ? `/${KIND_TO_SLUG[kind]}/${slug}` : `/${KIND_TO_SLUG[kind]}`) : "/";
+  const en = kind ? (slug ? `/en/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/en/${KIND_TO_SLUG_EN[kind]}`) : "/en";
+  return {
+    alternates: {
+      canonical: locale === "en" ? en : sr,
+      languages: { "sr-Latn-RS": sr, en: en, "x-default": sr },
+    },
+  };
 }

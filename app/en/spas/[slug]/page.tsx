@@ -5,11 +5,11 @@ import { notFound } from "next/navigation";
 export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return altMeta("sr", "ethno", slug);
+  return altMeta("en", "spa", slug);
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const item = await getListingBySlug("ethno", slug);
+  const item = await getListingBySlug("spa", slug);
   if (!item) notFound();
   const all = await getListings();
   const nearby = all

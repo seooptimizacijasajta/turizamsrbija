@@ -7,7 +7,7 @@ import { listingPath } from "@/lib/slug";
 export default function ListingCard({ item }: { item: Listing }) {
   const { lang, t } = useLang();
   const tags = (item.features[lang] || []).slice(0, 2);
-  const href = listingPath(item.type, item.name.sr);
+  const href = listingPath(item.type, item.name.sr, lang);
   return (
     <Link className="card" href={href}>
       <div className="card-media">

@@ -1,15 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
+import { sectionPath } from "@/lib/slug";
 
 export default function Footer() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const col = (title: string, items: [string, string][]) => (
     <div>
       <h4>{title}</h4>
-      {items.map(([label, href]) => (
-        <Link key={label} href={href}>{label}</Link>
-      ))}
+      {items.map(([label, href]) => (<Link key={label} href={href}>{label}</Link>))}
     </div>
   );
   return (
@@ -21,8 +20,11 @@ export default function Footer() {
             <p style={{ maxWidth: 340, color: "#bfe0d3", fontSize: ".92rem" }}>{t("foot_about")}</p>
           </div>
           {col(t("foot_explore"), [
-            [t("nav_mountains"), "/planine"], [t("nav_lakes"), "/jezera"],
-            [t("nav_spas"), "/banje"], [t("nav_ethno"), "/etno-sela"], [t("nav_stays"), "/smestaj"],
+            [t("nav_mountains"), sectionPath("mountain", lang)],
+            [t("nav_lakes"), sectionPath("lake", lang)],
+            [t("nav_spas"), sectionPath("spa", lang)],
+            [t("nav_ethno"), sectionPath("ethno", lang)],
+            [t("nav_stays"), sectionPath("stay", lang)],
           ])}
           {col(t("foot_company"), [
             [t("foot_about_link"), "#"], [t("foot_contact"), "#"],

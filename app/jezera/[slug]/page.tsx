@@ -1,9 +1,12 @@
 import { getListingBySlug, getListings } from "@/lib/data";
 import DetailView from "@/app/components/DetailView";
+import { altMeta } from "@/lib/slug";
 import { notFound } from "next/navigation";
-
 export const revalidate = 60;
-
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return altMeta("sr", "lake", slug);
+}
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = await getListingBySlug("lake", slug);

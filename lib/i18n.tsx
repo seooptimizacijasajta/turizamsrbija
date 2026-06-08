@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
@@ -397,24 +398,17 @@ export const I18N: Record<string,{sr:string;en:string}> = {
   }
 };
 
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: string) => string };
-const LangCtx = createContext<Ctx>({ lang: "sr", setLang: () => {}, t: (k) => k });
+type Ctx = { lang: Lang; t: (k: string) => string };
+const LangCtx = createContext<Ctx>({ lang: "sr", t: (k) => k });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("sr");
+  const pathname = usePathname();
+  const lang: Lang = pathname && pathname.startsWith("/en") ? "en" : "sr";
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("ts_lang") as Lang | null;
-      if (saved) setLangState(saved);
-    } catch {}
-  }, []);
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    try { localStorage.setItem("ts_lang", l); } catch {}
-    if (typeof document !== "undefined") document.documentElement.lang = l;
-  };
+    if (typeof document !== "undefined") document.documentElement.lang = lang;
+  }, [lang]);
   const t = (k: string) => (I18N[k] ? I18N[k][lang] : k);
-  return <LangCtx.Provider value={{ lang, setLang, t }}>{children}</LangCtx.Provider>;
+  return <LangCtx.Provider value={{ lang, t }}>{children}</LangCtx.Provider>;
 }
 
 export const useLang = () => useContext(LangCtx);

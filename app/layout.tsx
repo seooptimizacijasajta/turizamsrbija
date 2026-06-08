@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://turizamsrbija.com"),
   title: "Turizam Srbija — Planine, jezera, banje i etno sela",
   description:
     "Turistički portal Srbije: planine, jezera, banje, etno sela, hoteli i privatni smeštaj iz cele Srbije.",
