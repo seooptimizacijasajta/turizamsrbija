@@ -1,6 +1,7 @@
 import seed from "./seed.json";
 import { Listing, Kind } from "./types";
 import { getServerClient } from "./supabase";
+import { slugify } from "./slug";
 
 const FALLBACK = seed as unknown as Listing[];
 
@@ -55,6 +56,15 @@ export async function getListing(id: string): Promise<Listing | null> {
     if (data) return rowToListing(data);
   }
   return FALLBACK.find((l) => l.id === id) || null;
+}
+
+/** Look up a listing by its category + friendly slug (e.g. mountain + "kopaonik"). */
+export async function getListingBySlug(
+  kind: Kind,
+  slug: string
+): Promise<Listing | null> {
+  const items = await getListings(kind);
+  return items.find((l) => slugify(l.name.sr) === slug) || null;
 }
 
 export function getFallback(): Listing[] {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
+import { slugify } from "@/lib/slug";
 import ListingCard from "./ListingCard";
 
 const CATS = [
@@ -21,9 +22,10 @@ export default function HomeClient({ all }: { all: Listing[] }) {
   const [type, setType] = useState("mountain");
   const [q, setQ] = useState("");
 
-  const featuredIds = ["kopaonik", "zlatibor", "tara", "vrnjacka-banja", "drvengrad", "srebrno-jezero"];
-  const byId = (id: string) => all.find((d) => d.id === id);
-  const featured = featuredIds.map(byId).filter(Boolean) as Listing[];
+  const featuredSlugs = ["kopaonik", "zlatibor", "tara", "vrnjacka-banja", "drvengrad", "srebrno-jezero"];
+  const featured = featuredSlugs
+    .map((slug) => all.find((d) => slugify(d.name.sr) === slug))
+    .filter(Boolean) as Listing[];
   const fallbackFeatured = featured.length ? featured : all.filter((d) => d.type !== "stay").slice(0, 6);
   const stays = all.filter((d) => d.type === "stay").slice(0, 4);
   const destCount = all.filter((d) => d.type !== "stay").length;
