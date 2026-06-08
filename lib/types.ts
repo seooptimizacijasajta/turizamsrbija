@@ -17,4 +17,9 @@ export interface Listing {
   rating: number;
   capacity?: number;
   elevation?: number;
+  municipality?: string;
+  videoUrls?: string[];
+  lat?: number;
+  lng?: number;
+  googlePlaceId?: string;
 }

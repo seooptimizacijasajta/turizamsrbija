@@ -28,6 +28,11 @@ function rowToListing(r: any): Listing {
     rating: Number(r.rating) || 0,
     capacity: r.capacity || undefined,
     elevation: r.elevation || undefined,
+    municipality: r.municipality || undefined,
+    videoUrls: r.video_urls || [],
+    lat: r.lat ?? undefined,
+    lng: r.lng ?? undefined,
+    googlePlaceId: r.google_place_id || undefined,
   };
 }
 

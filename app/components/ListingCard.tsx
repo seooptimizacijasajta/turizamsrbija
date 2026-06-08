@@ -26,7 +26,7 @@ export default function ListingCard({ item }: { item: Listing }) {
           ) : (
             <span className="price" style={{ color: "var(--green-600)" }}>{t("free_entry")}</span>
           )}
-          <span className="rating">★ {item.rating.toFixed(1)}</span>
+          {item.rating > 0 && <span className="rating">★ {item.rating.toFixed(1)}</span>}
         </div>
       </div>
     </Link>

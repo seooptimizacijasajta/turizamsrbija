@@ -4,6 +4,21 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  rev_heading: { sr: "Ocene i recenzije", en: "Ratings & reviews" },
+  rev_write: { sr: "Napišite recenziju", en: "Write a review" },
+  rev_name: { sr: "Vaše ime", en: "Your name" },
+  rev_rating: { sr: "Vaša ocena", en: "Your rating" },
+  rev_comment: { sr: "Komentar", en: "Comment" },
+  rev_submit: { sr: "Pošalji recenziju", en: "Submit review" },
+  rev_thanks: { sr: "Hvala! Recenzija čeka odobrenje.", en: "Thank you! Your review awaits approval." },
+  rev_none: { sr: "Još nema recenzija. Budite prvi!", en: "No reviews yet. Be the first!" },
+  rev_google: { sr: "Google recenzije", en: "Google reviews" },
+  rev_google_view: { sr: "Pogledaj na Google-u", en: "View on Google" },
+
+  detail_video: { sr: "Video", en: "Video" },
+  detail_location: { sr: "Lokacija", en: "Location" },
+  detail_municipality: { sr: "Opština", en: "Municipality" },
+
   nav_account: { sr: "Moj nalog", en: "My account" },
   acc_title: { sr: "Vlasnički nalog", en: "Owner account" },
   acc_intro: { sr: "Prijavite se ili registrujte da biste dodali svoj smeštaj na portal.", en: "Log in or sign up to add your accommodation to the portal." },
