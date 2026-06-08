@@ -54,6 +54,7 @@ export function switchLangPath(pathname: string, target: Lang): string {
   if (segs.length > 0) {
     const k = kindFromSlug(segs[0]);
     if (k) segs[0] = catSlug(k, target);
+    else { const c = customSeg(segs[0], target); if (c) segs[0] = c; }
   }
   const body = segs.length ? "/" + segs.join("/") : "";
   return target === "en" ? "/en" + body : (body || "/");
@@ -70,3 +71,14 @@ export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
     },
   };
 }
+
+const CUSTOM_PAIRS: [string, string][] = [
+  ["apartmani-beograd", "belgrade-apartments"],
+  ["oglasi-smestaj", "list-your-space"],
+];
+export function customSeg(seg: string, target: Lang): string | null {
+  for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "en" ? en : sr;
+  return null;
+}
+export function belgradePath(locale: Lang) { return locale === "en" ? "/en/belgrade-apartments" : "/apartmani-beograd"; }
+export function listPath(locale: Lang) { return locale === "en" ? "/en/list-your-space" : "/oglasi-smestaj"; }

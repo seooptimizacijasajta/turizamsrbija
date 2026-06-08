@@ -59,6 +59,10 @@ export default function Account() {
     const pw = String(f.get("password") || "");
     try {
       if (mode === "signup") {
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}/.test(pw)) {
+          setErr("Lozinka mora imati najmanje 8 znakova, malo i veliko slovo, broj i znak. / Password must be 8+ chars with lower, upper, number and symbol.");
+          setBusy(false); return;
+        }
         const { error } = await sb.auth.signUp({ email: em, password: pw });
         if (error) throw error;
         setMsg(t("acc_check_email"));

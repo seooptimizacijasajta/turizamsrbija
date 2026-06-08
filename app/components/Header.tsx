@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
-import { homePath, sectionPath, switchLangPath } from "@/lib/slug";
+import { homePath, sectionPath, switchLangPath, belgradePath, listPath } from "@/lib/slug";
 import type { Kind } from "@/lib/types";
 
 const SECTIONS: { kind: Kind; key: string }[] = [
@@ -39,9 +39,11 @@ export default function Header() {
               <Link key={s.kind} href={href} className={path === href ? "active" : ""} onClick={() => setOpen(false)}>{t(s.key)}</Link>
             );
           })}
+          <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={() => setOpen(false)}>{t("nav_belgrade")}</Link>
           <Link href={accountHref} className={path === accountHref ? "active" : ""} onClick={() => setOpen(false)}>{t("nav_account")}</Link>
         </nav>
         <div className="nav-right">
+          <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => go("sr")}>SR</button>
             <button className={lang === "en" ? "active" : ""} onClick={() => go("en")}>EN</button>
