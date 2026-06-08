@@ -1,10 +1,11 @@
 "use client";
 import { Listing } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
+import type { Banner } from "@/lib/banners";
 import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 
-export default function DetailView({ item, nearby }: { item: Listing; nearby: Listing[] }) {
+export default function DetailView({ item, nearby, sidebarBanners = [] }: { item: Listing; nearby: Listing[]; sidebarBanners?: Banner[] }) {
   const { lang, t } = useLang();
   const meta: string[] = [];
   if (item.elevation) meta.push(`⛰ ${t("detail_elevation")}: ${item.elevation} m`);
@@ -51,7 +52,19 @@ export default function DetailView({ item, nearby }: { item: Listing; nearby: Li
               </div>
             )}
           </div>
-          <BookingForm item={item} />
+          <div>
+            <BookingForm item={item} />
+            {sidebarBanners.length > 0 && (
+              <div className="banner-sidebar">
+                {sidebarBanners.map((b) => (
+                  <a key={b.id} className="banner" href={b.link_url} target="_blank" rel="noopener noreferrer sponsored">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={b.image_url} alt={b.title || "Oglas"} loading="lazy" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </main>

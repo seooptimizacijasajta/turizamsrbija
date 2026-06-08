@@ -1,5 +1,6 @@
 "use client";
 import { Listing, Kind } from "@/lib/types";
+import type { Banner } from "@/lib/banners";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
 
@@ -11,7 +12,7 @@ const HERO: Record<Kind, { title: string; lead: string; bg: string }> = {
   stay: { title: "nav_stays", lead: "lead_stay", bg: "1566073771259-6a8506099945" },
 };
 
-export default function SectionPage({ items, kind }: { items: Listing[]; kind: Kind }) {
+export default function SectionPage({ items, kind, banners = [] }: { items: Listing[]; kind: Kind; banners?: Banner[] }) {
   const { t } = useLang();
   const h = HERO[kind];
   return (
@@ -22,7 +23,7 @@ export default function SectionPage({ items, kind }: { items: Listing[]; kind: K
       >
         <div className="container"><h1>{t(h.title)}</h1><p>{t(h.lead)}</p></div>
       </section>
-      <SectionExplorer items={items} kind={kind} />
+      <SectionExplorer items={items} kind={kind} banners={banners} />
     </>
   );
 }

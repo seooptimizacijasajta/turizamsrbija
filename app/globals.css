@@ -177,3 +177,17 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
   .gallery{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr}
 }
+
+/* ---------- Banners / ads ---------- */
+.banner{display:block;overflow:hidden;border-radius:12px;border:1px solid var(--line)}
+.banner img{width:100%;height:auto;display:block}
+.banner-row{display:flex;flex-direction:column;gap:14px}
+.banner-top{margin:18px auto 0}
+.banner-bottom{margin:8px auto 0}
+.banner-sidebar{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.banner-card{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);display:block;min-height:200px}
+.banner-card img{width:100%;height:100%;object-fit:cover}
+.banner-tag{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:6px;z-index:2}
+.admin-wrap{max-width:780px;margin:0 auto}
+.admin-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.admin-thumb{width:90px;height:48px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}

@@ -2,9 +2,20 @@
 import { useMemo, useState } from "react";
 import { Listing, Kind } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
+import type { Banner } from "@/lib/banners";
 import ListingCard from "./ListingCard";
 
-export default function SectionExplorer({ items, kind }: { items: Listing[]; kind: Kind }) {
+function BannerCard({ b }: { b: Banner }) {
+  return (
+    <a className="card banner-card" href={b.link_url} target="_blank" rel="noopener noreferrer sponsored">
+      <span className="banner-tag">Oglas · Ad</span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={b.image_url} alt={b.title || "Oglas"} loading="lazy" />
+    </a>
+  );
+}
+
+export default function SectionExplorer({ items, kind, banners = [] }: { items: Listing[]; kind: Kind; banners?: Banner[] }) {
   const { lang, t } = useLang();
   const [q, setQ] = useState("");
   const [region, setRegion] = useState("");
@@ -33,6 +44,20 @@ export default function SectionExplorer({ items, kind }: { items: Listing[]; kin
     return out;
   }, [items, q, region, cat, sort, lang]);
 
+  // Interleave in-list banners at their sort index (0 = first slot in the grid)
+  const grid = useMemo(() => {
+    const nodes: React.ReactNode[] = [];
+    const bs = [...banners].sort((a, b) => a.sort - b.sort);
+    let bi = 0;
+    const showBanners = !q && !region && !cat; // only on the unfiltered list
+    for (let i = 0; i < filtered.length; i++) {
+      while (showBanners && bi < bs.length && bs[bi].sort === i) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
+      nodes.push(<ListingCard key={filtered[i].id} item={filtered[i]} />);
+    }
+    while (showBanners && bi < bs.length) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
+    return nodes;
+  }, [filtered, banners, q, region, cat]);
+
   return (
     <div className="container">
       <div className="toolbar">
@@ -57,9 +82,7 @@ export default function SectionExplorer({ items, kind }: { items: Listing[]; kin
       </div>
       <div className="results-count">{filtered.length} {t("results")}</div>
       {filtered.length ? (
-        <div className="card-grid" style={{ marginBottom: 40 }}>
-          {filtered.map((d) => <ListingCard key={d.id} item={d} />)}
-        </div>
+        <div className="card-grid" style={{ marginBottom: 40 }}>{grid}</div>
       ) : (
         <div className="empty">{t("no_results")}</div>
       )}
