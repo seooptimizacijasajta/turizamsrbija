@@ -11,6 +11,7 @@ export default function Account() {
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
@@ -22,11 +23,12 @@ export default function Account() {
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
-    const { data } = await sb
-      .from("listings")
-      .select("*, listing_images(url,sort)")
-      .eq("owner_id", uid)
-      .order("created_at", { ascending: false });
+    const { data: p } = await sb.from("profiles").select("role").eq("id", uid).single();
+    const admin = p?.role === "admin";
+    setIsAdmin(admin);
+    let q = sb.from("listings").select("*, listing_images(url,sort)").order("created_at", { ascending: false });
+    if (!admin) q = q.eq("owner_id", uid);
+    const { data } = await q;
     setRows(data || []);
   }, [sb]);
 
@@ -129,7 +131,7 @@ export default function Account() {
     <div className="container" style={{ padding: "48px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
         <div>
-          <h1>{t("acc_my_listings")}</h1>
+          <h1>{t("acc_my_listings")}{isAdmin ? " — ADMIN (svi oglasi / all listings)" : ""}</h1>
           <p style={{ color: "var(--slate)", fontSize: ".92rem" }}>{email}</p>
         </div>
         <div style={{ display: "flex", gap: 10 }}>

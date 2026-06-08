@@ -103,7 +103,9 @@ export default function ListingForm({
     try {
       let id = e?.id;
       if (id) {
-        const { error } = await sb.from("listings").update(row).eq("id", id);
+        const { owner_id, ...upd } = row;
+        void owner_id;
+        const { error } = await sb.from("listings").update(upd).eq("id", id);
         if (error) throw error;
         await sb.from("listing_images").delete().eq("listing_id", id);
       } else {
