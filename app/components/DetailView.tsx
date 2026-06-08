@@ -7,6 +7,7 @@ import type { GooglePlace } from "@/lib/google";
 import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 import ReviewForm, { Stars } from "./ReviewForm";
+import AvailabilityView from "./AvailabilityView";
 
 function ytId(url: string): string | null {
   const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
@@ -14,10 +15,10 @@ function ytId(url: string): string | null {
 }
 
 export default function DetailView({
-  item, nearby, sidebarBanners = [], reviews = [], reviewAvg = 0, reviewCount = 0, google = null,
+  item, nearby, sidebarBanners = [], reviews = [], reviewAvg = 0, reviewCount = 0, google = null, blocked = [],
 }: {
   item: Listing; nearby: Listing[]; sidebarBanners?: Banner[];
-  reviews?: Review[]; reviewAvg?: number; reviewCount?: number; google?: GooglePlace | null;
+  reviews?: Review[]; reviewAvg?: number; reviewCount?: number; google?: GooglePlace | null; blocked?: string[];
 }) {
   const { lang, t } = useLang();
   const displayRating = reviewCount > 0 ? reviewAvg : item.rating;
@@ -76,6 +77,13 @@ export default function DetailView({
                 <iframe title="Map" loading="lazy"
                   style={{ width: "100%", height: 320, border: "1px solid var(--line)", borderRadius: 12 }}
                   src={`https://www.openstreetmap.org/export/embed.html?bbox=${item.lng! - 0.01}%2C${item.lat! - 0.01}%2C${item.lng! + 0.01}%2C${item.lat! + 0.01}&layer=mapnik&marker=${item.lat}%2C${item.lng}`} />
+              </div>
+            )}
+
+            {item.type === "stay" && (
+              <div className="detail-section">
+                <h2>{t("cal_avail")}</h2>
+                <AvailabilityView blocked={blocked} />
               </div>
             )}
 

@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  cal_avail: { sr: "Dostupnost", en: "Availability" },
+
   rev_heading: { sr: "Ocene i recenzije", en: "Ratings & reviews" },
   rev_write: { sr: "Napišite recenziju", en: "Write a review" },
   rev_name: { sr: "Vaše ime", en: "Your name" },

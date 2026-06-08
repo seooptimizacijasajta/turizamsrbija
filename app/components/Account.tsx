@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { useLang } from "@/lib/i18n";
 import ListingForm from "./ListingForm";
+import AvailabilityCalendar from "./AvailabilityCalendar";
 
 export default function Account() {
   const { t } = useLang();
@@ -17,6 +18,7 @@ export default function Account() {
   const [rows, setRows] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any>(null);
+  const [calFor, setCalFor] = useState<any>(null);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
@@ -144,6 +146,8 @@ export default function Account() {
         />
       )}
 
+      {calFor && <AvailabilityCalendar sb={sb} listingId={calFor.id} icalUrls={calFor.ical_urls} onClose={() => setCalFor(null)} />}
+
       {!showForm && (
         <div style={{ marginTop: 24 }}>
           {rows.length === 0 ? (
@@ -158,6 +162,7 @@ export default function Account() {
                     <div style={{ marginTop: 6 }}>{statusBadge(r.status)}</div>
                   </div>
                   <div style={{ display: "flex", gap: 8 }}>
+                    <button className="btn btn--outline" onClick={() => setCalFor(calFor?.id === r.id ? null : r)}>Kalendar</button>
                     <button className="btn btn--outline" onClick={() => { setEditing(r); setShowForm(true); }}>{t("acc_edit")}</button>
                     <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => del(r.id)}>{t("acc_delete")}</button>
                   </div>
