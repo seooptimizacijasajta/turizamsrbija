@@ -2,6 +2,7 @@
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
+import BelgradeSEO from "./BelgradeSEO";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 
@@ -17,6 +18,7 @@ export default function BelgradePage({ items }: { items: Listing[] }) {
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_belgrade") }]} /></div>
       <SectionExplorer items={items} kind="stay" />
+      <BelgradeSEO />
     </>
   );
 }

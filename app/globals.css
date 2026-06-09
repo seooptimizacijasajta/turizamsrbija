@@ -271,3 +271,9 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .card-fav:hover{transform:scale(1.12)}
 .nav-fav{position:relative;font-size:1.2rem;color:#e0245e;padding:0 6px}
 .fav-count{position:absolute;top:-6px;right:-6px;background:#e0245e;color:#fff;font-size:.62rem;font-weight:800;border-radius:999px;padding:1px 5px;line-height:1.4}
+
+/* SEO article prose */
+.prose h2{font-size:1.7rem;line-height:1.25;margin:0 0 14px;color:var(--ink)}
+.prose h3{font-size:1.2rem;margin:26px 0 8px;color:var(--ink)}
+.prose p{margin:0 0 14px;line-height:1.75;color:var(--slate);font-size:1.02rem}
+.prose strong{color:var(--ink)}
