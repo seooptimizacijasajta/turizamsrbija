@@ -4,12 +4,13 @@ import { getReviews } from "@/lib/reviews";
 import { getGooglePlace } from "@/lib/google";
 import { getBlockedDates } from "@/lib/availability";
 import DetailView from "@/app/components/DetailView";
-import { altMeta } from "@/lib/slug";
+import { listingMeta } from "@/lib/seo";
 import { notFound } from "next/navigation";
 export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return altMeta("sr", "stay", slug);
+  const item = await getListingBySlug("stay", slug);
+  return listingMeta("sr", "stay", slug, item);
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

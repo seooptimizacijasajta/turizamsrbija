@@ -1,9 +1,9 @@
 import { getListings } from "@/lib/data";
 import { getBanners } from "@/lib/banners";
 import SectionPage from "@/app/components/SectionPage";
-import { altMeta } from "@/lib/slug";
+import { sectionMeta } from "@/lib/seo";
 export const revalidate = 60;
-export const generateMetadata = () => altMeta("sr", "mountain");
+export const generateMetadata = () => sectionMeta("sr", "mountain");
 export default async function Page() {
   const [items, banners] = await Promise.all([getListings("mountain"), getBanners("inlist", "mountain")]);
   return <SectionPage items={items} kind="mountain" banners={banners} />;
