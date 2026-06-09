@@ -21,6 +21,8 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
   const [region, setRegion] = useState("");
   const [cat, setCat] = useState("");
   const [sort, setSort] = useState("featured");
+  const [minP, setMinP] = useState("");
+  const [maxP, setMaxP] = useState("");
 
   const regions = useMemo(() => {
     const set: string[] = [];
@@ -32,6 +34,10 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
     let out = items.filter((d) => {
       if (region && L(d.region, lang) !== region) return false;
       if (cat && d.category !== cat) return false;
+      if (kind === "stay") {
+        if (minP && d.price < Number(minP)) return false;
+        if (maxP && d.price > Number(maxP)) return false;
+      }
       if (q) {
         const hay = (L(d.name, lang) + " " + L(d.region, lang) + " " + L(d.short, lang)).toLowerCase();
         if (!hay.includes(q.toLowerCase())) return false;
@@ -43,21 +49,21 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
     else if (sort === "price_high") out = [...out].sort((a, b) => b.price - a.price);
     out = [...out].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     return out;
-  }, [items, q, region, cat, sort, lang]);
+  }, [items, q, region, cat, sort, lang, minP, maxP, kind]);
 
   // Interleave in-list banners at their sort index (0 = first slot in the grid)
   const grid = useMemo(() => {
     const nodes: React.ReactNode[] = [];
     const bs = [...banners].sort((a, b) => a.sort - b.sort);
     let bi = 0;
-    const showBanners = !q && !region && !cat; // only on the unfiltered list
+    const showBanners = !q && !region && !cat && !minP && !maxP; // only on the unfiltered list
     for (let i = 0; i < filtered.length; i++) {
       while (showBanners && bi < bs.length && bs[bi].sort === i) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
       nodes.push(<ListingCard key={filtered[i].id} item={filtered[i]} />);
     }
     while (showBanners && bi < bs.length) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
     return nodes;
-  }, [filtered, banners, q, region, cat]);
+  }, [filtered, banners, q, region, cat, minP, maxP]);
 
   return (
     <div className="container">
@@ -73,6 +79,12 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
             <option value="hotel">{t("cat_hotel")}</option>
             <option value="private">{t("cat_private")}</option>
           </select>
+        )}
+        {kind === "stay" && (
+          <>
+            <input type="number" min={0} value={minP} onChange={(e) => setMinP(e.target.value)} placeholder={t("price_from")} style={{ width: 120 }} />
+            <input type="number" min={0} value={maxP} onChange={(e) => setMaxP(e.target.value)} placeholder={t("price_to")} style={{ width: 100 }} />
+          </>
         )}
         <select value={sort} onChange={(e) => setSort(e.target.value)}>
           <option value="featured">{t("sort_featured")}</option>
