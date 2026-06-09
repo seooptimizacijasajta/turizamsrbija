@@ -229,3 +229,12 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .chat-input input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem}
 .chat-input button{padding:10px 16px}
+
+/* ---------- FAQ accordion ---------- */
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq-item{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-ic{font-size:1.4rem;color:var(--green-600);transition:transform .2s;flex:none}
+.faq-item[open] .faq-ic{transform:rotate(45deg)}
+.faq-a{padding:0 18px 16px;color:var(--slate);line-height:1.7}

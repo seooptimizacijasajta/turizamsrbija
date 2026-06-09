@@ -5,12 +5,20 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import BannerSlot from "@/app/components/BannerSlot";
 import FloatingWidgets from "@/app/components/FloatingWidgets";
+import JsonLd from "@/app/components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turizamsrbija.com"),
   title: "Turizam Srbija — Planine, jezera, banje i etno sela",
   description:
     "Turistički portal Srbije: planine, jezera, banje, etno sela, hoteli i privatni smeštaj iz cele Srbije.",
+  openGraph: {
+    type: "website", siteName: "Turizam Srbija", locale: "sr_RS",
+    title: "Turizam Srbija — Planine, jezera, banje i etno sela",
+    description: "Najlepše destinacije i smeštaj u Srbiji na jednom mestu.",
+    images: ["https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=80"],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: "Turizam Srbija", url: "https://turizamsrbija.com", logo: "https://turizamsrbija.com/icon.png", contactPoint: { "@type": "ContactPoint", telephone: "+381644598778", contactType: "customer support" } }} />
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: "Turizam Srbija", url: "https://turizamsrbija.com" }} />
         <LanguageProvider>
           <Header />
           <BannerSlot position="top" />

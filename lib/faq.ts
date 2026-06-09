@@ -1,0 +1,79 @@
+import type { Kind, Lang } from "./types";
+export type Faq = { q: string; a: string };
+
+const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
+  mountain: {
+    sr: [
+      { q: "Koja planina u Srbiji je najbolja za skijanje?", a: "Kopaonik je najveći i najopremljeniji ski-centar, sa preko 55 km uređenih staza i pouzdanim snegom od decembra do aprila. Dobre alternative sa kraćim redovima su Stara planina (Babin Zub) i Zlatibor sa Tornikom." },
+      { q: "Kada je najbolje vreme za posetu planinama?", a: "Zimi (decembar–mart) za skijanje i sankanje, a leti (jun–septembar) za planinarenje, vožnju bicikla i odmor od vrućine, kada je planinski vazduh prijatno svež." },
+      { q: "Da li su planine pogodne za porodice sa decom?", a: "Jesu. Zlatibor i Divčibare imaju blage staze, uređene parkove i sadržaje za decu, dok Kopaonik nudi škole skijanja i lakše staze za početnike." },
+      { q: "Kako se stiže do Kopaonika i Zlatibora?", a: "Kopaonik je oko 280 km od Beograda (autom ~4 sata), a Zlatibor oko 230 km (~3 sata). Do oba vode dobri putevi, a u sezoni saobraćaju i autobuske linije." },
+    ],
+    en: [
+      { q: "Which mountain in Serbia is best for skiing?", a: "Kopaonik is the largest and best-equipped ski resort, with over 55 km of groomed slopes and reliable snow from December to April. Good alternatives with shorter lift lines are Stara Planina (Babin Zub) and Zlatibor's Tornik." },
+      { q: "When is the best time to visit the mountains?", a: "Winter (December–March) for skiing and sledding, and summer (June–September) for hiking, cycling and escaping the heat, when the mountain air is pleasantly cool." },
+      { q: "Are the mountains suitable for families with children?", a: "Yes. Zlatibor and Divčibare have gentle trails, landscaped parks and activities for kids, while Kopaonik offers ski schools and easy beginner slopes." },
+      { q: "How do I get to Kopaonik and Zlatibor?", a: "Kopaonik is about 280 km from Belgrade (around 4 hours by car), and Zlatibor about 230 km (around 3 hours). Both are reached by good roads, with bus lines in season." },
+    ],
+  },
+  lake: {
+    sr: [
+      { q: "Koje jezero u Srbiji je najlepše za kupanje?", a: "Srebrno jezero, takozvano „srpsko more\", ima peščane plaže i razvijenu turističku ponudu. Palić i Perućac su omiljeni za miran, porodičan odmor." },
+      { q: "Kada traje sezona kupanja na jezerima?", a: "Glavna sezona je od juna do početka septembra, kada je voda dovoljno topla; Srebrno jezero i Palić tada imaju uređene plaže i vodene sportove." },
+      { q: "Koja jezera su dobra za ribolov?", a: "Vlasinsko, Zlatarsko i Perućačko jezero poznata su po ribolovu; za pecanje je potrebna dozvola koju izdaju lokalna ribolovačka udruženja." },
+      { q: "Ima li smeštaja uz jezera?", a: "Da — od apartmana i vila do etno domaćinstava na obali. Sve opcije i cene možete uporediti u sekciji Smeštaj." },
+    ],
+    en: [
+      { q: "Which lake in Serbia is best for swimming?", a: "Silver Lake (the 'Serbian sea') has sandy beaches and well-developed tourist facilities, while Palić and Perućac are favourites for quiet, family holidays." },
+      { q: "When is the swimming season on the lakes?", a: "The main season runs from June to early September, when the water is warm enough; Silver Lake and Palić then have organised beaches and water sports." },
+      { q: "Which lakes are good for fishing?", a: "Vlasina, Zlatar and Perućac lakes are known for fishing; a permit issued by local angling associations is required." },
+      { q: "Is there accommodation by the lakes?", a: "Yes — from apartments and villas to lakeside homesteads. You can compare all options and prices in the Accommodation section." },
+    ],
+  },
+  spa: {
+    sr: [
+      { q: "Koja banja je najbolja za reumu i bolove u zglobovima?", a: "Vrnjačka Banja i Sokobanja imaju dugu tradiciju lečenja reumatskih i kardiovaskularnih tegoba, dok je Banja Koviljača poznata po sumporovitim izvorima za kožu i zglobove." },
+      { q: "Šta se leči u srpskim banjama?", a: "Najčešće reumatska, kardiovaskularna, respiratorna i kožna oboljenja, kao i stanja posle operacija; uz lečenje, sve više banja nudi i wellness i spa programe." },
+      { q: "Da li je za banju potreban uput lekara?", a: "Za odmor i wellness nije — slobodno rezervišete. Za lečenje o trošku osiguranja potreban je uput, dok privatno možete koristiti terapije bez uputa." },
+      { q: "Koja banja je najbliža Beogradu?", a: "Banja Koviljača i Bukovička banja u Aranđelovcu su među najbližima (oko sat i po do dva vožnje), pa su pogodne i za vikend odmor." },
+    ],
+    en: [
+      { q: "Which spa is best for rheumatism and joint pain?", a: "Vrnjačka Banja and Sokobanja have a long tradition of treating rheumatic and cardiovascular conditions, while Banja Koviljača is known for sulphur springs for skin and joints." },
+      { q: "What is treated in Serbian spas?", a: "Most often rheumatic, cardiovascular, respiratory and skin conditions, as well as post-surgery recovery; alongside treatment, more spas now offer wellness and spa programmes." },
+      { q: "Do I need a doctor's referral for a spa?", a: "Not for leisure and wellness — you can book freely. For insurance-funded treatment a referral is needed, while privately you can use therapies without one." },
+      { q: "Which spa is closest to Belgrade?", a: "Banja Koviljača and Bukovička Banja in Aranđelovac are among the closest (about 1.5–2 hours away), making them ideal for weekend breaks." },
+    ],
+  },
+  ethno: {
+    sr: [
+      { q: "Šta je etno selo?", a: "Etno selo je naselje koje čuva tradicionalnu arhitekturu, stare zanate, gastronomiju i način života srpskog sela, najčešće uređeno za posetioce i noćenje." },
+      { q: "Koja etno sela u Srbiji vredi posetiti?", a: "Najpoznatiji su Drvengrad (Mećavnik) Emira Kusturice na Mokroj Gori, Staro selo u Sirogojnu i Tršić, rodno mesto Vuka Karadžića." },
+      { q: "Može li se prenoćiti u etno selu?", a: "Može — mnoga etno sela nude smeštaj u tradicionalnim brvnarama i konacima, uz domaću hranu i autentičan doživljaj." },
+      { q: "Da li su etno sela pogodna za jednodnevni izlet?", a: "Jesu, posebno uz obilazak okoline; Drvengrad se odlično spaja sa vožnjom Šarganske osmice, a Sirogojno sa Zlatiborom." },
+    ],
+    en: [
+      { q: "What is an ethno village?", a: "An ethno village is a settlement that preserves traditional architecture, old crafts, cuisine and the way of life of the Serbian countryside, usually arranged for visitors and overnight stays." },
+      { q: "Which ethno villages in Serbia are worth visiting?", a: "The best known are Drvengrad (Mećavnik) by Emir Kusturica on Mokra Gora, the Old Village museum in Sirogojno, and Tršić, the birthplace of Vuk Karadžić." },
+      { q: "Can you stay overnight in an ethno village?", a: "Yes — many ethno villages offer accommodation in traditional log houses and lodges, with home-cooked food and an authentic experience." },
+      { q: "Are ethno villages good for a day trip?", a: "Yes, especially combined with the surroundings; Drvengrad pairs well with the Šargan Eight railway, and Sirogojno with Zlatibor." },
+    ],
+  },
+  stay: {
+    sr: [
+      { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata. Nije potrebna obavezna online uplata." },
+      { q: "Da li je oglašavanje smeštaja besplatno?", a: "Jeste — registracija i postavljanje oglasa su potpuno besplatni. Proviziju plaćate tek kada vam dovedemo goste." },
+      { q: "Mogu li da oglasim više objekata?", a: "Možete neograničen broj — svaki smeštaj se dodaje zasebno, sa svojim naslovom, opisom, fotografijama, videom i kalendarom dostupnosti." },
+      { q: "Kako da znam da je smeštaj slobodan?", a: "Na stranici svakog smeštaja prikazan je kalendar dostupnosti; domaćini ga ažuriraju i mogu da ga sinhronizuju sa Booking-om i Airbnb-om." },
+    ],
+    en: [
+      { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours. No mandatory online payment is required." },
+      { q: "Is listing accommodation free?", a: "Yes — registering and posting a listing are completely free. You pay a commission only when we bring you guests." },
+      { q: "Can I list multiple properties?", a: "You can list as many as you like — each is added separately, with its own title, description, photos, video and availability calendar." },
+      { q: "How do I know if a place is available?", a: "Each listing shows an availability calendar; hosts keep it updated and can sync it with Booking.com and Airbnb." },
+    ],
+  },
+};
+
+export function sectionFaqs(kind: Kind, locale: Lang): Faq[] {
+  return FAQ[kind][locale];
+}

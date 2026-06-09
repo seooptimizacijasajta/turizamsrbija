@@ -26,14 +26,20 @@ const SECTION: Record<Kind, { sr: [string, string]; en: [string, string] }> = {
 
 export function sectionMeta(locale: Lang, kind: Kind) {
   const [title, description] = SECTION[kind][locale];
-  return { title, description, ...altMeta(locale, kind) };
+  const og = `/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(description.slice(0, 90))}`;
+  return { title, description, openGraph: { title, description, images: [og] }, ...altMeta(locale, kind) };
 }
 
 type Bi = { sr: string; en: string };
-export function listingMeta(locale: Lang, kind: Kind, slug: string, item: { name: Bi; region: Bi; short: Bi } | null) {
+export function listingMeta(locale: Lang, kind: Kind, slug: string, item: { name: Bi; region: Bi; short: Bi; img?: string } | null) {
   if (!item) return altMeta(locale, kind, slug);
   const name = item.name[locale] || item.name.sr;
   const region = item.region[locale] || item.region.sr;
   const short = item.short[locale] || item.short.sr || name;
-  return { title: `${name}${region ? ` — ${region}` : ""} | Turizam Srbija`, description: short, ...altMeta(locale, kind, slug) };
+  const title = `${name}${region ? ` — ${region}` : ""} | Turizam Srbija`;
+  return {
+    title, description: short,
+    openGraph: { title, description: short, type: "article", images: item.img ? [item.img] : undefined },
+    ...altMeta(locale, kind, slug),
+  };
 }

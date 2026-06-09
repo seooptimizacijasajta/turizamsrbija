@@ -6,6 +6,7 @@ import type { Review } from "@/lib/reviews";
 import type { GooglePlace } from "@/lib/google";
 import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
+import JsonLd from "./JsonLd";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
 
@@ -22,6 +23,17 @@ export default function DetailView({
 }) {
   const { lang, t } = useLang();
   const displayRating = reviewCount > 0 ? reviewAvg : item.rating;
+  const ld: any = {
+    "@context": "https://schema.org",
+    "@type": item.type === "stay" ? "LodgingBusiness" : "TouristAttraction",
+    name: L(item.name, lang),
+    description: L(item.short, lang) || L(item.desc, lang),
+    image: item.img,
+    address: { "@type": "PostalAddress", addressLocality: L(item.region, lang), addressCountry: "RS" },
+  };
+  if (typeof item.lat === "number" && typeof item.lng === "number") ld.geo = { "@type": "GeoCoordinates", latitude: item.lat, longitude: item.lng };
+  if (displayRating > 0) ld.aggregateRating = { "@type": "AggregateRating", ratingValue: displayRating.toFixed(1), reviewCount: Math.max(reviewCount, 1) };
+  if (item.type === "stay" && item.price) ld.priceRange = `€${item.price}`;
   const meta: string[] = [];
   if (item.elevation) meta.push(`⛰ ${t("detail_elevation")}: ${item.elevation} m`);
   if (item.capacity) meta.push(`👥 ${t("detail_capacity")}: ${item.capacity} ${t("detail_persons")}`);
@@ -34,6 +46,7 @@ export default function DetailView({
 
   return (
     <main>
+      <JsonLd data={ld} />
       <div className="detail-hero" style={{ backgroundImage: `url(${item.img.replace("w=900", "w=1600")})` }} />
       <div className="container">
         <div className="detail-wrap">
