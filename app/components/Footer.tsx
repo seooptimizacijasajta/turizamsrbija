@@ -27,6 +27,7 @@ export default function Footer() {
             [t("nav_stays"), sectionPath("stay", lang)],
           ])}
           {col(t("foot_company"), [
+            ["FAQ", infoPath("faq", lang)],
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
           ])}

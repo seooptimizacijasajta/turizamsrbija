@@ -7,7 +7,7 @@ import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 
 export default function Account() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const sb = getBrowserClient();
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -78,6 +78,11 @@ export default function Account() {
   }
 
   async function logout() { if (sb) await sb.auth.signOut(); }
+  async function oauth(provider: "google" | "facebook") {
+    if (!sb) return;
+    const redirectTo = window.location.origin + (lang === "en" ? "/en/nalog" : "/nalog");
+    await sb.auth.signInWithOAuth({ provider, options: { redirectTo } });
+  }
 
   async function del(id: string) {
     if (!sb || !confirm(t("acc_confirm_delete"))) return;
@@ -125,6 +130,9 @@ export default function Account() {
             <button className="btn btn--primary btn--block" disabled={busy} type="submit">
               {busy ? "..." : mode === "login" ? t("acc_login_btn") : t("acc_signup_btn")}
             </button>
+            <div style={{ textAlign: "center", color: "var(--slate)", fontSize: ".82rem", margin: "10px 0" }}>— ili / or —</div>
+            <button type="button" className="btn btn--outline btn--block" onClick={() => oauth("google")} style={{ marginBottom: 8 }}>Nastavi sa Google</button>
+            <button type="button" className="btn btn--outline btn--block" onClick={() => oauth("facebook")}>Nastavi sa Facebook</button>
           </form>
           {err && <p className="booking-note" style={{ color: "var(--danger)" }}>{err}</p>}
           {msg && <div className="form-success show">{msg}</div>}

@@ -81,8 +81,8 @@ const CUSTOM_PAIRS: [string, string][] = [
   ["privatnost", "privacy"],
 ];
 
-export function infoPath(which: "about" | "contact" | "terms" | "privacy", locale: Lang) {
-  const map: Record<string, [string, string]> = { about: ["o-nama", "about"], contact: ["kontakt", "contact"], terms: ["uslovi", "terms"], privacy: ["privatnost", "privacy"] };
+export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
+  const map: Record<string, [string, string]> = { about: ["o-nama", "about"], contact: ["kontakt", "contact"], terms: ["uslovi", "terms"], privacy: ["privatnost", "privacy"], faq: ["faq", "faq"] };
   const [sr, en] = map[which];
   return (locale === "en" ? "/en/" : "/") + (locale === "en" ? en : sr);
 }

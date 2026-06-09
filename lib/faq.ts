@@ -77,3 +77,28 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
 export function sectionFaqs(kind: Kind, locale: Lang): Faq[] {
   return FAQ[kind][locale];
 }
+
+
+const GENERAL: { sr: Faq[]; en: Faq[] } = {
+  sr: [
+    { q: "Šta je Turizam Srbija?", a: "Turizam Srbija je dvojezični (srpski i engleski) portal koji na jednom mestu okuplja najlepše destinacije i smeštaj u Srbiji — planine, jezera, banje, etno sela, apartmane u Beogradu i smeštaj širom zemlje." },
+    { q: "Da li je korišćenje portala besplatno za goste?", a: "Jeste, u potpunosti. Pretraga destinacija i smeštaja, slanje upita i čitanje recenzija su besplatni, bez registracije." },
+    { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata, i dogovarate detalje. Online uplata nije obavezna." },
+    { q: "Da li je oglašavanje besplatno za vlasnike smeštaja?", a: "Da — registracija i postavljanje oglasa su besplatni. Proviziju plaćate tek kada vam dovedemo goste, po principu plaćanja po rezultatu." },
+    { q: "Mogu li da oglasim više smeštaja?", a: "Možete neograničen broj. Svaki smeštaj se dodaje zasebno — sa svojim naslovom, opisom, do 20 fotografija, video-snimkom, lokacijom na mapi i kalendarom dostupnosti." },
+    { q: "Na kojim jezicima je portal dostupan?", a: "Na srpskom i engleskom. Svaki sadržaj ima svoju adresu na oba jezika, pa ga lako pronalaze i gosti iz inostranstva." },
+    { q: "Mogu li da ostavim recenziju?", a: "Možete. Recenzije se ostavljaju na stranici smeštaja i objavljuju nakon kratke provere, čime se čuva njihova verodostojnost." },
+    { q: "Kako da kontaktiram podršku?", a: "Pišite nam na info@turizamsrbija.com ili putem Viber/WhatsApp poruke na +381 64 4598778, kao i preko kontakt forme na sajtu." },
+  ],
+  en: [
+    { q: "What is Turizam Srbija?", a: "Turizam Srbija is a bilingual (Serbian and English) portal that brings together Serbia's finest destinations and accommodation in one place — mountains, lakes, spas, ethno villages, Belgrade apartments and stays across the country." },
+    { q: "Is the portal free for guests?", a: "Yes, completely. Browsing destinations and accommodation, sending inquiries and reading reviews are free, with no registration required." },
+    { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours, and you arrange the details. Online payment is not mandatory." },
+    { q: "Is listing free for property owners?", a: "Yes — registering and posting a listing are free. You pay a commission only when we bring you guests, on a pay-on-results basis." },
+    { q: "Can I list multiple properties?", a: "You can list as many as you like. Each is added separately — with its own title, description, up to 20 photos, a video, a map location and an availability calendar." },
+    { q: "Which languages is the portal available in?", a: "Serbian and English. Every page has its own address in both languages, so international guests can find it easily." },
+    { q: "Can I leave a review?", a: "Yes. Reviews are left on the listing page and published after a short check to keep them trustworthy." },
+    { q: "How do I contact support?", a: "Email us at info@turizamsrbija.com or message us on Viber/WhatsApp at +381 64 4598778, or use the contact form on the site." },
+  ],
+};
+export function generalFaqs(locale: Lang): Faq[] { return GENERAL[locale]; }
