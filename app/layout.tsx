@@ -4,6 +4,7 @@ import { LanguageProvider } from "@/lib/i18n";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import BannerSlot from "@/app/components/BannerSlot";
+import FloatingWidgets from "@/app/components/FloatingWidgets";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turizamsrbija.com"),
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <BannerSlot position="bottom" />
           <Footer />
+          <FloatingWidgets />
         </LanguageProvider>
       </body>
     </html>

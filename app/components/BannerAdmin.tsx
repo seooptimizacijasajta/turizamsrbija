@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
+import { slugify } from "@/lib/slug";
 
 const POSITIONS = ["top", "sidebar", "bottom", "inlist"];
 const KINDS = ["mountain", "lake", "spa", "ethno", "stay"];
@@ -10,7 +11,10 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"banners" | "reviews">("banners");
+  const [tab, setTab] = useState<"banners" | "reviews" | "blog">("banners");
+  const [posts, setPosts] = useState<any[]>([]);
+  const [postEditing, setPostEditing] = useState<any>(null);
+  const [showPostForm, setShowPostForm] = useState(false);
   const [rows, setRows] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
   const [editing, setEditing] = useState<any>(null);
@@ -29,14 +33,35 @@ export default function BannerAdmin() {
     const { data } = await sb.from("reviews").select("*, listings(name_sr)").order("created_at", { ascending: false });
     setReviews(data || []);
   }, [sb]);
+  const loadPosts = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("posts").select("*").order("created_at", { ascending: false });
+    setPosts(data || []);
+  }, [sb]);
+  async function savePost(ev: React.FormEvent<HTMLFormElement>) {
+    ev.preventDefault(); if (!sb) return; setErr("");
+    const f = new FormData(ev.currentTarget);
+    const title_sr = String(f.get("title_sr") || "").trim();
+    let slug = String(f.get("slug") || "").trim() || slugify(title_sr);
+    const row: any = { slug, title_sr, title_en: String(f.get("title_en") || "") || null,
+      excerpt_sr: String(f.get("excerpt_sr") || "") || null, excerpt_en: String(f.get("excerpt_en") || "") || null,
+      body_sr: String(f.get("body_sr") || "") || null, body_en: String(f.get("body_en") || "") || null,
+      cover_image: String(f.get("cover_image") || "") || null, status: String(f.get("status") || "draft") };
+    try {
+      if (postEditing?.id) { const { error } = await sb.from("posts").update(row).eq("id", postEditing.id); if (error) throw error; }
+      else { const { error } = await sb.from("posts").insert(row); if (error) throw error; }
+      setShowPostForm(false); setPostEditing(null); loadPosts();
+    } catch (e: any) { setErr(e.message || "Error"); }
+  }
+  async function delPost(id: string) { if (!sb || !confirm("Obrisati post? / Delete post?")) return; await sb.from("posts").delete().eq("id", id); loadPosts(); }
 
   const checkAdmin = useCallback(async (id: string) => {
     if (!sb) return;
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); }
-  }, [sb, load, loadReviews]);
+    if (admin) { load(); loadReviews(); loadPosts(); }
+  }, [sb, load, loadReviews, loadPosts]);
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -119,7 +144,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "banners" | "reviews", label: string) => (
+  const tabBtn = (id: "banners" | "reviews" | "blog", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -128,6 +153,7 @@ export default function BannerAdmin() {
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
         {tabBtn("banners", "Baneri / Banners")}
         {tabBtn("reviews", `Recenzije / Reviews${reviews.filter((r) => r.status === "pending").length ? " (" + reviews.filter((r) => r.status === "pending").length + ")" : ""}`)}
+        {tabBtn("blog", "Blog")}
       </div>
 
       {tab === "banners" && (<>
@@ -205,6 +231,49 @@ export default function BannerAdmin() {
             ))}
         </div>
       )}
+
+      {tab === "blog" && (<>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <h1>Blog</h1>
+          {!showPostForm && <button className="btn btn--primary" onClick={() => { setPostEditing(null); setShowPostForm(true); }}>+ Novi post / New post</button>}
+        </div>
+        {showPostForm ? (
+          <form onSubmit={savePost} className="booking" style={{ position: "static", marginTop: 16, display: "grid", gap: 12 }}>
+            <div className="field"><label>Slug (opciono — auto iz naslova)</label><input name="slug" defaultValue={postEditing?.slug || ""} placeholder="npr. najlepse-planine-srbije" /></div>
+            <div className="field-row">
+              <div className="field"><label>Naslov (SR)</label><input name="title_sr" required defaultValue={postEditing?.title_sr || ""} /></div>
+              <div className="field"><label>Naslov (EN)</label><input name="title_en" defaultValue={postEditing?.title_en || ""} /></div>
+            </div>
+            <div className="field-row">
+              <div className="field"><label>Kratak opis (SR)</label><input name="excerpt_sr" defaultValue={postEditing?.excerpt_sr || ""} /></div>
+              <div className="field"><label>Kratak opis (EN)</label><input name="excerpt_en" defaultValue={postEditing?.excerpt_en || ""} /></div>
+            </div>
+            <div className="field"><label>Naslovna slika (URL)</label><input name="cover_image" defaultValue={postEditing?.cover_image || ""} placeholder="https://..." /></div>
+            <div className="field"><label>Tekst (SR)</label><textarea name="body_sr" rows={10} defaultValue={postEditing?.body_sr || ""} /></div>
+            <div className="field"><label>Tekst (EN)</label><textarea name="body_en" rows={8} defaultValue={postEditing?.body_en || ""} /></div>
+            <div className="field"><label>Status</label><select name="status" defaultValue={postEditing?.status || "draft"}><option value="draft">draft (nije objavljeno)</option><option value="published">published (objavljeno)</option></select></div>
+            {err && <p style={{ color: "var(--danger)", fontSize: ".9rem" }}>{err}</p>}
+            <div style={{ display: "flex", gap: 10 }}>
+              <button className="btn btn--primary" type="submit">Sačuvaj / Save</button>
+              <button className="btn btn--outline" type="button" onClick={() => { setShowPostForm(false); setPostEditing(null); }}>Otkaži / Cancel</button>
+            </div>
+          </form>
+        ) : (
+          <div style={{ display: "grid", gap: 10, marginTop: 20 }}>
+            {posts.length === 0 ? <div className="empty">Još nema postova. / No posts yet.</div> :
+              posts.map((b) => (
+                <div key={b.id} className="admin-row">
+                  <div><strong>{b.title_sr}</strong> <span style={{ color: b.status === "published" ? "var(--green-600)" : "var(--slate)", fontSize: ".82rem" }}>· {b.status}</span><div style={{ color: "var(--slate)", fontSize: ".8rem" }}>/blog/{b.slug}</div></div>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button className="btn btn--outline" onClick={() => { setPostEditing(b); setShowPostForm(true); }}>Izmeni / Edit</button>
+                    <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delPost(b.id)}>Delete</button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
+      </>)}
+
     </div>
   );
 }
