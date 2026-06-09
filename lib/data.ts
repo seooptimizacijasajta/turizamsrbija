@@ -36,6 +36,7 @@ function rowToListing(r: any): Listing {
     featured: !!r.featured,
     featuredHome: !!r.featured_home,
     bold: !!r.bold,
+    createdAt: r.created_at || undefined,
   };
 }
 
@@ -45,7 +46,7 @@ export async function getListings(kind?: Kind): Promise<Listing[]> {
     let q = sb
       .from("listings")
       .select("*, listing_images(url,sort)")
-      .eq("status", "approved");
+      .eq("status", "approved").order("created_at", { ascending: false });
     if (kind) q = q.eq("kind", kind);
     const { data, error } = await q;
     if (!error && data && data.length) return data.map(rowToListing);

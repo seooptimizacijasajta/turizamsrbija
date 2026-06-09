@@ -25,4 +25,5 @@ export interface Listing {
   featured?: boolean;
   featuredHome?: boolean;
   bold?: boolean;
+  createdAt?: string;
 }

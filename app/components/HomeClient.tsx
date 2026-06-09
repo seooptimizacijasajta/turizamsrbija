@@ -31,6 +31,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
   const destCount = all.filter((d) => d.type !== "stay").length;
   const stayCount = all.filter((d) => d.type === "stay").length;
   const regionsCount = new Set(all.map((d) => d.region.sr).filter(Boolean)).size;
+  const newest = all.slice(0, 6);
 
   return (
     <>
@@ -95,6 +96,16 @@ export default function HomeClient({ all }: { all: Listing[] }) {
             <p className="section-lead">{t("featured_lead")}</p>
           </div>
           <div className="card-grid">{fallbackFeatured.map((d) => <ListingCard key={d.id} item={d} />)}</div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <div className="eyebrow">{t("newest_eyebrow")}</div>
+            <h2 className="section-title">{t("newest_title")}</h2>
+          </div>
+          <div className="card-grid">{newest.map((d) => <ListingCard key={d.id} item={d} />)}</div>
         </div>
       </section>
 

@@ -4,6 +4,9 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  newest_eyebrow: { sr: "Sveže", en: "Fresh" },
+  newest_title: { sr: "Najnoviji oglasi", en: "Newest listings" },
+
   nav_map: { sr: "Mapa", en: "Map" },
 
   news_title: { sr: "Najbolje ponude u vašem inboxu", en: "The best offers in your inbox" },
