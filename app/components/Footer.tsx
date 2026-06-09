@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
-import { sectionPath } from "@/lib/slug";
+import { sectionPath, infoPath } from "@/lib/slug";
 
 export default function Footer() {
   const { lang, t } = useLang();
@@ -27,8 +27,8 @@ export default function Footer() {
             [t("nav_stays"), sectionPath("stay", lang)],
           ])}
           {col(t("foot_company"), [
-            [t("foot_about_link"), "#"], [t("foot_contact"), "#"],
-            [t("foot_terms"), "#"], [t("foot_privacy"), "#"],
+            [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
+            [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
           ])}
           {col(t("foot_follow"), [["Instagram", "#"], ["Facebook", "#"], ["YouTube", "#"]])}
         </div>

@@ -75,7 +75,17 @@ export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
 const CUSTOM_PAIRS: [string, string][] = [
   ["apartmani-beograd", "belgrade-apartments"],
   ["oglasi-smestaj", "list-your-space"],
+  ["o-nama", "about"],
+  ["kontakt", "contact"],
+  ["uslovi", "terms"],
+  ["privatnost", "privacy"],
 ];
+
+export function infoPath(which: "about" | "contact" | "terms" | "privacy", locale: Lang) {
+  const map: Record<string, [string, string]> = { about: ["o-nama", "about"], contact: ["kontakt", "contact"], terms: ["uslovi", "terms"], privacy: ["privatnost", "privacy"] };
+  const [sr, en] = map[which];
+  return (locale === "en" ? "/en/" : "/") + (locale === "en" ? en : sr);
+}
 export function customSeg(seg: string, target: Lang): string | null {
   for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "en" ? en : sr;
   return null;
