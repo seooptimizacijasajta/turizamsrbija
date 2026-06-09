@@ -3,6 +3,8 @@ import { Listing, Kind } from "@/lib/types";
 import type { Banner } from "@/lib/banners";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
+import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
+import { homePath } from "@/lib/slug";
 
 const HERO: Record<Kind, { title: string; lead: string; bg: string }> = {
   mountain: { title: "nav_mountains", lead: "lead_mountain", bg: "1551524559-8af4e6624178" },
@@ -13,7 +15,7 @@ const HERO: Record<Kind, { title: string; lead: string; bg: string }> = {
 };
 
 export default function SectionPage({ items, kind, banners = [] }: { items: Listing[]; kind: Kind; banners?: Banner[] }) {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const h = HERO[kind];
   return (
     <>
@@ -23,6 +25,7 @@ export default function SectionPage({ items, kind, banners = [] }: { items: List
       >
         <div className="container"><h1>{t(h.title)}</h1><p>{t(h.lead)}</p></div>
       </section>
+      <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t(NAVKEY[kind]) }]} /></div>
       <SectionExplorer items={items} kind={kind} banners={banners} />
     </>
   );

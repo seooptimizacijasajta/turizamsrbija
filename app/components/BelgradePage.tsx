@@ -2,6 +2,8 @@
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
+import Breadcrumbs from "./Breadcrumbs";
+import { homePath } from "@/lib/slug";
 
 export default function BelgradePage({ items }: { items: Listing[] }) {
   const { t, lang } = useLang();
@@ -13,6 +15,7 @@ export default function BelgradePage({ items }: { items: Listing[] }) {
           <p>{lang === "en" ? "Apartments across Belgrade's municipalities." : "Apartmani po svim beogradskim opštinama."}</p>
         </div>
       </section>
+      <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_belgrade") }]} /></div>
       <SectionExplorer items={items} kind="stay" />
     </>
   );

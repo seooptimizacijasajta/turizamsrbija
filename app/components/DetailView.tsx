@@ -7,6 +7,8 @@ import type { GooglePlace } from "@/lib/google";
 import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
+import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
+import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
 
@@ -51,6 +53,7 @@ export default function DetailView({
       <div className="container">
         <div className="detail-wrap">
           <div className="detail-main">
+            <Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t(NAVKEY[item.type]), href: sectionPath(item.type, lang) }, { name: L(item.name, lang) }]} />
             <span className="card-region">{t("type_" + item.type)} · {L(item.region, lang)}</span>
             <h1>{L(item.name, lang)}</h1>
             <div className="detail-meta">{meta.map((m, i) => <span key={i}>{m}</span>)}</div>

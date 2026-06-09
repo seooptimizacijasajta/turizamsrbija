@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
+import Breadcrumbs from "./Breadcrumbs";
+import { homePath } from "@/lib/slug";
 
 const C: Record<"sr" | "en", any> = {
   sr: {
@@ -20,7 +22,7 @@ const C: Record<"sr" | "en", any> = {
 };
 
 export default function ListYourSpace() {
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const c = C[lang];
   const acct = lang === "en" ? "/en/nalog" : "/nalog";
   return (
@@ -33,6 +35,7 @@ export default function ListYourSpace() {
           <div className="hero-actions"><Link className="btn btn--primary btn--lg" href={acct}>{c.cta}</Link></div>
         </div>
       </section>
+      <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_list") }]} /></div>
       <section className="section"><div className="container">
         <div className="card-grid">
           {c.steps.map((s: string[], i: number) => (

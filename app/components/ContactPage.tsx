@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
+import Breadcrumbs from "./Breadcrumbs";
+import { homePath } from "@/lib/slug";
 
 export default function ContactPage() {
   const { lang } = useLang();
@@ -21,6 +23,7 @@ export default function ContactPage() {
       <section className="page-hero" style={{ backgroundImage: "linear-gradient(180deg,rgba(15,61,46,.3),rgba(15,61,46,.7)),url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80')" }}>
         <div className="container"><h1>{en ? "Contact" : "Kontakt"}</h1><p>{en ? "Get in touch with the Turizam Srbija team." : "Javite se timu Turizam Srbija."}</p></div>
       </section>
+      <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: en ? "Home" : "Početna", href: homePath(lang) }, { name: en ? "Contact" : "Kontakt" }]} /></div>
       <section className="section"><div className="container" style={{ maxWidth: 620 }}>
         <p style={{ color: "var(--slate)", marginBottom: 20 }}>📧 info@turizamsrbija.com · 📍 Beograd, Srbija</p>
         {sent ? <div className="form-success show">{en ? "Thank you! We'll reply soon." : "Hvala! Javljamo se uskoro."}</div> : (

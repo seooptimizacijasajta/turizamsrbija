@@ -238,3 +238,10 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .faq-ic{font-size:1.4rem;color:var(--green-600);transition:transform .2s;flex:none}
 .faq-item[open] .faq-ic{transform:rotate(45deg)}
 .faq-a{padding:0 18px 16px;color:var(--slate);line-height:1.7}
+
+/* ---------- Breadcrumbs ---------- */
+.breadcrumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.85rem;color:var(--slate);margin-bottom:12px}
+.breadcrumbs a{color:var(--green-700);font-weight:600}
+.breadcrumbs a:hover{text-decoration:underline}
+.bc-sep{color:var(--line)}
+.bc-cur{color:var(--slate)}

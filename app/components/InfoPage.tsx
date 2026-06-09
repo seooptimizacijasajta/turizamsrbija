@@ -1,5 +1,7 @@
 "use client";
 import { useLang } from "@/lib/i18n";
+import Breadcrumbs from "./Breadcrumbs";
+import { homePath } from "@/lib/slug";
 
 const CONTENT: Record<string, { sr: [string, string]; en: [string, string] }> = {
   about: {
@@ -21,6 +23,7 @@ export default function InfoPage({ page }: { page: "about" | "terms" | "privacy"
   const [title, body] = CONTENT[page][lang];
   return (
     <section className="section"><div className="container" style={{ maxWidth: 760 }}>
+      <Breadcrumbs items={[{ name: lang === "en" ? "Home" : "Početna", href: homePath(lang) }, { name: title }]} />
       <h1 style={{ marginBottom: 18 }}>{title}</h1>
       <p style={{ color: "var(--slate)", lineHeight: 1.8, whiteSpace: "pre-line" }}>{body}</p>
     </div></section>
