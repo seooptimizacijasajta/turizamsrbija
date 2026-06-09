@@ -19,10 +19,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const [all, sidebar, rev, google, blocked] = await Promise.all([
     getListings(), getBanners("sidebar"), getReviews(item.id), getGooglePlace(item.googlePlaceId), getBlockedDates(item.id),
   ]);
-  const nearby = all
-    .filter((d) => d.type === "stay" && d.id !== item.id &&
-      (d.place === item.name.sr || d.region.sr === item.region.sr))
-    .slice(0, 3);
-  return <DetailView item={item} nearby={nearby} sidebarBanners={sidebar}
+  const nearby = all.filter((d) => d.type === "stay" && d.id !== item.id && (d.place === item.name.sr || d.region.sr === item.region.sr)).slice(0, 3);
+  const nearbyIds = new Set(nearby.map((n) => n.id));
+  const related = all.filter((d) => d.type === item.type && d.id !== item.id && !nearbyIds.has(d.id)).slice(0, 4);
+  return <DetailView item={item} nearby={nearby} related={related} sidebarBanners={sidebar}
     reviews={rev.reviews} reviewAvg={rev.avg} reviewCount={rev.count} google={google} blocked={blocked} />;
 }

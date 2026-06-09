@@ -4,6 +4,9 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  detail_related: { sr: "Povezane destinacije", en: "Related destinations" },
+  detail_similar: { sr: "Sličan smeštaj", en: "Similar stays" },
+
   nav_blog: { sr: "Blog", en: "Blog" },
   blog_h: { sr: "Blog — vodič kroz Srbiju", en: "Blog — guide to Serbia" },
   blog_lead: { sr: "Tekstovi o destinacijama, gradovima i mestima Srbije.", en: "Articles about Serbia's destinations, cities and places." },

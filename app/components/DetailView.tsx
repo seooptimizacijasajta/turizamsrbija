@@ -18,10 +18,10 @@ function ytId(url: string): string | null {
 }
 
 export default function DetailView({
-  item, nearby, sidebarBanners = [], reviews = [], reviewAvg = 0, reviewCount = 0, google = null, blocked = [],
+  item, nearby, sidebarBanners = [], reviews = [], reviewAvg = 0, reviewCount = 0, google = null, blocked = [], related = [],
 }: {
   item: Listing; nearby: Listing[]; sidebarBanners?: Banner[];
-  reviews?: Review[]; reviewAvg?: number; reviewCount?: number; google?: GooglePlace | null; blocked?: string[];
+  reviews?: Review[]; reviewAvg?: number; reviewCount?: number; google?: GooglePlace | null; blocked?: string[]; related?: Listing[];
 }) {
   const { lang, t } = useLang();
   const displayRating = reviewCount > 0 ? reviewAvg : item.rating;
@@ -143,6 +143,12 @@ export default function DetailView({
               <div className="detail-section">
                 <h2>{t("detail_nearby")}</h2>
                 <div className="card-grid">{nearby.map((n) => <ListingCard key={n.id} item={n} />)}</div>
+              </div>
+            )}
+            {related.length > 0 && (
+              <div className="detail-section">
+                <h2>{t(item.type === "stay" ? "detail_similar" : "detail_related")}</h2>
+                <div className="card-grid">{related.map((n) => <ListingCard key={n.id} item={n} />)}</div>
               </div>
             )}
           </div>
