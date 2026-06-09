@@ -12,7 +12,8 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"banners" | "reviews" | "blog">("banners");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog">("stats");
+  const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [postEditing, setPostEditing] = useState<any>(null);
   const [showPostForm, setShowPostForm] = useState(false);
@@ -40,6 +41,19 @@ export default function BannerAdmin() {
     const { data } = await sb.from("posts").select("*").order("created_at", { ascending: false });
     setPosts(data || []);
   }, [sb]);
+  const loadStats = useCallback(async () => {
+    if (!sb) return;
+    const c = async (table: string, f?: (q: any) => any) => { let q = sb.from(table).select("*", { count: "exact", head: true }); if (f) q = f(q); const { count } = await q; return count || 0; };
+    setStats({
+      listings: await c("listings"),
+      listingsPending: await c("listings", (q) => q.eq("status", "pending")),
+      inquiries: await c("inquiries"),
+      reviews: await c("reviews"),
+      reviewsPending: await c("reviews", (q) => q.eq("status", "pending")),
+      subscribers: await c("newsletter"),
+      posts: await c("posts"),
+    });
+  }, [sb]);
   async function savePost(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault(); if (!sb) return; setErr("");
     const f = new FormData(ev.currentTarget);
@@ -62,8 +76,8 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); }
-  }, [sb, load, loadReviews, loadPosts]);
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); }
+  }, [sb, load, loadReviews, loadPosts, loadStats]);
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -147,17 +161,35 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "banners" | "reviews" | "blog", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
   return (
     <div className="container admin-wrap" style={{ padding: "40px 0" }}>
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+        {tabBtn("stats", "Statistika")}
         {tabBtn("banners", "Baneri / Banners")}
         {tabBtn("reviews", `Recenzije / Reviews${reviews.filter((r) => r.status === "pending").length ? " (" + reviews.filter((r) => r.status === "pending").length + ")" : ""}`)}
         {tabBtn("blog", "Blog")}
       </div>
+
+      {tab === "stats" && (
+        <div>
+          <h1 style={{ marginBottom: 20 }}>Statistika</h1>
+          {!stats ? <div className="empty">Učitavanje… / Loading…</div> : (
+            <div className="stats">
+              <div className="stat"><b>{stats.listings}</b><span>Smeštaja / Listings</span></div>
+              <div className="stat"><b style={{ color: stats.listingsPending ? "var(--sun)" : undefined }}>{stats.listingsPending}</b><span>Na čekanju / Pending</span></div>
+              <div className="stat"><b>{stats.inquiries}</b><span>Upita / Inquiries</span></div>
+              <div className="stat"><b>{stats.reviews}</b><span>Recenzija / Reviews</span></div>
+              <div className="stat"><b style={{ color: stats.reviewsPending ? "var(--sun)" : undefined }}>{stats.reviewsPending}</b><span>Recenzije na čekanju</span></div>
+              <div className="stat"><b>{stats.subscribers}</b><span>Newsletter prijava</span></div>
+              <div className="stat"><b>{stats.posts}</b><span>Blog postova / Posts</span></div>
+            </div>
+          )}
+        </div>
+      )}
 
       {tab === "banners" && (<>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
