@@ -47,6 +47,7 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
     if (sort === "rating") out = [...out].sort((a, b) => b.rating - a.rating);
     else if (sort === "price_low") out = [...out].sort((a, b) => a.price - b.price);
     else if (sort === "price_high") out = [...out].sort((a, b) => b.price - a.price);
+    else if (sort === "popular") out = [...out].sort((a, b) => (b.views || 0) - (a.views || 0));
     out = [...out].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     return out;
   }, [items, q, region, cat, sort, lang, minP, maxP, kind]);
@@ -89,6 +90,7 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
         <select value={sort} onChange={(e) => setSort(e.target.value)}>
           <option value="featured">{t("sort_featured")}</option>
           <option value="rating">{t("sort_rating")}</option>
+          <option value="popular">{t("sort_popular")}</option>
           <option value="price_low">{t("sort_price_low")}</option>
           <option value="price_high">{t("sort_price_high")}</option>
         </select>

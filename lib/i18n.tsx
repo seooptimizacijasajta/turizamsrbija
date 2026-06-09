@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  sort_popular: { sr: "Najpopularnije", en: "Most popular" },
   detail_views: { sr: "pregleda", en: "views" },
 
   price_from: { sr: "Cena od €", en: "Price from €" },

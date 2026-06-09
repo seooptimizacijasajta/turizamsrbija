@@ -3,6 +3,7 @@ import { Listing, Kind } from "@/lib/types";
 import type { Banner } from "@/lib/banners";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
+import SectionSEO from "./SectionSEO";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 
@@ -27,6 +28,7 @@ export default function SectionPage({ items, kind, banners = [] }: { items: List
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t(NAVKEY[kind]) }]} /></div>
       <SectionExplorer items={items} kind={kind} banners={banners} />
+      <SectionSEO kind={kind} />
     </>
   );
 }
