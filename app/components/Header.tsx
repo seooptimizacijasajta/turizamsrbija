@@ -43,6 +43,7 @@ export default function Header() {
             </div>
           </div>
 
+          <Link href={lang === "en" ? "/en/map" : "/mapa"} className={path === (lang === "en" ? "/en/map" : "/mapa") ? "active" : ""} onClick={close}>{t("nav_map")}</Link>
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
           <Link href={lang === "en" ? "/en/blog" : "/blog"} className={(path === "/blog" || path === "/en/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
