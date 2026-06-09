@@ -57,7 +57,7 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .btn--block{width:100%;justify-content:center}
 .btn--lg{padding:15px 30px;font-size:1.02rem}
 
-.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.site-header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.86);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.02em}
 .brand .mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--green-500),var(--sky));color:#fff;font-size:1.1rem}
@@ -196,7 +196,7 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .nav-dd{position:relative}
 .nav-dd-trigger{padding:10px 14px;border-radius:10px;font-weight:600;font-size:.95rem;color:var(--slate)}
 .nav-dd-trigger:hover,.nav-dd-trigger.active{background:var(--green-50);color:var(--green-700)}
-.nav-dd-panel{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-md);padding:8px;min-width:180px;z-index:60}
+.nav-dd-panel{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-md);padding:8px;min-width:180px;z-index:1001}
 .nav-dd-panel.open{display:flex;flex-direction:column}
 .nav-dd:hover .nav-dd-panel{display:flex;flex-direction:column}
 .nav-dd-panel a{padding:9px 12px;border-radius:8px;color:var(--slate);font-weight:600;font-size:.92rem}
@@ -263,3 +263,4 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .cookie{position:fixed;left:18px;bottom:18px;max-width:440px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:16px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;z-index:90}
 .cookie p{font-size:.88rem;color:var(--slate);margin:0;flex:1;min-width:200px}
 @media (max-width:520px){ .cookie{left:12px;right:12px;bottom:12px;max-width:none} }
+.fab-top{background:var(--ink)}

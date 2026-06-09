@@ -7,13 +7,11 @@ const VIBER = "%2B381644598778";
 export default function FloatingWidgets() {
   const aiEnabled = process.env.NEXT_PUBLIC_AI_ENABLED === "1";
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const id = process.env.NEXT_PUBLIC_TAWK_ID;
-    if (!id || document.getElementById("tawk-sc")) return;
-    const sc = document.createElement("script");
-    sc.id = "tawk-sc"; sc.async = true; sc.src = `https://embed.tawk.to/${id}`;
-    sc.charset = "UTF-8"; sc.setAttribute("crossorigin", "*");
-    document.body.appendChild(sc);
+    const onScroll = () => setScrolled(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll); onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const [msgs, setMsgs] = useState<{ role: "user" | "assistant"; content: string }[]>([
     { role: "assistant", content: "Zdravo! 👋 Ja sam asistent Turizam Srbija. Kako mogu da pomognem? (Hi! How can I help?)" },
@@ -37,6 +35,7 @@ export default function FloatingWidgets() {
   return (
     <>
       <div className="fab-stack">
+        {scrolled && <button className="fab fab-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} title="Na vrh / Top" aria-label="Top" type="button">↑</button>}
         <a className="fab fab-wa" href={`https://wa.me/${WA}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M.06 24l1.68-6.13A11.86 11.86 0 010 11.93C0 5.35 5.36 0 11.94 0a11.86 11.86 0 018.4 3.49 11.82 11.82 0 013.48 8.4c0 6.58-5.36 11.93-11.95 11.93a11.9 11.9 0 01-5.7-1.45L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 005.02 1.38c5.48 0 9.94-4.45 9.94-9.93a9.93 9.93 0 00-16.96-7.02 9.86 9.86 0 00-2.9 7.02c0 1.9.55 3.76 1.6 5.37l.24.38-1 3.63 3.7-.97zM17.9 14.3c-.07-.12-.27-.2-.57-.35s-1.77-.87-2.04-.97-.47-.15-.66.15-.76.96-.93 1.16-.34.22-.63.07a8.13 8.13 0 01-2.4-1.48 9 9 0 01-1.66-2.06c-.17-.3 0-.45.13-.6.13-.13.3-.34.44-.5.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5l-.57-.01c-.2 0-.52.07-.8.37s-1.05 1.02-1.05 2.5 1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.71.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42z"/></svg>
         </a>
