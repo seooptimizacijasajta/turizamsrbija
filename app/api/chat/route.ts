@@ -8,7 +8,17 @@ Gosti šalju upit preko forme na stranici smeštaja; nema obavezne online uplate
 Kontakt: info@turizamsrbija.com, Viber/WhatsApp +381 64 4598778.
 Ako ne znaš nešto specifično, predloži slanje upita ili kontakt. Ne izmišljaj cene ni dostupnost.`;
 
+const rateHits = new Map<string, number[]>();
+function limited(ip: string): boolean {
+  const now = Date.now(); const win = 10 * 60 * 1000; const max = 25;
+  const arr = (rateHits.get(ip) || []).filter((t) => now - t < win);
+  arr.push(now); rateHits.set(ip, arr);
+  return arr.length > max;
+}
+
 export async function POST(req: NextRequest) {
+  const ip = (req.headers.get("x-forwarded-for") || "0").split(",")[0].trim();
+  if (limited(ip)) return NextResponse.json({ reply: "Previše poruka u kratkom roku. Pokušajte malo kasnije ili nas kontaktirajte. / Too many messages, please try again later." }, { status: 429 });
   let body: any; try { body = await req.json(); } catch { return NextResponse.json({ error: "bad" }, { status: 400 }); }
   const key = process.env.AI_API_KEY;
   if (!key) return NextResponse.json({ reply: "AI asistent još nije aktiviran. Pišite nam na info@turizamsrbija.com ili Viber/WhatsApp +381 64 4598778. · The AI assistant isn't active yet." });

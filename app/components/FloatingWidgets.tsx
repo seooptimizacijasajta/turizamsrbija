@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WA = "381644598778";
 const VIBER = "%2B381644598778";
 
 export default function FloatingWidgets() {
+  const aiEnabled = process.env.NEXT_PUBLIC_AI_ENABLED === "1";
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const id = process.env.NEXT_PUBLIC_TAWK_ID;
+    if (!id || document.getElementById("tawk-sc")) return;
+    const sc = document.createElement("script");
+    sc.id = "tawk-sc"; sc.async = true; sc.src = `https://embed.tawk.to/${id}`;
+    sc.charset = "UTF-8"; sc.setAttribute("crossorigin", "*");
+    document.body.appendChild(sc);
+  }, []);
   const [msgs, setMsgs] = useState<{ role: "user" | "assistant"; content: string }[]>([
     { role: "assistant", content: "Zdravo! 👋 Ja sam asistent Turizam Srbija. Kako mogu da pomognem? (Hi! How can I help?)" },
   ]);
@@ -34,10 +43,10 @@ export default function FloatingWidgets() {
         <a className="fab fab-viber" href={`viber://chat?number=${VIBER}`} title="Viber" aria-label="Viber">
           <svg viewBox="0 0 24 24"><path d="M11.4 0C9.5.03 5.4.34 3.1 2.45 1.4 4.13 .8 6.6.73 9.66c-.06 3.05-.14 8.78 5.38 10.33v2.37s-.04.96.6 1.15c.76.24 1.2-.49 1.93-1.27l1.36-1.53c3.78.31 6.68-.41 7-.52.77-.25 5.12-.8 5.83-6.58.73-5.96-.35-9.73-2.3-11.43l-.01-.01C20.04.96 18.5.4 16.04.1 16.04.1 14.2-.03 11.4 0zm.13 1.7c2.37-.02 3.97.1 3.97.1 2.08.25 3.32.7 4.2 1.46 1.65 1.42 2.49 4.82 1.88 9.8-.6 4.83-4.12 5.13-4.77 5.34-.28.09-2.82.72-6.03.51 0 0-2.4 2.9-3.15 3.64-.12.12-.25.16-.34.14-.13-.03-.16-.18-.16-.4l.02-3.95c-4.67-1.3-4.4-6.17-4.35-8.72.05-2.55.54-4.6 1.97-6 1.94-1.74 5.43-2 5.43-2l1.51-.06zm.6 2.84a.34.34 0 00-.34.33c0 .19.15.34.34.34a4.46 4.46 0 014.49 4.5c0 .19.15.34.34.34s.34-.16.34-.35a5.13 5.13 0 00-5.5-5.16zm-3.62.9a.6.6 0 00-.45.13l-.6.45c-.3.25-.55.6-.4 1.32 0 0 .42 1.6 1.92 3.3a9.1 9.1 0 003.45 2.46l.96.4c.7.23 1.07.05 1.35-.28l.43-.5c.2-.27.16-.55-.05-.74l-1.3-1.02c-.2-.13-.46-.1-.65.1l-.34.4c-.18.18-.5.18-.5.18s-1.06-.31-1.96-1.23c-.9-.92-1.2-1.97-1.2-1.97s0-.31.18-.5l.4-.34c.2-.18.22-.45.1-.65l-1-1.3a.55.55 0 00-.42-.18zm3.65.27a.34.34 0 100 .67 2.55 2.55 0 012.57 2.6.34.34 0 10.67 0 3.22 3.22 0 00-3.24-3.27zm.05 1.34a.33.33 0 00-.05.66c.6.07.86.34.92.94a.33.33 0 00.66-.07 1.43 1.43 0 00-1.53-1.53z"/></svg>
         </a>
-        <button className="fab fab-chat" onClick={() => setOpen(true)} title="AI asistent" aria-label="Chat">💬</button>
+        {aiEnabled && <button className="fab fab-chat" onClick={() => setOpen(true)} title="AI asistent" aria-label="Chat">💬</button>}
       </div>
 
-      {open && (
+      {aiEnabled && open && (
         <div className="chat-panel">
           <div className="chat-head"><span>TS asistent</span><button onClick={() => setOpen(false)} style={{ color: "#fff", fontSize: "1.2rem" }}>×</button></div>
           <div className="chat-msgs">

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { useLang } from "@/lib/i18n";
 import ListingForm from "./ListingForm";
+import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 
 export default function Account() {
@@ -16,6 +17,7 @@ export default function Account() {
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string>("");
   const [rows, setRows] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any>(null);
@@ -63,11 +65,11 @@ export default function Account() {
           setErr("Lozinka mora imati najmanje 8 znakova, malo i veliko slovo, broj i znak. / Password must be 8+ chars with lower, upper, number and symbol.");
           setBusy(false); return;
         }
-        const { error } = await sb.auth.signUp({ email: em, password: pw });
+        const { error } = await sb.auth.signUp({ email: em, password: pw, options: captchaToken ? { captchaToken } : undefined });
         if (error) throw error;
         setMsg(t("acc_check_email"));
       } else {
-        const { error } = await sb.auth.signInWithPassword({ email: em, password: pw });
+        const { error } = await sb.auth.signInWithPassword({ email: em, password: pw, options: captchaToken ? { captchaToken } : undefined });
         if (error) throw error;
       }
     } catch (e: any) {
@@ -119,6 +121,7 @@ export default function Account() {
           <form onSubmit={auth}>
             <div className="field"><label>{t("acc_email")}</label><input required type="email" name="email" /></div>
             <div className="field"><label>{t("acc_password")}</label><input required type="password" name="password" minLength={6} /></div>
+            <Turnstile onToken={setCaptchaToken} />
             <button className="btn btn--primary btn--block" disabled={busy} type="submit">
               {busy ? "..." : mode === "login" ? t("acc_login_btn") : t("acc_signup_btn")}
             </button>

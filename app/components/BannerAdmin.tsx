@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { slugify } from "@/lib/slug";
+import Turnstile from "./Turnstile";
 
 const POSITIONS = ["top", "sidebar", "bottom", "inlist"];
 const KINDS = ["mountain", "lake", "spa", "ethno", "stay"];
@@ -22,6 +23,7 @@ export default function BannerAdmin() {
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
   const [pos, setPos] = useState("top");
+  const [captchaToken, setCaptchaToken] = useState<string>("");
 
   const load = useCallback(async () => {
     if (!sb) return;
@@ -79,7 +81,7 @@ export default function BannerAdmin() {
   async function login(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault(); if (!sb) return; setErr(""); setBusy(true);
     const f = new FormData(ev.currentTarget);
-    const { error } = await sb.auth.signInWithPassword({ email: String(f.get("email")), password: String(f.get("password")) });
+    const { error } = await sb.auth.signInWithPassword({ email: String(f.get("email")), password: String(f.get("password")), options: captchaToken ? { captchaToken } : undefined });
     if (error) setErr(error.message); setBusy(false);
   }
 
@@ -127,6 +129,7 @@ export default function BannerAdmin() {
           <form onSubmit={login}>
             <div className="field"><label>Email</label><input required type="email" name="email" /></div>
             <div className="field"><label>Lozinka / Password</label><input required type="password" name="password" /></div>
+            <Turnstile onToken={setCaptchaToken} />
             <button className="btn btn--primary btn--block" disabled={busy} type="submit">Prijava / Log in</button>
           </form>
           {err && <p className="booking-note" style={{ color: "var(--danger)" }}>{err}</p>}
