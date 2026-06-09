@@ -277,3 +277,14 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .prose h3{font-size:1.2rem;margin:26px 0 8px;color:var(--ink)}
 .prose p{margin:0 0 14px;line-height:1.75;color:var(--slate);font-size:1.02rem}
 .prose strong{color:var(--ink)}
+
+/* Skeleton loading */
+.sk{position:relative;overflow:hidden;background:#e9edf0;border-radius:8px;display:block}
+.sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:sk-shimmer 1.3s infinite}
+@keyframes sk-shimmer{100%{transform:translateX(100%)}}
+.sk-hero{height:300px;border-radius:0}
+.sk-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.sk-pill{height:42px;border-radius:999px}
+.sk-card{pointer-events:none}
+.sk-media{aspect-ratio:16/11;border-radius:0}
+.sk-line{height:13px;border-radius:6px}
