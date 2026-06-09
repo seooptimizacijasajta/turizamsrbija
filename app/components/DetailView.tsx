@@ -8,6 +8,7 @@ import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
+import ShareButtons from "./ShareButtons";
 import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
@@ -57,6 +58,7 @@ export default function DetailView({
             <span className="card-region">{t("type_" + item.type)} · {L(item.region, lang)}</span>
             <h1>{L(item.name, lang)}</h1>
             <div className="detail-meta">{meta.map((m, i) => <span key={i}>{m}</span>)}</div>
+            <ShareButtons title={L(item.name, lang)} />
             <div className="detail-section"><h2>{t("detail_about")}</h2><p style={{ whiteSpace: "pre-line" }}>{L(item.desc, lang)}</p></div>
             <div className="detail-section">
               <h2>{t("detail_highlights")}</h2>

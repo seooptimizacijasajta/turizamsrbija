@@ -252,3 +252,9 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .newsletter-form{display:flex;gap:10px;flex-wrap:wrap}
 .newsletter-form input{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:12px 18px;min-width:240px}
 .newsletter-form input::placeholder{color:#9fc7b8}
+
+/* ---------- Share buttons ---------- */
+.share{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.share-label{font-size:.85rem;color:var(--slate);font-weight:700}
+.share-btn{color:#fff;font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:999px;border:none;cursor:pointer;text-decoration:none}
+.share-btn:hover{opacity:.9}
