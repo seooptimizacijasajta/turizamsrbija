@@ -6,6 +6,8 @@ import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 import { slugify, sectionPath } from "@/lib/slug";
 import ListingCard from "./ListingCard";
+import FaqAccordion from "./FaqAccordion";
+import { generalFaqs } from "@/lib/faq";
 
 const CATS = [
   { kind: "mountain" as const, key: "nav_mountains", img: "1551524559-8af4e6624178", sub: "Kopaonik · Zlatibor · Tara" },
@@ -143,6 +145,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
           </div>
         </div>
       </section>
+      <FaqAccordion items={generalFaqs(lang)} heading={lang === "en" ? "Frequently asked questions" : "Često postavljana pitanja"} />
     </>
   );
 }

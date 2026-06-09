@@ -25,6 +25,19 @@ const MAX_MB = 5;
 const MAX_PHOTOS = 20;
 const wordCount = (s: string) => s.trim().split(/\s+/).filter(Boolean).length;
 
+// Verify the file's real bytes match an image signature (defends against renamed/malicious files)
+async function sniffImage(file: File): Promise<boolean> {
+  const buf = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  const hex = Array.from(buf.slice(0, 12)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  if (hex.startsWith("ffd8ff")) return true;                       // JPEG
+  if (hex.startsWith("89504e470d0a1a0a")) return true;             // PNG
+  if (hex.startsWith("52494646") && hex.slice(16, 24) === "57454250") return true; // RIFF...WEBP
+  // AVIF / HEIF: ....ftyp + avif/avis brand
+  const asc = String.fromCharCode(...buf);
+  if (asc.includes("ftyp") && /avif|avis|mif1|heic/.test(asc)) return true;
+  return false;
+}
+
 export default function ListingForm({
   sb, ownerId, existing, onSaved, onCancel,
 }: {
@@ -58,6 +71,7 @@ export default function ListingForm({
         if (next.length >= MAX_PHOTOS) { setErr(`Maksimum ${MAX_PHOTOS} fotografija. / Max ${MAX_PHOTOS} photos.`); break; }
         if (!ALLOWED.includes(file.type)) { setErr(`Nedozvoljen tip fajla: ${file.name} (samo JPG, PNG, WEBP, AVIF).`); continue; }
         if (file.size > MAX_MB * 1024 * 1024) { setErr(`${file.name} je prevelik (> ${MAX_MB}MB).`); continue; }
+        if (!(await sniffImage(file))) { setErr(`${file.name} nije ispravna slika (sadržaj fajla ne odgovara slici). / Not a valid image.`); continue; }
         const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
         const path = `${ownerId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
         const { error } = await sb.storage.from("listing-photos").upload(path, file, { contentType: file.type, upsert: false });
