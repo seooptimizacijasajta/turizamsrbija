@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useLang } from "@/lib/i18n";
 import { SERBIA_MUNICIPALITIES } from "@/lib/places";
+import { SETTLEMENTS, SETTLEMENT_MUNI } from "@/lib/settlements";
 import LocationPicker from "./LocationPicker";
 
 type Row = {
@@ -155,7 +156,12 @@ export default function ListingForm({
             {SERBIA_MUNICIPALITIES.map((m) => <option key={m} value={m}>{m}</option>)}
           </select>
         </div>
-        {field("place", "Mesto / naselje (Place)", e?.region_sr)}
+        <div className="field">
+          <label>Mesto / naselje (Place)</label>
+          <input name="place" defaultValue={e?.region_sr || ""} list="rs-places" autoComplete="off" placeholder="počnite da kucate… / start typing…"
+            onChange={(ev) => { const m = SETTLEMENT_MUNI[ev.target.value]; if (m && SERBIA_MUNICIPALITIES.includes(m)) setMunicipality(m); }} />
+          <datalist id="rs-places">{SETTLEMENTS.map((pl) => <option key={pl} value={pl} />)}</datalist>
+        </div>
       </div>
 
       <div className="field-row">{field("short_sr", t("fo_short"), e?.short_sr)}{field("short_en", t("fo_short_en"), e?.short_en)}</div>
