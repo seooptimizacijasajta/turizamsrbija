@@ -75,6 +75,7 @@ export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
 const CUSTOM_PAIRS: [string, string][] = [
   ["apartmani-beograd", "belgrade-apartments"],
   ["oglasi-smestaj", "list-your-space"],
+  ["pretraga", "search"],
   ["o-nama", "about"],
   ["kontakt", "contact"],
   ["uslovi", "terms"],

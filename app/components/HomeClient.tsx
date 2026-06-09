@@ -41,7 +41,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
             <Link className="btn btn--primary btn--lg" href={sectionPath("mountain", lang)}>{t("hero_cta1")}</Link>
             <Link className="btn btn--ghost btn--lg" href={sectionPath("stay", lang)}>{t("hero_cta2")}</Link>
           </div>
-          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${sectionPath(type, lang)}?q=${encodeURIComponent(q)}`); }}>
+          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${lang === "en" ? "/en/search" : "/pretraga"}?q=${encodeURIComponent(q)}&type=${type}`); }}>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("search_ph")} />
             <select value={type} onChange={(e) => setType(e.target.value as "mountain"|"lake"|"spa"|"ethno"|"stay")}>
               <option value="mountain">{t("nav_mountains")}</option>

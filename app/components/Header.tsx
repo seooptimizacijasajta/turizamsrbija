@@ -49,6 +49,7 @@ export default function Header() {
           <Link href={accountHref} className={path === accountHref ? "active" : ""} onClick={close}>{t("nav_account")}</Link>
         </nav>
         <div className="nav-right">
+          <Link className="nav-search" href={lang === "en" ? "/en/search" : "/pretraga"} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>
