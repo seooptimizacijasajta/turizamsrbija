@@ -30,6 +30,7 @@ export default function HomeClient({ all }: { all: Listing[] }) {
   const stays = all.filter((d) => d.type === "stay").slice(0, 4);
   const destCount = all.filter((d) => d.type !== "stay").length;
   const stayCount = all.filter((d) => d.type === "stay").length;
+  const regionsCount = new Set(all.map((d) => d.region.sr).filter(Boolean)).size;
 
   return (
     <>
@@ -100,9 +101,9 @@ export default function HomeClient({ all }: { all: Listing[] }) {
       <section className="section">
         <div className="container">
           <div className="stats">
-            <div className="stat"><b>{destCount}+</b><span>{t("stat_dest")}</span></div>
-            <div className="stat"><b>{stayCount}+</b><span>{t("stat_stays")}</span></div>
-            <div className="stat"><b>15+</b><span>{t("stat_regions")}</span></div>
+            <div className="stat"><b>{destCount}</b><span>{t("stat_dest")}</span></div>
+            <div className="stat"><b>{stayCount}</b><span>{t("stat_stays")}</span></div>
+            <div className="stat"><b>{regionsCount}</b><span>{t("stat_regions")}</span></div>
             <div className="stat"><b>24/7</b><span>{t("stat_support")}</span></div>
           </div>
         </div>
