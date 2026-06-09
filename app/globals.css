@@ -245,3 +245,10 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .breadcrumbs a:hover{text-decoration:underline}
 .bc-sep{color:var(--line)}
 .bc-cur{color:var(--slate)}
+
+/* ---------- Newsletter ---------- */
+.newsletter{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid rgba(255,255,255,.14)}
+.newsletter h4{color:#fff;font-size:1.15rem}
+.newsletter-form{display:flex;gap:10px;flex-wrap:wrap}
+.newsletter-form input{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:12px 18px;min-width:240px}
+.newsletter-form input::placeholder{color:#9fc7b8}

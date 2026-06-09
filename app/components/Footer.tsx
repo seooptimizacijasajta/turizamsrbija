@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath } from "@/lib/slug";
+import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   const { lang, t } = useLang();
@@ -14,6 +15,7 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
+        <NewsletterForm />
         <div className="footer-grid">
           <div>
             <div className="footer-brand"><span className="mark">★</span> TurizamSrbija</div>
