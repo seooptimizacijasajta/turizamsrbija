@@ -26,4 +26,5 @@ export interface Listing {
   featuredHome?: boolean;
   bold?: boolean;
   createdAt?: string;
+  views?: number;
 }

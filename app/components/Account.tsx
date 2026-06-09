@@ -181,7 +181,7 @@ export default function Account() {
                 <div key={r.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", flexWrap: "wrap" }}>
                   <div>
                     <strong>{r.name_sr}</strong>{" "}
-                    <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {t("type_" + r.kind)}{r.price ? ` · €${r.price}` : ""}</span>
+                    <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {t("type_" + r.kind)}{r.price ? ` · €${r.price}` : ""}{` · 👁 ${r.views || 0}`}</span>
                     <div style={{ marginTop: 6 }}>{statusBadge(r.status)}</div>
                   </div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>

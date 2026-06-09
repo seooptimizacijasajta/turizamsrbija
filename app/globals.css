@@ -209,7 +209,7 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 
 /* ---------- Listing promotions ---------- */
 .card--bold{border:2px solid var(--sun);box-shadow:0 0 0 3px rgba(242,169,0,.12)}
-.card-promo{position:absolute;top:12px;right:12px;background:var(--sun);color:#3a2c00;font-size:.72rem;font-weight:800;padding:5px 10px;border-radius:999px;z-index:2}
+.card-promo{position:absolute;top:46px;left:12px;background:var(--sun);color:#3a2c00;font-size:.72rem;font-weight:800;padding:5px 10px;border-radius:999px;z-index:2}
 .promo-on{background:var(--sun) !important;color:#3a2c00 !important;border-color:var(--sun) !important}
 
 /* ---------- Floating contact + chat ---------- */
@@ -264,3 +264,10 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .cookie p{font-size:.88rem;color:var(--slate);margin:0;flex:1;min-width:200px}
 @media (max-width:520px){ .cookie{left:12px;right:12px;bottom:12px;max-width:none} }
 .fab-top{background:var(--ink)}
+
+/* ---------- Favorites ---------- */
+.card-fav{cursor:pointer;border:none;font-size:1.05rem;transition:color .15s,transform .15s}
+.card-fav.on{color:#e0245e}
+.card-fav:hover{transform:scale(1.12)}
+.nav-fav{position:relative;font-size:1.2rem;color:#e0245e;padding:0 6px}
+.fav-count{position:absolute;top:-6px;right:-6px;background:#e0245e;color:#fff;font-size:.62rem;font-weight:800;border-radius:999px;padding:1px 5px;line-height:1.4}

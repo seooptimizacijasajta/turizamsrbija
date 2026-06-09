@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
+import { useFavorites } from "@/lib/favorites";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath } from "@/lib/slug";
 import type { Kind } from "@/lib/types";
 
@@ -15,6 +16,7 @@ const DEST: { kind: Kind; key: string }[] = [
 
 export default function Header() {
   const { lang, t } = useLang();
+  const { favs } = useFavorites();
   const [open, setOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
   const path = usePathname() || "/";
@@ -51,6 +53,7 @@ export default function Header() {
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={lang === "en" ? "/en/search" : "/pretraga"} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
+          <Link className="nav-fav" href={lang === "en" ? "/en/saved" : "/sacuvano"} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>

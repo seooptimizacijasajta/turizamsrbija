@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
 import { listingPath } from "@/lib/slug";
+import { useFavorites } from "@/lib/favorites";
 
 export default function ListingCard({ item }: { item: Listing }) {
   const { lang, t } = useLang();
   const tags = (item.features[lang] || []).slice(0, 2);
+  const { isFav, toggle } = useFavorites();
   const href = listingPath(item.type, item.name.sr, lang);
   return (
     <Link className={"card" + (item.bold ? " card--bold" : "")} href={href}>
@@ -15,6 +17,7 @@ export default function ListingCard({ item }: { item: Listing }) {
         <img loading="lazy" src={item.img} alt={L(item.name, lang)} />
         <span className="card-badge">{t("type_" + item.type)}</span>
         {item.bold && <span className="card-promo">★ {t("promo_featured")}</span>}
+        <span className={"card-fav" + (isFav(item.id) ? " on" : "")} role="button" aria-label="Sačuvaj / Save" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(item.id); }}>♥</span>
       </div>
       <div className="card-body">
         <span className="card-region">{L(item.region, lang)}</span>

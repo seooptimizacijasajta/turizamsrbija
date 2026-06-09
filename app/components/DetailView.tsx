@@ -9,6 +9,7 @@ import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import ShareButtons from "./ShareButtons";
+import ViewTracker from "./ViewTracker";
 import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
@@ -43,12 +44,14 @@ export default function DetailView({
   if (item.municipality) meta.push(`🏛 ${t("detail_municipality")}: ${item.municipality}`);
   if (displayRating > 0) meta.push(`★ ${displayRating.toFixed(1)}`);
   meta.push(`📍 ${L(item.region, lang)}`);
+  if (item.views) meta.push(`👁 ${item.views} ${t("detail_views")}`);
 
   const videos = (item.videoUrls || []).map(ytId).filter(Boolean) as string[];
   const hasMap = typeof item.lat === "number" && typeof item.lng === "number";
 
   return (
     <main>
+      <ViewTracker id={item.id} />
       <JsonLd data={ld} />
       <div className="detail-hero" style={{ backgroundImage: `url(${item.img.replace("w=900", "w=1600")})` }} />
       <div className="container">

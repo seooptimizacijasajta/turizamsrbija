@@ -77,6 +77,7 @@ const CUSTOM_PAIRS: [string, string][] = [
   ["oglasi-smestaj", "list-your-space"],
   ["pretraga", "search"],
   ["mapa", "map"],
+  ["sacuvano", "saved"],
   ["o-nama", "about"],
   ["kontakt", "contact"],
   ["uslovi", "terms"],

@@ -37,6 +37,7 @@ function rowToListing(r: any): Listing {
     featuredHome: !!r.featured_home,
     bold: !!r.bold,
     createdAt: r.created_at || undefined,
+    views: r.views || 0,
   };
 }
 
