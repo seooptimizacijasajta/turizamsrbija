@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import BannerSlot from "@/app/components/BannerSlot";
 import FloatingWidgets from "@/app/components/FloatingWidgets";
+import CookieNotice from "@/app/components/CookieNotice";
 import JsonLd from "@/app/components/JsonLd";
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <BannerSlot position="bottom" />
           <Footer />
           <FloatingWidgets />
+          <CookieNotice />
         </LanguageProvider>
       </body>
     </html>

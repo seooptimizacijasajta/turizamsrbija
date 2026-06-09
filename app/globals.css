@@ -258,3 +258,8 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .share-label{font-size:.85rem;color:var(--slate);font-weight:700}
 .share-btn{color:#fff;font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:999px;border:none;cursor:pointer;text-decoration:none}
 .share-btn:hover{opacity:.9}
+
+/* ---------- Cookie notice ---------- */
+.cookie{position:fixed;left:18px;bottom:18px;max-width:440px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:16px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;z-index:90}
+.cookie p{font-size:.88rem;color:var(--slate);margin:0;flex:1;min-width:200px}
+@media (max-width:520px){ .cookie{left:12px;right:12px;bottom:12px;max-width:none} }
