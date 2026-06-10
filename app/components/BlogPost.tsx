@@ -7,6 +7,7 @@ import JsonLd from "./JsonLd";
 import Link from "next/link";
 import { homePath, sectionPath } from "@/lib/slug";
 import { guideBySlug, relatedGuides, blogHref } from "@/lib/guides";
+import ExternalLinks from "./ExternalLinks";
 
 export default function BlogPost({ post }: { post: Post }) {
   const { lang, t } = useLang();
@@ -60,6 +61,7 @@ export default function BlogPost({ post }: { post: Post }) {
             )}
           </div>
         )}
+        <ExternalLinks place={g?.place} />
       </div>
     </article>
   );

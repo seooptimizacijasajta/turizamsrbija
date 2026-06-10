@@ -13,6 +13,7 @@ import ViewTracker from "./ViewTracker";
 import Link from "next/link";
 import { slugify } from "@/lib/slug";
 import { guideForPlace, blogHref } from "@/lib/guides";
+import ExternalLinks from "./ExternalLinks";
 import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
@@ -78,6 +79,7 @@ export default function DetailView({
             <div className="detail-section">
               <h2>{t("detail_highlights")}</h2>
               <ul className="feature-list">{(item.features[lang] || []).map((f) => <li key={f}>{f}</li>)}</ul>
+              <ExternalLinks place={slugify(item.name.sr)} />
             </div>
             {item.gallery.length > 0 && (
               <div className="detail-section">
