@@ -49,7 +49,6 @@ export default function Header() {
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
           <Link href={lang === "en" ? "/en/blog" : "/blog"} className={(path === "/blog" || path === "/en/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
-          <Link href={accountHref} className={path === accountHref ? "active" : ""} onClick={close}>{t("nav_account")}</Link>
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={lang === "en" ? "/en/search" : "/pretraga"} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
@@ -59,6 +58,7 @@ export default function Header() {
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>
             <button className={lang === "en" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
           </div>
+          <Link className={"nav-account" + (path === accountHref ? " active" : "")} href={accountHref} onClick={close}>{t("nav_account")}</Link>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(!open)}>☰</button>
         </div>
       </div>

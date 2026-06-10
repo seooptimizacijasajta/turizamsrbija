@@ -294,3 +294,7 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .pay-badges-row{display:flex;flex-wrap:wrap;gap:8px}
 .pay-badge{font-size:.8rem;font-weight:800;letter-spacing:.02em;padding:6px 12px;border-radius:7px;line-height:1}
 .pay-badges-note{font-size:.8rem;color:#bfe0d3;margin-top:10px;max-width:520px}
+
+/* Account link in the right group (next to language switcher) */
+.nav-account{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.85rem;color:var(--green-700);border:1px solid var(--green-600);padding:7px 13px;border-radius:999px;white-space:nowrap;transition:background .15s,color .15s}
+.nav-account:hover,.nav-account.active{background:var(--green-600);color:#fff}
