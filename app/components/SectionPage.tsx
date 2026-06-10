@@ -4,6 +4,8 @@ import type { Banner } from "@/lib/banners";
 import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
 import SectionSEO from "./SectionSEO";
+import Link from "next/link";
+import { guidesForKind, blogHref } from "@/lib/guides";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 
@@ -29,6 +31,16 @@ export default function SectionPage({ items, kind, banners = [] }: { items: List
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t(NAVKEY[kind]) }]} /></div>
       <SectionExplorer items={items} kind={kind} banners={banners} />
       <SectionSEO kind={kind} />
+      {guidesForKind(kind).length > 0 && (
+        <section className="section section--soft"><div className="container" style={{ maxWidth: 820 }}>
+          <h2 className="section-title" style={{ marginBottom: 16 }}>{lang === "en" ? "Destination guides" : "Vodiči za destinacije"}</h2>
+          <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px 22px", listStyle: "none", padding: 0 }}>
+            {guidesForKind(kind).map((g) => (
+              <li key={g.slug}><Link href={blogHref(g.slug, lang)} style={{ color: "var(--green-600)", fontWeight: 600 }}>→ {lang === "en" ? g.en : g.sr}</Link></li>
+            ))}
+          </ul>
+        </div></section>
+      )}
     </>
   );
 }
