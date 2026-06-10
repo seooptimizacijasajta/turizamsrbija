@@ -66,9 +66,38 @@ const C: Record<Kind, { sr: Block[]; en: Block[] }> = {
   },
 };
 
+
+const C_DE: Partial<Record<Kind, Block[]>> = {
+  mountain: [
+    { h: "Berge Serbiens — Luft, Schnee und Ruhe ganz nah", p: "Die Berge Serbiens sind ein Ganzjahresziel: im Winter Skifahren und Rodeln, im Sommer Wandern, Radfahren und Abkühlung. Von Kopaonik und Zlatibor über Stara Planina und Tara bis Divčibare und Goč — jeder Berg hat seinen eigenen Charakter, und die Unterkunft wählen Sie nach Preis, Lage und Ausstattung." },
+    { h: "Die bekanntesten Berge und die beste Reisezeit", p: "Kopaonik ist das größte Skigebiet mit über 55 km Pisten und verlässlichem Schnee von Dezember bis April. Zlatibor und Tara sind im Sommer beliebt, während Stara Planina und Divčibare kürzere Wartezeiten und niedrigere Preise bieten." },
+    { h: "Unterkunft in den Bergen ohne Provision", p: "Sehen Sie sich die Angebote oben an, speichern Sie Favoriten und senden Sie Ihre Anfrage direkt an den Gastgeber. Ohne Vermittler und versteckte Kosten — Preis und Termin vereinbaren Sie mit dem Gastgeber." },
+  ],
+  lake: [
+    { h: "Seen Serbiens — Urlaub am Wasser für jeden Geschmack", p: "Vom Silbersee, dem „serbischen Meer“, über Palić und Perućac bis Vlasina und Zlatar — Serbiens Seen bieten Baden, Angeln, Bootfahren und ruhigen Familienurlaub. Die Badesaison dauert von Juni bis Anfang September." },
+    { h: "Wo baden, wo angeln", p: "Der Silbersee und Palić haben gepflegte Strände und Wassersport, ideal für Familien. Für das Angeln sind Vlasina, Zlatar und Perućac bekannt. Ruhe und unberührte Natur finden Sie an den Seen Zaovine und Bor." },
+    { h: "Apartments und Villen am See", p: "Vergleichen Sie Apartments, Villen und Ethno-Höfe am Ufer, speichern Sie Favoriten und kontaktieren Sie den Gastgeber über das Formular. Ohne Gästeprovision." },
+  ],
+  spa: [
+    { h: "Kurorte Serbiens — Heilung, Entspannung und Wellness", p: "Serbiens Kurorte verbinden heilendes Thermalmineralwasser, ausgezeichnete Medizin und Wellness. Vrnjačka, Soko, Banja Koviljača, Prolom, Niška und Banja Vrujci sind nur ein Teil des reichen Angebots." },
+    { h: "Welchen Kurort wählen", p: "Vrnjačka Banja ist der größte und meistbesuchte Kurort. Prolom und Soko Banja sind für ihre Heilbehandlungen bekannt, Banja Koviljača für Schwefelwasser und Park, und Banja Vrujci für Thermalbäder eine Stunde von Belgrad entfernt." },
+    { h: "Unterkunft im Kurort buchen", p: "Sehen Sie sich das Angebot an, speichern Sie Favoriten und senden Sie Ihre Anfrage direkt an den Gastgeber, ohne Provision oder versteckte Kosten." },
+  ],
+  ethno: [
+    { h: "Ethno-Dörfer Serbiens — Tradition, Ruhe und Hausmannskost", p: "Ethno-Dörfer und Bauernhöfe bewahren den Geist des alten Serbien: Blockhäuser, Feuerstellen, hausgemachtes Essen und ein authentisches Dorferlebnis. Drvengrad auf der Mokra Gora, Sirogojno und andere führen Sie in die Natur." },
+    { h: "Was der Landtourismus bietet", p: "Neben Unterkünften in Blockhäusern bieten viele Höfe hausgemachten Rakija, Käse und Kajmak, Reiten, Angeln und Ausflüge. Ein Urlaub für alle, die Ruhe, frische Luft und echte Gastfreundschaft suchen." },
+    { h: "Unterkunft im Ethno-Dorf", p: "Vergleichen Sie Höfe, speichern Sie Favoriten und kontaktieren Sie den Gastgeber direkt, ohne Provision. Lage und Umgebung sehen Sie auf der Karte jedes Angebots." },
+  ],
+  stay: [
+    { h: "Unterkünfte in Serbien — Hotels und Privatapartments", p: "Vergleichen Sie an einem Ort Hotels, Apartments, Villen und Ethno-Höfe in ganz Serbien. Ob Berge, See, Kurort oder Stadt — die Unterkunft wählen Sie nach Lage, Preis, Kapazität und Ausstattung." },
+    { h: "Die richtige Unterkunft wählen", p: "Filtern Sie nach Art und Ort, prüfen Sie Bewertungen und vergleichen Sie Preise. Ein Apartment mit Küche ist für Familien und längere Aufenthalte günstiger, Hotels bieten vollen Service." },
+    { h: "Buchen ohne Provision", p: "Senden Sie Ihre Anfrage direkt an den Gastgeber über das Formular — ohne Vermittler, ohne versteckte Kosten und ohne obligatorische Online-Zahlung." },
+  ],
+};
+
 export default function SectionSEO({ kind }: { kind: Kind }) {
   const { lang } = useLang();
-  const blocks = C[kind]?.[lang !== "sr" ? "en" : "sr"];
+  const blocks = lang === "de" ? (C_DE[kind] || C[kind]?.en) : C[kind]?.[lang === "sr" ? "sr" : "en"];
   if (!blocks) return null;
   return (
     <section className="section"><div className="container" style={{ maxWidth: 820 }}>

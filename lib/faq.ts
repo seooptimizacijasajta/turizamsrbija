@@ -110,4 +110,16 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
     { q: "What if I want to dispute a transaction?", a: "If goods or services are not delivered or do not match the description, contact the host first, then your bank to dispute the charge (chargeback). We are also here to help with any dispute." },
   ],
 };
-export function generalFaqs(locale: Lang): Faq[] { return GENERAL[locale === "sr" ? "sr" : "en"]; }
+
+const GENERAL_DE: Faq[] = [
+  { q: "Was ist Turizam Srbija?", a: "Turizam Srbija ist ein mehrsprachiges Portal, das Serbiens schönste Reiseziele und Unterkünfte an einem Ort vereint — Berge, Seen, Kurorte, Ethno-Dörfer, Belgrad-Apartments und Unterkünfte im ganzen Land." },
+  { q: "Ist die Nutzung des Portals für Gäste kostenlos?", a: "Ja, vollständig. Das Suchen von Reisezielen und Unterkünften, das Senden von Anfragen und das Lesen von Bewertungen sind kostenlos, ohne Registrierung." },
+  { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden. Eine Online-Zahlung ist nicht erforderlich." },
+  { q: "Ist das Inserieren für Vermieter kostenlos?", a: "Ja — Registrierung und Inserieren sind kostenlos. Eine Provision zahlen Sie erst, wenn wir Ihnen Gäste bringen (Bezahlung nach Ergebnis)." },
+  { q: "Kann ich mehrere Unterkünfte inserieren?", a: "Beliebig viele. Jede Unterkunft wird separat hinzugefügt — mit Titel, Beschreibung, bis zu 20 Fotos, Video, Kartenstandort und Verfügbarkeitskalender." },
+  { q: "Ist die Kartenzahlung auf der Website sicher?", a: "Ja. Alle Kartenzahlungen laufen über 3-D Secure (Verified by Visa und Mastercard ID Check). Die Verbindung ist SSL-verschlüsselt und Ihre Kartendaten werden nicht gespeichert." },
+  { q: "Welche Karten kann ich verwenden?", a: "Akzeptiert werden Visa, Mastercard, Maestro und DinaCard sowie Debit- und Kreditkarten in- und ausländischer Banken." },
+  { q: "Wie kontaktiere ich den Support?", a: "Schreiben Sie an info@turizamsrbija.com oder per Viber/WhatsApp an +381 64 4598778, oder über das Kontaktformular." },
+];
+
+export function generalFaqs(locale: Lang): Faq[] { return locale === "de" ? GENERAL_DE : GENERAL[locale === "sr" ? "sr" : "en"]; }
