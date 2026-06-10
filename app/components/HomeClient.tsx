@@ -8,6 +8,7 @@ import { slugify, sectionPath } from "@/lib/slug";
 import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
+import type { Post } from "@/lib/blog";
 
 const CATS = [
   { kind: "mountain" as const, key: "nav_mountains", img: "1551524559-8af4e6624178", sub: "Kopaonik · Zlatibor · Tara" },
@@ -17,7 +18,7 @@ const CATS = [
   { kind: "stay" as const, key: "nav_stays", img: "1566073771259-6a8506099945", sub: "Hoteli · Apartmani" },
 ];
 
-export default function HomeClient({ all }: { all: Listing[] }) {
+export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?: Post[] }) {
   const { t, lang } = useLang();
   const router = useRouter();
   const [type, setType] = useState<"mountain"|"lake"|"spa"|"ethno"|"stay">("mountain");
@@ -145,6 +146,33 @@ export default function HomeClient({ all }: { all: Listing[] }) {
           </div>
         </div>
       </section>
+      {posts.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{lang === "en" ? "Travel guides" : "Vodiči za putovanja"}</div>
+              <h2 className="section-title">{lang === "en" ? "From our blog" : "Sa našeg bloga"}</h2>
+              <p className="section-lead">{lang === "en" ? "Detailed guides to Serbia's finest destinations." : "Detaljni vodiči kroz najlepše destinacije Srbije."}</p>
+            </div>
+            <div className="card-grid">
+              {posts.map((p) => {
+                const title = (lang === "en" ? p.title_en : p.title_sr) || p.title_sr;
+                const ex = (lang === "en" ? p.excerpt_en : p.excerpt_sr) || p.excerpt_sr || "";
+                const href = (lang === "en" ? "/en/blog/" : "/blog/") + p.slug;
+                return (
+                  <Link key={p.id} className="card" href={href}>
+                    {p.cover_image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={p.cover_image} alt={title} /></div>}
+                    <div className="card-body"><h3 className="card-title">{title}</h3><p className="card-desc">{ex}</p></div>
+                  </Link>
+                );
+              })}
+            </div>
+            <div style={{ textAlign: "center", marginTop: 30 }}>
+              <Link className="btn btn--outline" href={lang === "en" ? "/en/blog" : "/blog"}>{lang === "en" ? "All guides" : "Svi vodiči"}</Link>
+            </div>
+          </div>
+        </section>
+      )}
       <FaqAccordion items={generalFaqs(lang)} heading={lang === "en" ? "Frequently asked questions" : "Često postavljana pitanja"} />
     </>
   );
