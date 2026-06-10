@@ -9,6 +9,7 @@ const IMG = (id: string, w = 900) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 /* Map a Supabase `listings` row (+ joined images) to our Listing shape. */
+const promoActive = (d: any) => !d || new Date(d) >= new Date(new Date().toDateString());
 function rowToListing(r: any): Listing {
   const gallery: string[] = (r.listing_images || [])
     .sort((a: any, b: any) => (a.sort || 0) - (b.sort || 0))
@@ -33,9 +34,9 @@ function rowToListing(r: any): Listing {
     lat: r.lat ?? undefined,
     lng: r.lng ?? undefined,
     googlePlaceId: r.google_place_id || undefined,
-    featured: !!r.featured,
-    featuredHome: !!r.featured_home,
-    bold: !!r.bold,
+    featured: !!r.featured && promoActive(r.featured_until),
+    featuredHome: !!r.featured_home && promoActive(r.featured_home_until),
+    bold: !!r.bold && promoActive(r.bold_until),
     createdAt: r.created_at || undefined,
     views: r.views || 0,
     amenities: r.amenities || [],

@@ -109,9 +109,22 @@ export default function Account() {
 
   async function togglePromo(r: any, field: "featured" | "featured_home" | "bold") {
     if (!sb || !userId) return;
-    await sb.from("listings").update({ [field]: !r[field] }).eq("id", r.id);
+    const untilField = ({ featured: "featured_until", featured_home: "featured_home_until", bold: "bold_until" } as const)[field];
+    if (r[field]) {
+      await sb.from("listings").update({ [field]: false, [untilField]: null }).eq("id", r.id);
+    } else {
+      const days = prompt("Na koliko dana uključiti promociju? / Promo for how many days?", "30");
+      if (days === null) return;
+      const n = Math.max(1, Number(days) || 30);
+      const until = new Date(); until.setDate(until.getDate() + n);
+      await sb.from("listings").update({ [field]: true, [untilField]: until.toISOString().slice(0, 10) }).eq("id", r.id);
+    }
     loadListings(userId);
   }
+  const promoNote = (r: any) => {
+    const f = [r.bold && r.bold_until ? `Bold do ${r.bold_until}` : "", r.featured && r.featured_until ? `★Kat do ${r.featured_until}` : "", r.featured_home && r.featured_home_until ? `★Poč do ${r.featured_home_until}` : ""].filter(Boolean);
+    return f.length ? f.join(" · ") : "";
+  };
 
   function statusBadge(s: string) {
     const map: Record<string, string> = { pending: t("acc_pending"), approved: t("acc_approved"), rejected: t("acc_rejected") };
@@ -199,7 +212,7 @@ export default function Account() {
                   <div>
                     <strong>{r.name_sr}</strong>{" "}
                     <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {t("type_" + r.kind)}{r.price ? ` · €${r.price}` : ""}{` · 👁 ${r.views || 0}`}</span>
-                    <div style={{ marginTop: 6 }}>{statusBadge(r.status)}</div>
+                    <div style={{ marginTop: 6 }}>{statusBadge(r.status)}{isAdmin && promoNote(r) ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>{promoNote(r)}</span> : null}</div>
                   </div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {isAdmin && (<>
