@@ -3,6 +3,7 @@ import { getPosts } from "@/lib/blog";
 import { listingPath, sectionPath } from "@/lib/slug";
 import { LANDING_AMENITIES, amenityPath } from "@/lib/amenities";
 import { BG_AREAS, bgAreaPath } from "@/lib/belgrade";
+import { STRUCTURES, structPath } from "@/lib/structure";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -21,6 +22,7 @@ export default async function sitemap() {
   posts.forEach((p) => { add(`/blog/${p.slug}`); add(`/en/blog/${p.slug}`); add(`/de/blog/${p.slug}`); });
   LANDING_AMENITIES.forEach((k) => { add(amenityPath(k, "sr")); add(amenityPath(k, "en")); });
   BG_AREAS.forEach((a) => { add(bgAreaPath(a.slug, "sr")); add(bgAreaPath(a.slug, "en")); add(bgAreaPath(a.slug, "de")); });
+  STRUCTURES.forEach((st) => { add(structPath(st.slug, "sr")); add(structPath(st.slug, "en")); add(structPath(st.slug, "de")); });
 
   return urls;
 }

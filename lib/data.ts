@@ -40,6 +40,7 @@ function rowToListing(r: any): Listing {
     views: r.views || 0,
     amenities: r.amenities || [],
     priceUnit: r.price_unit || undefined,
+    structure: r.structure || undefined,
     minNights: r.min_nights ?? null,
     minNightsWeekend: r.min_nights_weekend ?? null,
     deposit: r.deposit ?? null,

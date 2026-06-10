@@ -15,6 +15,8 @@ export const AMENITIES: Amenity[] = [
   { key: "restaurant", sr: "Restoran", en: "Restaurant", icon: "🍽️" },
   { key: "bbq", sr: "Roštilj / Letnjikovac", en: "BBQ / Gazebo", icon: "🔥" },
   { key: "river", sr: "Blizu reke/jezera", en: "Near river/lake", icon: "🌊" },
+  { key: "jacuzzi", sr: "Đakuzi", en: "Jacuzzi", icon: "🛁" },
+  { key: "luxury", sr: "Luksuzno", en: "Luxury", icon: "💎" },
 ];
 
 export const amenityByKey = (k: string) => AMENITIES.find((a) => a.key === k);
@@ -42,6 +44,8 @@ export const AMENITY_SLUGS: Record<string, { sr: string; en: string }> = {
   pet: { sr: "pet-friendly-smestaj", en: "pet-friendly-accommodation" },
   kids: { sr: "smestaj-za-porodice-sa-decom", en: "family-friendly-accommodation" },
   wellness: { sr: "smestaj-sa-wellness", en: "accommodation-with-wellness" },
+  jacuzzi: { sr: "apartmani-sa-djakuzijem", en: "apartments-with-jacuzzi" },
+  luxury: { sr: "luksuzni-apartmani", en: "luxury-apartments" },
 };
 export const amenityBySlug = (slug: string) =>
   Object.entries(AMENITY_SLUGS).find(([, v]) => v.sr === slug || v.en === slug)?.[0];

@@ -29,5 +29,6 @@ export interface Listing {
   views?: number;
   amenities?: string[];
   priceUnit?: string;
+  structure?: string;
   minNights?: number | null; minNightsWeekend?: number | null; deposit?: number | null; discountWeekly?: number | null; discountMonthly?: number | null;
 }

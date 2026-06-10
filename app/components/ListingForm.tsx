@@ -6,6 +6,7 @@ import { SERBIA_MUNICIPALITIES } from "@/lib/places";
 import { SETTLEMENTS, SETTLEMENT_MUNI } from "@/lib/settlements";
 import LocationPicker from "./LocationPicker";
 import { AMENITIES, PRICE_UNITS } from "@/lib/amenities";
+import { STRUCTURES } from "@/lib/structure";
 
 type Row = {
   id?: string;
@@ -18,7 +19,7 @@ type Row = {
   features_sr: string[]; features_en: string[];
   price: number; capacity: number | null;
   min_nights?: number | null; min_nights_weekend?: number | null; deposit?: number | null; discount_weekly?: number | null; discount_monthly?: number | null;
-  amenities?: string[]; price_unit?: string | null;
+  amenities?: string[]; price_unit?: string | null; structure?: string | null;
   video_urls?: string[]; lat?: number | null; lng?: number | null; google_place_id?: string | null;
   listing_images?: { url: string; sort: number }[];
 };
@@ -61,6 +62,7 @@ export default function ListingForm({
   const [uploading, setUploading] = useState(false);
   const [amenities, setAmenities] = useState<string[]>(e?.amenities || []);
   const [priceUnit, setPriceUnit] = useState(e?.price_unit || "night");
+  const [structure, setStructure] = useState(e?.structure || "");
   const toggleAmenity = (k: string) => setAmenities((a) => a.includes(k) ? a.filter((x) => x !== k) : [...a, k]);
   const [err, setErr] = useState("");
 
@@ -120,7 +122,7 @@ export default function ListingForm({
       deposit: get("deposit") ? Number(get("deposit")) : null,
       discount_weekly: get("discount_weekly") ? Number(get("discount_weekly")) : null,
       discount_monthly: get("discount_monthly") ? Number(get("discount_monthly")) : null,
-      amenities, price_unit: priceUnit,
+      amenities, price_unit: priceUnit, structure: structure || null,
       hero_image: photos[0] || null,
       video_urls: videos.map((v) => v.trim()).filter(Boolean).slice(0, 3),
       lat: lat ?? null, lng: lng ?? null,
@@ -213,11 +215,18 @@ export default function ListingForm({
         {field("discount_monthly", "Popust 28+ noćenja % / Monthly discount %", e?.discount_monthly ? String(e.discount_monthly) : "", "number")}
       </div>
 
-      {/* Jedinica cene */}
-      <div className="field"><label>Jedinica cene / Price unit</label>
-        <select value={priceUnit} onChange={(ev) => setPriceUnit(ev.target.value)}>
-          {PRICE_UNITS.map((u) => <option key={u.key} value={u.key}>{u.sr} / {u.en}</option>)}
-        </select>
+      <div className="field-row">
+        <div className="field"><label>Jedinica cene / Price unit</label>
+          <select value={priceUnit} onChange={(ev) => setPriceUnit(ev.target.value)}>
+            {PRICE_UNITS.map((u) => <option key={u.key} value={u.key}>{u.sr} / {u.en}</option>)}
+          </select>
+        </div>
+        <div className="field"><label>Struktura / Structure (za apartmane)</label>
+          <select value={structure} onChange={(ev) => setStructure(ev.target.value)}>
+            <option value="">—</option>
+            {STRUCTURES.map((st) => <option key={st.key} value={st.key}>{st.sr} / {st.en}</option>)}
+          </select>
+        </div>
       </div>
 
       {/* Pogodnosti */}
