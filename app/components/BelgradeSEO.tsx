@@ -21,6 +21,15 @@ const FAQ_EN: Faq[] = [
   { q: "Are Belgrade apartments suitable for families and longer stays?", a: "Yes. An apartment with its own kitchen and several rooms is more comfortable and cost-effective than a hotel for families, and for business stays of more than a few days. Many also offer free parking, Wi-Fi and a washing machine." },
 ];
 
+const FAQ_DE: Faq[] = [
+  { q: "Wie viel kosten Apartments in Belgrad?", a: "Der Preis hängt von Lage, Größe und Saison ab. Ein Studio kostet pro Nacht meist 25 bis 45 Euro, größere Wohnungen für vier und mehr Gäste 50 bis 90 Euro. Apartments im Zentrum und auf Vračar sind etwas teurer, in Neu-Belgrad und Zemun gibt es oft günstigere Angebote." },
+  { q: "Welcher Stadtteil ist am besten für einen Aufenthalt in Belgrad?", a: "Für den ersten Besuch sind Stari Grad und Vračar am praktischsten — Sie laufen zu Knez Mihailova, Skadarlija und dem Tempel des Heiligen Sava. Neu-Belgrad ist ideal für Geschäftsreisende (nahe Sava Centar und Arena) und für alle, die Parkplatz brauchen, Zemun für einen ruhigen Aufenthalt an der Donau." },
+  { q: "Kann ich ein Apartment in Belgrad für einen Tag mieten?", a: "Ja. Die meisten Gastgeber vermieten Apartments tageweise oder für kurze Aufenthalte, was flexibler und meist günstiger als ein Hotel ist. Die Mindestnächtezahl steht in der Beschreibung jedes Apartments." },
+  { q: "Gibt es Apartments in der Nähe des Flughafens und des Busbahnhofs?", a: "Ja. Dem Flughafen Nikola Tesla am nächsten liegen Apartments in Neu-Belgrad und Surčin; dasselbe Gebiet bedient den neuen Bus- und Bahnhof (Blok 42). Jede Lage sehen Sie auf der Karte im Inserat." },
+  { q: "Ist eine Online-Zahlung für die Buchung erforderlich?", a: "Nein. Sie senden Ihre Anfrage direkt an den Gastgeber über das Formular und vereinbaren die Zahlung untereinander. Es gibt keine versteckten Gebühren oder Gästeprovision." },
+  { q: "Sind Belgrader Apartments für Familien und längere Aufenthalte geeignet?", a: "Ja. Ein Apartment mit eigener Küche und mehreren Zimmern ist komfortabler und günstiger als ein Hotel — für Familien und Geschäftsaufenthalte über mehrere Tage. Viele bieten auch kostenlosen Parkplatz, WLAN und Waschmaschine." },
+];
+
 function ArticleSR() {
   return (
     <section className="section"><div className="container" style={{ maxWidth: 820 }}>
@@ -73,13 +82,39 @@ function ArticleEN() {
   );
 }
 
+function ArticleDE() {
+  return (
+    <section className="section"><div className="container" style={{ maxWidth: 820 }}>
+      <div className="prose">
+        <h2>Apartments in Belgrad — Unterkunft im Herzen der Hauptstadt</h2>
+        <p>Sie suchen <strong>Apartments in Belgrad</strong>? Finden Sie an einem Ort geprüfte Privatunterkünfte — vom Studio im Zentrum bis zur geräumigen Wohnung in Neu-Belgrad, auf Vračar und in Zemun. Ob Wochenende, Geschäftsreise, Konzert in der Arena oder längerer Aufenthalt — ein Apartment bietet Privatsphäre, eine eigene Küche und einen besseren Preis als ein Hotel. Jedes Belgrader Apartment hat eine klare Beschreibung, Fotos, eine genaue Lage auf der Karte und den Kontakt des Gastgebers — ohne Vermittler und ohne Gästeprovision.</p>
+
+        <h3>Belgrader Apartments nach Stadtteil</h3>
+        <p>Belgrad ist eine Stadt der Viertel mit jeweils eigenem Charakter. Apartments auf Vračar und in Stari Grad bringen Sie nur wenige Schritte von Knez Mihailova, Skadarlija, Kalemegdan und dem Tempel des Heiligen Sava entfernt — perfekt für Touristen, die zu Fuß erkunden möchten. Neu-Belgrad ist die Wahl von Geschäftsgästen und Besuchern der Messe, des Sava Centar und der Štark Arena, mit einfachem Parken und schnellem Transfer vom Flughafen. Zemun bietet einen ruhigen Aufenthalt an der Donau, Gardoš und der Uferpromenade.</p>
+
+        <h3>Tages- und Kurzzeitmiete</h3>
+        <p>Die meisten Gastgeber vermieten Apartments tageweise oder für kurze Aufenthalte — ideal für Touristen und Geschäftsreisende. Die Tagesmiete in Belgrad ist meist günstiger und flexibler als ein Hotel, besonders für zwei Personen oder eine Familie. Wer günstige Apartments in Belgrad sucht, spart am meisten außerhalb des Zentrums — in Neu-Belgrad, Zvezdara oder Zemun — bei hervorragender Anbindung an den öffentlichen Nahverkehr.</p>
+
+        <h3>Wie viel kosten Belgrader Apartments?</h3>
+        <p>Die Preise hängen von Lage, Größe und Saison ab. Ein Studio kostet meist 25 bis 45 Euro pro Nacht, größere Wohnungen für vier und mehr Gäste 50 bis 90 Euro. Bei großen Veranstaltungen, Silvester und Konzerten steigen die Preise, daher lohnt sich eine frühe Buchung. Jedes Inserat zeigt Preis, Kapazität und Inklusivleistungen — WLAN, Parkplatz, Klimaanlage, Waschmaschine.</p>
+
+        <h3>So buchen Sie ein Apartment in Belgrad</h3>
+        <p>Wählen Sie ein passendes Apartment, prüfen Sie Fotos und Lage auf der Karte und senden Sie dem Gastgeber eine Anfrage über das Formular. Eine Antwort kommt meist am selben Tag. Es gibt keine obligatorische Online-Zahlung und keine versteckten Kosten — Termin und Zahlung vereinbaren Sie direkt mit dem Gastgeber.</p>
+
+        <h3>Warum ein Apartment statt eines Hotels</h3>
+        <p>Ein Apartment bedeutet eine eigene Küche, mehr Platz und Privatsphäre, oft mit kostenlosem Parkplatz und niedrigerer Rechnung für Familie oder Gruppe. Bei längeren oder geschäftlichen Aufenthalten ist der Unterschied an Komfort und Preis erheblich. Sehen Sie sich die Angebote oben an, speichern Sie Favoriten mit dem Herz-Symbol und vergleichen Sie, bevor Sie sich entscheiden.</p>
+      </div>
+    </div></section>
+  );
+}
+
 export default function BelgradeSEO() {
   const { lang } = useLang();
   const en = lang !== "sr";
   return (
     <>
-      {en ? <ArticleEN /> : <ArticleSR />}
-      <FaqAccordion items={en ? FAQ_EN : FAQ_SR} heading={en ? "Belgrade apartments — FAQ" : "Apartmani Beograd — česta pitanja"} />
+      {lang === "de" ? <ArticleDE /> : en ? <ArticleEN /> : <ArticleSR />}
+      <FaqAccordion items={lang === "de" ? FAQ_DE : en ? FAQ_EN : FAQ_SR} heading={lang === "de" ? "Belgrad Apartments — FAQ" : en ? "Belgrade apartments — FAQ" : "Apartmani Beograd — česta pitanja"} />
     </>
   );
 }

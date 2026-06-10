@@ -74,7 +74,42 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
   },
 };
 
+
+const FAQ_DE: Record<Kind, Faq[]> = {
+  mountain: [
+    { q: "Welcher Berg in Serbien eignet sich am besten zum Skifahren?", a: "Kopaonik ist das größte und am besten ausgestattete Skigebiet, mit über 55 km Pisten und verlässlichem Schnee von Dezember bis April. Gute Alternativen mit kürzeren Wartezeiten sind Stara Planina (Babin Zub) und Zlatibor mit Tornik." },
+    { q: "Wann ist die beste Reisezeit für die Berge?", a: "Im Winter (Dezember–März) zum Skifahren und Rodeln, im Sommer (Juni–September) zum Wandern, Radfahren und zur Abkühlung, wenn die Bergluft angenehm frisch ist." },
+    { q: "Sind die Berge für Familien mit Kindern geeignet?", a: "Ja. Zlatibor und Divčibare haben sanfte Wege, gepflegte Parks und Angebote für Kinder, während Kopaonik Skischulen und leichte Pisten für Anfänger bietet." },
+    { q: "Wie erreicht man Kopaonik und Zlatibor?", a: "Kopaonik liegt etwa 280 km von Belgrad entfernt (ca. 4 Std. mit dem Auto), Zlatibor etwa 230 km (ca. 3 Std.). Beide sind über gute Straßen erreichbar, in der Saison auch mit Buslinien." },
+  ],
+  lake: [
+    { q: "Welcher See in Serbien eignet sich am besten zum Baden?", a: "Der Silbersee (das „serbische Meer“) hat Sandstrände und ein gut ausgebautes touristisches Angebot, während Palić und Perućac für ruhigen Familienurlaub beliebt sind." },
+    { q: "Wann ist die Badesaison an den Seen?", a: "Die Hauptsaison läuft von Juni bis Anfang September, wenn das Wasser warm genug ist; Silbersee und Palić haben dann gepflegte Strände und Wassersport." },
+    { q: "Welche Seen sind gut zum Angeln?", a: "Die Seen Vlasina, Zlatar und Perućac sind fürs Angeln bekannt; eine Genehmigung der örtlichen Angelvereine ist erforderlich." },
+    { q: "Gibt es Unterkünfte an den Seen?", a: "Ja — von Apartments und Villen bis zu Ethno-Höfen am Ufer. Alle Optionen und Preise vergleichen Sie im Bereich Unterkünfte." },
+  ],
+  spa: [
+    { q: "Welcher Kurort ist am besten bei Rheuma und Gelenkschmerzen?", a: "Vrnjačka Banja und Sokobanja haben eine lange Tradition in der Behandlung rheumatischer und kardiovaskulärer Beschwerden, während Banja Koviljača für Schwefelquellen für Haut und Gelenke bekannt ist." },
+    { q: "Was wird in serbischen Kurorten behandelt?", a: "Meist rheumatische, kardiovaskuläre, respiratorische und Hauterkrankungen sowie die Genesung nach Operationen; neben der Behandlung bieten immer mehr Kurorte auch Wellness- und Spa-Programme." },
+    { q: "Braucht man für den Kurort eine ärztliche Überweisung?", a: "Für Erholung und Wellness nicht — Sie buchen frei. Für eine von der Versicherung finanzierte Behandlung ist eine Überweisung nötig, privat können Sie Therapien ohne nutzen." },
+    { q: "Welcher Kurort ist Belgrad am nächsten?", a: "Banja Koviljača und Bukovička Banja in Aranđelovac gehören zu den nächstgelegenen (etwa 1,5–2 Std. entfernt) und eignen sich gut für Wochenendausflüge." },
+  ],
+  ethno: [
+    { q: "Was ist ein Ethno-Dorf?", a: "Ein Ethno-Dorf ist eine Siedlung, die traditionelle Architektur, alte Handwerke, Küche und die Lebensweise des serbischen Landes bewahrt — meist für Besucher und Übernachtungen hergerichtet." },
+    { q: "Welche Ethno-Dörfer in Serbien lohnen sich?", a: "Am bekanntesten sind Drvengrad (Mećavnik) von Emir Kusturica auf der Mokra Gora, das Museumsdorf in Sirogojno und Tršić, der Geburtsort von Vuk Karadžić." },
+    { q: "Kann man in einem Ethno-Dorf übernachten?", a: "Ja — viele Ethno-Dörfer bieten Unterkünfte in traditionellen Blockhäusern und Höfen, mit Hausmannskost und authentischem Erlebnis." },
+    { q: "Eignen sich Ethno-Dörfer für einen Tagesausflug?", a: "Ja, besonders in Kombination mit der Umgebung; Drvengrad lässt sich gut mit der Šargan-Eight-Bahn verbinden, Sirogojno mit Zlatibor." },
+  ],
+  stay: [
+    { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden. Eine obligatorische Online-Zahlung ist nicht erforderlich." },
+    { q: "Ist das Inserieren einer Unterkunft kostenlos?", a: "Ja — Registrierung und Inserieren sind völlig kostenlos. Eine Provision zahlen Sie erst, wenn wir Ihnen Gäste bringen." },
+    { q: "Kann ich mehrere Objekte inserieren?", a: "Beliebig viele — jede Unterkunft wird separat hinzugefügt, mit Titel, Beschreibung, Fotos, Video und Verfügbarkeitskalender." },
+    { q: "Woher weiß ich, ob eine Unterkunft frei ist?", a: "Jede Unterkunft zeigt einen Verfügbarkeitskalender; die Gastgeber halten ihn aktuell und können ihn mit Booking.com und Airbnb synchronisieren." },
+  ],
+};
+
 export function sectionFaqs(kind: Kind, locale: Lang): Faq[] {
+  if (locale === "de") return FAQ_DE[kind];
   const lc = locale === "sr" ? "sr" : "en";
   return FAQ[kind][lc];
 }
