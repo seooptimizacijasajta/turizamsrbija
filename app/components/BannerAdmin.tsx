@@ -12,7 +12,8 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads">("stats");
+  const [leads, setLeads] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [postEditing, setPostEditing] = useState<any>(null);
@@ -41,6 +42,11 @@ export default function BannerAdmin() {
     const { data } = await sb.from("posts").select("*").order("created_at", { ascending: false });
     setPosts(data || []);
   }, [sb]);
+  const loadLeads = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("marketing_leads").select("*").order("created_at", { ascending: false });
+    setLeads(data || []);
+  }, [sb]);
   const loadStats = useCallback(async () => {
     if (!sb) return;
     const c = async (table: string, f?: (q: any) => any) => { let q = sb.from(table).select("*", { count: "exact", head: true }); if (f) q = f(q); const { count } = await q; return count || 0; };
@@ -52,6 +58,7 @@ export default function BannerAdmin() {
       reviewsPending: await c("reviews", (q) => q.eq("status", "pending")),
       subscribers: await c("newsletter"),
       posts: await c("posts"),
+      leads: await c("marketing_leads"),
     });
   }, [sb]);
   async function savePost(ev: React.FormEvent<HTMLFormElement>) {
@@ -76,8 +83,8 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); }
-  }, [sb, load, loadReviews, loadPosts, loadStats]);
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); }
+  }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads]);
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -161,7 +168,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -172,6 +179,7 @@ export default function BannerAdmin() {
         {tabBtn("banners", "Baneri / Banners")}
         {tabBtn("reviews", `Recenzije / Reviews${reviews.filter((r) => r.status === "pending").length ? " (" + reviews.filter((r) => r.status === "pending").length + ")" : ""}`)}
         {tabBtn("blog", "Blog")}
+        {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
       </div>
 
       {tab === "stats" && (
@@ -186,6 +194,31 @@ export default function BannerAdmin() {
               <div className="stat"><b style={{ color: stats.reviewsPending ? "var(--sun)" : undefined }}>{stats.reviewsPending}</b><span>Recenzije na čekanju</span></div>
               <div className="stat"><b>{stats.subscribers}</b><span>Newsletter prijava</span></div>
               <div className="stat"><b>{stats.posts}</b><span>Blog postova / Posts</span></div>
+              <div className="stat"><b style={{ color: stats.leads ? "var(--green-600)" : undefined }}>{stats.leads}</b><span>Marketing upiti / Leads</span></div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab === "leads" && (
+        <div>
+          <h1>Marketing upiti / Advertising leads</h1>
+          {leads.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema upita. / No leads yet.</div> : (
+            <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+              {leads.map((x) => (
+                <div key={x.id} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                    <strong>{x.name}{x.business_type ? ` · ${x.business_type}` : ""}</strong>
+                    <span style={{ color: "var(--slate)", fontSize: ".82rem" }}>{new Date(x.created_at).toLocaleString()}</span>
+                  </div>
+                  <div style={{ fontSize: ".9rem", marginTop: 4 }}>
+                    {x.email && <a href={`mailto:${x.email}`}>{x.email}</a>}{x.email && x.phone ? " · " : ""}
+                    {x.phone && <a href={`tel:${x.phone}`}>{x.phone}</a>}
+                    {x.package ? ` · ${x.package}` : ""}
+                  </div>
+                  {x.message && <p style={{ marginTop: 8, color: "var(--ink)" }}>{x.message}</p>}
+                </div>
+              ))}
             </div>
           )}
         </div>
