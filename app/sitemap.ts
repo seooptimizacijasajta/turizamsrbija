@@ -13,7 +13,7 @@ export default async function sitemap() {
 
   ["/", "/en", "/apartmani-beograd", "/en/belgrade-apartments", "/oglasi-smestaj", "/en/list-your-space",
    "/blog", "/en/blog", "/de", "/de/blog", "/kontakt", "/en/contact", "/o-nama", "/en/about", "/uslovi", "/en/terms",
-   "/privatnost", "/en/privacy", "/pijaca", "/en/marketplace", "/de/marketplace"].forEach(add);
+   "/privatnost", "/en/privacy", "/pijaca", "/en/marketplace", "/de/marketplace", "/vauceri", "/en/vouchers", "/de/vouchers"].forEach(add);
 
   (["mountain", "lake", "spa", "ethno", "stay"] as Kind[]).forEach((k) => { add(sectionPath(k, "sr")); add(sectionPath(k, "en")); add(sectionPath(k, "de")); });
   all.forEach((l) => { add(listingPath(l.type, l.name.sr, "sr")); add(listingPath(l.type, l.name.sr, "en")); add(listingPath(l.type, l.name.sr, "de")); });

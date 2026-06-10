@@ -5,6 +5,7 @@ import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
   nav_pijaca: { sr: "Pijaca", en: "Marketplace", de: "Markt" },
+  nav_vauceri: { sr: "Vaučeri", en: "Vouchers", de: "Gutscheine" },
   detail_rules_h: { sr: "Pravila rezervacije", en: "Booking rules" },
   detail_min_nights: { sr: "Minimum noćenja (radni dani)", en: "Minimum nights (weekday)" },
   detail_min_nights_wknd: { sr: "Minimum noćenja (vikend)", en: "Minimum nights (weekend)" },
@@ -456,6 +457,7 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
 
 export const DE: Record<string, string> = {
   nav_pijaca: "Markt",
+  nav_vauceri: "Gutscheine",
   detail_rules_h: "Buchungsregeln",
   detail_min_nights: "Mindestnächte (Wochentag)",
   detail_min_nights_wknd: "Mindestnächte (Wochenende)",
