@@ -80,6 +80,7 @@ const CUSTOM_PAIRS: [string, string][] = [
   ["pretraga", "search"],
   ["mapa", "map"],
   ["sacuvano", "saved"],
+  ["pijaca", "marketplace"],
   ["o-nama", "about"],
   ["kontakt", "contact"],
   ["uslovi", "terms"],

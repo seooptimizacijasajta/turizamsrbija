@@ -4,6 +4,7 @@ import PaymentBadges from "./PaymentBadges";
 import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath } from "@/lib/slug";
 import { amenityPath } from "@/lib/amenities";
+import { pijacaPath } from "@/lib/pijaca";
 import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
@@ -31,6 +32,7 @@ export default function Footer() {
             [t("nav_stays"), sectionPath("stay", lang)],
           ])}
           {col(t("foot_company"), [
+            [t("nav_pijaca"), pijacaPath(lang)],
             ["FAQ", infoPath("faq", lang)],
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],

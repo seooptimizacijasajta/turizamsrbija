@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
 import { useFavorites } from "@/lib/favorites";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath } from "@/lib/slug";
+import { pijacaPath } from "@/lib/pijaca";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -49,6 +50,7 @@ export default function Header() {
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
           <Link href={lang === "sr" ? "/blog" : `/${lang}/blog`} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
+          <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={lang === "sr" ? "/pretraga" : `/${lang}/search`} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>

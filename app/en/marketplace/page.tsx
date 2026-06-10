@@ -1,0 +1,5 @@
+import { getProducts } from "@/lib/products";
+import PijacaPage from "@/app/components/PijacaPage";
+export const revalidate = 60;
+export const metadata = { title: "Marketplace — local products | Turizam Srbija", description: "Honey, cheese, kajmak, rakija, wine and crafts straight from local producers in Serbia.", alternates: { canonical: "/en/marketplace", languages: { "sr-Latn-RS": "/pijaca", en: "/en/marketplace", de: "/de/marketplace", "x-default": "/pijaca" } } };
+export default async function Page() { const products = await getProducts(); return <PijacaPage products={products} />; }
