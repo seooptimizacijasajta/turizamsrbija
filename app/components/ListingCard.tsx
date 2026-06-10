@@ -26,7 +26,7 @@ export default function ListingCard({ item }: { item: Listing }) {
         <span className={"card-fav" + (isFav(item.id) ? " on" : "")} role="button" aria-label="Sačuvaj / Save" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(item.id); }}>♥</span>
       </div>
       <div className="card-body">
-        <span className="card-region">{L(item.region, lang)}</span>
+        <span className="card-region">{L(item.region, lang)}{item.areaM2 ? ` · ${item.areaM2} m²` : ""}</span>
         <h3 className="card-title">{L(item.name, lang)}</h3>
         <p className="card-desc">{L(item.short, lang)}</p>
         <div className="tag-row">{tags.map((f) => <span key={f} className="tag">{f}</span>)}</div>

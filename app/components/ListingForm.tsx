@@ -19,7 +19,7 @@ type Row = {
   features_sr: string[]; features_en: string[];
   price: number; capacity: number | null;
   min_nights?: number | null; min_nights_weekend?: number | null; deposit?: number | null; discount_weekly?: number | null; discount_monthly?: number | null;
-  amenities?: string[]; price_unit?: string | null; structure?: string | null;
+  amenities?: string[]; price_unit?: string | null; structure?: string | null; area_m2?: number | null;
   video_urls?: string[]; lat?: number | null; lng?: number | null; google_place_id?: string | null;
   listing_images?: { url: string; sort: number }[];
 };
@@ -122,7 +122,7 @@ export default function ListingForm({
       deposit: get("deposit") ? Number(get("deposit")) : null,
       discount_weekly: get("discount_weekly") ? Number(get("discount_weekly")) : null,
       discount_monthly: get("discount_monthly") ? Number(get("discount_monthly")) : null,
-      amenities, price_unit: priceUnit, structure: structure || null,
+      amenities, price_unit: priceUnit, structure: structure || null, area_m2: get("area_m2") ? Number(get("area_m2")) : null,
       hero_image: photos[0] || null,
       video_urls: videos.map((v) => v.trim()).filter(Boolean).slice(0, 3),
       lat: lat ?? null, lng: lng ?? null,
@@ -201,7 +201,7 @@ export default function ListingForm({
       <div className="field"><label>{t("fo_desc_en")}</label><textarea name="desc_en" rows={5} defaultValue={e?.desc_en || ""} /></div>
 
       <div className="field-row">{field("features_sr", t("fo_features"), (e?.features_sr || []).join(", "))}{field("features_en", t("fo_features_en"), (e?.features_en || []).join(", "))}</div>
-      <div className="field-row">{field("price", t("fo_price"), e?.price ? String(e.price) : "", "number")}{field("capacity", t("fo_capacity"), e?.capacity ? String(e.capacity) : "", "number")}</div>
+      <div className="field-row">{field("price", t("fo_price"), e?.price ? String(e.price) : "", "number")}{field("capacity", t("fo_capacity"), e?.capacity ? String(e.capacity) : "", "number")}{field("area_m2", "Kvadratura m² / Area m²", e?.area_m2 ? String(e.area_m2) : "", "number")}</div>
 
       {/* Pravila smeštaja / House rules */}
       <h4 style={{ margin: "10px 0 2px", color: "var(--ink)" }}>Pravila rezervacije / Booking rules</h4>

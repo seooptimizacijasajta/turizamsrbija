@@ -30,5 +30,6 @@ export interface Listing {
   amenities?: string[];
   priceUnit?: string;
   structure?: string;
+  areaM2?: number | null;
   minNights?: number | null; minNightsWeekend?: number | null; deposit?: number | null; discountWeekly?: number | null; discountMonthly?: number | null;
 }

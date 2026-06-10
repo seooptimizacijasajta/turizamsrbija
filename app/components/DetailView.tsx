@@ -48,6 +48,7 @@ export default function DetailView({
   const meta: string[] = [];
   if (item.elevation) meta.push(`⛰ ${t("detail_elevation")}: ${item.elevation} m`);
   if (item.capacity) meta.push(`👥 ${t("detail_capacity")}: ${item.capacity} ${t("detail_persons")}`);
+  if (item.areaM2) meta.push(`📐 ${item.areaM2} m²`);
   if (item.municipality) meta.push(`🏛 ${t("detail_municipality")}: ${item.municipality}`);
   if (displayRating > 0) meta.push(`★ ${displayRating.toFixed(1)}`);
   meta.push(`📍 ${L(item.region, lang)}`);
