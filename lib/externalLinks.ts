@@ -17,6 +17,7 @@ export const EXTERNAL_LINKS: Record<string, ExtGroup[]> = {
         { label: "banjavrujci.eu", url: "https://www.banjavrujci.eu" },
         { label: "Banja Vrujci — Wikipedia", url: "https://en.wikipedia.org/wiki/Banja_Vrujci" },
         { label: "mionica.co.rs/banja-vrujci", url: "https://mionica.co.rs/banja-vrujci" },
+        { label: "mionica.eu — Banja Vrujci", url: "https://www.mionica.eu/banja-vrujci.html" },
         { label: "divcibare.org.rs — Banja Vrujci", url: "https://divcibare.org.rs/okolina-divcibara/banja-vrujci" },
         { label: "beogradnet.net — Banja Vrujci", url: "https://www.beogradnet.net/firma/banja-vrujci" },
       ],
