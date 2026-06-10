@@ -16,6 +16,7 @@ type Row = {
   desc_sr: string; desc_en: string;
   features_sr: string[]; features_en: string[];
   price: number; capacity: number | null;
+  min_nights?: number | null; min_nights_weekend?: number | null; deposit?: number | null; discount_weekly?: number | null; discount_monthly?: number | null;
   video_urls?: string[]; lat?: number | null; lng?: number | null; google_place_id?: string | null;
   listing_images?: { url: string; sort: number }[];
 };
@@ -109,6 +110,11 @@ export default function ListingForm({
       features_sr: toArr(get("features_sr")), features_en: toArr(get("features_en")),
       price: Number(get("price")) || 0, currency: "EUR",
       capacity: get("capacity") ? Number(get("capacity")) : null,
+      min_nights: get("min_nights") ? Number(get("min_nights")) : null,
+      min_nights_weekend: get("min_nights_weekend") ? Number(get("min_nights_weekend")) : null,
+      deposit: get("deposit") ? Number(get("deposit")) : null,
+      discount_weekly: get("discount_weekly") ? Number(get("discount_weekly")) : null,
+      discount_monthly: get("discount_monthly") ? Number(get("discount_monthly")) : null,
       hero_image: photos[0] || null,
       video_urls: videos.map((v) => v.trim()).filter(Boolean).slice(0, 3),
       lat: lat ?? null, lng: lng ?? null,
@@ -188,6 +194,18 @@ export default function ListingForm({
 
       <div className="field-row">{field("features_sr", t("fo_features"), (e?.features_sr || []).join(", "))}{field("features_en", t("fo_features_en"), (e?.features_en || []).join(", "))}</div>
       <div className="field-row">{field("price", t("fo_price"), e?.price ? String(e.price) : "", "number")}{field("capacity", t("fo_capacity"), e?.capacity ? String(e.capacity) : "", "number")}</div>
+
+      {/* Pravila smeštaja / House rules */}
+      <h4 style={{ margin: "10px 0 2px", color: "var(--ink)" }}>Pravila rezervacije / Booking rules</h4>
+      <div className="field-row">
+        {field("min_nights", "Min. noćenja (radni dani) / Min nights (weekday)", e?.min_nights ? String(e.min_nights) : "", "number")}
+        {field("min_nights_weekend", "Min. noćenja (vikend) / Min nights (weekend)", e?.min_nights_weekend ? String(e.min_nights_weekend) : "", "number")}
+      </div>
+      <div className="field-row">
+        {field("deposit", "Depozit € (opciono) / Deposit € (optional)", e?.deposit ? String(e.deposit) : "", "number")}
+        {field("discount_weekly", "Popust 7+ noćenja % / Weekly discount %", e?.discount_weekly ? String(e.discount_weekly) : "", "number")}
+        {field("discount_monthly", "Popust 28+ noćenja % / Monthly discount %", e?.discount_monthly ? String(e.discount_monthly) : "", "number")}
+      </div>
 
       {/* Photos */}
       <div className="field">

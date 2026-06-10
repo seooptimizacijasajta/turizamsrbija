@@ -27,4 +27,5 @@ export interface Listing {
   bold?: boolean;
   createdAt?: string;
   views?: number;
+  minNights?: number | null; minNightsWeekend?: number | null; deposit?: number | null; discountWeekly?: number | null; discountMonthly?: number | null;
 }

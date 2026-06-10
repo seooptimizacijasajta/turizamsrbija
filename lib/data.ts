@@ -38,6 +38,11 @@ function rowToListing(r: any): Listing {
     bold: !!r.bold,
     createdAt: r.created_at || undefined,
     views: r.views || 0,
+    minNights: r.min_nights ?? null,
+    minNightsWeekend: r.min_nights_weekend ?? null,
+    deposit: r.deposit ?? null,
+    discountWeekly: r.discount_weekly ?? null,
+    discountMonthly: r.discount_monthly ?? null,
   };
 }
 

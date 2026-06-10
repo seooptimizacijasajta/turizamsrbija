@@ -4,6 +4,12 @@ import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
 export const I18N: Record<string,{sr:string;en:string}> = {
+  detail_rules_h: { sr: "Pravila rezervacije", en: "Booking rules" },
+  detail_min_nights: { sr: "Minimum noćenja (radni dani)", en: "Minimum nights (weekday)" },
+  detail_min_nights_wknd: { sr: "Minimum noćenja (vikend)", en: "Minimum nights (weekend)" },
+  detail_deposit: { sr: "Depozit", en: "Deposit" },
+  detail_disc_weekly: { sr: "Popust za 7+ noćenja", en: "Discount for 7+ nights" },
+  detail_disc_monthly: { sr: "Popust za 28+ noćenja", en: "Discount for 28+ nights" },
   sort_popular: { sr: "Najpopularnije", en: "Most popular" },
   detail_views: { sr: "pregleda", en: "views" },
 

@@ -101,6 +101,19 @@ export default function DetailView({
               </div>
             )}
 
+            {item.type === "stay" && (item.minNights || item.minNightsWeekend || item.deposit || item.discountWeekly || item.discountMonthly) && (
+              <div className="detail-section">
+                <h2>{t("detail_rules_h")}</h2>
+                <ul className="feature-list">
+                  {item.minNights ? <li>{t("detail_min_nights")}: {item.minNights}</li> : null}
+                  {item.minNightsWeekend ? <li>{t("detail_min_nights_wknd")}: {item.minNightsWeekend}</li> : null}
+                  {item.deposit ? <li>{t("detail_deposit")}: €{item.deposit}</li> : null}
+                  {item.discountWeekly ? <li>{t("detail_disc_weekly")}: −{item.discountWeekly}%</li> : null}
+                  {item.discountMonthly ? <li>{t("detail_disc_monthly")}: −{item.discountMonthly}%</li> : null}
+                </ul>
+              </div>
+            )}
+
             {item.type === "stay" && (
               <div className="detail-section">
                 <h2>{t("cal_avail")}</h2>
