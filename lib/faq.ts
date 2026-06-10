@@ -89,6 +89,10 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
     { q: "Na kojim jezicima je portal dostupan?", a: "Na srpskom i engleskom. Svaki sadržaj ima svoju adresu na oba jezika, pa ga lako pronalaze i gosti iz inostranstva." },
     { q: "Mogu li da ostavim recenziju?", a: "Možete. Recenzije se ostavljaju na stranici smeštaja i objavljuju nakon kratke provere, čime se čuva njihova verodostojnost." },
     { q: "Kako da kontaktiram podršku?", a: "Pišite nam na info@turizamsrbija.com ili putem Viber/WhatsApp poruke na +381 64 4598778, kao i preko kontakt forme na sajtu." },
+    { q: "Da li je plaćanje karticom na sajtu sigurno?", a: "Jeste. Sva plaćanja karticom idu kroz 3-D Secure (Verified by Visa i Mastercard ID Check) — banka dodatno potvrđuje vaš identitet. Veza je zaštićena SSL enkripcijom, a podatke vaše kartice ne čuvamo na portalu." },
+    { q: "Koje kartice mogu da koristim?", a: "Prihvataju se Visa, Mastercard, Maestro i DinaCard, kao i debitne i kreditne kartice domaćih i stranih banaka. Dostupne načine plaćanja vidite na koraku plaćanja." },
+    { q: "Šta je 3-D Secure i CVV2?", a: "3-D Secure je dodatna provera identiteta pri online plaćanju (lozinka ili potvrda u banci aplikaciji). CVV2 je trocifreni kod sa poleđine kartice koji potvrđuje da karticu fizički držite. Oba štite od zloupotrebe." },
+    { q: "Šta ako želim da osporim transakciju?", a: "Ako roba ili usluga nije isporučena ili ne odgovara opisu, prvo se obratite domaćinu, a zatim svojoj banci radi osporavanja (chargeback). Mi vam stojimo na raspolaganju za svaki spor." },
   ],
   en: [
     { q: "What is Turizam Srbija?", a: "Turizam Srbija is a bilingual (Serbian and English) portal that brings together Serbia's finest destinations and accommodation in one place — mountains, lakes, spas, ethno villages, Belgrade apartments and stays across the country." },
@@ -99,6 +103,10 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
     { q: "Which languages is the portal available in?", a: "Serbian and English. Every page has its own address in both languages, so international guests can find it easily." },
     { q: "Can I leave a review?", a: "Yes. Reviews are left on the listing page and published after a short check to keep them trustworthy." },
     { q: "How do I contact support?", a: "Email us at info@turizamsrbija.com or message us on Viber/WhatsApp at +381 64 4598778, or use the contact form on the site." },
+    { q: "Is paying by card on the site secure?", a: "Yes. All card payments go through 3-D Secure (Verified by Visa and Mastercard ID Check), where your bank confirms your identity. The connection is SSL-encrypted and we never store your card details on the portal." },
+    { q: "Which cards can I use?", a: "We accept Visa, Mastercard, Maestro and DinaCard, including debit and credit cards from local and foreign banks. Available payment methods are shown at the payment step." },
+    { q: "What are 3-D Secure and CVV2?", a: "3-D Secure is an extra identity check during online payment (a password or confirmation in your bank app). CVV2 is the three-digit code on the back of your card confirming you physically hold it. Both protect against misuse." },
+    { q: "What if I want to dispute a transaction?", a: "If goods or services are not delivered or do not match the description, contact the host first, then your bank to dispute the charge (chargeback). We are also here to help with any dispute." },
   ],
 };
 export function generalFaqs(locale: Lang): Faq[] { return GENERAL[locale]; }

@@ -288,3 +288,9 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .sk-card{pointer-events:none}
 .sk-media{aspect-ratio:16/11;border-radius:0}
 .sk-line{height:13px;border-radius:6px}
+
+/* Payment trust badges */
+.pay-badges-h{font-weight:700;margin-bottom:10px;color:#fff}
+.pay-badges-row{display:flex;flex-wrap:wrap;gap:8px}
+.pay-badge{font-size:.8rem;font-weight:800;letter-spacing:.02em;padding:6px 12px;border-radius:7px;line-height:1}
+.pay-badges-note{font-size:.8rem;color:#bfe0d3;margin-top:10px;max-width:520px}

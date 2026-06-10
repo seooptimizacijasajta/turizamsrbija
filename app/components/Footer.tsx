@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import PaymentBadges from "./PaymentBadges";
 import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath } from "@/lib/slug";
 import NewsletterForm from "./NewsletterForm";
@@ -35,6 +36,7 @@ export default function Footer() {
           ])}
           {col(t("foot_follow"), [["Instagram", "#"], ["Facebook", "#"], ["YouTube", "#"]])}
         </div>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,.12)", marginTop: 24, paddingTop: 18 }}><PaymentBadges compact /></div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} turizamsrbija.com — {t("foot_rights")}</span>
           <span>Beograd · Srbija</span>
