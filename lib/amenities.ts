@@ -51,6 +51,6 @@ export const amenityBySlug = (slug: string) =>
   Object.entries(AMENITY_SLUGS).find(([, v]) => v.sr === slug || v.en === slug)?.[0];
 export const amenityPath = (key: string, lang: Lang) => {
   const p = AMENITY_SLUGS[key]; if (!p) return lang === "sr" ? "/" : `/${lang}`;
-  return lang === "sr" ? `/pogodnosti/${p.sr}` : `/${lang}/amenities/${p.en}`;
+  return lang === "sr" ? `/pogodnosti/${p.sr}` : lang === "de" ? `/de/ausstattung/${p.en}` : `/en/amenities/${p.en}`;
 };
 export const LANDING_AMENITIES = Object.keys(AMENITY_SLUGS);

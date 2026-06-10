@@ -21,7 +21,7 @@ export default function NotFoundView() {
       </p>
       <div className="hero-actions" style={{ justifyContent: "center" }}>
         <Link className="btn btn--primary" href={homePath(lang)}>{en ? "Home" : "Početna"}</Link>
-        <Link className="btn btn--outline" href={lang === "sr" ? "/pretraga" : `/${lang}/search`}>{en ? "Search" : "Pretraga"}</Link>
+        <Link className="btn btn--outline" href={lang === "sr" ? "/pretraga" : lang === "de" ? "/de/suche" : "/en/search"}>{en ? "Search" : "Pretraga"}</Link>
       </div>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginTop: 32 }}>
         {CATS.map((c) => <Link key={c.k} className="btn btn--outline" href={sectionPath(c.k, lang)}>{t(c.key)}</Link>)}

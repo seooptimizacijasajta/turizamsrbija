@@ -16,7 +16,7 @@ export const structByKey = (k: string | undefined | null) => STRUCTURES.find((x)
 export const structBySlug = (slug: string) => STRUCTURES.find((x) => x.slug === slug);
 export const structLabel = (s: Struct, lang: Lang) => (lang === "sr" ? s.sr : lang === "de" ? s.de : s.en);
 export const structPath = (slug: string, lang: Lang) =>
-  lang === "sr" ? `/apartmani-beograd/struktura/${slug}` : `/${lang}/belgrade-apartments/type/${slug}`;
+  lang === "sr" ? `/apartmani-beograd/struktura/${slug}` : lang === "de" ? `/de/belgrad-apartments/typ/${slug}` : `/en/belgrade-apartments/type/${slug}`;
 
 export function isBelgrade(municipality: string | undefined | null): boolean {
   if (!municipality) return false;

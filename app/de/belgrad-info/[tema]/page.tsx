@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }: { params: Promise<{ tema: string }> }) {
   const { tema } = await params; const t = bgInfoBySlug(tema);
   if (!t) return { title: "Belgrad Info — Turizam Srbija" };
-  return { title: `${t.title.de} | Turizam Srbija`, description: t.lead.de, alternates: { canonical: `/de/belgrade-info/${t.en_slug}`, languages: { "sr-Latn-RS": `/info-beograd/${t.slug}`, en: `/en/belgrade-info/${t.en_slug}`, de: `/de/belgrade-info/${t.en_slug}`, "x-default": `/info-beograd/${t.slug}` } } };
+  return { title: `${t.title.de} | Turizam Srbija`, description: t.lead.de, alternates: { canonical: `/de/belgrad-info/${t.en_slug}`, languages: { "sr-Latn-RS": `/info-beograd/${t.slug}`, en: `/en/belgrade-info/${t.en_slug}`, de: `/de/belgrad-info/${t.en_slug}`, "x-default": `/info-beograd/${t.slug}` } } };
 }
 export default async function Page({ params }: { params: Promise<{ tema: string }> }) {
   const { tema } = await params; const t = bgInfoBySlug(tema); if (!t) notFound();

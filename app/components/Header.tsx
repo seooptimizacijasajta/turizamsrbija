@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
 import { useFavorites } from "@/lib/favorites";
 import { useCurrency } from "@/lib/currency";
-import { homePath, sectionPath, switchLangPath, belgradePath, listPath } from "@/lib/slug";
+import { homePath, sectionPath, switchLangPath, belgradePath, listPath, accountPath, mapPath, searchPath, savedPath, blogPath } from "@/lib/slug";
 import { pijacaPath } from "@/lib/pijaca";
 import type { Kind } from "@/lib/types";
 
@@ -24,7 +24,7 @@ export default function Header() {
   const [destOpen, setDestOpen] = useState(false);
   const path = usePathname() || "/";
   const router = useRouter();
-  const accountHref = lang === "sr" ? "/nalog" : `/${lang}/nalog`;
+  const accountHref = accountPath(lang);
   const close = () => { setOpen(false); setDestOpen(false); };
   const destActive = DEST.some((d) => path === sectionPath(d.kind, lang));
 
@@ -45,18 +45,18 @@ export default function Header() {
               {DEST.map((d) => (
                 <Link key={d.kind} href={sectionPath(d.kind, lang)} onClick={close}>{t(d.key)}</Link>
               ))}
-              <Link href={lang === "sr" ? "/mapa" : `/${lang}/map`} onClick={close}>🗺 {t("nav_map")}</Link>
+              <Link href={mapPath(lang)} onClick={close}>🗺 {t("nav_map")}</Link>
             </div>
           </div>
 
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
-          <Link href={lang === "sr" ? "/blog" : `/${lang}/blog`} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
+          <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
           <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
         </nav>
         <div className="nav-right">
-          <Link className="nav-search" href={lang === "sr" ? "/pretraga" : `/${lang}/search`} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
-          <Link className="nav-fav" href={lang === "sr" ? "/sacuvano" : `/${lang}/saved`} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
+          <Link className="nav-search" href={searchPath(lang)} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
+          <Link className="nav-fav" href={savedPath(lang)} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>

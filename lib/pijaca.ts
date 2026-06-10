@@ -14,4 +14,4 @@ export const PCATS: PCat[] = [
 export const pcatLabel = (k: string, lang: Lang) => { const c = PCATS.find((x) => x.key === k); return c ? (lang === "sr" ? c.sr : lang === "de" ? c.de : c.en) : k; };
 export const pcatIcon = (k: string) => PCATS.find((x) => x.key === k)?.icon || "🛒";
 export const unitLabel = (u: string, lang: Lang) => u === "kom" ? (lang === "sr" ? "kom" : lang === "de" ? "Stk" : "pc") : u;
-export const pijacaPath = (lang: Lang) => lang === "sr" ? "/pijaca" : `/${lang}/marketplace`;
+export const pijacaPath = (lang: Lang) => lang === "sr" ? "/pijaca" : lang === "de" ? "/de/markt" : "/en/marketplace";

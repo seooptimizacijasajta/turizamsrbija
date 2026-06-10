@@ -7,6 +7,7 @@ import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 import ProductForm from "./ProductForm";
 import { pcatLabel, pcatIcon } from "@/lib/pijaca";
+import { accountPath } from "@/lib/slug";
 
 export default function Account() {
   const { t, lang } = useLang();
@@ -96,7 +97,7 @@ export default function Account() {
   async function logout() { if (sb) await sb.auth.signOut(); }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
-    const redirectTo = window.location.origin + (lang === "sr" ? "/nalog" : `/${lang}/nalog`);
+    const redirectTo = window.location.origin + accountPath(lang);
     await sb.auth.signInWithOAuth({ provider, options: { redirectTo } });
   }
 

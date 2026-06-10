@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import FaqAccordion from "./FaqAccordion";
-import { homePath } from "@/lib/slug";
+import { homePath, accountPath } from "@/lib/slug";
 
 const C: Record<"sr" | "en", any> = {
   sr: {
@@ -45,7 +45,7 @@ const C: Record<"sr" | "en", any> = {
 export default function ListYourSpace() {
   const { lang, t } = useLang();
   const c = C[lang === "sr" ? "sr" : "en"];
-  const acct = lang === "sr" ? "/nalog" : `/${lang}/nalog`;
+  const acct = accountPath(lang);
   return (
     <>
       <section className="hero" style={{ minHeight: "56vh" }}>

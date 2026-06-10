@@ -25,12 +25,18 @@ export const SLUG_TO_KIND: Record<string, Kind> = {
 export const SLUG_TO_KIND_EN: Record<string, Kind> = {
   mountains: "mountain", lakes: "lake", spas: "spa", "ethno-villages": "ethno", accommodation: "stay",
 };
+export const KIND_TO_SLUG_DE: Record<Kind, string> = {
+  mountain: "berge", lake: "seen", spa: "kurorte", ethno: "ethno-doerfer", stay: "unterkunft",
+};
+export const SLUG_TO_KIND_DE: Record<string, Kind> = {
+  berge: "mountain", seen: "lake", kurorte: "spa", "ethno-doerfer": "ethno", unterkunft: "stay",
+};
 
 export function catSlug(kind: Kind, locale: Lang): string {
-  return locale === "sr" ? KIND_TO_SLUG[kind] : KIND_TO_SLUG_EN[kind];
+  return locale === "sr" ? KIND_TO_SLUG[kind] : locale === "de" ? KIND_TO_SLUG_DE[kind] : KIND_TO_SLUG_EN[kind];
 }
 export function kindFromSlug(seg: string): Kind | undefined {
-  return SLUG_TO_KIND[seg] || SLUG_TO_KIND_EN[seg];
+  return SLUG_TO_KIND[seg] || SLUG_TO_KIND_EN[seg] || SLUG_TO_KIND_DE[seg];
 }
 
 const base = (locale: Lang) => (locale === "sr" ? "" : `/${locale}`);
@@ -64,7 +70,7 @@ export function switchLangPath(pathname: string, target: Lang): string {
 export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
   const sr = kind ? (slug ? `/${KIND_TO_SLUG[kind]}/${slug}` : `/${KIND_TO_SLUG[kind]}`) : "/";
   const en = kind ? (slug ? `/en/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/en/${KIND_TO_SLUG_EN[kind]}`) : "/en";
-  const de = kind ? (slug ? `/de/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/de/${KIND_TO_SLUG_EN[kind]}`) : "/de";
+  const de = kind ? (slug ? `/de/${KIND_TO_SLUG_DE[kind]}/${slug}` : `/de/${KIND_TO_SLUG_DE[kind]}`) : "/de";
   const canonical = locale === "sr" ? sr : locale === "en" ? en : de;
   return {
     alternates: {
@@ -74,31 +80,39 @@ export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
   };
 }
 
-const CUSTOM_PAIRS: [string, string][] = [
-  ["apartmani-beograd", "belgrade-apartments"],
-  ["oglasi-smestaj", "list-your-space"],
-  ["pretraga", "search"],
-  ["mapa", "map"],
-  ["sacuvano", "saved"],
-  ["pijaca", "marketplace"],
-  ["vauceri", "vouchers"],
-  ["oglasavanje", "advertising"],
-  ["o-nama", "about"],
-  ["kontakt", "contact"],
-  ["uslovi", "terms"],
-  ["privatnost", "privacy"],
+const CUSTOM_PAIRS: [string, string, string][] = [
+  ["apartmani-beograd", "belgrade-apartments", "belgrad-apartments"],
+  ["oglasi-smestaj", "list-your-space", "unterkunft-anbieten"],
+  ["pretraga", "search", "suche"],
+  ["mapa", "map", "karte"],
+  ["sacuvano", "saved", "gespeichert"],
+  ["pijaca", "marketplace", "markt"],
+  ["vauceri", "vouchers", "gutscheine"],
+  ["oglasavanje", "advertising", "werbung"],
+  ["o-nama", "about", "ueber-uns"],
+  ["kontakt", "contact", "kontakt"],
+  ["uslovi", "terms", "agb"],
+  ["privatnost", "privacy", "datenschutz"],
+  ["nalog", "nalog", "konto"],
+  ["info-beograd", "belgrade-info", "belgrad-info"],
 ];
 
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
-  const map: Record<string, [string, string]> = { about: ["o-nama", "about"], contact: ["kontakt", "contact"], terms: ["uslovi", "terms"], privacy: ["privatnost", "privacy"], faq: ["faq", "faq"] };
-  const [sr, en] = map[which];
-  return (locale === "sr" ? "/" : `/${locale}/`) + (locale === "sr" ? sr : en);
+  const map: Record<string, [string, string, string]> = { about: ["o-nama", "about", "ueber-uns"], contact: ["kontakt", "contact", "kontakt"], terms: ["uslovi", "terms", "agb"], privacy: ["privatnost", "privacy", "datenschutz"], faq: ["faq", "faq", "faq"] };
+  const [sr, en, de] = map[which];
+  return (locale === "sr" ? "/" : `/${locale}/`) + (locale === "sr" ? sr : locale === "de" ? de : en);
 }
 export function customSeg(seg: string, target: Lang): string | null {
-  for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "sr" ? sr : en;
+  for (const [sr, en, de] of CUSTOM_PAIRS) if (seg === sr || seg === en || seg === de) return target === "sr" ? sr : target === "de" ? de : en;
   return null;
 }
-export function marketingPath(locale: Lang) { return locale === "sr" ? "/oglasavanje" : `/${locale}/advertising`; }
-export function voucherPath(locale: Lang) { return locale === "sr" ? "/vauceri" : `/${locale}/vouchers`; }
-export function belgradePath(locale: Lang) { return locale === "sr" ? "/apartmani-beograd" : `/${locale}/belgrade-apartments`; }
-export function listPath(locale: Lang) { return locale === "sr" ? "/oglasi-smestaj" : `/${locale}/list-your-space`; }
+export function marketingPath(locale: Lang) { return locale === "sr" ? "/oglasavanje" : locale === "de" ? "/de/werbung" : "/en/advertising"; }
+export function voucherPath(locale: Lang) { return locale === "sr" ? "/vauceri" : locale === "de" ? "/de/gutscheine" : "/en/vouchers"; }
+export function belgradePath(locale: Lang) { return locale === "sr" ? "/apartmani-beograd" : locale === "de" ? "/de/belgrad-apartments" : "/en/belgrade-apartments"; }
+export function listPath(locale: Lang) { return locale === "sr" ? "/oglasi-smestaj" : locale === "de" ? "/de/unterkunft-anbieten" : "/en/list-your-space"; }
+
+export const accountPath = (l: Lang) => l === "sr" ? "/nalog" : l === "de" ? "/de/konto" : "/en/nalog";
+export const mapPath = (l: Lang) => l === "sr" ? "/mapa" : l === "de" ? "/de/karte" : "/en/map";
+export const searchPath = (l: Lang) => l === "sr" ? "/pretraga" : l === "de" ? "/de/suche" : "/en/search";
+export const savedPath = (l: Lang) => l === "sr" ? "/sacuvano" : l === "de" ? "/de/gespeichert" : "/en/saved";
+export const blogPath = (l: Lang) => l === "sr" ? "/blog" : `/${l}/blog`;

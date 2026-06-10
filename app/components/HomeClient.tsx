@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
-import { slugify, sectionPath } from "@/lib/slug";
+import { slugify, sectionPath, searchPath } from "@/lib/slug";
 import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
@@ -47,7 +47,7 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
             <Link className="btn btn--primary btn--lg" href={sectionPath("mountain", lang)}>{t("hero_cta1")}</Link>
             <Link className="btn btn--ghost btn--lg" href={sectionPath("stay", lang)}>{t("hero_cta2")}</Link>
           </div>
-          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${lang === "sr" ? "/pretraga" : `/${lang}/search`}?q=${encodeURIComponent(q)}&type=${type}`); }}>
+          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${searchPath(lang)}?q=${encodeURIComponent(q)}&type=${type}`); }}>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("search_ph")} />
             <select value={type} onChange={(e) => setType(e.target.value as "mountain"|"lake"|"spa"|"ethno"|"stay")}>
               <option value="mountain">{t("nav_mountains")}</option>

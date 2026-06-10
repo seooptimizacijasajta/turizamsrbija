@@ -121,5 +121,5 @@ export const BG_INFO: InfoTopic[] = [
 ];
 
 export const bgInfoBySlug = (slug: string) => BG_INFO.find((t) => t.slug === slug || t.en_slug === slug);
-export const bgInfoPath = (t: InfoTopic, lang: Lang) => lang === "sr" ? `/info-beograd/${t.slug}` : `/${lang}/belgrade-info/${t.en_slug}`;
+export const bgInfoPath = (t: InfoTopic, lang: Lang) => lang === "sr" ? `/info-beograd/${t.slug}` : lang === "de" ? `/de/belgrad-info/${t.en_slug}` : `/en/belgrade-info/${t.en_slug}`;
 export const bgInfoTitle = (t: InfoTopic, lang: Lang) => lang === "sr" ? t.title.sr : lang === "de" ? t.title.de : t.title.en;

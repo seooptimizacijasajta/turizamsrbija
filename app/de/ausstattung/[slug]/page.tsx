@@ -6,7 +6,7 @@ export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const key = amenityBySlug(slug); const a = key ? amenityByKey(key) : null;
   if (!a) return { title: "Accommodation — Turizam Srbija" };
-  return { title: `${a.en} — accommodation in Serbia | Turizam Srbija`, description: `Find accommodation in Serbia: ${a.en.toLowerCase()}. Apartments, villas, hotels and ethno homes with filters and reviews.`, alternates: { canonical: `/de/amenities/${slug}` } };
+  return { title: `${a.en} — accommodation in Serbia | Turizam Srbija`, description: `Find accommodation in Serbia: ${a.en.toLowerCase()}. Apartments, villas, hotels and ethno homes with filters and reviews.`, alternates: { canonical: `/de/ausstattung/${slug}` } };
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const key = amenityBySlug(slug); if (!key) notFound();
