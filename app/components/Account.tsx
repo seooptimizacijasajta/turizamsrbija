@@ -5,6 +5,8 @@ import { useLang } from "@/lib/i18n";
 import ListingForm from "./ListingForm";
 import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
+import ProductForm from "./ProductForm";
+import { pcatLabel, pcatIcon } from "@/lib/pijaca";
 
 export default function Account() {
   const { t, lang } = useLang();
@@ -22,6 +24,9 @@ export default function Account() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [calFor, setCalFor] = useState<any>(null);
+  const [products, setProducts] = useState<any[]>([]);
+  const [showProd, setShowProd] = useState(false);
+  const [editingProd, setEditingProd] = useState<any>(null);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
@@ -32,7 +37,18 @@ export default function Account() {
     if (!admin) q = q.eq("owner_id", uid);
     const { data } = await q;
     setRows(data || []);
+    let pq = sb.from("products").select("*").order("created_at", { ascending: false });
+    if (!admin) pq = pq.eq("owner_id", uid);
+    const { data: pr } = await pq;
+    setProducts(pr || []);
   }, [sb]);
+
+  async function delProduct(id: string) {
+    if (!sb || !userId) return;
+    if (!confirm("Obrisati proizvod? / Delete product?")) return;
+    await sb.from("products").delete().eq("id", id);
+    loadListings(userId);
+  }
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -199,6 +215,39 @@ export default function Account() {
             </div>
           )}
           <p className="booking-note" style={{ textAlign: "left", marginTop: 16 }}>{t("acc_pending_note")}</p>
+
+          <div style={{ marginTop: 40, borderTop: "1px solid var(--line)", paddingTop: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+              <h2 style={{ margin: 0 }}>{t("nav_pijaca")} — {isAdmin ? "svi proizvodi / all products" : "moji proizvodi / my products"}</h2>
+              {!showProd && <button className="btn btn--primary" onClick={() => { setEditingProd(null); setShowProd(true); }}>Dodaj proizvod / Add product</button>}
+            </div>
+
+            {showProd && userId && (
+              <ProductForm sb={sb} ownerId={userId} existing={editingProd}
+                onSaved={() => { setShowProd(false); setEditingProd(null); loadListings(userId); }}
+                onCancel={() => { setShowProd(false); setEditingProd(null); }} />
+            )}
+
+            {!showProd && (
+              products.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema proizvoda. / No products yet.</div> : (
+                <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+                  {products.map((p) => (
+                    <div key={p.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", flexWrap: "wrap" }}>
+                      <div>
+                        <strong>{p.name_sr}</strong>{" "}
+                        <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {pcatIcon(p.category)} {pcatLabel(p.category, lang)}{p.price ? ` · €${p.price}/${p.unit}` : ""}</span>
+                        <div style={{ marginTop: 6 }}>{statusBadge(p.status)}</div>
+                      </div>
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                        <button className="btn btn--outline" onClick={() => { setEditingProd(p); setShowProd(true); }}>{t("acc_edit")}</button>
+                        <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delProduct(p.id)}>{t("acc_delete")}</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
         </div>
       )}
     </div>
