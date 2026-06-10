@@ -1,7 +1,12 @@
+import type { MetadataRoute } from "next";
 import { getListings } from "@/lib/data";
 import { getPosts } from "@/lib/blog";
-import { listingPath, sectionPath } from "@/lib/slug";
+import {
+  listingPath, sectionPath, homePath, belgradePath, listPath, infoPath,
+  voucherPath, marketingPath, blogPath,
+} from "@/lib/slug";
 import { LANDING_AMENITIES, amenityPath } from "@/lib/amenities";
+import { pijacaPath } from "@/lib/pijaca";
 import { BG_AREAS, bgAreaPath } from "@/lib/belgrade";
 import { STRUCTURES, structPath } from "@/lib/structure";
 import { BG_INFO, bgInfoPath } from "@/lib/bgInfo";
@@ -9,22 +14,52 @@ import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
 
-export default async function sitemap() {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [all, posts] = await Promise.all([getListings(), getPosts()]);
-  const urls: { url: string; lastModified: Date }[] = [];
-  const add = (p: string) => urls.push({ url: BASE + p, lastModified: new Date() });
+  const now = new Date();
+  const out: MetadataRoute.Sitemap = [];
 
-  ["/", "/en", "/apartmani-beograd", "/en/belgrade-apartments", "/oglasi-smestaj", "/en/list-your-space",
-   "/blog", "/en/blog", "/de", "/de/blog", "/kontakt", "/en/contact", "/o-nama", "/en/about", "/uslovi", "/en/terms",
-   "/privatnost", "/en/privacy", "/pijaca", "/en/marketplace", "/de/markt", "/vauceri", "/en/vouchers", "/de/gutscheine", "/oglasavanje", "/en/advertising", "/de/werbung"].forEach(add);
+  // One entry per page, carrying SR/EN/DE hreflang alternates
+  const tri = (sr: string, en: string, de: string) => {
+    out.push({
+      url: BASE + sr, lastModified: now, changeFrequency: "weekly", priority: 0.7,
+      alternates: { languages: { "sr-Latn-RS": BASE + sr, en: BASE + en, de: BASE + de, "x-default": BASE + sr } },
+    });
+  };
 
-  (["mountain", "lake", "spa", "ethno", "stay"] as Kind[]).forEach((k) => { add(sectionPath(k, "sr")); add(sectionPath(k, "en")); add(sectionPath(k, "de")); });
-  all.forEach((l) => { add(listingPath(l.type, l.name.sr, "sr")); add(listingPath(l.type, l.name.sr, "en")); add(listingPath(l.type, l.name.sr, "de")); });
-  posts.forEach((p) => { add(`/blog/${p.slug}`); add(`/en/blog/${p.slug}`); add(`/de/blog/${p.slug}`); });
-  LANDING_AMENITIES.forEach((k) => { add(amenityPath(k, "sr")); add(amenityPath(k, "en")); });
-  BG_AREAS.forEach((a) => { add(bgAreaPath(a.slug, "sr")); add(bgAreaPath(a.slug, "en")); add(bgAreaPath(a.slug, "de")); });
-  STRUCTURES.forEach((st) => { add(structPath(st.slug, "sr")); add(structPath(st.slug, "en")); add(structPath(st.slug, "de")); });
-  BG_INFO.forEach((x) => { add(bgInfoPath(x, "sr")); add(bgInfoPath(x, "en")); add(bgInfoPath(x, "de")); });
+  // Core pages
+  tri(homePath("sr"), homePath("en"), homePath("de"));
+  tri(belgradePath("sr"), belgradePath("en"), belgradePath("de"));
+  tri(listPath("sr"), listPath("en"), listPath("de"));
+  tri(blogPath("sr"), blogPath("en"), blogPath("de"));
+  tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
+  tri(voucherPath("sr"), voucherPath("en"), voucherPath("de"));
+  tri(marketingPath("sr"), marketingPath("en"), marketingPath("de"));
+  (["about", "contact", "terms", "privacy", "faq"] as const).forEach((w) =>
+    tri(infoPath(w, "sr"), infoPath(w, "en"), infoPath(w, "de")));
 
-  return urls;
+  // Sections
+  (["mountain", "lake", "spa", "ethno", "stay"] as Kind[]).forEach((k) =>
+    tri(sectionPath(k, "sr"), sectionPath(k, "en"), sectionPath(k, "de")));
+
+  // Listings
+  all.forEach((l) =>
+    tri(listingPath(l.type, l.name.sr, "sr"), listingPath(l.type, l.name.sr, "en"), listingPath(l.type, l.name.sr, "de")));
+
+  // Blog posts
+  posts.forEach((p) => tri(`/blog/${p.slug}`, `/en/blog/${p.slug}`, `/de/blog/${p.slug}`));
+
+  // Amenity landing pages
+  LANDING_AMENITIES.forEach((k) => tri(amenityPath(k, "sr"), amenityPath(k, "en"), amenityPath(k, "de")));
+
+  // Belgrade neighbourhoods + structures
+  BG_AREAS.forEach((a) => tri(bgAreaPath(a.slug, "sr"), bgAreaPath(a.slug, "en"), bgAreaPath(a.slug, "de")));
+  STRUCTURES.forEach((st) => tri(structPath(st.slug, "sr"), structPath(st.slug, "en"), structPath(st.slug, "de")));
+
+  // Belgrade info pages
+  BG_INFO.forEach((x) => tri(bgInfoPath(x, "sr"), bgInfoPath(x, "en"), bgInfoPath(x, "de")));
+
+  return out;
 }
