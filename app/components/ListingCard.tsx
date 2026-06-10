@@ -5,9 +5,11 @@ import { useLang, L } from "@/lib/i18n";
 import { listingPath } from "@/lib/slug";
 import { useFavorites } from "@/lib/favorites";
 import { AMENITIES, priceUnitLabel } from "@/lib/amenities";
+import { useCurrency } from "@/lib/currency";
 
 export default function ListingCard({ item }: { item: Listing }) {
   const { lang, t } = useLang();
+  const { price } = useCurrency();
   const tags = (((item.features as any)[lang] as string[]) || item.features.en || []).slice(0, 2);
   const { isFav, toggle } = useFavorites();
   const href = listingPath(item.type, item.name.sr, lang);
@@ -31,7 +33,7 @@ export default function ListingCard({ item }: { item: Listing }) {
         {amIcons.length > 0 && <div className="am-row">{amIcons.map((a) => <span key={a!.key} className="am-ic" title={lang !== "sr" ? a!.en : a!.sr}>{a!.icon}</span>)}</div>}
         <div className="card-foot">
           {item.type === "stay" ? (
-            <span className="price"><small>{t("from")} </small>€{item.price} <small>/ {priceUnitLabel(item.priceUnit, lang)}</small></span>
+            <span className="price"><small>{t("from")} </small>{price(item.price)} <small>/ {priceUnitLabel(item.priceUnit, lang)}</small></span>
           ) : (
             <span className="price" style={{ color: "var(--green-600)" }}>{t("free_entry")}</span>
           )}

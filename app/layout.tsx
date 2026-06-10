@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
 import { FavoritesProvider } from "@/lib/favorites";
+import { CurrencyProvider } from "@/lib/currency";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import BannerSlot from "@/app/components/BannerSlot";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: "Turizam Srbija", url: "https://turizamsrbija.com" }} />
         <LanguageProvider>
           <FavoritesProvider>
+          <CurrencyProvider>
           <Header />
           <BannerSlot position="top" />
           {children}
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <FloatingWidgets />
           <CookieNotice />
+          </CurrencyProvider>
           </FavoritesProvider>
         </LanguageProvider>
       </body>

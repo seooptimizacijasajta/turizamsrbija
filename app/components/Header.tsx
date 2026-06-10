@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
 import { useFavorites } from "@/lib/favorites";
+import { useCurrency } from "@/lib/currency";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath } from "@/lib/slug";
 import { pijacaPath } from "@/lib/pijaca";
 import type { Kind } from "@/lib/types";
@@ -18,6 +19,7 @@ const DEST: { kind: Kind; key: string }[] = [
 export default function Header() {
   const { lang, t } = useLang();
   const { favs } = useFavorites();
+  const { cur, setCur } = useCurrency();
   const [open, setOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
   const path = usePathname() || "/";
@@ -60,6 +62,10 @@ export default function Header() {
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>
             <button className={lang === "en" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
             <button className={lang === "de" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "de"))}>DE</button>
+          </div>
+          <div className="lang-toggle">
+            <button className={cur === "EUR" ? "active" : ""} onClick={() => setCur("EUR")}>€</button>
+            <button className={cur === "RSD" ? "active" : ""} onClick={() => setCur("RSD")}>RSD</button>
           </div>
           <Link className={"nav-account" + (path === accountHref ? " active" : "")} href={accountHref} onClick={close}>{t("nav_account")}</Link>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(!open)}>☰</button>

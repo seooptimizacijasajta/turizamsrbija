@@ -5,9 +5,11 @@ import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 import type { Product } from "@/lib/products";
 import { PCATS, pcatLabel, pcatIcon, unitLabel } from "@/lib/pijaca";
+import { useCurrency } from "@/lib/currency";
 
 export default function PijacaPage({ products }: { products: Product[] }) {
   const { lang, t } = useLang();
+  const { price: cprice } = useCurrency();
   const [cat, setCat] = useState("");
   const [q, setQ] = useState("");
   const L = (o: { sr: string; en: string; de: string }) => lang === "sr" ? o.sr : lang === "de" ? o.de : o.en;
@@ -49,7 +51,7 @@ export default function PijacaPage({ products }: { products: Product[] }) {
                   <h3 className="card-title">{L(p.name)}</h3>
                   <p className="card-desc">{L(p.desc)}</p>
                   <div className="card-foot">
-                    {p.price != null && <span className="price">€{p.price} <small>/ {unitLabel(p.unit, lang)}</small></span>}
+                    {p.price != null && <span className="price">{cprice(p.price)} <small>/ {unitLabel(p.unit, lang)}</small></span>}
                   </div>
                   {p.phone && (
                     <div style={{ display: "flex", gap: 8, marginTop: 10 }}>

@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { Listing } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
+import { useCurrency } from "@/lib/currency";
 
 export default function BookingForm({ item }: { item: Listing }) {
   const { lang, t } = useLang();
+  const { price } = useCurrency();
   const isStay = item.type === "stay";
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -43,7 +45,7 @@ export default function BookingForm({ item }: { item: Listing }) {
   return (
     <aside className="booking">
       {isStay ? (
-        <div className="price-lg">€{item.price} <small>/ {t("per_night")}</small></div>
+        <div className="price-lg">{price(item.price)} <small>/ {t("per_night")}</small></div>
       ) : (
         <div className="price-lg" style={{ color: "var(--green-600)", fontSize: "1.2rem" }}>{t("free_entry")}</div>
       )}
