@@ -82,6 +82,7 @@ const CUSTOM_PAIRS: [string, string][] = [
   ["sacuvano", "saved"],
   ["pijaca", "marketplace"],
   ["vauceri", "vouchers"],
+  ["oglasavanje", "advertising"],
   ["o-nama", "about"],
   ["kontakt", "contact"],
   ["uslovi", "terms"],
@@ -97,6 +98,7 @@ export function customSeg(seg: string, target: Lang): string | null {
   for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "sr" ? sr : en;
   return null;
 }
+export function marketingPath(locale: Lang) { return locale === "sr" ? "/oglasavanje" : `/${locale}/advertising`; }
 export function voucherPath(locale: Lang) { return locale === "sr" ? "/vauceri" : `/${locale}/vouchers`; }
 export function belgradePath(locale: Lang) { return locale === "sr" ? "/apartmani-beograd" : `/${locale}/belgrade-apartments`; }
 export function listPath(locale: Lang) { return locale === "sr" ? "/oglasi-smestaj" : `/${locale}/list-your-space`; }
