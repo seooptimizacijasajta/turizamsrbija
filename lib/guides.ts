@@ -30,6 +30,10 @@ export const GUIDES: Guide[] = [
   { slug: "sirogojno-vodic", kind: "ethno", place: "sirogojno-staro-selo", sr: "Sirogojno", en: "Sirogojno" },
   { slug: "trsic-vodic", kind: "ethno", place: "trsic", sr: "Tršić", en: "Tršić" },
   { slug: "beograd-vikend-vodic", kind: "stay", place: "beograd", sr: "Beograd", en: "Belgrade" },
+  { slug: "novi-sad-vodic", kind: "stay", place: "novi-sad", sr: "Novi Sad", en: "Novi Sad" },
+  { slug: "nis-vodic", kind: "stay", place: "nis", sr: "Niš", en: "Niš" },
+  { slug: "kragujevac-vodic", kind: "stay", place: "kragujevac", sr: "Kragujevac", en: "Kragujevac" },
+  { slug: "subotica-vodic", kind: "stay", place: "subotica", sr: "Subotica", en: "Subotica" },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
