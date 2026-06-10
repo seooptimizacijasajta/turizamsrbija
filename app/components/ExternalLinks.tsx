@@ -10,7 +10,7 @@ export default function ExternalLinks({ place }: { place?: string }) {
     <div className="ext-links" style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid var(--line)" }}>
       {groups.map((g) => (
         <div key={g.sr} style={{ marginBottom: 16 }}>
-          <h3 style={{ margin: "0 0 8px" }}>{lang === "en" ? g.en : g.sr}</h3>
+          <h3 style={{ margin: "0 0 8px" }}>{lang !== "sr" ? g.en : g.sr}</h3>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 4 }}>
             {g.links.map((l) => (
               <li key={l.url}>

@@ -47,7 +47,7 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
             <Link className="btn btn--primary btn--lg" href={sectionPath("mountain", lang)}>{t("hero_cta1")}</Link>
             <Link className="btn btn--ghost btn--lg" href={sectionPath("stay", lang)}>{t("hero_cta2")}</Link>
           </div>
-          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${lang === "en" ? "/en/search" : "/pretraga"}?q=${encodeURIComponent(q)}&type=${type}`); }}>
+          <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${lang === "sr" ? "/pretraga" : `/${lang}/search`}?q=${encodeURIComponent(q)}&type=${type}`); }}>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("search_ph")} />
             <select value={type} onChange={(e) => setType(e.target.value as "mountain"|"lake"|"spa"|"ethno"|"stay")}>
               <option value="mountain">{t("nav_mountains")}</option>
@@ -151,8 +151,8 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
         <section className="section">
           <div className="container">
             <div className="section-head">
-              <div className="eyebrow">{lang === "en" ? "Weekend ideas" : "Predlozi za vikend"}</div>
-              <h2 className="section-title">{lang === "en" ? "Popular this week" : "Popularno ove nedelje"}</h2>
+              <div className="eyebrow">{lang !== "sr" ? "Weekend ideas" : "Predlozi za vikend"}</div>
+              <h2 className="section-title">{lang !== "sr" ? "Popular this week" : "Popularno ove nedelje"}</h2>
             </div>
             <div className="card-grid">{weekend.map((d) => <ListingCard key={d.id} item={d} />)}</div>
           </div>
@@ -162,15 +162,15 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
         <section className="section">
           <div className="container">
             <div className="section-head">
-              <div className="eyebrow">{lang === "en" ? "Travel guides" : "Vodiči za putovanja"}</div>
-              <h2 className="section-title">{lang === "en" ? "From our blog" : "Sa našeg bloga"}</h2>
-              <p className="section-lead">{lang === "en" ? "Detailed guides to Serbia's finest destinations." : "Detaljni vodiči kroz najlepše destinacije Srbije."}</p>
+              <div className="eyebrow">{lang !== "sr" ? "Travel guides" : "Vodiči za putovanja"}</div>
+              <h2 className="section-title">{lang !== "sr" ? "From our blog" : "Sa našeg bloga"}</h2>
+              <p className="section-lead">{lang !== "sr" ? "Detailed guides to Serbia's finest destinations." : "Detaljni vodiči kroz najlepše destinacije Srbije."}</p>
             </div>
             <div className="card-grid">
               {posts.map((p) => {
-                const title = (lang === "en" ? p.title_en : p.title_sr) || p.title_sr;
-                const ex = (lang === "en" ? p.excerpt_en : p.excerpt_sr) || p.excerpt_sr || "";
-                const href = (lang === "en" ? "/en/blog/" : "/blog/") + p.slug;
+                const title = (lang !== "sr" ? p.title_en : p.title_sr) || p.title_sr;
+                const ex = (lang !== "sr" ? p.excerpt_en : p.excerpt_sr) || p.excerpt_sr || "";
+                const href = (lang === "sr" ? "/blog/" : `/${lang}/blog/`) + p.slug;
                 return (
                   <Link key={p.id} className="card" href={href}>
                     {p.cover_image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={p.cover_image} alt={title} /></div>}
@@ -180,12 +180,12 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
               })}
             </div>
             <div style={{ textAlign: "center", marginTop: 30 }}>
-              <Link className="btn btn--outline" href={lang === "en" ? "/en/blog" : "/blog"}>{lang === "en" ? "All guides" : "Svi vodiči"}</Link>
+              <Link className="btn btn--outline" href={lang === "sr" ? "/blog" : `/${lang}/blog`}>{lang === "sr" ? "Svi vodiči" : "All guides"}</Link>
             </div>
           </div>
         </section>
       )}
-      <FaqAccordion items={generalFaqs(lang)} heading={lang === "en" ? "Frequently asked questions" : "Često postavljana pitanja"} />
+      <FaqAccordion items={generalFaqs(lang)} heading={lang !== "sr" ? "Frequently asked questions" : "Često postavljana pitanja"} />
     </>
   );
 }

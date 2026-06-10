@@ -27,13 +27,13 @@ export const SLUG_TO_KIND_EN: Record<string, Kind> = {
 };
 
 export function catSlug(kind: Kind, locale: Lang): string {
-  return locale === "en" ? KIND_TO_SLUG_EN[kind] : KIND_TO_SLUG[kind];
+  return locale === "sr" ? KIND_TO_SLUG[kind] : KIND_TO_SLUG_EN[kind];
 }
 export function kindFromSlug(seg: string): Kind | undefined {
   return SLUG_TO_KIND[seg] || SLUG_TO_KIND_EN[seg];
 }
 
-const base = (locale: Lang) => (locale === "en" ? "/en" : "");
+const base = (locale: Lang) => (locale === "sr" ? "" : `/${locale}`);
 
 /** /planine/kopaonik  or  /en/mountains/kopaonik  (place slug stays Serbian-based & identical across langs) */
 export function listingPath(kind: Kind, nameSr: string, locale: Lang = "sr"): string {
@@ -43,31 +43,33 @@ export function sectionPath(kind: Kind, locale: Lang = "sr"): string {
   return `${base(locale)}/${catSlug(kind, locale)}`;
 }
 export function homePath(locale: Lang): string {
-  return locale === "en" ? "/en" : "/";
+  return locale === "sr" ? "/" : `/${locale}`;
 }
 
 /** Map the current pathname to its equivalent in the target language (keeps the place slug). */
 export function switchLangPath(pathname: string, target: Lang): string {
   let p = pathname || "/";
-  if (p.startsWith("/en")) p = p.slice(3) || "/"; // strip /en -> Serbian-shaped body
-  const segs = p.split("/").filter(Boolean); // [] | [cat] | [cat, slug] | ['nalog']
+  if (p.startsWith("/en") || p.startsWith("/de")) p = p.slice(3) || "/"; // strip locale prefix
+  const segs = p.split("/").filter(Boolean);
   if (segs.length > 0) {
     const k = kindFromSlug(segs[0]);
     if (k) segs[0] = catSlug(k, target);
     else { const c = customSeg(segs[0], target); if (c) segs[0] = c; }
   }
   const body = segs.length ? "/" + segs.join("/") : "";
-  return target === "en" ? "/en" + body : (body || "/");
+  return target === "sr" ? (body || "/") : `/${target}` + body;
 }
 
 /** Per-page metadata: canonical + hreflang alternates (Serbian default, English twin). */
 export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
   const sr = kind ? (slug ? `/${KIND_TO_SLUG[kind]}/${slug}` : `/${KIND_TO_SLUG[kind]}`) : "/";
   const en = kind ? (slug ? `/en/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/en/${KIND_TO_SLUG_EN[kind]}`) : "/en";
+  const de = kind ? (slug ? `/de/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/de/${KIND_TO_SLUG_EN[kind]}`) : "/de";
+  const canonical = locale === "sr" ? sr : locale === "en" ? en : de;
   return {
     alternates: {
-      canonical: locale === "en" ? en : sr,
-      languages: { "sr-Latn-RS": sr, en: en, "x-default": sr },
+      canonical,
+      languages: { "sr-Latn-RS": sr, en: en, de: de, "x-default": sr },
     },
   };
 }
@@ -87,11 +89,11 @@ const CUSTOM_PAIRS: [string, string][] = [
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
   const map: Record<string, [string, string]> = { about: ["o-nama", "about"], contact: ["kontakt", "contact"], terms: ["uslovi", "terms"], privacy: ["privatnost", "privacy"], faq: ["faq", "faq"] };
   const [sr, en] = map[which];
-  return (locale === "en" ? "/en/" : "/") + (locale === "en" ? en : sr);
+  return (locale === "sr" ? "/" : `/${locale}/`) + (locale === "sr" ? sr : en);
 }
 export function customSeg(seg: string, target: Lang): string | null {
-  for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "en" ? en : sr;
+  for (const [sr, en] of CUSTOM_PAIRS) if (seg === sr || seg === en) return target === "sr" ? sr : en;
   return null;
 }
-export function belgradePath(locale: Lang) { return locale === "en" ? "/en/belgrade-apartments" : "/apartmani-beograd"; }
-export function listPath(locale: Lang) { return locale === "en" ? "/en/list-your-space" : "/oglasi-smestaj"; }
+export function belgradePath(locale: Lang) { return locale === "sr" ? "/apartmani-beograd" : `/${locale}/belgrade-apartments`; }
+export function listPath(locale: Lang) { return locale === "sr" ? "/oglasi-smestaj" : `/${locale}/list-your-space`; }

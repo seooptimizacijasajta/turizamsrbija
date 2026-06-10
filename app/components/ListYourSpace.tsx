@@ -44,8 +44,8 @@ const C: Record<"sr" | "en", any> = {
 
 export default function ListYourSpace() {
   const { lang, t } = useLang();
-  const c = C[lang];
-  const acct = lang === "en" ? "/en/nalog" : "/nalog";
+  const c = C[lang === "sr" ? "sr" : "en"];
+  const acct = lang === "sr" ? "/nalog" : `/${lang}/nalog`;
   return (
     <>
       <section className="hero" style={{ minHeight: "56vh" }}>

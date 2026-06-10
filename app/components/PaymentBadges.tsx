@@ -13,14 +13,14 @@ export default function PaymentBadges({ compact = false }: { compact?: boolean }
   const { lang } = useLang();
   return (
     <div className="pay-badges" style={{ textAlign: compact ? "left" : "center" }}>
-      {!compact && <div className="pay-badges-h">{lang === "en" ? "Secure payment" : "Sigurno plaćanje"}</div>}
+      {!compact && <div className="pay-badges-h">{lang !== "sr" ? "Secure payment" : "Sigurno plaćanje"}</div>}
       <div className="pay-badges-row">
         {items.map((b) => (
           <span key={b.label} className="pay-badge" style={{ background: b.bg, color: b.fg }}>{b.label}</span>
         ))}
       </div>
       <p className="pay-badges-note">
-        {lang === "en"
+        {lang !== "sr"
           ? "Card payments are protected by 3-D Secure (Verified by Visa & Mastercard ID Check). We never store your card details."
           : "Plaćanje karticama zaštićeno je 3-D Secure tehnologijom (Verified by Visa i Mastercard ID Check). Podatke vaše kartice ne čuvamo."}
       </p>

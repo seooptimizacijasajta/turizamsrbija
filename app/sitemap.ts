@@ -12,12 +12,12 @@ export default async function sitemap() {
   const add = (p: string) => urls.push({ url: BASE + p, lastModified: new Date() });
 
   ["/", "/en", "/apartmani-beograd", "/en/belgrade-apartments", "/oglasi-smestaj", "/en/list-your-space",
-   "/blog", "/en/blog", "/kontakt", "/en/contact", "/o-nama", "/en/about", "/uslovi", "/en/terms",
+   "/blog", "/en/blog", "/de", "/de/blog", "/kontakt", "/en/contact", "/o-nama", "/en/about", "/uslovi", "/en/terms",
    "/privatnost", "/en/privacy"].forEach(add);
 
-  (["mountain", "lake", "spa", "ethno", "stay"] as Kind[]).forEach((k) => { add(sectionPath(k, "sr")); add(sectionPath(k, "en")); });
-  all.forEach((l) => { add(listingPath(l.type, l.name.sr, "sr")); add(listingPath(l.type, l.name.sr, "en")); });
-  posts.forEach((p) => { add(`/blog/${p.slug}`); add(`/en/blog/${p.slug}`); });
+  (["mountain", "lake", "spa", "ethno", "stay"] as Kind[]).forEach((k) => { add(sectionPath(k, "sr")); add(sectionPath(k, "en")); add(sectionPath(k, "de")); });
+  all.forEach((l) => { add(listingPath(l.type, l.name.sr, "sr")); add(listingPath(l.type, l.name.sr, "en")); add(listingPath(l.type, l.name.sr, "de")); });
+  posts.forEach((p) => { add(`/blog/${p.slug}`); add(`/en/blog/${p.slug}`); add(`/de/blog/${p.slug}`); });
   LANDING_AMENITIES.forEach((k) => { add(amenityPath(k, "sr")); add(amenityPath(k, "en")); });
 
   return urls;

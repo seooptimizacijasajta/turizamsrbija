@@ -10,7 +10,7 @@ export default function CookieNotice() {
   useEffect(() => { try { if (!localStorage.getItem("ts_cookie")) setShow(true); } catch {} }, []);
   function accept() { try { localStorage.setItem("ts_cookie", "1"); } catch {} setShow(false); }
   if (!show) return null;
-  const en = lang === "en";
+  const en = lang !== "sr";
   return (
     <div className="cookie">
       <p>

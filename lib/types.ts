@@ -1,5 +1,5 @@
 export type Kind = "mountain" | "lake" | "spa" | "ethno" | "stay";
-export type Lang = "sr" | "en";
+export type Lang = "sr" | "en" | "de";
 export interface Bi { sr: string; en: string }
 export interface Listing {
   id: string;

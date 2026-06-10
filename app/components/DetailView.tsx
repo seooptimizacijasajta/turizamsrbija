@@ -73,17 +73,17 @@ export default function DetailView({
               {guide && (
                 <p className="guide-callout" style={{ marginTop: 12 }}>
                   📖 <Link href={blogHref(guide.slug, lang)} style={{ color: "var(--green-600)", fontWeight: 700 }}>
-                    {lang === "en" ? `Read our guide: ${guide.en}` : `Pročitajte vodič: ${guide.sr}`}
+                    {lang !== "sr" ? `Read our guide: ${guide.en}` : `Pročitajte vodič: ${guide.sr}`}
                   </Link>
                 </p>
               )}
             </div>
             <div className="detail-section">
               <h2>{t("detail_highlights")}</h2>
-              <ul className="feature-list">{(item.features[lang] || []).map((f) => <li key={f}>{f}</li>)}</ul>
+              <ul className="feature-list">{(((item.features as any)[lang] as string[]) || item.features.en || []).map((f) => <li key={f}>{f}</li>)}</ul>
               {(item.amenities || []).length > 0 && (
                 <div className="amenity-grid" style={{ marginTop: 14 }}>
-                  {(item.amenities || []).map((k) => { const a = AMENITIES.find((x) => x.key === k); return a ? <span key={k} className="amenity-chip">{a.icon} {lang === "en" ? a.en : a.sr}</span> : null; })}
+                  {(item.amenities || []).map((k) => { const a = AMENITIES.find((x) => x.key === k); return a ? <span key={k} className="amenity-chip">{a.icon} {lang !== "sr" ? a.en : a.sr}</span> : null; })}
                 </div>
               )}
               <ExternalLinks place={slugify(item.name.sr)} />

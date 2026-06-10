@@ -3,23 +3,23 @@ import { createContext, useContext, useEffect, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import type { Lang, Bi } from "./types";
 
-export const I18N: Record<string,{sr:string;en:string}> = {
+export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
   detail_rules_h: { sr: "Pravila rezervacije", en: "Booking rules" },
   detail_min_nights: { sr: "Minimum noćenja (radni dani)", en: "Minimum nights (weekday)" },
   detail_min_nights_wknd: { sr: "Minimum noćenja (vikend)", en: "Minimum nights (weekend)" },
   detail_deposit: { sr: "Depozit", en: "Deposit" },
   detail_disc_weekly: { sr: "Popust za 7+ noćenja", en: "Discount for 7+ nights" },
   detail_disc_monthly: { sr: "Popust za 28+ noćenja", en: "Discount for 28+ nights" },
-  sort_popular: { sr: "Najpopularnije", en: "Most popular" },
+  sort_popular: { sr: "Najpopularnije", en: "Most popular", de: "Beliebteste" },
   detail_views: { sr: "pregleda", en: "views" },
 
-  price_from: { sr: "Cena od €", en: "Price from €" },
-  price_to: { sr: "do €", en: "to €" },
+  price_from: { sr: "Cena od €", en: "Price from €", de: "Preis ab" },
+  price_to: { sr: "do €", en: "to €", de: "Preis bis" },
 
   newest_eyebrow: { sr: "Sveže", en: "Fresh" },
   newest_title: { sr: "Najnoviji oglasi", en: "Newest listings" },
 
-  nav_map: { sr: "Mapa", en: "Map" },
+  nav_map: { sr: "Mapa", en: "Map", de: "Karte" },
 
   news_title: { sr: "Najbolje ponude u vašem inboxu", en: "The best offers in your inbox" },
   news_sub: { sr: "Prijavite se na newsletter — saveti, destinacije i akcije.", en: "Subscribe to our newsletter — tips, destinations and deals." },
@@ -29,7 +29,7 @@ export const I18N: Record<string,{sr:string;en:string}> = {
   detail_related: { sr: "Povezane destinacije", en: "Related destinations" },
   detail_similar: { sr: "Sličan smeštaj", en: "Similar stays" },
 
-  nav_blog: { sr: "Blog", en: "Blog" },
+  nav_blog: { sr: "Blog", en: "Blog", de: "Blog" },
   blog_h: { sr: "Blog — vodič kroz Srbiju", en: "Blog — guide to Serbia" },
   blog_lead: { sr: "Tekstovi o destinacijama, gradovima i mestima Srbije.", en: "Articles about Serbia's destinations, cities and places." },
   blog_none: { sr: "Još nema objava.", en: "No posts yet." },
@@ -37,10 +37,10 @@ export const I18N: Record<string,{sr:string;en:string}> = {
   promo_featured: { sr: "Izdvojeno", en: "Featured" },
   promo_home_title: { sr: "Izdvojeni smeštaji", en: "Featured listings" },
 
-  nav_destinations: { sr: "Destinacije", en: "Destinations" },
+  nav_destinations: { sr: "Destinacije", en: "Destinations", de: "Reiseziele" },
 
-  nav_belgrade: { sr: "Apartmani Beograd", en: "Belgrade apartments" },
-  nav_list: { sr: "Oglasi smeštaj", en: "List your space" },
+  nav_belgrade: { sr: "Apartmani Beograd", en: "Belgrade apartments", de: "Belgrad Apartments" },
+  nav_list: { sr: "Oglasi smeštaj", en: "List your space", de: "Unterkunft inserieren" },
 
   cal_avail: { sr: "Dostupnost", en: "Availability" },
 
@@ -59,7 +59,7 @@ export const I18N: Record<string,{sr:string;en:string}> = {
   detail_location: { sr: "Lokacija", en: "Location" },
   detail_municipality: { sr: "Opština", en: "Municipality" },
 
-  nav_account: { sr: "Moj nalog", en: "My account" },
+  nav_account: { sr: "Moj nalog", en: "My account", de: "Mein Konto" },
   acc_title: { sr: "Vlasnički nalog", en: "Owner account" },
   acc_intro: { sr: "Prijavite se ili registrujte da biste dodali svoj smeštaj na portal.", en: "Log in or sign up to add your accommodation to the portal." },
   acc_login: { sr: "Prijava", en: "Log in" },
@@ -453,19 +453,35 @@ export const I18N: Record<string,{sr:string;en:string}> = {
   }
 };
 
+export const DE: Record<string, string> = {
+  nav_home: "Startseite", nav_destinations: "Reiseziele", nav_mountains: "Berge", nav_lakes: "Seen",
+  nav_spas: "Kurorte", nav_ethno: "Ethno-Dörfer", nav_stays: "Unterkünfte", nav_map: "Karte", nav_blog: "Blog",
+  nav_account: "Mein Konto", nav_belgrade: "Belgrad Apartments", nav_list: "Unterkunft inserieren",
+  from: "ab", per_night: "pro Nacht", free_entry: "Freier Eintritt", results: "Ergebnisse",
+  no_results: "Keine Ergebnisse", filter_search: "Suchen…", filter_region: "Region", cat_all: "Alle",
+  cat_hotel: "Hotel", cat_private: "Privatunterkunft", price_from: "Preis ab €", price_to: "bis €",
+  sort_featured: "Empfohlen", sort_rating: "Beste Bewertung", sort_price_low: "Niedrigster Preis",
+  sort_price_high: "Höchster Preis", sort_popular: "Beliebteste",
+  hero_cta1: "Reiseziele entdecken", hero_cta2: "Unterkunft finden",
+  view_all: "Alle ansehen", results_count: "Ergebnisse",
+  detail_about: "Über die Unterkunft", detail_highlights: "Highlights", detail_gallery: "Galerie",
+  detail_capacity: "Kapazität", detail_persons: "Personen", detail_views: "Aufrufe",
+  cal_avail: "Verfügbarkeit", filter_price: "Preis", promo_featured: "Empfohlen",
+};
+
 type Ctx = { lang: Lang; t: (k: string) => string };
 const LangCtx = createContext<Ctx>({ lang: "sr", t: (k) => k });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const lang: Lang = pathname && pathname.startsWith("/en") ? "en" : "sr";
+  const lang: Lang = pathname && pathname.startsWith("/de") ? "de" : pathname && pathname.startsWith("/en") ? "en" : "sr";
   useEffect(() => {
     if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
-  const t = (k: string) => (I18N[k] ? I18N[k][lang] : k);
+  const t = (k: string) => { const e = I18N[k]; if (!e) return DE[k] || k; if (lang === "de") return DE[k] || e.en || e.sr; return e[lang] || e.en || e.sr; };
   return <LangCtx.Provider value={{ lang, t }}>{children}</LangCtx.Provider>;
 }
 
 export const useLang = () => useContext(LangCtx);
 export const L = (obj: Bi | undefined, lang: Lang) =>
-  obj ? obj[lang] || obj.sr || "" : "";
+  obj ? ((obj as any)[lang] || obj.en || obj.sr || "") : "";

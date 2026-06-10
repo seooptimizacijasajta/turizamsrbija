@@ -101,7 +101,7 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
       </div>
       <div className="amen-filter">
         {AMENITIES.map((a) => (
-          <button key={a.key} type="button" className={"amen-chip" + (amen.includes(a.key) ? " on" : "")} onClick={() => toggleAmen(a.key)}>{a.icon} {lang === "en" ? a.en : a.sr}</button>
+          <button key={a.key} type="button" className={"amen-chip" + (amen.includes(a.key) ? " on" : "")} onClick={() => toggleAmen(a.key)}>{a.icon} {lang !== "sr" ? a.en : a.sr}</button>
         ))}
       </div>
       <div className="results-count">{filtered.length} {t("results")}</div>

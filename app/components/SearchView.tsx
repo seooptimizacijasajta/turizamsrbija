@@ -30,7 +30,7 @@ export default function SearchView({ items }: { items: Listing[] }) {
 
   return (
     <div className="container" style={{ padding: "40px 0" }}>
-      <h1 style={{ marginBottom: 18 }}>{lang === "en" ? "Search" : "Pretraga"}</h1>
+      <h1 style={{ marginBottom: 18 }}>{lang !== "sr" ? "Search" : "Pretraga"}</h1>
       <div className="toolbar" style={{ margin: "0 0 20px" }}>
         <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("search_ph")} autoFocus />
         <select value={type} onChange={(e) => setType(e.target.value as Kind | "all")}>

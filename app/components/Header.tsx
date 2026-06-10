@@ -21,7 +21,7 @@ export default function Header() {
   const [destOpen, setDestOpen] = useState(false);
   const path = usePathname() || "/";
   const router = useRouter();
-  const accountHref = lang === "en" ? "/en/nalog" : "/nalog";
+  const accountHref = lang === "sr" ? "/nalog" : `/${lang}/nalog`;
   const close = () => { setOpen(false); setDestOpen(false); };
   const destActive = DEST.some((d) => path === sectionPath(d.kind, lang));
 
@@ -45,18 +45,18 @@ export default function Header() {
             </div>
           </div>
 
-          <Link href={lang === "en" ? "/en/map" : "/mapa"} className={path === (lang === "en" ? "/en/map" : "/mapa") ? "active" : ""} onClick={close}>{t("nav_map")}</Link>
+          <Link href={lang === "sr" ? "/mapa" : `/${lang}/map`} className={path === (lang === "sr" ? "/mapa" : `/${lang}/map`) ? "active" : ""} onClick={close}>{t("nav_map")}</Link>
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
-          <Link href={lang === "en" ? "/en/blog" : "/blog"} className={(path === "/blog" || path === "/en/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
+          <Link href={lang === "sr" ? "/blog" : `/${lang}/blog`} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
         </nav>
         <div className="nav-right">
-          <Link className="nav-search" href={lang === "en" ? "/en/search" : "/pretraga"} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
-          <Link className="nav-fav" href={lang === "en" ? "/en/saved" : "/sacuvano"} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
+          <Link className="nav-search" href={lang === "sr" ? "/pretraga" : `/${lang}/search`} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
+          <Link className="nav-fav" href={lang === "sr" ? "/sacuvano" : `/${lang}/saved`} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>
-            <button className={lang === "en" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
+            <button className={lang !== "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
           </div>
           <Link className={"nav-account" + (path === accountHref ? " active" : "")} href={accountHref} onClick={close}>{t("nav_account")}</Link>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(!open)}>☰</button>

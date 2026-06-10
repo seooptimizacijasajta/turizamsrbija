@@ -35,12 +35,12 @@ export default function Footer() {
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
           ])}
-          {col(lang === "en" ? "By amenity" : "Po pogodnosti", [
-            [lang === "en" ? "Accepts vouchers" : "Prima vaučere", amenityPath("vouchers", lang)],
-            [lang === "en" ? "With pool" : "Sa bazenom", amenityPath("pool", lang)],
-            [lang === "en" ? "Pet friendly" : "Pet friendly", amenityPath("pet", lang)],
-            [lang === "en" ? "Family friendly" : "Za porodice sa decom", amenityPath("kids", lang)],
-            [lang === "en" ? "With wellness" : "Sa wellness sadržajem", amenityPath("wellness", lang)],
+          {col(lang !== "sr" ? "By amenity" : "Po pogodnosti", [
+            [lang !== "sr" ? "Accepts vouchers" : "Prima vaučere", amenityPath("vouchers", lang)],
+            [lang !== "sr" ? "With pool" : "Sa bazenom", amenityPath("pool", lang)],
+            [lang !== "sr" ? "Pet friendly" : "Pet friendly", amenityPath("pet", lang)],
+            [lang !== "sr" ? "Family friendly" : "Za porodice sa decom", amenityPath("kids", lang)],
+            [lang !== "sr" ? "With wellness" : "Sa wellness sadržajem", amenityPath("wellness", lang)],
           ])}
           {col(t("foot_follow"), [["Instagram", "#"], ["Facebook", "#"], ["YouTube", "#"]])}
         </div>

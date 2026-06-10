@@ -8,7 +8,7 @@ export default function ContactPage() {
   const { lang } = useLang();
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
-  const en = lang === "en";
+  const en = lang !== "sr";
   async function submit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault(); setBusy(true);
     const f = new FormData(ev.currentTarget);

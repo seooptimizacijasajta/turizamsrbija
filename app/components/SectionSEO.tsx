@@ -68,7 +68,7 @@ const C: Record<Kind, { sr: Block[]; en: Block[] }> = {
 
 export default function SectionSEO({ kind }: { kind: Kind }) {
   const { lang } = useLang();
-  const blocks = C[kind]?.[lang === "en" ? "en" : "sr"];
+  const blocks = C[kind]?.[lang !== "sr" ? "en" : "sr"];
   if (!blocks) return null;
   return (
     <section className="section"><div className="container" style={{ maxWidth: 820 }}>

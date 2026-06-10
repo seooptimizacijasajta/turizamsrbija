@@ -18,7 +18,7 @@ export const AMENITIES: Amenity[] = [
 ];
 
 export const amenityByKey = (k: string) => AMENITIES.find((a) => a.key === k);
-export const amenityLabel = (k: string, lang: Lang) => { const a = amenityByKey(k); return a ? (lang === "en" ? a.en : a.sr) : k; };
+export const amenityLabel = (k: string, lang: Lang) => { const a = amenityByKey(k); return a ? (lang === "sr" ? a.sr : a.en) : k; };
 
 export type PriceUnit = { key: string; sr: string; en: string };
 export const PRICE_UNITS: PriceUnit[] = [
@@ -31,8 +31,8 @@ export const PRICE_UNITS: PriceUnit[] = [
 ];
 export const priceUnitLabel = (k: string | undefined, lang: Lang) => {
   const u = PRICE_UNITS.find((x) => x.key === k);
-  if (!u) return lang === "en" ? "per night" : "po noćenju";
-  return lang === "en" ? u.en : u.sr;
+  if (!u) return lang === "sr" ? "po noćenju" : "per night";
+  return lang === "sr" ? u.sr : u.en;
 };
 
 // SR/EN slug pairs for amenity landing pages
@@ -46,7 +46,7 @@ export const AMENITY_SLUGS: Record<string, { sr: string; en: string }> = {
 export const amenityBySlug = (slug: string) =>
   Object.entries(AMENITY_SLUGS).find(([, v]) => v.sr === slug || v.en === slug)?.[0];
 export const amenityPath = (key: string, lang: Lang) => {
-  const p = AMENITY_SLUGS[key]; if (!p) return lang === "en" ? "/en" : "/";
-  return lang === "en" ? `/en/amenities/${p.en}` : `/pogodnosti/${p.sr}`;
+  const p = AMENITY_SLUGS[key]; if (!p) return lang === "sr" ? "/" : `/${lang}`;
+  return lang === "sr" ? `/pogodnosti/${p.sr}` : `/${lang}/amenities/${p.en}`;
 };
 export const LANDING_AMENITIES = Object.keys(AMENITY_SLUGS);

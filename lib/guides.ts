@@ -43,4 +43,4 @@ export function relatedGuides(slug: string, n = 4): Guide[] {
   const others = GUIDES.filter((x) => x.kind !== g.kind && x.slug !== slug);
   return [...same, ...others].slice(0, n);
 }
-export const blogHref = (slug: string, lang: "sr" | "en") => (lang === "en" ? "/en/blog/" : "/blog/") + slug;
+export const blogHref = (slug: string, lang: "sr" | "en" | "de") => (lang === "sr" ? "/blog/" : `/${lang}/blog/`) + slug;

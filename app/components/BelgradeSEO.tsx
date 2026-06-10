@@ -75,7 +75,7 @@ function ArticleEN() {
 
 export default function BelgradeSEO() {
   const { lang } = useLang();
-  const en = lang === "en";
+  const en = lang !== "sr";
   return (
     <>
       {en ? <ArticleEN /> : <ArticleSR />}

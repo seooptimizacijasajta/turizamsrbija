@@ -20,10 +20,10 @@ const CONTENT: Record<string, { sr: [string, string]; en: [string, string] }> = 
 
 export default function InfoPage({ page }: { page: "about" | "terms" | "privacy" }) {
   const { lang } = useLang();
-  const [title, body] = CONTENT[page][lang];
+  const [title, body] = CONTENT[page][lang === "sr" ? "sr" : "en"];
   return (
     <section className="section"><div className="container" style={{ maxWidth: 760 }}>
-      <Breadcrumbs items={[{ name: lang === "en" ? "Home" : "Početna", href: homePath(lang) }, { name: title }]} />
+      <Breadcrumbs items={[{ name: lang !== "sr" ? "Home" : "Početna", href: homePath(lang) }, { name: title }]} />
       <h1 style={{ marginBottom: 18 }}>{title}</h1>
       <p style={{ color: "var(--slate)", lineHeight: 1.8, whiteSpace: "pre-line" }}>{body}</p>
     </div></section>

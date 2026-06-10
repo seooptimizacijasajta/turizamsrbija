@@ -34,7 +34,7 @@ export default function MapView({ items }: { items: Listing[] }) {
         if (typeof it.lat === "number" && typeof it.lng === "number") {
           const href = listingPath(it.type, it.name.sr, lang);
           const name = esc(L(it.name, lang));
-          Lf.marker([it.lat, it.lng]).addTo(map).bindPopup(`<strong>${name}</strong><br/><a href="${href}">${lang === "en" ? "View ›" : "Pogledaj ›"}</a>`);
+          Lf.marker([it.lat, it.lng]).addTo(map).bindPopup(`<strong>${name}</strong><br/><a href="${href}">${lang !== "sr" ? "View ›" : "Pogledaj ›"}</a>`);
           pts.push([it.lat, it.lng]);
         }
       });

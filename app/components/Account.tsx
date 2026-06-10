@@ -80,7 +80,7 @@ export default function Account() {
   async function logout() { if (sb) await sb.auth.signOut(); }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
-    const redirectTo = window.location.origin + (lang === "en" ? "/en/nalog" : "/nalog");
+    const redirectTo = window.location.origin + (lang === "sr" ? "/nalog" : `/${lang}/nalog`);
     await sb.auth.signInWithOAuth({ provider, options: { redirectTo } });
   }
 

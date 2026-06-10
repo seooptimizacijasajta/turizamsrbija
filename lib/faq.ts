@@ -75,7 +75,8 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
 };
 
 export function sectionFaqs(kind: Kind, locale: Lang): Faq[] {
-  return FAQ[kind][locale];
+  const lc = locale === "sr" ? "sr" : "en";
+  return FAQ[kind][lc];
 }
 
 
@@ -109,4 +110,4 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
     { q: "What if I want to dispute a transaction?", a: "If goods or services are not delivered or do not match the description, contact the host first, then your bank to dispute the charge (chargeback). We are also here to help with any dispute." },
   ],
 };
-export function generalFaqs(locale: Lang): Faq[] { return GENERAL[locale]; }
+export function generalFaqs(locale: Lang): Faq[] { return GENERAL[locale === "sr" ? "sr" : "en"]; }
