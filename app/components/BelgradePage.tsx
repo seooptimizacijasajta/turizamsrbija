@@ -4,7 +4,9 @@ import { useLang } from "@/lib/i18n";
 import SectionExplorer from "./SectionExplorer";
 import BelgradeSEO from "./BelgradeSEO";
 import Breadcrumbs from "./Breadcrumbs";
+import Link from "next/link";
 import { homePath } from "@/lib/slug";
+import { BG_AREAS, bgAreaLabel, bgAreaPath } from "@/lib/belgrade";
 
 export default function BelgradePage({ items }: { items: Listing[] }) {
   const { t, lang } = useLang();
@@ -18,6 +20,14 @@ export default function BelgradePage({ items }: { items: Listing[] }) {
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_belgrade") }]} /></div>
       <SectionExplorer items={items} kind="stay" />
+      <section className="section section--soft"><div className="container" style={{ maxWidth: 820 }}>
+        <h2 className="section-title" style={{ marginBottom: 16 }}>{lang === "sr" ? "Apartmani po naseljima Beograda" : lang === "de" ? "Apartments nach Belgrader Stadtteilen" : "Apartments by Belgrade district"}</h2>
+        <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px 18px", listStyle: "none", padding: 0 }}>
+          {BG_AREAS.map((a) => (
+            <li key={a.slug}><Link href={bgAreaPath(a.slug, lang)} style={{ color: "var(--green-600)", fontWeight: 600 }}>{bgAreaLabel(a, lang)}</Link></li>
+          ))}
+        </ul>
+      </div></section>
       <BelgradeSEO />
     </>
   );
