@@ -31,6 +31,7 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
   const fallbackFeatured = featured.length ? featured : all.filter((d) => d.type !== "stay").slice(0, 6);
   const featuredHome = all.filter((d) => d.featuredHome);
   const stays = all.filter((d) => d.type === "stay").slice(0, 4);
+  const weekend = [...all].filter((d) => d.type === "stay").sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 4);
   const destCount = all.filter((d) => d.type !== "stay").length;
   const stayCount = all.filter((d) => d.type === "stay").length;
   const regionsCount = new Set(all.map((d) => d.region.sr).filter(Boolean)).size;
@@ -146,6 +147,17 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
           </div>
         </div>
       </section>
+      {weekend.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{lang === "en" ? "Weekend ideas" : "Predlozi za vikend"}</div>
+              <h2 className="section-title">{lang === "en" ? "Popular this week" : "Popularno ove nedelje"}</h2>
+            </div>
+            <div className="card-grid">{weekend.map((d) => <ListingCard key={d.id} item={d} />)}</div>
+          </div>
+        </section>
+      )}
       {posts.length > 0 && (
         <section className="section">
           <div className="container">

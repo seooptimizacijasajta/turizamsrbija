@@ -4,6 +4,7 @@ import { Listing, Kind } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
 import type { Banner } from "@/lib/banners";
 import ListingCard from "./ListingCard";
+import { AMENITIES } from "@/lib/amenities";
 
 function BannerCard({ b }: { b: Banner }) {
   return (
@@ -23,6 +24,8 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
   const [sort, setSort] = useState("featured");
   const [minP, setMinP] = useState("");
   const [maxP, setMaxP] = useState("");
+  const [amen, setAmen] = useState<string[]>([]);
+  const toggleAmen = (k: string) => setAmen((a) => a.includes(k) ? a.filter((x) => x !== k) : [...a, k]);
 
   const regions = useMemo(() => {
     const set: string[] = [];
@@ -38,6 +41,7 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
         if (minP && d.price < Number(minP)) return false;
         if (maxP && d.price > Number(maxP)) return false;
       }
+      if (amen.length && !amen.every((k) => (d.amenities || []).includes(k))) return false;
       if (q) {
         const hay = (L(d.name, lang) + " " + L(d.region, lang) + " " + L(d.short, lang)).toLowerCase();
         if (!hay.includes(q.toLowerCase())) return false;
@@ -50,21 +54,21 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
     else if (sort === "popular") out = [...out].sort((a, b) => (b.views || 0) - (a.views || 0));
     out = [...out].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     return out;
-  }, [items, q, region, cat, sort, lang, minP, maxP, kind]);
+  }, [items, q, region, cat, sort, lang, minP, maxP, kind, amen]);
 
   // Interleave in-list banners at their sort index (0 = first slot in the grid)
   const grid = useMemo(() => {
     const nodes: React.ReactNode[] = [];
     const bs = [...banners].sort((a, b) => a.sort - b.sort);
     let bi = 0;
-    const showBanners = !q && !region && !cat && !minP && !maxP; // only on the unfiltered list
+    const showBanners = !q && !region && !cat && !minP && !maxP && !amen.length; // only on the unfiltered list
     for (let i = 0; i < filtered.length; i++) {
       while (showBanners && bi < bs.length && bs[bi].sort === i) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
       nodes.push(<ListingCard key={filtered[i].id} item={filtered[i]} />);
     }
     while (showBanners && bi < bs.length) { nodes.push(<BannerCard key={"b" + bs[bi].id} b={bs[bi]} />); bi++; }
     return nodes;
-  }, [filtered, banners, q, region, cat, minP, maxP]);
+  }, [filtered, banners, q, region, cat, minP, maxP, amen]);
 
   return (
     <div className="container">
@@ -94,6 +98,11 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
           <option value="price_low">{t("sort_price_low")}</option>
           <option value="price_high">{t("sort_price_high")}</option>
         </select>
+      </div>
+      <div className="amen-filter">
+        {AMENITIES.map((a) => (
+          <button key={a.key} type="button" className={"amen-chip" + (amen.includes(a.key) ? " on" : "")} onClick={() => toggleAmen(a.key)}>{a.icon} {lang === "en" ? a.en : a.sr}</button>
+        ))}
       </div>
       <div className="results-count">{filtered.length} {t("results")}</div>
       {filtered.length ? (

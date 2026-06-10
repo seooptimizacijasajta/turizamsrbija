@@ -298,3 +298,16 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 /* Account link in the right group (next to language switcher) */
 .nav-account{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.85rem;color:var(--green-700);border:1px solid var(--green-600);padding:7px 13px;border-radius:999px;white-space:nowrap;transition:background .15s,color .15s}
 .nav-account:hover,.nav-account.active{background:var(--green-600);color:#fff}
+
+/* Amenities + popular badge + price unit */
+.card-promo--pop{background:var(--green-600);color:#fff}
+.am-row{display:flex;gap:8px;margin-top:4px;font-size:1rem}
+.am-ic{opacity:.9}
+.amenity-grid{display:flex;flex-wrap:wrap;gap:8px}
+.amenity-chip{display:inline-flex;align-items:center;gap:6px;background:var(--sand,#f4f1ea);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.86rem}
+
+/* Amenity filter chips */
+.amen-filter{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.amen-chip{font-size:.82rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;transition:.15s;color:var(--ink)}
+.amen-chip:hover{border-color:var(--green-600)}
+.amen-chip.on{background:var(--green-600);color:#fff;border-color:var(--green-600)}

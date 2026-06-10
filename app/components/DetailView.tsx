@@ -14,6 +14,7 @@ import Link from "next/link";
 import { slugify } from "@/lib/slug";
 import { guideForPlace, blogHref } from "@/lib/guides";
 import ExternalLinks from "./ExternalLinks";
+import { AMENITIES, priceUnitLabel } from "@/lib/amenities";
 import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
@@ -43,6 +44,7 @@ export default function DetailView({
   if (typeof item.lat === "number" && typeof item.lng === "number") ld.geo = { "@type": "GeoCoordinates", latitude: item.lat, longitude: item.lng };
   if (displayRating > 0) ld.aggregateRating = { "@type": "AggregateRating", ratingValue: displayRating.toFixed(1), reviewCount: Math.max(reviewCount, 1) };
   if (item.type === "stay" && item.price) ld.priceRange = `€${item.price}`;
+  const priceLabel = item.type === "stay" && item.price ? `€${item.price} / ${priceUnitLabel(item.priceUnit, lang)}` : "";
   const meta: string[] = [];
   if (item.elevation) meta.push(`⛰ ${t("detail_elevation")}: ${item.elevation} m`);
   if (item.capacity) meta.push(`👥 ${t("detail_capacity")}: ${item.capacity} ${t("detail_persons")}`);
@@ -79,6 +81,11 @@ export default function DetailView({
             <div className="detail-section">
               <h2>{t("detail_highlights")}</h2>
               <ul className="feature-list">{(item.features[lang] || []).map((f) => <li key={f}>{f}</li>)}</ul>
+              {(item.amenities || []).length > 0 && (
+                <div className="amenity-grid" style={{ marginTop: 14 }}>
+                  {(item.amenities || []).map((k) => { const a = AMENITIES.find((x) => x.key === k); return a ? <span key={k} className="amenity-chip">{a.icon} {lang === "en" ? a.en : a.sr}</span> : null; })}
+                </div>
+              )}
               <ExternalLinks place={slugify(item.name.sr)} />
             </div>
             {item.gallery.length > 0 && (
