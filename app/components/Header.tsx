@@ -43,10 +43,10 @@ export default function Header() {
               {DEST.map((d) => (
                 <Link key={d.kind} href={sectionPath(d.kind, lang)} onClick={close}>{t(d.key)}</Link>
               ))}
+              <Link href={lang === "sr" ? "/mapa" : `/${lang}/map`} onClick={close}>🗺 {t("nav_map")}</Link>
             </div>
           </div>
 
-          <Link href={lang === "sr" ? "/mapa" : `/${lang}/map`} className={path === (lang === "sr" ? "/mapa" : `/${lang}/map`) ? "active" : ""} onClick={close}>{t("nav_map")}</Link>
           <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
           <Link href={lang === "sr" ? "/blog" : `/${lang}/blog`} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
@@ -58,7 +58,8 @@ export default function Header() {
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">
             <button className={lang === "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "sr"))}>SR</button>
-            <button className={lang !== "sr" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
+            <button className={lang === "en" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "en"))}>EN</button>
+            <button className={lang === "de" ? "active" : ""} onClick={() => router.push(switchLangPath(path, "de"))}>DE</button>
           </div>
           <Link className={"nav-account" + (path === accountHref ? " active" : "")} href={accountHref} onClick={close}>{t("nav_account")}</Link>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(!open)}>☰</button>

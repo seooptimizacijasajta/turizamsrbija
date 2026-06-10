@@ -1,7 +1,7 @@
 "use client";
 import { useLang } from "@/lib/i18n";
 import type { Post } from "@/lib/blog";
-import Breadcrumbs from "./Breadcrumbs";
+import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import ShareButtons from "./ShareButtons";
 import JsonLd from "./JsonLd";
 import Link from "next/link";
@@ -43,10 +43,11 @@ export default function BlogPost({ post }: { post: Post }) {
         {(g || rel.length > 0) && (
           <div className="blog-links" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid var(--line)" }}>
             {g && (
-              <p style={{ marginBottom: 14 }}>
-                <Link className="btn btn--primary" href={sectionPath(g.kind, lang)}>
-                  {lang !== "sr" ? `Browse accommodation in this category` : `Pogledajte smeštaj u ovoj kategoriji`}
-                </Link>
+              <p style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+                {g.kind !== "stay" && (
+                  <Link className="btn btn--outline" href={sectionPath(g.kind, lang)}>{t(NAVKEY[g.kind])}</Link>
+                )}
+                <Link className="btn btn--primary" href={sectionPath("stay", lang)}>{t("nav_stays")}</Link>
               </p>
             )}
             {rel.length > 0 && (
