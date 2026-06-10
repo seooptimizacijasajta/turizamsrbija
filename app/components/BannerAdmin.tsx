@@ -12,7 +12,9 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users">("stats");
+  const [users, setUsers] = useState<any[]>([]);
+  const [uListings, setUListings] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
@@ -46,6 +48,13 @@ export default function BannerAdmin() {
     if (!sb) return;
     const { data } = await sb.from("marketing_leads").select("*").order("created_at", { ascending: false });
     setLeads(data || []);
+  }, [sb]);
+  const loadUsers = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.rpc("admin_users");
+    setUsers(data || []);
+    const { data: ls } = await sb.from("listings").select("id,name_sr,owner_id,status,kind,bold,featured,featured_home").order("created_at", { ascending: false });
+    setUListings(ls || []);
   }, [sb]);
   const loadStats = useCallback(async () => {
     if (!sb) return;
@@ -83,8 +92,8 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); }
-  }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads]);
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); }
+  }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads, loadUsers]);
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -168,7 +177,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -180,6 +189,7 @@ export default function BannerAdmin() {
         {tabBtn("reviews", `Recenzije / Reviews${reviews.filter((r) => r.status === "pending").length ? " (" + reviews.filter((r) => r.status === "pending").length + ")" : ""}`)}
         {tabBtn("blog", "Blog")}
         {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
+        {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
       </div>
 
       {tab === "stats" && (
@@ -195,6 +205,43 @@ export default function BannerAdmin() {
               <div className="stat"><b>{stats.subscribers}</b><span>Newsletter prijava</span></div>
               <div className="stat"><b>{stats.posts}</b><span>Blog postova / Posts</span></div>
               <div className="stat"><b style={{ color: stats.leads ? "var(--green-600)" : undefined }}>{stats.leads}</b><span>Marketing upiti / Leads</span></div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab === "users" && (
+        <div>
+          <h1>Korisnici / Registered users</h1>
+          {users.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Učitavanje… / Loading…</div> : (
+            <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+              {users.map((u) => {
+                const mine = uListings.filter((l) => l.owner_id === u.id);
+                return (
+                  <div key={u.id} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                      <div>
+                        <strong>{u.email || "(bez email-a)"}</strong>{u.role === "admin" ? " · ADMIN" : ""}
+                        <div style={{ color: "var(--slate)", fontSize: ".85rem" }}>
+                          {u.full_name ? u.full_name + " · " : ""}{u.phone ? <a href={`tel:${u.phone}`}>{u.phone}</a> : "bez telefona"}{" · "}
+                          {Number(u.listings)} oglasa · {Number(u.products)} proizvoda · od {new Date(u.created_at).toLocaleDateString()}
+                        </div>
+                      </div>
+                      {u.email && <a className="btn btn--outline" href={`mailto:${u.email}`} style={{ fontSize: ".8rem" }}>Email</a>}
+                    </div>
+                    {mine.length > 0 && (
+                      <ul style={{ margin: "10px 0 0", paddingLeft: 18, fontSize: ".88rem" }}>
+                        {mine.map((l) => (
+                          <li key={l.id} style={{ marginBottom: 2 }}>
+                            {l.name_sr} <span style={{ color: "var(--slate)" }}>· {l.status}</span>
+                            {l.bold ? " · Bold" : ""}{l.featured ? " · ★Kat" : ""}{l.featured_home ? " · ★Poč" : ""}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
