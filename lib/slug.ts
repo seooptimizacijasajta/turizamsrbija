@@ -97,6 +97,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["info-beograd", "belgrade-info", "belgrad-info"],
   ["vodic-za-vlasnike", "host-guide", "vermieter-leitfaden"],
   ["firme", "businesses", "firmen"],
+  ["firma", "business", "firma"],
 ];
 
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {

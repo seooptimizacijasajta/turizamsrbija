@@ -5,7 +5,7 @@ import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 import type { Business } from "@/lib/businesses";
-import { BIZ_CATS, BizCat, bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath } from "@/lib/firme";
+import { BIZ_CATS, BizCat, bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath, businessPath } from "@/lib/firme";
 
 export default function FirmePage({ businesses, cat, cityName }: { businesses: Business[]; cat?: BizCat | null; cityName?: string }) {
   const { lang, t } = useLang();
@@ -69,7 +69,7 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
                   {b.image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={b.image} alt={b.name} /><span className="card-badge">{c?.icon} {c ? bizCatLabel(c, lang) : b.category}</span>{b.featured && <span className="card-promo">★</span>}</div>}
                   <div className="card-body">
                     <span className="card-region">{[b.city, b.address].filter(Boolean).join(" · ")}</span>
-                    <h3 className="card-title">{b.name}</h3>
+                    <h3 className="card-title"><Link href={businessPath(b.name, lang)} style={{ color: "inherit" }}>{b.name}</Link></h3>
                     <p className="card-desc">{d}</p>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
                       {b.phone && <a className="btn btn--primary" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : lang === "de" ? "Anrufen" : "Call"}</a>}

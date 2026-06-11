@@ -30,3 +30,7 @@ export const bizCityBySlug = (slug: string) => BIZ_CITIES.find((c) => c.slug ===
 export const cityMatches = (city: string | null | undefined, slug: string) => !!city && slugify(city) === slug;
 export const firmeCatCityPath = (c: BizCat, citySlug: string, lang: Lang) =>
   lang === "sr" ? `/firme/${c.srSlug}/${citySlug}` : lang === "de" ? `/de/firmen/${c.enSlug}/${citySlug}` : `/en/businesses/${c.enSlug}/${citySlug}`;
+
+export const bizSlug = (name: string) => slugify(name);
+export const businessPath = (name: string, lang: Lang) =>
+  lang === "sr" ? `/firma/${slugify(name)}` : lang === "de" ? `/de/firma/${slugify(name)}` : `/en/business/${slugify(name)}`;

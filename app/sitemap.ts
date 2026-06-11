@@ -10,7 +10,8 @@ import { pijacaPath } from "@/lib/pijaca";
 import { BG_AREAS, bgAreaPath } from "@/lib/belgrade";
 import { STRUCTURES, structPath } from "@/lib/structure";
 import { BG_INFO, bgInfoPath } from "@/lib/bgInfo";
-import { BIZ_CATS, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath } from "@/lib/firme";
+import { BIZ_CATS, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath, businessPath } from "@/lib/firme";
+import { getBusinesses } from "@/lib/businesses";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -18,7 +19,7 @@ const BASE = "https://turizamsrbija.com";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [all, posts] = await Promise.all([getListings(), getPosts()]);
+  const [all, posts, biz] = await Promise.all([getListings(), getPosts(), getBusinesses()]);
   const now = new Date();
   const out: MetadataRoute.Sitemap = [];
 
@@ -67,6 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(firmeIndexPath("sr"), firmeIndexPath("en"), firmeIndexPath("de"));
   BIZ_CATS.forEach((c) => tri(firmeCatPath(c, "sr"), firmeCatPath(c, "en"), firmeCatPath(c, "de")));
   BIZ_CATS.forEach((c) => BIZ_CITIES.forEach((ci) => tri(firmeCatCityPath(c, ci.slug, "sr"), firmeCatCityPath(c, ci.slug, "en"), firmeCatCityPath(c, ci.slug, "de"))));
+  biz.forEach((b) => tri(businessPath(b.name, "sr"), businessPath(b.name, "en"), businessPath(b.name, "de")));
 
   return out;
 }
