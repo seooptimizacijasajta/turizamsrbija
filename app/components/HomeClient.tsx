@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
-import { slugify, sectionPath, searchPath } from "@/lib/slug";
+import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
+import { firmeIndexPath } from "@/lib/firme";
+import { pijacaPath } from "@/lib/pijaca";
 import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
@@ -144,6 +146,29 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
             <h2>{t("cta_title")}</h2>
             <p>{t("cta_lead")}</p>
             <Link className="btn btn--primary btn--lg" href={sectionPath("stay", lang)}>{t("cta_btn")}</Link>
+          </div>
+        </div>
+      </section>
+      <section className="section section--soft">
+        <div className="container">
+          <div className="section-head">
+            <div className="eyebrow">{lang === "sr" ? "Sve na jednom mestu" : lang === "de" ? "Alles an einem Ort" : "All in one place"}</div>
+            <h2 className="section-title">{lang === "sr" ? "Istražite portal" : lang === "de" ? "Portal entdecken" : "Explore the portal"}</h2>
+          </div>
+          <div className="card-grid" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))" }}>
+            {[
+              { icon: "🧳", label: t("nav_firme"), sub: lang === "sr" ? "Agencije, rent-a-car, vodiči…" : lang === "de" ? "Agenturen, Mietwagen, Guides…" : "Agencies, car rental, guides…", href: firmeIndexPath(lang) },
+              { icon: "🍯", label: t("nav_pijaca"), sub: lang === "sr" ? "Domaći proizvodi" : lang === "de" ? "Heimische Produkte" : "Local products", href: pijacaPath(lang) },
+              { icon: "🎟️", label: t("nav_vauceri"), sub: lang === "sr" ? "Odmor uz vaučere" : lang === "de" ? "Urlaub mit Gutscheinen" : "Holidays with vouchers", href: voucherPath(lang) },
+              { icon: "📣", label: t("nav_marketing"), sub: lang === "sr" ? "Oglašavanje na portalu" : lang === "de" ? "Werben auf dem Portal" : "Advertise on the portal", href: marketingPath(lang) },
+              { icon: "🏠", label: t("nav_hostguide"), sub: lang === "sr" ? "Oglasite svoj smeštaj" : lang === "de" ? "Unterkunft inserieren" : "List your property", href: hostGuidePath(lang) },
+            ].map((x) => (
+              <Link key={x.href} className="card" href={x.href} style={{ padding: 22 }}>
+                <div style={{ fontSize: "1.9rem", marginBottom: 6 }}>{x.icon}</div>
+                <h3 style={{ margin: "0 0 4px" }}>{x.label}</h3>
+                <p style={{ color: "var(--slate)", fontSize: ".9rem" }}>{x.sub}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
