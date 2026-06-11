@@ -7,7 +7,9 @@ import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 import ProductForm from "./ProductForm";
 import BusinessForm from "./BusinessForm";
+import EventForm from "./EventForm";
 import { bizCatByKey, bizCatLabel } from "@/lib/firme";
+import { evCatByKey, evCatLabel } from "@/lib/events";
 import { pcatLabel, pcatIcon } from "@/lib/pijaca";
 import { accountPath } from "@/lib/slug";
 
@@ -33,6 +35,9 @@ export default function Account() {
   const [biz, setBiz] = useState<any[]>([]);
   const [showBiz, setShowBiz] = useState(false);
   const [editingBiz, setEditingBiz] = useState<any>(null);
+  const [evts, setEvts] = useState<any[]>([]);
+  const [showEv, setShowEv] = useState(false);
+  const [editingEv, setEditingEv] = useState<any>(null);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
@@ -51,6 +56,10 @@ export default function Account() {
     if (!admin) bq = bq.eq("owner_id", uid);
     const { data: bz } = await bq;
     setBiz(bz || []);
+    let eq = sb.from("events").select("*").order("created_at", { ascending: false });
+    if (!admin) eq = eq.eq("owner_id", uid);
+    const { data: ev } = await eq;
+    setEvts(ev || []);
   }, [sb]);
 
   async function delProduct(id: string) {
@@ -75,6 +84,31 @@ export default function Account() {
       const n = Math.max(1, Number(days) || 30);
       const until = new Date(); until.setDate(until.getDate() + n);
       await sb.from("businesses").update({ featured: true, featured_until: until.toISOString().slice(0, 10) }).eq("id", b.id);
+    }
+    loadListings(userId);
+  }
+
+  async function delEvent(id: string) {
+    if (!sb || !userId) return;
+    if (!confirm("Obrisati manifestaciju? / Delete event?")) return;
+    await sb.from("events").delete().eq("id", id);
+    loadListings(userId);
+  }
+  async function approveEvent(id: string) {
+    if (!sb || !userId) return;
+    await sb.from("events").update({ status: "approved" }).eq("id", id);
+    loadListings(userId);
+  }
+  async function toggleEvFeatured(b: any) {
+    if (!sb || !userId) return;
+    if (b.featured) {
+      await sb.from("events").update({ featured: false, featured_until: null }).eq("id", b.id);
+    } else {
+      const days = prompt("Izdvojiti manifestaciju na koliko dana? / Feature for how many days?", "30");
+      if (days === null) return;
+      const n = Math.max(1, Number(days) || 30);
+      const until = new Date(); until.setDate(until.getDate() + n);
+      await sb.from("events").update({ featured: true, featured_until: until.toISOString().slice(0, 10) }).eq("id", b.id);
     }
     loadListings(userId);
   }
@@ -317,6 +351,42 @@ export default function Account() {
                           {isAdmin && <button className={"btn btn--outline" + (b.featured ? " promo-on" : "")} title="Izdvoj firmu" onClick={() => toggleBizFeatured(b)}>★ Izdvoj</button>}
                           <button className="btn btn--outline" onClick={() => { setEditingBiz(b); setShowBiz(true); }}>{t("acc_edit")}</button>
                           <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delBusiness(b.id)}>{t("acc_delete")}</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            )}
+          </div>
+
+          <div style={{ marginTop: 40, borderTop: "1px solid var(--line)", paddingTop: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+              <h2 style={{ margin: 0 }}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"} — {isAdmin ? "sve / all" : "moje / mine"}</h2>
+              {!showEv && <button className="btn btn--primary" onClick={() => { setEditingEv(null); setShowEv(true); }}>Dodaj manifestaciju / Add event</button>}
+            </div>
+            {showEv && userId && (
+              <EventForm sb={sb} ownerId={userId} existing={editingEv}
+                onSaved={() => { setShowEv(false); setEditingEv(null); loadListings(userId); }}
+                onCancel={() => { setShowEv(false); setEditingEv(null); }} />
+            )}
+            {!showEv && (
+              evts.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema manifestacija. / No events yet.</div> : (
+                <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+                  {evts.map((b) => {
+                    const c = evCatByKey(b.category);
+                    return (
+                      <div key={b.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", flexWrap: "wrap" }}>
+                        <div>
+                          <strong>{b.name}</strong>{" "}
+                          <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {c ? evCatLabel(c, lang) : b.category}{b.city ? " · " + b.city : ""}</span>
+                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}{isAdmin && b.featured && b.featured_until ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>★ Izdvojeno do {b.featured_until}</span> : null}</div>
+                        </div>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          {isAdmin && b.status !== "approved" && <button className="btn btn--primary" onClick={() => approveEvent(b.id)}>✓ Odobri / Approve</button>}
+                          {isAdmin && <button className={"btn btn--outline" + (b.featured ? " promo-on" : "")} title="Izdvoj" onClick={() => toggleEvFeatured(b)}>★ Izdvoj</button>}
+                          <button className="btn btn--outline" onClick={() => { setEditingEv(b); setShowEv(true); }}>{t("acc_edit")}</button>
+                          <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delEvent(b.id)}>{t("acc_delete")}</button>
                         </div>
                       </div>
                     );

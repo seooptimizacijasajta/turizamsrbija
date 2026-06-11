@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
     listing: "Nov oglas smeštaja / New accommodation listing",
     business: "Nova firma u direktorijumu / New business",
     product: "Nov proizvod (Pijaca) / New product",
+    event: "Nova manifestacija / New event",
   };
   if (!titles[kind]) return NextResponse.json({ error: "unknown kind" }, { status: 400 });
   const rows: [string, any][] = [
