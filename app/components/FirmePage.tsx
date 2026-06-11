@@ -49,7 +49,7 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
             ))}
           </div>
         )}
-        <div className="toolbar" style={{ marginTop: 8 }}>
+        <div className="toolbar">
           <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={lang === "sr" ? "Pretraga firmi…" : lang === "de" ? "Firmen suchen…" : "Search businesses…"} />
           {cities.length > 1 && (
             <select value={city} onChange={(e) => setCity(e.target.value)}>
