@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
-import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
+import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath, listingPath, belgradePath } from "@/lib/slug";
 import { firmeIndexPath } from "@/lib/firme";
 import { pijacaPath } from "@/lib/pijaca";
 import ListingCard from "./ListingCard";
@@ -169,6 +169,29 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
                 <p style={{ color: "var(--slate)", fontSize: ".9rem" }}>{x.sub}</p>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <div className="eyebrow">{lang === "sr" ? "Najtraženije" : lang === "de" ? "Beliebt" : "Most popular"}</div>
+            <h2 className="section-title">{lang === "sr" ? "Popularne destinacije" : lang === "de" ? "Beliebte Reiseziele" : "Popular destinations"}</h2>
+          </div>
+          <div className="kw-cloud" style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
+            {[
+              { l: "Kopaonik", h: listingPath("mountain", "Kopaonik", lang) },
+              { l: "Zlatibor", h: listingPath("mountain", "Zlatibor", lang) },
+              { l: "Tara", h: listingPath("mountain", "Tara", lang) },
+              { l: "Divčibare", h: listingPath("mountain", "Divčibare", lang) },
+              { l: "Stara planina", h: listingPath("mountain", "Stara planina", lang) },
+              { l: "Vrnjačka Banja", h: listingPath("spa", "Vrnjačka Banja", lang) },
+              { l: "Sokobanja", h: listingPath("spa", "Sokobanja", lang) },
+              { l: "Srebrno jezero", h: listingPath("lake", "Srebrno jezero", lang) },
+              { l: "Palić", h: listingPath("lake", "Palićko jezero", lang) },
+              { l: "Drvengrad", h: listingPath("ethno", "Drvengrad (Mećavnik)", lang) },
+              { l: lang === "sr" ? "Apartmani Beograd" : lang === "de" ? "Belgrad" : "Belgrade", h: belgradePath(lang) },
+            ].map((x) => <Link key={x.l} href={x.h} className="kw-chip">{x.l}</Link>)}
           </div>
         </div>
       </section>
