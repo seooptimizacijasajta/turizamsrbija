@@ -43,13 +43,13 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
           ))}
         </div>
         {cat && !cityName && (
-          <div className="amen-filter" style={{ marginTop: 0 }}>
+          <div className="amen-filter" style={{ marginTop: 0, marginBottom: 6 }}>
             {BIZ_CITIES.map((ci) => (
               <Link key={ci.slug} href={firmeCatCityPath(cat, ci.slug, lang)} className="amen-chip">{ci.name}</Link>
             ))}
           </div>
         )}
-        <div className="toolbar">
+        <div className="toolbar" style={{ marginTop: 8 }}>
           <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={lang === "sr" ? "Pretraga firmi…" : lang === "de" ? "Firmen suchen…" : "Search businesses…"} />
           {cities.length > 1 && (
             <select value={city} onChange={(e) => setCity(e.target.value)}>

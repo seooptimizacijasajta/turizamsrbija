@@ -7,7 +7,7 @@ import { useFavorites } from "@/lib/favorites";
 import { useCurrency } from "@/lib/currency";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath, accountPath, mapPath, searchPath, savedPath, blogPath } from "@/lib/slug";
 import { pijacaPath } from "@/lib/pijaca";
-import { firmeIndexPath } from "@/lib/firme";
+import { firmeIndexPath, firmeCatPath, BIZ_CATS, bizCatLabel } from "@/lib/firme";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -22,12 +22,19 @@ export default function Header() {
   const { favs } = useFavorites();
   const { cur, setCur } = useCurrency();
   const [open, setOpen] = useState(false);
-  const [destOpen, setDestOpen] = useState(false);
+  const [dd, setDd] = useState<string | null>(null);
   const path = usePathname() || "/";
   const router = useRouter();
   const accountHref = accountPath(lang);
-  const close = () => { setOpen(false); setDestOpen(false); };
-  const destActive = DEST.some((d) => path === sectionPath(d.kind, lang));
+  const close = () => { setOpen(false); setDd(null); };
+  const toggle = (id: string) => setDd((d) => (d === id ? null : id));
+
+  const destActive = DEST.some((d) => path === sectionPath(d.kind, lang)) || path === mapPath(lang);
+  const stayActive = path === sectionPath("stay", lang) || path === belgradePath(lang);
+  const firmeActive = path === firmeIndexPath(lang) || path.includes("/firme") || path.includes("/businesses") || path.includes("/firmen");
+
+  const allStays = lang === "sr" ? "Sav smeštaj" : lang === "de" ? "Alle Unterkünfte" : "All accommodation";
+  const allFirme = lang === "sr" ? "Sve firme" : lang === "de" ? "Alle Firmen" : "All businesses";
 
   return (
     <header className="site-header">
@@ -39,22 +46,31 @@ export default function Header() {
           <Link href={homePath(lang)} className={path === homePath(lang) ? "active" : ""} onClick={close}>{t("nav_home")}</Link>
 
           <div className="nav-dd">
-            <button className={"nav-dd-trigger" + (destActive ? " active" : "")} onClick={() => setDestOpen(!destOpen)}>
-              {t("nav_destinations")} ▾
-            </button>
-            <div className={"nav-dd-panel" + (destOpen ? " open" : "")}>
-              {DEST.map((d) => (
-                <Link key={d.kind} href={sectionPath(d.kind, lang)} onClick={close}>{t(d.key)}</Link>
-              ))}
+            <button className={"nav-dd-trigger" + (destActive ? " active" : "")} onClick={() => toggle("dest")}>{t("nav_destinations")} ▾</button>
+            <div className={"nav-dd-panel" + (dd === "dest" ? " open" : "")}>
+              {DEST.map((d) => <Link key={d.kind} href={sectionPath(d.kind, lang)} onClick={close}>{t(d.key)}</Link>)}
               <Link href={mapPath(lang)} onClick={close}>🗺 {t("nav_map")}</Link>
             </div>
           </div>
 
-          <Link href={belgradePath(lang)} className={path === belgradePath(lang) ? "active" : ""} onClick={close}>{t("nav_belgrade")}</Link>
-          <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
-          <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
+          <div className="nav-dd">
+            <button className={"nav-dd-trigger" + (stayActive ? " active" : "")} onClick={() => toggle("stay")}>{t("nav_stays")} ▾</button>
+            <div className={"nav-dd-panel" + (dd === "stay" ? " open" : "")}>
+              <Link href={sectionPath("stay", lang)} onClick={close}>{allStays}</Link>
+              <Link href={belgradePath(lang)} onClick={close}>{t("nav_belgrade")}</Link>
+            </div>
+          </div>
+
+          <div className="nav-dd">
+            <button className={"nav-dd-trigger" + (firmeActive ? " active" : "")} onClick={() => toggle("firme")}>{t("nav_firme")} ▾</button>
+            <div className={"nav-dd-panel" + (dd === "firme" ? " open" : "")}>
+              <Link href={firmeIndexPath(lang)} onClick={close}><strong>{allFirme}</strong></Link>
+              {BIZ_CATS.map((c) => <Link key={c.key} href={firmeCatPath(c, lang)} onClick={close}>{c.icon} {bizCatLabel(c, lang)}</Link>)}
+            </div>
+          </div>
+
           <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
-          <Link href={firmeIndexPath(lang)} className={path === firmeIndexPath(lang) ? "active" : ""} onClick={close}>{t("nav_firme")}</Link>
+          <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={searchPath(lang)} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
