@@ -98,6 +98,8 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["vodic-za-vlasnike", "host-guide", "vermieter-leitfaden"],
   ["firme", "businesses", "firmen"],
   ["firma", "business", "firma"],
+  ["manifestacije", "events", "veranstaltungen"],
+  ["manifestacija", "event", "veranstaltung"],
 ];
 
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
