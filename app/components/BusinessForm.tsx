@@ -49,7 +49,7 @@ export default function BusinessForm({ sb, ownerId, existing, onSaved, onCancel 
     };
     try {
       if (e?.id) { const { error } = await sb.from("businesses").update(row).eq("id", e.id); if (error) throw error; }
-      else { const { error } = await sb.from("businesses").insert(row); if (error) throw error; }
+      else { const { error } = await sb.from("businesses").insert(row); if (error) throw error; fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "business", name: g("name"), category, city: g("city") }) }).catch(() => {}); }
       onSaved();
     } catch (x: any) { setErr(x.message || "Greška."); } finally { setBusy(false); }
   }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/supabase";
+import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   let body: any;
@@ -34,6 +35,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "could not save" }, { status: 500 });
   }
 
-  // TODO Phase 2: push contact to HubSpot here using process.env.HUBSPOT_TOKEN
+  // Email notifications (owner + admin) — best effort, non-blocking failures
+  try {
+    let listingName = ""; let ownerEmail = "";
+    if (row.listing_id) {
+      const { data: lst } = await sb.from("listings").select("name_sr, owner_id").eq("id", row.listing_id).maybeSingle();
+      listingName = lst?.name_sr || "";
+      if (lst?.owner_id) {
+        const { data: u } = await (sb as any).auth.admin.getUserById(lst.owner_id);
+        ownerEmail = u?.user?.email || "";
+      }
+    }
+    const rows: [string, any][] = [
+      ["Smeštaj / Listing", listingName], ["Gost / Guest", row.guest_name], ["Email", row.email],
+      ["Telefon / Phone", row.phone], ["Dolazak / Check-in", row.checkin], ["Odlazak / Check-out", row.checkout],
+      ["Osoba / Guests", row.guests], ["Poruka / Message", row.message],
+    ];
+    const subj = `Novi upit za ${listingName || "smeštaj"} / New inquiry`;
+    if (ownerEmail) await sendEmail(ownerEmail, subj, wrap(subj, rows, "Odgovorite gostu direktno na email ili telefon iznad."), row.email);
+    await sendEmail(ADMIN_EMAIL, subj, wrap(subj, rows), row.email);
+  } catch (e: any) { console.error("[inquiries] email error", e?.message); }
+
   return NextResponse.json({ ok: true, persisted: true });
 }

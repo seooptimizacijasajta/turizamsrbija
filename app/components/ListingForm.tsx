@@ -144,6 +144,7 @@ export default function ListingForm({
       }
       if (photos.length && id) {
         await sb.from("listing_images").insert(photos.map((url, i) => ({ listing_id: id, url, sort: i })));
+        fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "listing", name: get("name_sr") }) }).catch(() => {});
       }
       onSaved();
     } catch (e2: any) { setErr(e2?.message || "Error"); } finally { setBusy(false); }

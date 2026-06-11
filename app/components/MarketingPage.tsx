@@ -55,6 +55,7 @@ export default function MarketingPage() {
         });
         if (error) throw error;
       }
+      fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "lead", name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message") }) }).catch(() => {});
       setSent(true);
     } catch (x: any) { setErr(x.message || "Greška / Error"); } finally { setBusy(false); }
   }

@@ -52,7 +52,7 @@ export default function ProductForm({ sb, ownerId, existing, onSaved, onCancel }
     };
     try {
       if (e?.id) { const { error } = await sb.from("products").update(row).eq("id", e.id); if (error) throw error; }
-      else { const { error } = await sb.from("products").insert(row); if (error) throw error; }
+      else { const { error } = await sb.from("products").insert(row); if (error) throw error; fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "product", name: g("name_sr"), category }) }).catch(() => {}); }
       onSaved();
     } catch (x: any) { setErr(x.message || "Greška."); } finally { setBusy(false); }
   }
