@@ -7,6 +7,7 @@ import { useFavorites } from "@/lib/favorites";
 import { useCurrency } from "@/lib/currency";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath, accountPath, mapPath, searchPath, savedPath, blogPath } from "@/lib/slug";
 import { pijacaPath } from "@/lib/pijaca";
+import { firmeIndexPath } from "@/lib/firme";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -53,6 +54,7 @@ export default function Header() {
           <Link href={sectionPath("stay", lang)} className={path === sectionPath("stay", lang) ? "active" : ""} onClick={close}>{t("nav_stays")}</Link>
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
           <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
+          <Link href={firmeIndexPath(lang)} className={path === firmeIndexPath(lang) ? "active" : ""} onClick={close}>{t("nav_firme")}</Link>
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={searchPath(lang)} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>

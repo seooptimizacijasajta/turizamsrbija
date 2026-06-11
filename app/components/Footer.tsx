@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
+import { firmeIndexPath } from "@/lib/firme";
 import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
@@ -33,6 +34,7 @@ export default function Footer() {
           ])}
           {col(t("foot_company"), [
             [t("nav_pijaca"), pijacaPath(lang)],
+            [t("nav_firme"), firmeIndexPath(lang)],
             [t("nav_vauceri"), voucherPath(lang)],
             [t("nav_marketing"), marketingPath(lang)],
             [t("nav_hostguide"), hostGuidePath(lang)],

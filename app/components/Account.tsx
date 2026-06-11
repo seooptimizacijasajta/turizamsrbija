@@ -6,6 +6,8 @@ import ListingForm from "./ListingForm";
 import Turnstile from "./Turnstile";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 import ProductForm from "./ProductForm";
+import BusinessForm from "./BusinessForm";
+import { bizCatByKey, bizCatLabel } from "@/lib/firme";
 import { pcatLabel, pcatIcon } from "@/lib/pijaca";
 import { accountPath } from "@/lib/slug";
 
@@ -28,6 +30,9 @@ export default function Account() {
   const [products, setProducts] = useState<any[]>([]);
   const [showProd, setShowProd] = useState(false);
   const [editingProd, setEditingProd] = useState<any>(null);
+  const [biz, setBiz] = useState<any[]>([]);
+  const [showBiz, setShowBiz] = useState(false);
+  const [editingBiz, setEditingBiz] = useState<any>(null);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
@@ -42,12 +47,22 @@ export default function Account() {
     if (!admin) pq = pq.eq("owner_id", uid);
     const { data: pr } = await pq;
     setProducts(pr || []);
+    let bq = sb.from("businesses").select("*").order("created_at", { ascending: false });
+    if (!admin) bq = bq.eq("owner_id", uid);
+    const { data: bz } = await bq;
+    setBiz(bz || []);
   }, [sb]);
 
   async function delProduct(id: string) {
     if (!sb || !userId) return;
     if (!confirm("Obrisati proizvod? / Delete product?")) return;
     await sb.from("products").delete().eq("id", id);
+    loadListings(userId);
+  }
+  async function delBusiness(id: string) {
+    if (!sb || !userId) return;
+    if (!confirm("Obrisati firmu? / Delete business?")) return;
+    await sb.from("businesses").delete().eq("id", id);
     loadListings(userId);
   }
 
@@ -258,6 +273,40 @@ export default function Account() {
                       </div>
                     </div>
                   ))}
+                </div>
+              )
+            )}
+          </div>
+
+          <div style={{ marginTop: 40, borderTop: "1px solid var(--line)", paddingTop: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+              <h2 style={{ margin: 0 }}>{t("nav_firme")} — {isAdmin ? "sve firme / all" : "moje firme / my businesses"}</h2>
+              {!showBiz && <button className="btn btn--primary" onClick={() => { setEditingBiz(null); setShowBiz(true); }}>Dodaj firmu / Add business</button>}
+            </div>
+            {showBiz && userId && (
+              <BusinessForm sb={sb} ownerId={userId} existing={editingBiz}
+                onSaved={() => { setShowBiz(false); setEditingBiz(null); loadListings(userId); }}
+                onCancel={() => { setShowBiz(false); setEditingBiz(null); }} />
+            )}
+            {!showBiz && (
+              biz.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema firmi. / No businesses yet.</div> : (
+                <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+                  {biz.map((b) => {
+                    const c = bizCatByKey(b.category);
+                    return (
+                      <div key={b.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", flexWrap: "wrap" }}>
+                        <div>
+                          <strong>{b.name}</strong>{" "}
+                          <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {c ? bizCatLabel(c, lang) : b.category}{b.city ? " · " + b.city : ""}</span>
+                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}</div>
+                        </div>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          <button className="btn btn--outline" onClick={() => { setEditingBiz(b); setShowBiz(true); }}>{t("acc_edit")}</button>
+                          <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delBusiness(b.id)}>{t("acc_delete")}</button>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )
             )}

@@ -10,6 +10,7 @@ import { pijacaPath } from "@/lib/pijaca";
 import { BG_AREAS, bgAreaPath } from "@/lib/belgrade";
 import { STRUCTURES, structPath } from "@/lib/structure";
 import { BG_INFO, bgInfoPath } from "@/lib/bgInfo";
+import { BIZ_CATS, firmeIndexPath, firmeCatPath } from "@/lib/firme";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -61,6 +62,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Belgrade info pages
   BG_INFO.forEach((x) => tri(bgInfoPath(x, "sr"), bgInfoPath(x, "en"), bgInfoPath(x, "de")));
+
+  // Business directory
+  tri(firmeIndexPath("sr"), firmeIndexPath("en"), firmeIndexPath("de"));
+  BIZ_CATS.forEach((c) => tri(firmeCatPath(c, "sr"), firmeCatPath(c, "en"), firmeCatPath(c, "de")));
 
   return out;
 }
