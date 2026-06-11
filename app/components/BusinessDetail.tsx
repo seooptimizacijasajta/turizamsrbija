@@ -8,7 +8,7 @@ import { homePath } from "@/lib/slug";
 import type { Business } from "@/lib/businesses";
 import { bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath } from "@/lib/firme";
 
-export default function BusinessDetail({ b }: { b: Business }) {
+export default function BusinessDetail({ b, geo }: { b: Business; geo?: { lat: number; lng: number } | null }) {
   const { lang, t } = useLang();
   const lc = lang === "de" ? "de" : lang === "en" ? "en" : "sr";
   const c = bizCatByKey(b.category);
@@ -48,10 +48,10 @@ export default function BusinessDetail({ b }: { b: Business }) {
           {b.email && <a className="btn btn--outline btn--lg" href={`mailto:${b.email}`}>Email</a>}
           {b.website && <a className="btn btn--outline btn--lg" href={b.website} target="_blank" rel="noopener noreferrer nofollow">{lang === "sr" ? "Web sajt" : "Website"}</a>}
         </div>
-        {b.address && (
+        {geo && (
           <div style={{ marginTop: 26, borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)" }}>
             <iframe title="map" width="100%" height="300" style={{ border: 0 }} loading="lazy"
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=20.35%2C44.75%2C20.55%2C44.86&layer=mapnik`} />
+              src={`https://www.openstreetmap.org/export/embed.html?bbox=${geo.lng - 0.008}%2C${geo.lat - 0.006}%2C${geo.lng + 0.008}%2C${geo.lat + 0.006}&layer=mapnik&marker=${geo.lat}%2C${geo.lng}`} />
           </div>
         )}
       <div style={{ marginTop: 34, borderTop: "1px solid var(--line)", paddingTop: 22 }}>

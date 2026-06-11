@@ -1,6 +1,7 @@
 import { getBusinesses } from "@/lib/businesses";
 import BusinessDetail from "@/app/components/BusinessDetail";
 import { bizSlug } from "@/lib/firme";
+import { geocode } from "@/lib/geocode";
 import { notFound } from "next/navigation";
 export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -10,5 +11,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const all = await getBusinesses(); const b = all.find((x) => bizSlug(x.name) === slug); if (!b) notFound();
-  return <BusinessDetail b={b} />;
+  const geo = b.address ? await geocode(`${b.address}, ${b.city || ""}, Srbija`) : null;
+  return <BusinessDetail b={b} geo={geo} />;
 }
