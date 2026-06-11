@@ -10,6 +10,7 @@ import FloatingWidgets from "@/app/components/FloatingWidgets";
 import CookieNotice from "@/app/components/CookieNotice";
 import { Analytics } from "@vercel/analytics/react";
 import JsonLd from "@/app/components/JsonLd";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://turizamsrbija.com"),
@@ -55,6 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <FloatingWidgets />
           <CookieNotice />
           <Analytics />
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-G0XYGYNTSC" strategy="afterInteractive" />
+          <Script id="ga4" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-G0XYGYNTSC');`}</Script>
           </CurrencyProvider>
           </FavoritesProvider>
         </LanguageProvider>
