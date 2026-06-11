@@ -65,6 +65,19 @@ export default function Account() {
     await sb.from("businesses").delete().eq("id", id);
     loadListings(userId);
   }
+  async function toggleBizFeatured(b: any) {
+    if (!sb || !userId) return;
+    if (b.featured) {
+      await sb.from("businesses").update({ featured: false, featured_until: null }).eq("id", b.id);
+    } else {
+      const days = prompt("Izdvojiti firmu na koliko dana? / Feature for how many days?", "30");
+      if (days === null) return;
+      const n = Math.max(1, Number(days) || 30);
+      const until = new Date(); until.setDate(until.getDate() + n);
+      await sb.from("businesses").update({ featured: true, featured_until: until.toISOString().slice(0, 10) }).eq("id", b.id);
+    }
+    loadListings(userId);
+  }
 
   useEffect(() => {
     if (!sb) { setReady(true); return; }
@@ -298,9 +311,10 @@ export default function Account() {
                         <div>
                           <strong>{b.name}</strong>{" "}
                           <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {c ? bizCatLabel(c, lang) : b.category}{b.city ? " · " + b.city : ""}</span>
-                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}</div>
+                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}{isAdmin && b.featured && b.featured_until ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>★ Izdvojeno do {b.featured_until}</span> : null}</div>
                         </div>
                         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          {isAdmin && <button className={"btn btn--outline" + (b.featured ? " promo-on" : "")} title="Izdvoj firmu" onClick={() => toggleBizFeatured(b)}>★ Izdvoj</button>}
                           <button className="btn btn--outline" onClick={() => { setEditingBiz(b); setShowBiz(true); }}>{t("acc_edit")}</button>
                           <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delBusiness(b.id)}>{t("acc_delete")}</button>
                         </div>
