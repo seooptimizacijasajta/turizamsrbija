@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Listing } from "@/lib/types";
@@ -36,6 +36,33 @@ export default function AISearch({ listings, businesses, products, posts }: { li
   }, [q, listings, businesses, products, posts, lang, lc, t]);
 
   const total = res.listings.length + res.businesses.length + res.products.length + res.posts.length;
+  const aiEnabled = process.env.NEXT_PUBLIC_AI_ENABLED === "1";
+  const [aiReply, setAiReply] = useState("");
+  const [aiBusy, setAiBusy] = useState(false);
+  const tRef = useRef<any>(null);
+  useEffect(() => {
+    if (!aiEnabled) return;
+    setAiReply("");
+    if (!q.trim() || total === 0) return;
+    if (tRef.current) clearTimeout(tRef.current);
+    tRef.current = setTimeout(async () => {
+      const names = [
+        ...res.listings.slice(0, 6).map((d) => `${L(d.name, lang)} (${L(d.region, lang)}${d.price ? ", €" + d.price : ""})`),
+        ...res.businesses.slice(0, 4).map((b) => `${b.name} (${b.city || ""})`),
+        ...res.products.slice(0, 3).map((p) => p.name[lc]),
+      ].join("; ");
+      const langName = lang === "sr" ? "srpskom" : lang === "de" ? "nemačkom" : "engleskom";
+      const content = `Posetilac portala Turizam Srbija u pretrazi traži: "${q}". Pronađeni rezultati: ${names}. Daj vrlo kratak (1-2 rečenice), prirodan i koristan predlog na ${langName} jeziku, kao ljubazni asistent. Preporuči samo iz navedenih rezultata, ne izmišljaj.`;
+      try {
+        setAiBusy(true);
+        const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: [{ role: "user", content }] }) });
+        const j = await r.json();
+        if (j?.reply) setAiReply(j.reply);
+      } catch {} finally { setAiBusy(false); }
+    }, 700);
+    return () => { if (tRef.current) clearTimeout(tRef.current); };
+  }, [q, total, aiEnabled, lang, lc]);
+
   const ph = lang === "sr" ? "npr. apartman na Zlatiboru sa bazenom, rent-a-car Beograd, med…" : lang === "de" ? "z. B. Apartment auf Zlatibor mit Pool, Mietwagen Belgrad…" : "e.g. apartment on Zlatibor with a pool, car rental Belgrade…";
   const summary = !q.trim() ? "" : total === 0
     ? (lang === "sr" ? `Nema rezultata za „${q}". Probajte drugačije reči (mesto, tip, sadržaj).` : lang === "de" ? `Keine Ergebnisse für „${q}".` : `No results for “${q}”.`)
@@ -53,7 +80,11 @@ export default function AISearch({ listings, businesses, products, posts }: { li
         <span style={{ fontSize: "1.2rem", paddingLeft: 4 }}>✨</span>
         <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={ph} autoFocus />
       </div>
-      {summary && <div className="ai-summary" style={{ background: "var(--sand,#f4f1ea)", border: "1px solid var(--line)", borderRadius: 12, padding: "12px 16px", marginBottom: 8, fontWeight: 500 }}>🤖 {summary}</div>}
+      {(aiReply || summary) && (
+        <div className="ai-summary" style={{ background: "var(--sand,#f4f1ea)", border: "1px solid var(--line)", borderRadius: 12, padding: "12px 16px", marginBottom: 8, fontWeight: 500 }}>
+          {aiBusy && !aiReply ? <span>✨ {lang === "sr" ? "AI razmišlja…" : lang === "de" ? "KI denkt…" : "AI is thinking…"}</span> : <span>{aiReply ? "✨ " : "🤖 "}{aiReply || summary}</span>}
+        </div>
+      )}
 
       {res.listings.length > 0 && (<>{SectionTitle(t("nav_stays") + " · " + (lang === "sr" ? "destinacije" : lang === "de" ? "Reiseziele" : "destinations"))}
         <div className="card-grid">{res.listings.slice(0, 12).map((d) => <ListingCard key={d.id} item={d} />)}</div></>)}
