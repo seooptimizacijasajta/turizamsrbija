@@ -9,7 +9,7 @@ const C: Record<"sr" | "en", any> = {
   sr: {
     title: "Oglasite svoj smeštaj", sub: "Planine, jezera, banje, etno sela, apartmani — dovedite goste iz cele Srbije i sveta.",
     model: "Plaćate tek kada vam dovedemo prve goste.",
-    steps: [["1. Upišite smeštaj", "Naslov, opis, fotografije, video i lokacija na mapi."], ["2. Gosti rezervišu", "Oglas je vidljiv na srpskom i engleskom, sa recenzijama."], ["3. Plaćate po rezultatu", "Bez mesečnih troškova — provizija tek kad ostvarite gosta."]],
+    steps: [["1. Upišite smeštaj", "Naslov, opis, fotografije, video i lokacija na mapi."], ["2. Gosti rezervišu", "Oglas je vidljiv na srpskom, engleskom i nemačkom, sa recenzijama."], ["3. Plaćate po rezultatu", "Bez mesečnih troškova — provizija tek kad ostvarite gosta."]],
     why: "Zašto baš kod nas", benefits: ["Besplatno oglašavanje", "Dvojezični portal (SR/EN) za goste iz inostranstva", "Kalendar dostupnosti + sinhronizacija sa Booking/Airbnb", "Recenzije i ocene", "Neograničen broj oglasa", "Podrška"],
     safeTitle: "Sigurne rezervacije", safe: [["Vi postavljate pravila", "Sami određujete cenu, popuste za duži boravak i minimalan broj noćenja."], ["Provera gostiju", "Gost ostavlja ime, email i telefon i prihvata pravila pre rezervacije."], ["Vi odlučujete", "Sumnjivu rezervaciju možete otkazati — za nju ne plaćate proviziju."], ["Bez rizika", "Nema mesečnih troškova; plaćate tek kada ostvarite gosta."]],
     faqTitle: "Česta pitanja domaćina",
@@ -26,7 +26,7 @@ const C: Record<"sr" | "en", any> = {
   en: {
     title: "List your space", sub: "Mountains, lakes, spas, ethno villages, apartments — reach guests from Serbia and worldwide.",
     model: "You pay only when we bring you your first guests.",
-    steps: [["1. Add your place", "Title, description, photos, video and a map location."], ["2. Guests book", "Your listing shows in Serbian and English, with reviews."], ["3. Pay on results", "No monthly fees — commission only when you get a guest."]],
+    steps: [["1. Add your place", "Title, description, photos, video and a map location."], ["2. Guests book", "Your listing shows in Serbian, English and German, with reviews."], ["3. Pay on results", "No monthly fees — commission only when you get a guest."]],
     why: "Why list with us", benefits: ["Free listing", "Bilingual portal (SR/EN) for international guests", "Availability calendar + Booking/Airbnb sync", "Reviews & ratings", "Unlimited listings", "Support"],
     safeTitle: "Safe reservations", safe: [["You set the rules", "Decide your price, longer-stay discounts and minimum nights."], ["Guest verification", "Guests leave name, email and phone and accept your rules before booking."], ["You decide", "Cancel any suspicious booking — you pay no commission on it."], ["No risk", "No monthly fees; you pay only when you get a guest."]],
     faqTitle: "Frequently asked questions by hosts",

@@ -5,8 +5,8 @@ import { homePath } from "@/lib/slug";
 
 const CONTENT: Record<string, { sr: [string, string]; en: [string, string] }> = {
   about: {
-    sr: ["O nama", "Turizam Srbija je portal posvećen promociji najlepših destinacija i smeštaja u Srbiji — planina, jezera, banja, etno sela i apartmana. Naš cilj je da na jednom mestu, na srpskom i engleskom jeziku, povežemo goste iz zemlje i sveta sa domaćinima širom Srbije. Vlasnici smeštaja oglašavaju besplatno, a plaćaju tek kada im dovedemo goste."],
-    en: ["About us", "Turizam Srbija is a portal dedicated to promoting Serbia's finest destinations and accommodation — mountains, lakes, spas, ethno villages and apartments. Our goal is to connect guests from Serbia and abroad with hosts across the country, in Serbian and English. Hosts list for free and pay only when we bring them guests."],
+    sr: ["O nama", "Turizam Srbija je portal posvećen promociji najlepših destinacija i smeštaja u Srbiji — planina, jezera, banja, etno sela i apartmana. Naš cilj je da na jednom mestu, na srpskom, engleskom i nemačkom jeziku, povežemo goste iz zemlje i sveta sa domaćinima širom Srbije. Vlasnici smeštaja oglašavaju besplatno, a plaćaju tek kada im dovedemo goste."],
+    en: ["About us", "Turizam Srbija is a portal dedicated to promoting Serbia's finest destinations and accommodation — mountains, lakes, spas, ethno villages and apartments. Our goal is to connect guests from Serbia and abroad with hosts across the country, in Serbian, English and German. Hosts list for free and pay only when we bring them guests."],
   },
   terms: {
     sr: ["Uslovi korišćenja", "Korišćenjem portala Turizam Srbija prihvatate ove uslove. Portal povezuje goste i domaćine; rezervacije i plaćanja se dogovaraju između strana. Domaćini su odgovorni za tačnost svojih oglasa. Zadržavamo pravo uklanjanja sadržaja koji krši pravila. (Napomena: ovo je osnovni šablon — preporučujemo da konačne uslove pregleda pravnik.)"],
