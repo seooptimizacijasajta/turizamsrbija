@@ -73,7 +73,7 @@ export default function Header() {
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
         </nav>
         <div className="nav-right">
-          <Link className="nav-search" href={searchPath(lang)} title="Pretraga / Search" aria-label="Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
+          <Link className="nav-search" href={searchPath(lang)} title="AI Pretraga / AI Search" aria-label="AI Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
           <Link className="nav-fav" href={savedPath(lang)} title="Sačuvano / Saved" aria-label="Saved" onClick={close}>♥{favs.length > 0 && <span className="fav-count">{favs.length}</span>}</Link>
           <Link className="btn btn--primary" href={listPath(lang)} style={{ padding: "8px 14px", fontSize: ".85rem" }} onClick={close}>{t("nav_list")}</Link>
           <div className="lang-toggle">

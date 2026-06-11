@@ -1,6 +1,12 @@
 import { getListings } from "@/lib/data";
-import SearchView from "@/app/components/SearchView";
+import { getBusinesses } from "@/lib/businesses";
+import { getProducts } from "@/lib/products";
+import { getPosts } from "@/lib/blog";
+import AISearch from "@/app/components/AISearch";
 import { Suspense } from "react";
 export const revalidate = 60;
-export const metadata = { title: "Search stays and destinations — Turizam Srbija", description: "Search all destinations and accommodation in Serbia by name, place and municipality." };
-export default async function Page() { const items = await getListings(); return <Suspense><SearchView items={items} /></Suspense>; }
+export const metadata = { title: "Search (AI) — Turizam Srbija", description: "Search the whole portal: stays, destinations, businesses, local products and guides." };
+export default async function Page() {
+  const [items, businesses, products, posts] = await Promise.all([getListings(), getBusinesses(), getProducts(), getPosts()]);
+  return <Suspense><AISearch listings={items} businesses={businesses} products={products} posts={posts as any} /></Suspense>;
+}
