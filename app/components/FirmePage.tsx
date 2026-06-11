@@ -5,9 +5,9 @@ import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 import type { Business } from "@/lib/businesses";
-import { BIZ_CATS, BizCat, bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath } from "@/lib/firme";
+import { BIZ_CATS, BizCat, bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath } from "@/lib/firme";
 
-export default function FirmePage({ businesses, cat }: { businesses: Business[]; cat?: BizCat | null }) {
+export default function FirmePage({ businesses, cat, cityName }: { businesses: Business[]; cat?: BizCat | null; cityName?: string }) {
   const { lang, t } = useLang();
   const [city, setCity] = useState("");
   const [q, setQ] = useState("");
@@ -24,7 +24,7 @@ export default function FirmePage({ businesses, cat }: { businesses: Business[];
     return true;
   }), [businesses, city, q, lang]);
 
-  const heading = cat ? bizCatLabel(cat, lang) : (lang === "sr" ? "Baza firmi — turizam" : lang === "de" ? "Firmenverzeichnis — Tourismus" : "Business directory — tourism");
+  const heading = cat ? (cityName ? `${bizCatLabel(cat, lang)} ${cityName}` : bizCatLabel(cat, lang)) : (lang === "sr" ? "Baza firmi — turizam" : lang === "de" ? "Firmenverzeichnis — Tourismus" : "Business directory — tourism");
   const lead = lang === "sr" ? "Turističke agencije, rent-a-car, vodiči, transferi, restorani i druge usluge u Srbiji." : lang === "de" ? "Reisebüros, Autovermietung, Reiseführer, Transfers, Restaurants und weitere Dienste in Serbien." : "Travel agencies, car rental, guides, transfers, restaurants and other services in Serbia.";
 
   return (
@@ -42,6 +42,13 @@ export default function FirmePage({ businesses, cat }: { businesses: Business[];
             <Link key={c.key} href={firmeCatPath(c, lang)} className={"amen-chip" + (cat?.key === c.key ? " on" : "")}>{c.icon} {bizCatLabel(c, lang)}</Link>
           ))}
         </div>
+        {cat && !cityName && (
+          <div className="amen-filter" style={{ marginTop: 0 }}>
+            {BIZ_CITIES.map((ci) => (
+              <Link key={ci.slug} href={firmeCatCityPath(cat, ci.slug, lang)} className="amen-chip">{ci.name}</Link>
+            ))}
+          </div>
+        )}
         <div className="toolbar">
           <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={lang === "sr" ? "Pretraga firmi…" : lang === "de" ? "Firmen suchen…" : "Search businesses…"} />
           {cities.length > 1 && (
