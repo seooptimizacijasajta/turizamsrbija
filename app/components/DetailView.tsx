@@ -43,6 +43,13 @@ export default function DetailView({
   };
   if (typeof item.lat === "number" && typeof item.lng === "number") ld.geo = { "@type": "GeoCoordinates", latitude: item.lat, longitude: item.lng };
   if (displayRating > 0) ld.aggregateRating = { "@type": "AggregateRating", ratingValue: displayRating.toFixed(1), reviewCount: Math.max(reviewCount, 1) };
+  if (reviews.length > 0) ld.review = reviews.slice(0, 10).map((r) => ({
+    "@type": "Review",
+    reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
+    author: { "@type": "Person", name: r.author_name || "Gost" },
+    ...(r.created_at ? { datePublished: String(r.created_at).slice(0, 10) } : {}),
+    ...(r.comment ? { reviewBody: r.comment } : {}),
+  }));
   if (item.type === "stay" && item.price) ld.priceRange = `€${item.price}`;
   const priceLabel = item.type === "stay" && item.price ? `€${item.price} / ${priceUnitLabel(item.priceUnit, lang)}` : "";
   const meta: string[] = [];

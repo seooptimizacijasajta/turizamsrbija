@@ -31,6 +31,7 @@ Ključne činjenice:
 - [Vodič za vlasnike](https://turizamsrbija.com/vodic-za-vlasnike): kako oglasiti smeštaj
 - [Oglašavanje](https://turizamsrbija.com/oglasavanje): baneri, izdvajanje, PR članci
 - [Kontakt](https://turizamsrbija.com/kontakt) · [O nama](https://turizamsrbija.com/o-nama)
+- [Detaljan opis za AI](https://turizamsrbija.com/llms-full.txt)
 - [Sitemap](https://turizamsrbija.com/sitemap.xml)
 `;
 

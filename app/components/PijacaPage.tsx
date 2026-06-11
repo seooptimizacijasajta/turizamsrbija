@@ -6,6 +6,7 @@ import { homePath } from "@/lib/slug";
 import type { Product } from "@/lib/products";
 import { PCATS, pcatLabel, pcatIcon, unitLabel } from "@/lib/pijaca";
 import { useCurrency } from "@/lib/currency";
+import JsonLd from "./JsonLd";
 
 export default function PijacaPage({ products }: { products: Product[] }) {
   const { lang, t } = useLang();
@@ -22,11 +23,26 @@ export default function PijacaPage({ products }: { products: Product[] }) {
   }), [products, cat, q, lang]);
 
   const cats = useMemo(() => PCATS.filter((c) => products.some((p) => p.category === c.key)), [products]);
+  const itemListLd = useMemo(() => ({
+    "@context": "https://schema.org", "@type": "ItemList",
+    itemListElement: list.slice(0, 50).map((p, i) => ({
+      "@type": "ListItem", position: i + 1,
+      item: {
+        "@type": "Product", name: p.name.sr || p.name.en,
+        ...(p.desc.sr || p.desc.en ? { description: (p.desc.sr || p.desc.en).slice(0, 300) } : {}),
+        ...(p.image ? { image: p.image } : {}),
+        category: pcatLabel(p.category, "sr"),
+        ...(p.producer ? { brand: { "@type": "Brand", name: p.producer } } : {}),
+        ...(p.price != null ? { offers: { "@type": "Offer", price: p.price, priceCurrency: "RSD", availability: "https://schema.org/InStock", ...(p.producer ? { seller: { "@type": "Organization", name: p.producer } } : {}) } } : {}),
+      },
+    })),
+  }), [list]);
   const heading = lang === "sr" ? "Pijaca — domaći proizvodi" : lang === "de" ? "Markt — heimische Produkte" : "Marketplace — local products";
   const lead = lang === "sr" ? "Med, sir, rakija, vino i rukotvorine direktno od domaćih proizvođača." : lang === "de" ? "Honig, Käse, Rakija, Wein und Handwerk direkt von heimischen Erzeugern." : "Honey, cheese, rakija, wine and crafts straight from local producers.";
 
   return (
     <>
+      {list.length > 0 && <JsonLd data={itemListLd} />}
       <section className="page-hero" style={{ backgroundImage: "linear-gradient(180deg,rgba(15,61,46,.3),rgba(15,61,46,.7)),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1600&q=80')" }}>
         <div className="container"><h1>{heading}</h1><p>{lead}</p></div>
       </section>

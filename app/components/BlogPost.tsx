@@ -28,6 +28,7 @@ export default function BlogPost({ post }: { post: Post }) {
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://turizamsrbija.com${lang === "sr" ? "" : `/${lang}`}/blog/${post.slug}` },
     author: { "@type": "Organization", name: "Turizam Srbija" },
     publisher: { "@type": "Organization", name: "Turizam Srbija", logo: { "@type": "ImageObject", url: "https://turizamsrbija.com/icon.png" } },
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "article p"] },
   };
   return (
     <article>

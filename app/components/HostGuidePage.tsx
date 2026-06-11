@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
+import JsonLd from "./JsonLd";
 import { homePath, accountPath, listPath } from "@/lib/slug";
 
 type L3 = { sr: string; en: string; de: string };
@@ -31,8 +32,14 @@ export default function HostGuidePage() {
   const l = lang;
   const heading = tt({ sr: "Vodič za vlasnike smeštaja", en: "Guide for property owners", de: "Leitfaden für Vermieter" }, l);
   const lead = tt({ sr: "Kako da oglasite smeštaj i dovedete goste — korak po korak.", en: "How to list your property and attract guests — step by step.", de: "So inserieren Sie Ihre Unterkunft und gewinnen Gäste — Schritt für Schritt." }, l);
+  const howToLd = {
+    "@context": "https://schema.org", "@type": "HowTo",
+    name: heading, description: lead,
+    step: STEPS.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: tt(s.t, l), text: tt(s.d, l) })),
+  };
   return (
     <>
+      <JsonLd data={howToLd} />
       <section className="page-hero" style={{ backgroundImage: "linear-gradient(180deg,rgba(15,61,46,.3),rgba(15,61,46,.7)),url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=80')" }}>
         <div className="container"><h1>{heading}</h1><p>{lead}</p></div>
       </section>

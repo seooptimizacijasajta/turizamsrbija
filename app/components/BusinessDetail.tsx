@@ -32,6 +32,7 @@ export default function BusinessDetail({ b, geo, related = [] }: { b: Business; 
     telephone: b.phone || undefined, url: b.website || undefined,
     address: { "@type": "PostalAddress", streetAddress: b.address || undefined, addressLocality: b.city || undefined, addressCountry: "RS" },
     ...(avg > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: avg.toFixed(1), reviewCount: revs.length } } : {}),
+    ...(revs.length > 0 ? { review: revs.slice(0, 10).map((r: any) => ({ "@type": "Review", reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 }, author: { "@type": "Person", name: r.author || "Gost" }, ...(r.created_at ? { datePublished: String(r.created_at).slice(0, 10) } : {}), ...(r.comment ? { reviewBody: r.comment } : {}) })) } : {}),
   };
   return (
     <>
