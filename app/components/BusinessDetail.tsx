@@ -6,9 +6,10 @@ import Breadcrumbs from "./Breadcrumbs";
 import JsonLd from "./JsonLd";
 import { homePath } from "@/lib/slug";
 import type { Business } from "@/lib/businesses";
-import { bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath } from "@/lib/firme";
+import Link from "next/link";
+import { bizCatByKey, bizCatLabel, firmeIndexPath, firmeCatPath, businessPath } from "@/lib/firme";
 
-export default function BusinessDetail({ b, geo }: { b: Business; geo?: { lat: number; lng: number } | null }) {
+export default function BusinessDetail({ b, geo, related = [] }: { b: Business; geo?: { lat: number; lng: number } | null; related?: Business[] }) {
   const { lang, t } = useLang();
   const lc = lang === "de" ? "de" : lang === "en" ? "en" : "sr";
   const c = bizCatByKey(b.category);
@@ -78,6 +79,14 @@ export default function BusinessDetail({ b, geo }: { b: Business; geo?: { lat: n
             </form>
           )}
       </div>
+      {related.length > 0 && (
+        <div style={{ marginTop: 30, borderTop: "1px solid var(--line)", paddingTop: 18 }}>
+          <h3 style={{ marginBottom: 10 }}>{lang === "sr" ? "Slične firme" : lang === "de" ? "Ähnliche Firmen" : "Similar businesses"}</h3>
+          <ul style={{ display: "flex", flexWrap: "wrap", gap: "8px 18px", listStyle: "none", padding: 0 }}>
+            {related.map((r) => <li key={r.id}><Link href={businessPath(r.name, lang)} style={{ color: "var(--green-600)", fontWeight: 600 }}>→ {r.name}{r.city ? ` · ${r.city}` : ""}</Link></li>)}
+          </ul>
+        </div>
+      )}
       </div>
     </>
   );

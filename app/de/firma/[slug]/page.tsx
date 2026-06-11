@@ -12,5 +12,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const all = await getBusinesses(); const b = all.find((x) => bizSlug(x.name) === slug); if (!b) notFound();
   const geo = b.address ? await geocode(`${b.address}, ${b.city || ""}, Srbija`) : null;
-  return <BusinessDetail b={b} geo={geo} />;
+  const related = all.filter((x) => x.category === b.category && x.id !== b.id).sort((a, z) => Number(z.featured) - Number(a.featured)).slice(0, 5);
+  return <BusinessDetail b={b} geo={geo} related={related} />;
 }
