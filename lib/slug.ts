@@ -95,6 +95,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["privatnost", "privacy", "datenschutz"],
   ["nalog", "nalog", "konto"],
   ["info-beograd", "belgrade-info", "belgrad-info"],
+  ["vodic-za-vlasnike", "host-guide", "vermieter-leitfaden"],
 ];
 
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
@@ -107,6 +108,7 @@ export function customSeg(seg: string, target: Lang): string | null {
   return null;
 }
 export function marketingPath(locale: Lang) { return locale === "sr" ? "/oglasavanje" : locale === "de" ? "/de/werbung" : "/en/advertising"; }
+export function hostGuidePath(locale: Lang) { return locale === "sr" ? "/vodic-za-vlasnike" : locale === "de" ? "/de/vermieter-leitfaden" : "/en/host-guide"; }
 export function voucherPath(locale: Lang) { return locale === "sr" ? "/vauceri" : locale === "de" ? "/de/gutscheine" : "/en/vouchers"; }
 export function belgradePath(locale: Lang) { return locale === "sr" ? "/apartmani-beograd" : locale === "de" ? "/de/belgrad-apartments" : "/en/belgrade-apartments"; }
 export function listPath(locale: Lang) { return locale === "sr" ? "/oglasi-smestaj" : locale === "de" ? "/de/unterkunft-anbieten" : "/en/list-your-space"; }

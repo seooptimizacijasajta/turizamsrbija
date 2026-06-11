@@ -2,7 +2,7 @@
 import Link from "next/link";
 import PaymentBadges from "./PaymentBadges";
 import { useLang } from "@/lib/i18n";
-import { sectionPath, infoPath, voucherPath, marketingPath } from "@/lib/slug";
+import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import NewsletterForm from "./NewsletterForm";
@@ -35,6 +35,7 @@ export default function Footer() {
             [t("nav_pijaca"), pijacaPath(lang)],
             [t("nav_vauceri"), voucherPath(lang)],
             [t("nav_marketing"), marketingPath(lang)],
+            [t("nav_hostguide"), hostGuidePath(lang)],
             ["FAQ", infoPath("faq", lang)],
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],

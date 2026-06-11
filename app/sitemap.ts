@@ -3,7 +3,7 @@ import { getListings } from "@/lib/data";
 import { getPosts } from "@/lib/blog";
 import {
   listingPath, sectionPath, homePath, belgradePath, listPath, infoPath,
-  voucherPath, marketingPath, blogPath,
+  voucherPath, marketingPath, blogPath, hostGuidePath,
 } from "@/lib/slug";
 import { LANDING_AMENITIES, amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
@@ -37,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(voucherPath("sr"), voucherPath("en"), voucherPath("de"));
   tri(marketingPath("sr"), marketingPath("en"), marketingPath("de"));
+  tri(hostGuidePath("sr"), hostGuidePath("en"), hostGuidePath("de"));
   (["about", "contact", "terms", "privacy", "faq"] as const).forEach((w) =>
     tri(infoPath(w, "sr"), infoPath(w, "en"), infoPath(w, "de")));
 

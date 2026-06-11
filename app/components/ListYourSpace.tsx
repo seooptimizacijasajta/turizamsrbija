@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import FaqAccordion from "./FaqAccordion";
-import { homePath, accountPath } from "@/lib/slug";
+import { homePath, accountPath, hostGuidePath } from "@/lib/slug";
 
 const C: Record<"sr" | "en", any> = {
   sr: {
@@ -53,7 +53,7 @@ export default function ListYourSpace() {
           <h1>{c.title}</h1>
           <p>{c.sub}</p>
           <p style={{ fontWeight: 700, fontSize: "1.12rem" }}>★ {c.model}</p>
-          <div className="hero-actions"><Link className="btn btn--primary btn--lg" href={acct}>{c.cta}</Link></div>
+          <div className="hero-actions" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}><Link className="btn btn--primary btn--lg" href={acct}>{c.cta}</Link><Link className="btn btn--outline btn--lg" href={hostGuidePath(lang)}>{t("nav_hostguide")}</Link></div>
         </div>
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_list") }]} /></div>
