@@ -55,8 +55,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Blog posts
   posts.forEach((p) => {
-    if (p.title_en) tri(`/blog/${p.slug}`, `/en/blog/${p.slug}`, `/de/blog/${p.slug}`);
-    else out.push({ url: BASE + `/blog/${p.slug}`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+    const L: Record<string, string> = { "sr-Latn-RS": BASE + `/blog/${p.slug}`, "x-default": BASE + `/blog/${p.slug}` };
+    if (p.title_en) L.en = BASE + `/en/blog/${p.slug}`;
+    if (p.title_de) L.de = BASE + `/de/blog/${p.slug}`;
+    out.push({ url: BASE + `/blog/${p.slug}`, lastModified: p.updated_at ? new Date(p.updated_at) : now, changeFrequency: "weekly", priority: 0.7, alternates: { languages: L } });
   });
 
   // Amenity landing pages

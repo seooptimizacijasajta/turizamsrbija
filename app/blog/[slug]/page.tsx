@@ -5,9 +5,10 @@ export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const p = await getPost(slug);
   if (!p) return { title: "Blog — Turizam Srbija" };
-  const langs: Record<string, string> = { "sr-Latn-RS": `/blog/${slug}`, "x-default": `/blog/${slug}` };
-  if (p.title_en) { langs.en = `/en/blog/${slug}`; langs.de = `/de/blog/${slug}`; }
-  return { title: `${p.title_sr} | Turizam Srbija`, description: p.excerpt_sr || p.title_sr, alternates: { canonical: `/blog/${slug}`, languages: langs } };
+  const languages: Record<string, string> = { "sr-Latn-RS": `/blog/${slug}`, "x-default": `/blog/${slug}` };
+  if (p.title_en) languages.en = `/en/blog/${slug}`;
+  if (p.title_de) languages.de = `/de/blog/${slug}`;
+  return { title: `${p.title_sr} | Turizam Srbija`, description: p.excerpt_sr || p.title_sr, alternates: { canonical: `/blog/${slug}`, languages } };
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const post = await getPost(slug);

@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const p = await getPost(slug);
-  if (!p) return { title: "Blog — Turizam Srbija" };
-  return { title: `${p.title_en || p.title_sr} | Turizam Srbija`, description: p.excerpt_en || p.excerpt_sr || p.title_sr, alternates: { canonical: `/en/blog/${slug}`, languages: { "sr-Latn-RS": `/blog/${slug}`, en: `/en/blog/${slug}`, de: `/de/blog/${slug}`, "x-default": `/blog/${slug}` } } };
+  if (!p || !p.title_en) return { title: "Blog — Turizam Srbija" };
+  const languages: Record<string, string> = { "sr-Latn-RS": `/blog/${slug}`, en: `/en/blog/${slug}`, "x-default": `/blog/${slug}` };
+  if (p.title_de) languages.de = `/de/blog/${slug}`;
+  return { title: `${p.title_en} | Turizam Srbija`, description: p.excerpt_en || p.title_en, alternates: { canonical: `/en/blog/${slug}`, languages } };
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const post = await getPost(slug);

@@ -26,12 +26,14 @@ function inlineMd(text: string) {
 
 export default function BlogPost({ post }: { post: Post }) {
   const { lang, t } = useLang();
-  const title = (lang !== "sr" ? post.title_en : post.title_sr) || post.title_sr;
-  const body = (lang !== "sr" ? post.body_en : post.body_sr) || post.body_sr || "";
-  const desc = (lang !== "sr" ? post.excerpt_en : post.excerpt_sr) || post.excerpt_sr || title;
+  const pick = (sr: string | null, en: string | null, de: string | null) => (lang === "de" ? (de || en || sr) : lang === "en" ? (en || sr) : sr) || sr || "";
+  const dfmt = (x: string) => new Date(x).toLocaleDateString(lang === "sr" ? "sr-RS" : lang === "de" ? "de-DE" : "en-GB");
+  const title = pick(post.title_sr, post.title_en, post.title_de) || post.title_sr;
+  const body = pick(post.body_sr, post.body_en, post.body_de) || post.body_sr || "";
+  const desc = pick(post.excerpt_sr, post.excerpt_en, post.excerpt_de) || post.excerpt_sr || title;
   const g = guideBySlug(post.slug);
   const rel = relatedGuides(post.slug, 4);
-  const faqRaw = (lang !== "sr" ? post.faq_en : post.faq_sr) || post.faq_sr;
+  const faqRaw = (lang === "de" ? (post.faq_de || post.faq_en) : lang === "en" ? post.faq_en : post.faq_sr) || post.faq_sr;
   const faq = (Array.isArray(faqRaw) ? faqRaw : []) as { q: string; a: string }[];
   const ld = {
     "@context": "https://schema.org",
@@ -40,8 +42,8 @@ export default function BlogPost({ post }: { post: Post }) {
     description: desc,
     image: post.cover_image || undefined,
     datePublished: post.created_at,
-    dateModified: post.created_at,
-    inLanguage: lang !== "sr" ? "en" : "sr-Latn-RS",
+    dateModified: post.updated_at || post.created_at,
+    inLanguage: lang === "de" ? "de" : lang === "en" ? "en" : "sr-Latn-RS",
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://turizamsrbija.com${lang === "sr" ? "" : `/${lang}`}/blog/${post.slug}` },
     author: { "@type": "Organization", name: "Turizam Srbija" },
     publisher: { "@type": "Organization", name: "Turizam Srbija", logo: { "@type": "ImageObject", url: "https://turizamsrbija.com/icon.png" } },
@@ -55,6 +57,7 @@ export default function BlogPost({ post }: { post: Post }) {
         <Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_blog"), href: lang === "sr" ? "/blog" : `/${lang}/blog` }, { name: title }]} />
         <h1 style={{ marginBottom: 12 }}>{title}</h1>
         <ShareButtons title={title} />
+        <p style={{ color: "var(--slate)", fontSize: ".88rem", margin: "4px 0 16px" }}>{lang === "sr" ? "Objavljeno" : lang === "de" ? "Veröffentlicht" : "Published"}: {dfmt(post.created_at)}{post.updated_at ? ` · ${lang === "sr" ? "ažurirano" : lang === "de" ? "aktualisiert" : "updated"} ${dfmt(post.updated_at)}` : ""}</p>
         {body.split(/\n+/).filter(Boolean).map((para, i) => para.startsWith("## ")
           ? <h2 key={i} style={{ margin: "26px 0 10px", fontSize: "1.4rem" }}>{inlineMd(para.slice(3))}</h2>
           : <p key={i} style={{ marginBottom: 14, lineHeight: 1.85, color: "var(--ink)" }}>{inlineMd(para)}</p>

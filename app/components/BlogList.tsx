@@ -8,7 +8,7 @@ import { homePath } from "@/lib/slug";
 
 export default function BlogList({ posts }: { posts: Post[] }) {
   const { lang, t } = useLang();
-  const visible = lang === "sr" ? posts : posts.filter((p) => p.title_en);
+  const visible = lang === "sr" ? posts : posts.filter((p) => lang === "de" ? p.title_de : p.title_en);
   const base = lang === "sr" ? "/blog/" : `/${lang}/blog/`;
   return (
     <>
