@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
@@ -66,7 +67,7 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
               const d = b.desc[lang === "de" ? "de" : lang === "en" ? "en" : "sr"];
               return (
                 <div className="card" key={b.id}>
-                  {b.image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={b.image} alt={b.name} /><span className="card-badge">{c?.icon} {c ? bizCatLabel(c, lang) : b.category}</span>{b.featured && <span className="card-promo">★</span>}</div>}
+                  {b.image && <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={b.image} alt={b.name} style={{ objectFit: "cover" }} /><span className="card-badge">{c?.icon} {c ? bizCatLabel(c, lang) : b.category}</span>{b.featured && <span className="card-promo">★</span>}</div>}
                   <div className="card-body">
                     <span className="card-region">{[b.city, b.address].filter(Boolean).join(" · ")}</span>
                     <h3 className="card-title"><Link href={businessPath(b.name, lang)} style={{ color: "inherit" }}>{b.name}</Link></h3>

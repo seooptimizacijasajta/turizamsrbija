@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
@@ -61,7 +62,7 @@ export default function PijacaPage({ products }: { products: Product[] }) {
           <div className="card-grid" style={{ marginBottom: 40 }}>
             {list.map((p) => (
               <div className="card" key={p.id}>
-                {p.image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={p.image} alt={L(p.name)} /><span className="card-badge">{pcatIcon(p.category)} {pcatLabel(p.category, lang)}</span></div>}
+                {p.image && <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={p.image} alt={L(p.name)} style={{ objectFit: "cover" }} /><span className="card-badge">{pcatIcon(p.category)} {pcatLabel(p.category, lang)}</span></div>}
                 <div className="card-body">
                   <span className="card-region">{p.producer}{p.producer && Lr(p.region) ? " · " : ""}{Lr(p.region)}</span>
                   <h3 className="card-title">{L(p.name)}</h3>

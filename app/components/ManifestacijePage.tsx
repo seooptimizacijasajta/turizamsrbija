@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
@@ -79,7 +80,7 @@ export default function ManifestacijePage({ events, cat, cityName }: { events: E
                 <div className="card" key={e.id}>
                   <div className="card-media" style={e.image ? undefined : { background: `linear-gradient(135deg, ${CAT_BG[e.category] || "#0f3d2e"}, #0f3d2e)`, display: "grid", placeItems: "center", minHeight: 150 }}>
                     {e.image
-                      ? <>{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={e.image} alt={e.name} /></>
+                      ? <Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={e.image} alt={e.name} style={{ objectFit: "cover" }} />
                       : <span style={{ fontSize: "3rem" }}>{c?.icon || "🎉"}</span>}
                     <span className="card-badge">{c?.icon} {c ? evCatLabel(c, lang) : e.category}</span>
                     {e.featured && <span className="card-promo">★</span>}

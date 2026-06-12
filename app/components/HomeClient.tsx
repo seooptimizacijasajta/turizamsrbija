@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath, listingPath, belgradePath } from "@/lib/slug";
@@ -133,7 +134,7 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
                   <div className="card" key={e.id}>
                     <div className="card-media" style={e.image ? undefined : { background: "linear-gradient(135deg,#7c3aed,#0f3d2e)", display: "grid", placeItems: "center", minHeight: 140 }}>
                       {e.image
-                        ? <>{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={e.image} alt={e.name} /></>
+                        ? <Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={e.image} alt={e.name} style={{ objectFit: "cover" }} />
                         : <span style={{ fontSize: "2.6rem" }}>{c?.icon || "🎉"}</span>}
                       <span className="card-badge">{c?.icon} {c ? evCatLabel(c, lang) : e.category}</span>
                     </div>
@@ -260,7 +261,7 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
                 const href = (lang === "sr" ? "/blog/" : `/${lang}/blog/`) + p.slug;
                 return (
                   <Link key={p.id} className="card" href={href}>
-                    {p.cover_image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={p.cover_image} alt={title} /></div>}
+                    {p.cover_image && <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={p.cover_image} alt={title} style={{ objectFit: "cover" }} /></div>}
                     <div className="card-body"><h3 className="card-title">{title}</h3><p className="card-desc">{ex}</p></div>
                   </Link>
                 );

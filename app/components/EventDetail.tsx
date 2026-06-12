@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import JsonLd from "./JsonLd";
@@ -74,7 +75,7 @@ export default function EventDetail({ ev, stays }: { ev: EventItem; stays: Nearb
             <div className="card-grid">
               {stays.map((s, i) => (
                 <div className="card" key={i}>
-                  <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={s.img} alt={s.name} /></div>
+                  <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={s.img} alt={s.name} style={{ objectFit: "cover" }} /></div>
                   <div className="card-body">
                     <span className="card-region">{s.region}</span>
                     <h3 className="card-title"><Link href={s.href} style={{ color: "inherit" }}>{s.name}</Link></h3>

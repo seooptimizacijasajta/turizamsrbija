@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { eventPath, evCatByKey, evCatLabel, monthName } from "@/lib/events";
@@ -42,7 +43,7 @@ export default function NearbyEvents({ nameSr, municipality }: { nameSr: string;
             <div className="card" key={e.id}>
               <div className="card-media" style={e.image ? undefined : { background: "linear-gradient(135deg,#7c3aed,#0f3d2e)", display: "grid", placeItems: "center", minHeight: 130 }}>
                 {e.image
-                  ? <>{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={e.image} alt={e.name} /></>
+                  ? <Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={e.image} alt={e.name} style={{ objectFit: "cover" }} />
                   : <span style={{ fontSize: "2.4rem" }}>{c?.icon || "🎉"}</span>}
                 <span className="card-badge">{c?.icon} {c ? evCatLabel(c, lang) : e.category}</span>
               </div>
