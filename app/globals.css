@@ -66,6 +66,7 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .nav-links a{padding:10px 14px;border-radius:10px;font-weight:600;font-size:.95rem;color:var(--slate);transition:background .15s, color .15s}
 .nav-links a:hover,.nav-links a.active{background:var(--green-50);color:var(--green-700)}
 .nav-right{display:flex;align-items:center;gap:12px}
+.nav-mobile-extra{display:none}
 .lang-toggle{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .lang-toggle button{padding:7px 13px;font-weight:700;font-size:.82rem;color:var(--slate)}
 .lang-toggle button.active{background:var(--green-600);color:#fff}
@@ -173,6 +174,10 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
   .nav-links.open{display:flex}
   .nav-links a{padding:13px 14px}
   .nav-toggle{display:block}
+  .nav-right{gap:6px}
+  .nav-right .lang-toggle,.nav-right .btn--primary,.nav-right .nav-account{display:none}
+  .nav-mobile-extra{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);margin-top:6px;padding-top:12px}
+  .nav-mobile-extra .lang-toggle{display:flex}
   .searchbar{flex-direction:column}
   .gallery{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr}

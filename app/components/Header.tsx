@@ -75,6 +75,22 @@ export default function Header() {
           <Link href={manifIndexPath(lang)} className={path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") ? "active" : ""} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
           <Link href={dealsPath(lang)} className={path.includes("/akcije") || path.includes("/deals") || path.includes("/angebote") ? "active" : ""} onClick={close} style={{ color: "#e0492f", fontWeight: 700 }}>🔥 {lang === "sr" ? "Akcije" : lang === "de" ? "Angebote" : "Deals"}</Link>
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
+
+          <div className="nav-mobile-extra">
+            <Link className="btn btn--primary" href={listPath(lang)} onClick={close} style={{ textAlign: "center" }}>{t("nav_list")}</Link>
+            <Link className={"nav-account" + (path === accountHref ? " active" : "")} href={accountHref} onClick={close}>{t("nav_account")}</Link>
+            <div style={{ display: "flex", gap: 10, padding: "4px 0" }}>
+              <div className="lang-toggle">
+                <button className={lang === "sr" ? "active" : ""} onClick={() => { close(); router.push(switchLangPath(path, "sr")); }}>SR</button>
+                <button className={lang === "en" ? "active" : ""} onClick={() => { close(); router.push(switchLangPath(path, "en")); }}>EN</button>
+                <button className={lang === "de" ? "active" : ""} onClick={() => { close(); router.push(switchLangPath(path, "de")); }}>DE</button>
+              </div>
+              <div className="lang-toggle">
+                <button className={cur === "EUR" ? "active" : ""} onClick={() => setCur("EUR")}>€</button>
+                <button className={cur === "RSD" ? "active" : ""} onClick={() => setCur("RSD")}>RSD</button>
+              </div>
+            </div>
+          </div>
         </nav>
         <div className="nav-right">
           <Link className="nav-search" href={searchPath(lang)} title="AI Pretraga / AI Search" aria-label="AI Search" onClick={close} style={{ fontSize: "1.2rem", padding: "0 6px" }}>🔍</Link>
