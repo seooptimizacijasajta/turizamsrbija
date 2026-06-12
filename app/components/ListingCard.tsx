@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Listing } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
 import { listingPath } from "@/lib/slug";
@@ -18,8 +19,7 @@ export default function ListingCard({ item }: { item: Listing }) {
   return (
     <Link className={"card" + (item.bold ? " card--bold" : "")} href={href}>
       <div className="card-media">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" src={item.img} alt={L(item.name, lang)} />
+        <Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={item.img} alt={L(item.name, lang)} style={{ objectFit: "cover" }} />
         <span className="card-badge">{t("type_" + item.type)}</span>
         {item.bold && <span className="card-promo">★ {t("promo_featured")}</span>}
         {popular && !item.bold && <span className="card-promo card-promo--pop">{lang !== "sr" ? "POPULAR" : "POPULARNO"}</span>}

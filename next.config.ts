@@ -3,7 +3,13 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   turbopack: { root: path.join(__dirname) },
-  images: { remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }] },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "tatrsteolmswhtxprrok.supabase.co" },
+    ],
+  },
 };
 
 export default nextConfig;
