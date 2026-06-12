@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
     checkin: body.checkin || null,
     checkout: body.checkout || null,
     guests: Number(body.guests) || 1,
+    children: Number(body.children) || 0,
     message: body.message ? String(body.message).slice(0, 2000) : null,
   };
 
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
     const rows: [string, any][] = [
       ["Smeštaj / Listing", listingName], ["Gost / Guest", row.guest_name], ["Email", row.email],
       ["Telefon / Phone", row.phone], ["Dolazak / Check-in", row.checkin], ["Odlazak / Check-out", row.checkout],
-      ["Osoba / Guests", row.guests], ["Poruka / Message", row.message],
+      ["Osoba / Guests", row.guests], ["Deca / Children", row.children], ["Poruka / Message", row.message],
     ];
     const subj = `Novi upit za ${listingName || "smeštaj"} / New inquiry`;
     if (ownerEmail) await sendEmail(ownerEmail, subj, wrap(subj, rows, "Odgovorite gostu direktno na email ili telefon iznad."), row.email);

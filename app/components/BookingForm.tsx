@@ -25,6 +25,7 @@ export default function BookingForm({ item }: { item: Listing }) {
       checkin: fd.get("checkin") || null,
       checkout: fd.get("checkout") || null,
       guests: Number(fd.get("guests")) || 1,
+      children: Number(fd.get("children")) || 0,
       message: fd.get("message"),
     };
     try {
@@ -61,7 +62,10 @@ export default function BookingForm({ item }: { item: Listing }) {
               <div className="field"><label>{t("f_checkout")}</label><input type="date" name="checkout" /></div>
             </div>
           )}
-          <div className="field"><label>{t("f_guests")}</label><input type="number" min={1} defaultValue={2} name="guests" /></div>
+          <div className="field-row">
+            <div className="field"><label>{lang === "sr" ? "Odrasli" : lang === "de" ? "Erwachsene" : "Adults"}</label><input type="number" min={1} defaultValue={2} name="guests" /></div>
+            <div className="field"><label>{lang === "sr" ? "Deca" : lang === "de" ? "Kinder" : "Children"}</label><input type="number" min={0} defaultValue={0} name="children" /></div>
+          </div>
           <div className="field"><label>{t("f_message")}</label><textarea rows={3} name="message" /></div>
           <button className="btn btn--primary btn--block" type="submit" disabled={busy}>
             {busy ? "..." : t("f_submit")}
