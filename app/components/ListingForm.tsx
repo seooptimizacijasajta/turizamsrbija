@@ -2,6 +2,7 @@
 import { useState } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useLang } from "@/lib/i18n";
+import { DEAL_TYPES } from "@/lib/deals";
 import { SERBIA_MUNICIPALITIES } from "@/lib/places";
 import { SETTLEMENTS, SETTLEMENT_MUNI } from "@/lib/settlements";
 import LocationPicker from "./LocationPicker";
@@ -63,6 +64,7 @@ export default function ListingForm({
   const [amenities, setAmenities] = useState<string[]>(e?.amenities || []);
   const [priceUnit, setPriceUnit] = useState(e?.price_unit || "night");
   const [structure, setStructure] = useState(e?.structure || "");
+  const [dealType, setDealType] = useState((e as any)?.deal_type || "");
   const toggleAmenity = (k: string) => setAmenities((a) => a.includes(k) ? a.filter((x) => x !== k) : [...a, k]);
   const [err, setErr] = useState("");
 
@@ -122,6 +124,10 @@ export default function ListingForm({
       deposit: get("deposit") ? Number(get("deposit")) : null,
       discount_weekly: get("discount_weekly") ? Number(get("discount_weekly")) : null,
       discount_monthly: get("discount_monthly") ? Number(get("discount_monthly")) : null,
+      deal_type: dealType || null,
+      deal_price: dealType && get("deal_price") ? Number(get("deal_price")) : null,
+      deal_until: dealType && get("deal_until") ? get("deal_until") : null,
+      deal_note: dealType && get("deal_note") ? get("deal_note") : null,
       amenities, price_unit: priceUnit, structure: structure || null, area_m2: get("area_m2") ? Number(get("area_m2")) : null,
       hero_image: photos[0] || null,
       video_urls: videos.map((v) => v.trim()).filter(Boolean).slice(0, 3),
@@ -215,6 +221,19 @@ export default function ListingForm({
         {field("discount_weekly", "Popust 7+ noćenja % / Weekly discount %", e?.discount_weekly ? String(e.discount_weekly) : "", "number")}
         {field("discount_monthly", "Popust 28+ noćenja % / Monthly discount %", e?.discount_monthly ? String(e.discount_monthly) : "", "number")}
       </div>
+
+      <h4 style={{ margin: "10px 0 2px", color: "var(--ink)" }}>🔥 Akcija / Popust (opciono) — Deal (optional)</h4>
+      <div className="field-row">
+        <div className="field"><label>Tip akcije / Deal type</label>
+          <select value={dealType} onChange={(ev) => setDealType(ev.target.value)}>
+            <option value="">— bez akcije / none —</option>
+            {DEAL_TYPES.map((d) => <option key={d.key} value={d.key}>{d.icon} {d.sr} / {d.en}</option>)}
+          </select>
+        </div>
+        {field("deal_price", "Akcijska cena € / Deal price €", (e as any)?.deal_price ? String((e as any).deal_price) : "", "number")}
+        {field("deal_until", "Važi do / Valid until", (e as any)?.deal_until || "", "date")}
+      </div>
+      {dealType && field("deal_note", "Napomena akcije (opciono) / Deal note (optional)", (e as any)?.deal_note || "")}
 
       <div className="field-row">
         <div className="field"><label>Jedinica cene / Price unit</label>

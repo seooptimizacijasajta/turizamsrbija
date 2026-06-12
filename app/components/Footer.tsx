@@ -3,6 +3,7 @@ import Link from "next/link";
 import PaymentBadges from "./PaymentBadges";
 import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
+import { dealsPath } from "@/lib/deals";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath } from "@/lib/firme";
@@ -33,6 +34,7 @@ export default function Footer() {
             [t("nav_stays"), sectionPath("stay", lang)],
           ])}
           {col(t("foot_company"), [
+            [lang === "sr" ? "🔥 Akcije i popusti" : lang === "de" ? "🔥 Angebote" : "🔥 Deals", dealsPath(lang)],
             [t("nav_pijaca"), pijacaPath(lang)],
             [t("nav_firme"), firmeIndexPath(lang)],
             [t("nav_vauceri"), voucherPath(lang)],

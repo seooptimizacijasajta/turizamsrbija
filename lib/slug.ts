@@ -118,6 +118,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["firma", "business", "firma"],
   ["manifestacije", "events", "veranstaltungen"],
   ["manifestacija", "event", "veranstaltung"],
+  ["akcije", "deals", "angebote"],
   ["grad", "city", "stadt"],
   ["muzika", "music", "musik"],
   ["gastronomija", "food-wine", "gastronomie"],

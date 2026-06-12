@@ -46,7 +46,11 @@ export default function BookingForm({ item }: { item: Listing }) {
   return (
     <aside className="booking">
       {isStay ? (
-        <div className="price-lg">{price(item.price)} <small>/ {t("per_night")}</small></div>
+        item.deal && item.dealPrice != null ? (
+          <div className="price-lg"><s style={{ color: "var(--slate)", fontWeight: 400, fontSize: "1rem" }}>{price(item.price)}</s> <span style={{ color: "#e0492f" }}>{price(item.dealPrice)}</span> <small>/ {t("per_night")}</small></div>
+        ) : (
+          <div className="price-lg">{price(item.price)} <small>/ {t("per_night")}</small></div>
+        )
       ) : (
         <div className="price-lg" style={{ color: "var(--green-600)", fontSize: "1.2rem" }}>{t("free_entry")}</div>
       )}

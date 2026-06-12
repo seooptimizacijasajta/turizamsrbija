@@ -8,6 +8,7 @@ import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
 import NearbyEvents from "./NearbyEvents";
+import { dealTypeLabel, dealPct } from "@/lib/deals";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import ShareButtons from "./ShareButtons";
 import ViewTracker from "./ViewTracker";
@@ -52,6 +53,7 @@ export default function DetailView({
     ...(r.comment ? { reviewBody: r.comment } : {}),
   }));
   if (item.type === "stay" && item.price) ld.priceRange = `€${item.price}`;
+  if (item.type === "stay" && item.deal && item.dealPrice != null) ld.makesOffer = { "@type": "Offer", price: item.dealPrice, priceCurrency: "EUR", availability: "https://schema.org/InStock", ...(item.dealUntil ? { priceValidUntil: item.dealUntil } : {}) };
   const priceLabel = item.type === "stay" && item.price ? `€${item.price} / ${priceUnitLabel(item.priceUnit, lang)}` : "";
   const meta: string[] = [];
   if (item.elevation) meta.push(`⛰ ${t("detail_elevation")}: ${item.elevation} m`);
@@ -61,6 +63,7 @@ export default function DetailView({
   if (displayRating > 0) meta.push(`★ ${displayRating.toFixed(1)}`);
   meta.push(`📍 ${L(item.region, lang)}`);
   if (item.views) meta.push(`👁 ${item.views} ${t("detail_views")}`);
+  if (item.deal) meta.push(`🔥 ${dealTypeLabel(item.dealType, lang)}${dealPct(item.price, item.dealPrice) > 0 ? ` −${dealPct(item.price, item.dealPrice)}%` : ""}`);
 
   const videos = (item.videoUrls || []).map(ytId).filter(Boolean) as string[];
   const hasMap = typeof item.lat === "number" && typeof item.lng === "number";

@@ -14,6 +14,7 @@ function rowToListing(r: any): Listing {
   const gallery: string[] = (r.listing_images || [])
     .sort((a: any, b: any) => (a.sort || 0) - (b.sort || 0))
     .map((i: any) => i.url);
+  const dealActive = !!r.deal_type && r.deal_price != null && promoActive(r.deal_until);
   return {
     id: r.id,
     type: r.kind,
@@ -48,6 +49,11 @@ function rowToListing(r: any): Listing {
     deposit: r.deposit ?? null,
     discountWeekly: r.discount_weekly ?? null,
     discountMonthly: r.discount_monthly ?? null,
+    dealType: dealActive ? r.deal_type : null,
+    dealPrice: dealActive ? Number(r.deal_price) : null,
+    dealUntil: r.deal_until ?? null,
+    dealNote: r.deal_note ?? null,
+    deal: dealActive,
   };
 }
 

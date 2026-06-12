@@ -32,4 +32,5 @@ export interface Listing {
   structure?: string;
   areaM2?: number | null;
   minNights?: number | null; minNightsWeekend?: number | null; deposit?: number | null; discountWeekly?: number | null; discountMonthly?: number | null;
+  dealType?: string | null; dealPrice?: number | null; dealUntil?: string | null; dealNote?: string | null; deal?: boolean;
 }

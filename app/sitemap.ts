@@ -14,6 +14,7 @@ import { BIZ_CATS, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath, b
 import { getBusinesses } from "@/lib/businesses";
 import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath, EVENT_CITIES, manifCityPath } from "@/lib/events";
 import { getEvents } from "@/lib/eventsData";
+import { dealsPath } from "@/lib/deals";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -39,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(listPath("sr"), listPath("en"), listPath("de"));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
+  tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));
   tri(voucherPath("sr"), voucherPath("en"), voucherPath("de"));
   tri(marketingPath("sr"), marketingPath("en"), marketingPath("de"));
   tri(hostGuidePath("sr"), hostGuidePath("en"), hostGuidePath("de"));

@@ -7,6 +7,7 @@ import { listingPath } from "@/lib/slug";
 import { useFavorites } from "@/lib/favorites";
 import { AMENITIES, priceUnitLabel } from "@/lib/amenities";
 import { useCurrency } from "@/lib/currency";
+import { dealTypeByKey, dealTypeLabel, dealPct } from "@/lib/deals";
 
 export default function ListingCard({ item }: { item: Listing }) {
   const { lang, t } = useLang();
@@ -23,6 +24,7 @@ export default function ListingCard({ item }: { item: Listing }) {
         <span className="card-badge">{t("type_" + item.type)}</span>
         {item.bold && <span className="card-promo">★ {t("promo_featured")}</span>}
         {popular && !item.bold && <span className="card-promo card-promo--pop">{lang !== "sr" ? "POPULAR" : "POPULARNO"}</span>}
+        {item.deal && <span className="card-promo" style={{ background: "#e0492f", left: 12, right: "auto" }}>{dealTypeByKey(item.dealType)?.icon} {dealPct(item.price, item.dealPrice) > 0 ? `−${dealPct(item.price, item.dealPrice)}%` : dealTypeLabel(item.dealType, lang)}</span>}
         <span className={"card-fav" + (isFav(item.id) ? " on" : "")} role="button" aria-label="Sačuvaj / Save" onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(item.id); }}>♥</span>
       </div>
       <div className="card-body">
@@ -33,7 +35,11 @@ export default function ListingCard({ item }: { item: Listing }) {
         {amIcons.length > 0 && <div className="am-row">{amIcons.map((a) => <span key={a!.key} className="am-ic" title={lang !== "sr" ? a!.en : a!.sr}>{a!.icon}</span>)}</div>}
         <div className="card-foot">
           {item.type === "stay" ? (
-            <span className="price"><small>{t("from")} </small>{price(item.price)} <small>/ {priceUnitLabel(item.priceUnit, lang)}</small></span>
+            item.deal && item.dealPrice != null ? (
+              <span className="price"><small>{t("from")} </small><s style={{ color: "var(--slate)", fontWeight: 400 }}>{price(item.price)}</s> <span style={{ color: "#e0492f" }}>{price(item.dealPrice)}</span> <small>/ {priceUnitLabel(item.priceUnit, lang)}</small></span>
+            ) : (
+              <span className="price"><small>{t("from")} </small>{price(item.price)} <small>/ {priceUnitLabel(item.priceUnit, lang)}</small></span>
+            )
           ) : (
             <span className="price" style={{ color: "var(--green-600)" }}>{t("free_entry")}</span>
           )}
