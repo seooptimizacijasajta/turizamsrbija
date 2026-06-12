@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
@@ -14,6 +14,8 @@ export default function PijacaPage({ products }: { products: Product[] }) {
   const { price: cprice } = useCurrency();
   const [cat, setCat] = useState("");
   const [q, setQ] = useState("");
+  const [shown, setShown] = useState(24);
+  useEffect(() => { setShown(24); }, [q, cat]);
   const L = (o: { sr: string; en: string; de: string }) => lang === "sr" ? o.sr : lang === "de" ? o.de : o.en;
   const Lr = (o: { sr: string; en: string }) => lang === "sr" ? o.sr : o.en;
 
@@ -58,9 +60,9 @@ export default function PijacaPage({ products }: { products: Product[] }) {
             <button key={c.key} type="button" className={"amen-chip" + (cat === c.key ? " on" : "")} onClick={() => setCat(c.key)}>{c.icon} {pcatLabel(c.key, lang)}</button>
           ))}
         </div>
-        {list.length ? (
+        {list.length ? (<>
           <div className="card-grid" style={{ marginBottom: 40 }}>
-            {list.map((p) => (
+            {list.slice(0, shown).map((p) => (
               <div className="card" key={p.id}>
                 {p.image && <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={p.image} alt={L(p.name)} style={{ objectFit: "cover" }} /><span className="card-badge">{pcatIcon(p.category)} {pcatLabel(p.category, lang)}</span></div>}
                 <div className="card-body">
@@ -80,7 +82,8 @@ export default function PijacaPage({ products }: { products: Product[] }) {
               </div>
             ))}
           </div>
-        ) : <div className="empty">{t("no_results")}</div>}
+          {list.length > shown && <div style={{ textAlign: "center", marginBottom: 40 }}><button className="btn btn--outline" onClick={() => setShown((x) => x + 24)}>{lang === "sr" ? "Prikaži još" : lang === "de" ? "Mehr anzeigen" : "Show more"}</button></div>}
+        </>) : <div className="empty">{t("no_results")}</div>}
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Listing, Kind } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
 import type { Banner } from "@/lib/banners";
@@ -26,6 +26,8 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
   const [maxP, setMaxP] = useState("");
   const [amen, setAmen] = useState<string[]>([]);
   const toggleAmen = (k: string) => setAmen((a) => a.includes(k) ? a.filter((x) => x !== k) : [...a, k]);
+  const [shown, setShown] = useState(24);
+  useEffect(() => { setShown(24); }, [q, region, cat, sort, minP, maxP, amen]);
 
   const regions = useMemo(() => {
     const set: string[] = [];
@@ -106,7 +108,10 @@ export default function SectionExplorer({ items, kind, banners = [] }: { items: 
       </div>
       <div className="results-count">{filtered.length} {t("results")}</div>
       {filtered.length ? (
-        <div className="card-grid" style={{ marginBottom: 40 }}>{grid}</div>
+        <>
+          <div className="card-grid" style={{ marginBottom: grid.length > shown ? 20 : 40 }}>{grid.slice(0, shown)}</div>
+          {grid.length > shown && <div style={{ textAlign: "center", marginBottom: 40 }}><button className="btn btn--outline" onClick={() => setShown((x) => x + 24)}>{lang === "sr" ? "Prikaži još" : lang === "de" ? "Mehr anzeigen" : "Show more"}</button></div>}
+        </>
       ) : (
         <div className="empty">{t("no_results")}</div>
       )}

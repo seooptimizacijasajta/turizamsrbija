@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import type { Post } from "@/lib/blog";
@@ -9,6 +10,8 @@ import { homePath } from "@/lib/slug";
 export default function BlogList({ posts }: { posts: Post[] }) {
   const { lang, t } = useLang();
   const visible = lang === "sr" ? posts : posts.filter((p) => lang === "de" ? p.title_de : p.title_en);
+  const [shown, setShown] = useState(24);
+  useEffect(() => { setShown(24); }, [lang]);
   const base = lang === "sr" ? "/blog/" : `/${lang}/blog/`;
   return (
     <>
@@ -17,9 +20,9 @@ export default function BlogList({ posts }: { posts: Post[] }) {
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_blog") }]} /></div>
       <section className="section"><div className="container">
-        {visible.length === 0 ? <div className="empty">{t("blog_none")}</div> : (
+        {visible.length === 0 ? <div className="empty">{t("blog_none")}</div> : (<>
           <div className="card-grid">
-            {visible.map((p) => {
+            {visible.slice(0, shown).map((p) => {
               const title = (lang !== "sr" ? p.title_en : p.title_sr) || p.title_sr;
               const ex = (lang !== "sr" ? p.excerpt_en : p.excerpt_sr) || p.excerpt_sr || "";
               return (
@@ -33,7 +36,8 @@ export default function BlogList({ posts }: { posts: Post[] }) {
               );
             })}
           </div>
-        )}
+          {visible.length > shown && <div style={{ textAlign: "center", marginTop: 24 }}><button className="btn btn--outline" onClick={() => setShown((x) => x + 24)}>{lang === "sr" ? "Prikaži još" : lang === "de" ? "Mehr anzeigen" : "Show more"}</button></div>}
+        </>)}
       </div></section>
     </>
   );

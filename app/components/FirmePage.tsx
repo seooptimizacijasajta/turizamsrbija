@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
@@ -12,6 +12,8 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
   const { lang, t } = useLang();
   const [city, setCity] = useState("");
   const [q, setQ] = useState("");
+  const [shown, setShown] = useState(24);
+  useEffect(() => { setShown(24); }, [q, city]);
 
   const cities = useMemo(() => {
     const s: string[] = [];
@@ -60,9 +62,9 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
           )}
         </div>
 
-        {list.length ? (
+        {list.length ? (<>
           <div className="card-grid" style={{ marginBottom: 40 }}>
-            {list.map((b) => {
+            {list.slice(0, shown).map((b) => {
               const c = bizCatByKey(b.category);
               const d = b.desc[lang === "de" ? "de" : lang === "en" ? "en" : "sr"];
               return (
@@ -82,7 +84,8 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
               );
             })}
           </div>
-        ) : <div className="empty">{t("no_results")}</div>}
+          {list.length > shown && <div style={{ textAlign: "center", marginBottom: 40 }}><button className="btn btn--outline" onClick={() => setShown((x) => x + 24)}>{lang === "sr" ? "Prikaži još" : lang === "de" ? "Mehr anzeigen" : "Show more"}</button></div>}
+        </>) : <div className="empty">{t("no_results")}</div>}
       </div>
     </>
   );
