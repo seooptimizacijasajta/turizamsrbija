@@ -1,3 +1,3 @@
 import ListYourSpace from "@/app/components/ListYourSpace";
-export const metadata = { title: "Oglasi smeštaj — Turizam Srbija" };
+export const metadata = { title: "Oglasite smeštaj besplatno — apartmani, vile, sobe | Turizam Srbija", description: "Oglasite svoj smeštaj besplatno i dovedite goste iz Srbije i sveta. Bez mesečnih troškova — proviziju plaćate tek kada vam dovedemo goste.", alternates: { canonical: "/oglasi-smestaj", languages: { "sr-Latn-RS": "/oglasi-smestaj", en: "/en/list-your-space", de: "/de/unterkunft-anbieten", "x-default": "/oglasi-smestaj" } } };
 export default function Page() { return <ListYourSpace />; }

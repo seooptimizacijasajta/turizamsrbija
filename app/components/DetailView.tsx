@@ -81,7 +81,7 @@ export default function DetailView({
             <h1>{L(item.name, lang)}</h1>
             <div className="detail-meta">{meta.map((m, i) => <span key={i}>{m}</span>)}</div>
             <ShareButtons title={L(item.name, lang)} />
-            <div className="detail-section"><h2>{t("detail_about")}</h2><p style={{ whiteSpace: "pre-line" }}>{L(item.desc, lang)}</p>
+            <div className="detail-section"><h2>{item.type === "stay" ? (lang === "sr" ? "O smeštaju" : lang === "de" ? "Über die Unterkunft" : "About this place") : t("detail_about")}</h2><p style={{ whiteSpace: "pre-line" }}>{L(item.desc, lang)}</p>
               {guide && (
                 <p className="guide-callout" style={{ marginTop: 12 }}>
                   📖 <Link href={blogHref(guide.slug, lang)} style={{ color: "var(--green-600)", fontWeight: 700 }}>

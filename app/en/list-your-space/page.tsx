@@ -1,3 +1,3 @@
 import ListYourSpace from "@/app/components/ListYourSpace";
-export const metadata = { title: "List your space — Turizam Srbija" };
+export const metadata = { title: "List your accommodation free — apartments, villas, rooms | Turizam Srbija", description: "List your property free and reach guests from Serbia and worldwide. No monthly fees — pay a commission only when we bring you guests.", alternates: { canonical: "/en/list-your-space", languages: { "sr-Latn-RS": "/oglasi-smestaj", en: "/en/list-your-space", de: "/de/unterkunft-anbieten", "x-default": "/oglasi-smestaj" } } };
 export default function Page() { return <ListYourSpace />; }
