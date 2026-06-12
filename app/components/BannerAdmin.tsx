@@ -12,10 +12,11 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter">("stats");
   const [users, setUsers] = useState<any[]>([]);
   const [uListings, setUListings] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
+  const [subs, setSubs] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [postEditing, setPostEditing] = useState<any>(null);
@@ -48,6 +49,11 @@ export default function BannerAdmin() {
     if (!sb) return;
     const { data } = await sb.from("marketing_leads").select("*").order("created_at", { ascending: false });
     setLeads(data || []);
+  }, [sb]);
+  const loadSubs = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("newsletter").select("*").order("created_at", { ascending: false });
+    setSubs(data || []);
   }, [sb]);
   const loadUsers = useCallback(async () => {
     if (!sb) return;
@@ -92,7 +98,7 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); }
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); }
   }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads, loadUsers]);
 
   useEffect(() => {
@@ -177,7 +183,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -190,6 +196,7 @@ export default function BannerAdmin() {
         {tabBtn("blog", "Blog")}
         {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
         {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
+        {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
       </div>
 
       {tab === "stats" && (
@@ -264,6 +271,26 @@ export default function BannerAdmin() {
                     {x.package ? ` · ${x.package}` : ""}
                   </div>
                   {x.message && <p style={{ marginTop: 8, color: "var(--ink)" }}>{x.message}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab === "newsletter" && (
+        <div>
+          <h1>Newsletter pretplatnici / Subscribers ({subs.length})</h1>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "12px 0" }}>
+            <button className="btn btn--outline" onClick={() => { navigator.clipboard?.writeText(subs.map((s) => s.email).join(", ")); alert("Kopirano! / Copied!"); }}>Kopiraj sve mejlove / Copy all</button>
+            <button className="btn btn--outline" onClick={() => { const csv = "email,lang,created_at\n" + subs.map((s) => `${s.email},${s.lang || ""},${s.created_at}`).join("\n"); const a = document.createElement("a"); a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv); a.download = "newsletter.csv"; a.click(); }}>Preuzmi CSV / Download CSV</button>
+          </div>
+          {subs.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema prijava. / No subscribers yet.</div> : (
+            <div style={{ display: "grid", gap: 6, marginTop: 8 }}>
+              {subs.map((s) => (
+                <div key={s.id} style={{ display: "flex", justifyContent: "space-between", gap: 10, border: "1px solid var(--line)", borderRadius: 8, padding: "8px 12px", flexWrap: "wrap" }}>
+                  <a href={`mailto:${s.email}`}>{s.email}</a>
+                  <span style={{ color: "var(--slate)", fontSize: ".82rem" }}>{(s.lang || "sr").toUpperCase()} · {new Date(s.created_at).toLocaleDateString()}</span>
                 </div>
               ))}
             </div>

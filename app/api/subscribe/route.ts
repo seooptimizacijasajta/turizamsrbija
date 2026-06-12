@@ -6,6 +6,6 @@ export async function POST(req: NextRequest) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return NextResponse.json({ error: "invalid email" }, { status: 422 });
   const sb = getServerClient();
   if (!sb) return NextResponse.json({ ok: true, persisted: false });
-  await sb.from("newsletter").upsert({ email, lang: b.lang === "en" ? "en" : "sr" }, { onConflict: "email" });
+  await sb.from("newsletter").upsert({ email, lang: b.lang === "en" ? "en" : b.lang === "de" ? "de" : "sr" }, { onConflict: "email" });
   return NextResponse.json({ ok: true });
 }
