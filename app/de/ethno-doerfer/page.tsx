@@ -11,7 +11,7 @@ export default async function Page() {
   return (
     <>
       <SectionPage items={items} kind="ethno" banners={banners} />
-      <FaqAccordion items={sectionFaqs("ethno", "de")} heading="Frequently asked questions" />
+      <FaqAccordion items={sectionFaqs("ethno", "de")} heading="Häufig gestellte Fragen" />
     </>
   );
 }

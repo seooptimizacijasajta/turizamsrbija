@@ -9,7 +9,7 @@ export default function Page() {
         <div className="container"><h1>Frequently asked questions</h1><p>Everything about booking, listing and payment.</p></div>
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: "Home", href: "/de" }, { name: "Frequently asked questions" }]} /></div>
-      <FaqAccordion items={generalFaqs("de")} heading="General questions" />
+      <FaqAccordion items={generalFaqs("de")} heading="Allgemeine Fragen" />
     </>
   );
 }

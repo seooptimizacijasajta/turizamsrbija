@@ -5,12 +5,12 @@ import Breadcrumbs from "./Breadcrumbs";
 import FaqAccordion from "./FaqAccordion";
 import { homePath, accountPath, hostGuidePath } from "@/lib/slug";
 
-const C: Record<"sr" | "en", any> = {
+const C: Record<"sr" | "en" | "de", any> = {
   sr: {
     title: "Oglasite svoj smeštaj", sub: "Planine, jezera, banje, etno sela, apartmani — dovedite goste iz cele Srbije i sveta.",
     model: "Plaćate tek kada vam dovedemo prve goste.",
     steps: [["1. Upišite smeštaj", "Naslov, opis, fotografije, video i lokacija na mapi."], ["2. Gosti rezervišu", "Oglas je vidljiv na srpskom, engleskom i nemačkom, sa recenzijama."], ["3. Plaćate po rezultatu", "Bez mesečnih troškova — provizija tek kad ostvarite gosta."]],
-    why: "Zašto baš kod nas", benefits: ["Besplatno oglašavanje", "Dvojezični portal (SR/EN) za goste iz inostranstva", "Kalendar dostupnosti + sinhronizacija sa Booking/Airbnb", "Recenzije i ocene", "Neograničen broj oglasa", "Podrška"],
+    why: "Zašto baš kod nas", benefits: ["Besplatno oglašavanje", "Trojezični portal (SR/EN/DE) za goste iz inostranstva", "Kalendar dostupnosti + sinhronizacija sa Booking/Airbnb", "Recenzije i ocene", "Neograničen broj oglasa", "Podrška"],
     safeTitle: "Sigurne rezervacije", safe: [["Vi postavljate pravila", "Sami određujete cenu, popuste za duži boravak i minimalan broj noćenja."], ["Provera gostiju", "Gost ostavlja ime, email i telefon i prihvata pravila pre rezervacije."], ["Vi odlučujete", "Sumnjivu rezervaciju možete otkazati — za nju ne plaćate proviziju."], ["Bez rizika", "Nema mesečnih troškova; plaćate tek kada ostvarite gosta."]],
     faqTitle: "Česta pitanja domaćina",
     faqs: [
@@ -23,11 +23,28 @@ const C: Record<"sr" | "en", any> = {
     ],
     cta: "Oglasi smeštaj besplatno",
   },
+  de: {
+    title: "Inserieren Sie Ihre Unterkunft", sub: "Berge, Seen, Kurorte, Ethno-Dörfer, Apartments — gewinnen Sie Gäste aus ganz Serbien und der Welt.",
+    model: "Sie zahlen erst, wenn wir Ihnen die ersten Gäste bringen.",
+    steps: [["1. Unterkunft eintragen", "Titel, Beschreibung, Fotos, Video und Kartenstandort."], ["2. Gäste buchen", "Ihr Inserat erscheint auf Serbisch, Englisch und Deutsch, mit Bewertungen."], ["3. Bezahlung nach Ergebnis", "Keine monatlichen Kosten — Provision erst, wenn Sie einen Gast gewinnen."]],
+    why: "Warum bei uns", benefits: ["Kostenloses Inserieren", "Dreisprachiges Portal (SR/EN/DE) für internationale Gäste", "Verfügbarkeitskalender + Synchronisation mit Booking/Airbnb", "Bewertungen und Noten", "Unbegrenzte Anzahl an Inseraten", "Unterstützung"],
+    safeTitle: "Sichere Buchungen", safe: [["Sie bestimmen die Regeln", "Sie legen Preis, Rabatte für längere Aufenthalte und Mindestnächte selbst fest."], ["Gästeprüfung", "Der Gast hinterlässt Name, E-Mail und Telefon und akzeptiert die Regeln vor der Buchung."], ["Sie entscheiden", "Eine verdächtige Buchung können Sie stornieren — dafür zahlen Sie keine Provision."], ["Ohne Risiko", "Keine monatlichen Kosten; Sie zahlen erst, wenn Sie einen Gast gewinnen."]],
+    faqTitle: "Häufige Fragen der Gastgeber",
+    faqs: [
+      { q: "Wer kann eine Unterkunft inserieren?", a: "Jeder, der eine Unterkunft besitzt — Apartment, Haus, Villa, Zimmer, Blockhütte — die die Grundvoraussetzungen für die Vermietung erfüllt. Die Registrierung ist kostenlos." },
+      { q: "Was kostet das Inserieren?", a: "Registrierung und Inserieren sind völlig kostenlos. Sie zahlen erst, wenn wir Ihnen die ersten Gäste bringen — eine Provision pro Buchung, ohne monatliche Kosten." },
+      { q: "Kann ich mehrere Unterkünfte inserieren?", a: "Ja, unbegrenzt. Jede Unterkunft wird separat hinzugefügt, mit eigenem Titel, Beschreibung, Fotos, Video und Kartenstandort." },
+      { q: "Wie lege ich den Preis fest?", a: "Preis und Vermietungsregeln legen Sie fest. Wir empfehlen, ähnliche Inserate in Ihrer Gegend anzusehen und Rabatte für längere Aufenthalte anzubieten, um mehr Buchungen zu erzielen." },
+      { q: "Was, wenn ein Gast storniert?", a: "Die Stornoregeln legen Sie selbst fest. Eine verdächtige Buchung können Sie ablehnen; in diesem Fall berechnen wir keine Provision und geben den Termin im Kalender frei." },
+      { q: "Welche Daten hinterlässt der Gast?", a: "Bei der Buchung hinterlässt der Gast Vor- und Nachnamen, E-Mail, Telefon und akzeptiert die Hausregeln, sodass Sie immer wissen, wer kommt." },
+    ],
+    cta: "Unterkunft kostenlos inserieren",
+  },
   en: {
     title: "List your space", sub: "Mountains, lakes, spas, ethno villages, apartments — reach guests from Serbia and worldwide.",
     model: "You pay only when we bring you your first guests.",
     steps: [["1. Add your place", "Title, description, photos, video and a map location."], ["2. Guests book", "Your listing shows in Serbian, English and German, with reviews."], ["3. Pay on results", "No monthly fees — commission only when you get a guest."]],
-    why: "Why list with us", benefits: ["Free listing", "Bilingual portal (SR/EN) for international guests", "Availability calendar + Booking/Airbnb sync", "Reviews & ratings", "Unlimited listings", "Support"],
+    why: "Why list with us", benefits: ["Free listing", "Trilingual portal (SR/EN/DE) for international guests", "Availability calendar + Booking/Airbnb sync", "Reviews & ratings", "Unlimited listings", "Support"],
     safeTitle: "Safe reservations", safe: [["You set the rules", "Decide your price, longer-stay discounts and minimum nights."], ["Guest verification", "Guests leave name, email and phone and accept your rules before booking."], ["You decide", "Cancel any suspicious booking — you pay no commission on it."], ["No risk", "No monthly fees; you pay only when you get a guest."]],
     faqTitle: "Frequently asked questions by hosts",
     faqs: [
@@ -44,7 +61,7 @@ const C: Record<"sr" | "en", any> = {
 
 export default function ListYourSpace() {
   const { lang, t } = useLang();
-  const c = C[lang === "sr" ? "sr" : "en"];
+  const c = C[lang === "sr" ? "sr" : lang === "de" ? "de" : "en"];
   const acct = accountPath(lang);
   return (
     <>
