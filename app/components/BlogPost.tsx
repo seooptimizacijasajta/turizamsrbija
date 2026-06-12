@@ -4,10 +4,25 @@ import type { Post } from "@/lib/blog";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import ShareButtons from "./ShareButtons";
 import JsonLd from "./JsonLd";
+import FaqAccordion from "./FaqAccordion";
 import Link from "next/link";
 import { homePath, sectionPath } from "@/lib/slug";
 import { guideBySlug, relatedGuides, blogHref } from "@/lib/guides";
 import ExternalLinks from "./ExternalLinks";
+
+function inlineMd(text: string) {
+  const re = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const out: React.ReactNode[] = []; let last = 0; let m: RegExpExecArray | null; let k = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    const label = m[1], href = m[2];
+    if (href.startsWith("/")) out.push(<Link key={k++} href={href} style={{ color: "var(--green-600)", fontWeight: 600 }}>{label}</Link>);
+    else out.push(<a key={k++} href={href} target="_blank" rel="noopener noreferrer">{label}</a>);
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
 
 export default function BlogPost({ post }: { post: Post }) {
   const { lang, t } = useLang();
@@ -16,6 +31,8 @@ export default function BlogPost({ post }: { post: Post }) {
   const desc = (lang !== "sr" ? post.excerpt_en : post.excerpt_sr) || post.excerpt_sr || title;
   const g = guideBySlug(post.slug);
   const rel = relatedGuides(post.slug, 4);
+  const faqRaw = (lang !== "sr" ? post.faq_en : post.faq_sr) || post.faq_sr;
+  const faq = (Array.isArray(faqRaw) ? faqRaw : []) as { q: string; a: string }[];
   const ld = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -38,9 +55,10 @@ export default function BlogPost({ post }: { post: Post }) {
         <Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_blog"), href: lang === "sr" ? "/blog" : `/${lang}/blog` }, { name: title }]} />
         <h1 style={{ marginBottom: 12 }}>{title}</h1>
         <ShareButtons title={title} />
-        {body.split(/\n+/).filter(Boolean).map((para, i) => (
-          <p key={i} style={{ marginBottom: 14, lineHeight: 1.85, color: "var(--ink)" }}>{para}</p>
-        ))}
+        {body.split(/\n+/).filter(Boolean).map((para, i) => para.startsWith("## ")
+          ? <h2 key={i} style={{ margin: "26px 0 10px", fontSize: "1.4rem" }}>{inlineMd(para.slice(3))}</h2>
+          : <p key={i} style={{ marginBottom: 14, lineHeight: 1.85, color: "var(--ink)" }}>{inlineMd(para)}</p>
+        )}
         {(g || rel.length > 0) && (
           <div className="blog-links" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid var(--line)" }}>
             {g && (
@@ -65,6 +83,7 @@ export default function BlogPost({ post }: { post: Post }) {
         )}
         <ExternalLinks place={g?.place} />
       </div>
+      {faq.length > 0 && <FaqAccordion items={faq} heading={lang === "sr" ? "Često postavljana pitanja" : lang === "de" ? "Häufig gestellte Fragen" : "Frequently asked questions"} />}
     </article>
   );
 }

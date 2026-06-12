@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useLang } from "@/lib/i18n";
 import type { Post } from "@/lib/blog";
 import Breadcrumbs from "./Breadcrumbs";
@@ -7,6 +8,7 @@ import { homePath } from "@/lib/slug";
 
 export default function BlogList({ posts }: { posts: Post[] }) {
   const { lang, t } = useLang();
+  const visible = lang === "sr" ? posts : posts.filter((p) => p.title_en);
   const base = lang === "sr" ? "/blog/" : `/${lang}/blog/`;
   return (
     <>
@@ -15,14 +17,14 @@ export default function BlogList({ posts }: { posts: Post[] }) {
       </section>
       <div className="container" style={{ paddingTop: 16 }}><Breadcrumbs items={[{ name: t("nav_home"), href: homePath(lang) }, { name: t("nav_blog") }]} /></div>
       <section className="section"><div className="container">
-        {posts.length === 0 ? <div className="empty">{t("blog_none")}</div> : (
+        {visible.length === 0 ? <div className="empty">{t("blog_none")}</div> : (
           <div className="card-grid">
-            {posts.map((p) => {
+            {visible.map((p) => {
               const title = (lang !== "sr" ? p.title_en : p.title_sr) || p.title_sr;
               const ex = (lang !== "sr" ? p.excerpt_en : p.excerpt_sr) || p.excerpt_sr || "";
               return (
                 <Link key={p.id} className="card" href={base + p.slug}>
-                  {p.cover_image && <div className="card-media">{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={p.cover_image} alt={title} /></div>}
+                  {p.cover_image && <div className="card-media"><Image fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 360px" src={p.cover_image} alt={title} style={{ objectFit: "cover" }} /></div>}
                   <div className="card-body">
                     <h3 className="card-title">{title}</h3>
                     <p className="card-desc">{ex}</p>

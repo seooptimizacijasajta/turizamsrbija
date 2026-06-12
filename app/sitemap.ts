@@ -54,7 +54,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     tri(listingPath(l.type, l.name.sr, "sr"), listingPath(l.type, l.name.sr, "en"), listingPath(l.type, l.name.sr, "de")));
 
   // Blog posts
-  posts.forEach((p) => tri(`/blog/${p.slug}`, `/en/blog/${p.slug}`, `/de/blog/${p.slug}`));
+  posts.forEach((p) => {
+    if (p.title_en) tri(`/blog/${p.slug}`, `/en/blog/${p.slug}`, `/de/blog/${p.slug}`);
+    else out.push({ url: BASE + `/blog/${p.slug}`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  });
 
   // Amenity landing pages
   LANDING_AMENITIES.forEach((k) => tri(amenityPath(k, "sr"), amenityPath(k, "en"), amenityPath(k, "de")));
