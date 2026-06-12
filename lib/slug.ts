@@ -70,16 +70,31 @@ export function switchLangPath(pathname: string, target: Lang): string {
 }
 
 /** Per-page metadata: canonical + hreflang alternates (Serbian default, English twin). */
+const OG_LOCALE: Record<Lang, string> = { sr: "sr_RS", en: "en_US", de: "de_DE" };
+const HOME_META: Record<Lang, { title: string; description: string }> = {
+  sr: { title: "Turizam Srbija — Planine, jezera, banje i etno sela", description: "Turistički portal Srbije: planine, jezera, banje, etno sela, hoteli i privatni smeštaj iz cele Srbije." },
+  en: { title: "Turizam Srbija — Mountains, lakes, spas & ethno villages of Serbia", description: "Serbia's tourism portal: mountains, lakes, spas, ethno villages, hotels and private accommodation across Serbia." },
+  de: { title: "Turizam Srbija — Berge, Seen, Kurorte & Ethno-Dörfer Serbiens", description: "Serbiens Tourismusportal: Berge, Seen, Kurorte, Ethno-Dörfer, Hotels und Privatunterkünfte in ganz Serbien." },
+};
+
 export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
   const sr = kind ? (slug ? `/${KIND_TO_SLUG[kind]}/${slug}` : `/${KIND_TO_SLUG[kind]}`) : "/";
   const en = kind ? (slug ? `/en/${KIND_TO_SLUG_EN[kind]}/${slug}` : `/en/${KIND_TO_SLUG_EN[kind]}`) : "/en";
   const de = kind ? (slug ? `/de/${KIND_TO_SLUG_DE[kind]}/${slug}` : `/de/${KIND_TO_SLUG_DE[kind]}`) : "/de";
   const canonical = locale === "sr" ? sr : locale === "en" ? en : de;
-  return {
+  const base = {
     alternates: {
       canonical,
       languages: { "sr-Latn-RS": sr, en: en, de: de, "x-default": sr },
     },
+  };
+  if (kind) return base;
+  const m = HOME_META[locale];
+  return {
+    ...base,
+    title: m.title,
+    description: m.description,
+    openGraph: { title: m.title, description: m.description, locale: OG_LOCALE[locale], url: canonical },
   };
 }
 

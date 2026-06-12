@@ -27,7 +27,8 @@ const SECTION: Record<Kind, { sr: [string, string]; en: [string, string] }> = {
 export function sectionMeta(locale: Lang, kind: Kind) {
   const [title, description] = SECTION[kind][locale === "sr" ? "sr" : "en"];
   const og = `/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(description.slice(0, 90))}`;
-  return { title, description, openGraph: { title, description, images: [og] }, ...altMeta(locale, kind) };
+  const ogLocale = locale === "sr" ? "sr_RS" : locale === "de" ? "de_DE" : "en_US";
+  return { title, description, openGraph: { title, description, locale: ogLocale, images: [og] }, ...altMeta(locale, kind) };
 }
 
 type Bi = { sr: string; en: string };

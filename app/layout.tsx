@@ -20,8 +20,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website", siteName: "Turizam Srbija", locale: "sr_RS",
     alternateLocale: ["en_US", "de_DE"],
-    title: "Turizam Srbija — Planine, jezera, banje i etno sela",
-    description: "Najlepše destinacije i smeštaj u Srbiji na jednom mestu.",
     images: ["https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=80"],
   },
   twitter: { card: "summary_large_image" },
