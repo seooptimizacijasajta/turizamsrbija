@@ -51,7 +51,9 @@ export default function EventDetail({ ev, stays }: { ev: EventItem; stays: Nearb
           {ev.region && <span className="amen-chip">🗺 {ev.region}</span>}
         </div>
 
-        <p style={{ marginTop: 16, lineHeight: 1.85, color: "var(--ink)", fontSize: "1.05rem" }}>{ev.desc[lc] || ev.desc.sr}</p>
+        {(ev.body[lc] || "").trim()
+          ? ev.body[lc].split(/\n\n+/).map((para, i) => <p key={i} style={{ marginTop: i === 0 ? 16 : 12, lineHeight: 1.85, color: "var(--ink)", fontSize: "1.05rem" }}>{para}</p>)
+          : <p style={{ marginTop: 16, lineHeight: 1.85, color: "var(--ink)", fontSize: "1.05rem" }}>{ev.desc[lc] || ev.desc.sr}</p>}
 
         {locParts && <p style={{ color: "var(--slate)", marginTop: 6 }}><strong>{lang === "sr" ? "Lokacija" : lang === "de" ? "Ort" : "Location"}:</strong> {locParts}</p>}
         {!ev.startDate && per && <p style={{ color: "var(--slate)", marginTop: 6 }}><strong>{lang === "sr" ? "Period održavanja" : lang === "de" ? "Zeitraum" : "Typical period"}:</strong> {per} {lang === "sr" ? "(tačan datum proverite kod organizatora)" : lang === "de" ? "(genaues Datum beim Veranstalter prüfen)" : "(check exact dates with the organiser)"}</p>}

@@ -11,6 +11,8 @@ import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
 import type { Post } from "@/lib/blog";
+import type { EventItem } from "@/lib/eventsData";
+import { eventPath, manifIndexPath, monthName, evCatByKey, evCatLabel } from "@/lib/events";
 
 const CATS = [
   { kind: "mountain" as const, key: "nav_mountains", img: "1551524559-8af4e6624178", sub: "Kopaonik · Zlatibor · Tara" },
@@ -20,7 +22,7 @@ const CATS = [
   { kind: "stay" as const, key: "nav_stays", img: "1566073771259-6a8506099945", sub: "Hoteli · Apartmani" },
 ];
 
-export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?: Post[] }) {
+export default function HomeClient({ all, posts = [], events = [] }: { all: Listing[]; posts?: Post[]; events?: EventItem[] }) {
   const { t, lang } = useLang();
   const router = useRouter();
   const [type, setType] = useState<"mountain"|"lake"|"spa"|"ethno"|"stay">("mountain");
@@ -114,6 +116,43 @@ export default function HomeClient({ all, posts = [] }: { all: Listing[]; posts?
           <div className="card-grid">{newest.map((d) => <ListingCard key={d.id} item={d} />)}</div>
         </div>
       </section>
+
+      {events.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">🎉 {lang === "sr" ? "Ne propustite" : lang === "de" ? "Nicht verpassen" : "Don't miss"}</div>
+              <h2 className="section-title">{lang === "sr" ? "Predstojeće manifestacije" : lang === "de" ? "Bevorstehende Veranstaltungen" : "Upcoming events"}</h2>
+            </div>
+            <div className="card-grid">
+              {events.map((e) => {
+                const c = evCatByKey(e.category);
+                const per = e.periodText || monthName(e.month, lang);
+                const lc = lang === "de" ? "de" : lang === "en" ? "en" : "sr";
+                return (
+                  <div className="card" key={e.id}>
+                    <div className="card-media" style={e.image ? undefined : { background: "linear-gradient(135deg,#7c3aed,#0f3d2e)", display: "grid", placeItems: "center", minHeight: 140 }}>
+                      {e.image
+                        ? <>{/* eslint-disable-next-line @next/next/no-img-element */}<img loading="lazy" src={e.image} alt={e.name} /></>
+                        : <span style={{ fontSize: "2.6rem" }}>{c?.icon || "🎉"}</span>}
+                      <span className="card-badge">{c?.icon} {c ? evCatLabel(c, lang) : e.category}</span>
+                    </div>
+                    <div className="card-body">
+                      <span className="card-region">{[per, e.city].filter(Boolean).join(" · ")}</span>
+                      <h3 className="card-title"><Link href={eventPath(e.name, lang)} style={{ color: "inherit" }}>{e.name}</Link></h3>
+                      <p className="card-desc">{e.desc[lc]}</p>
+                      <div style={{ marginTop: 8 }}><Link className="btn btn--primary" style={{ fontSize: ".82rem", padding: "7px 12px" }} href={eventPath(e.name, lang)}>{lang === "sr" ? "Detalji" : lang === "de" ? "Details" : "Details"}</Link></div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ textAlign: "center", marginTop: 30 }}>
+              <Link className="btn btn--outline" href={manifIndexPath(lang)}>{lang === "sr" ? "Sve manifestacije" : lang === "de" ? "Alle Veranstaltungen" : "All events"}</Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="container">
