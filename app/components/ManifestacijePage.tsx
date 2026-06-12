@@ -5,13 +5,13 @@ import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
 import type { EventItem } from "@/lib/eventsData";
-import { EVENT_CATS, EvCat, evCatByKey, evCatLabel, manifIndexPath, manifCatPath, eventPath, monthName } from "@/lib/events";
+import { EVENT_CATS, EvCat, evCatByKey, evCatLabel, manifIndexPath, manifCatPath, eventPath, monthName, EVENT_CITIES, manifCityPath } from "@/lib/events";
 
 const CAT_BG: Record<string, string> = {
   muzika: "#7c3aed", gastro: "#b45309", kultura: "#be123c", tradicija: "#0f766e", sport: "#1d4ed8", sajmovi: "#0369a1",
 };
 
-export default function ManifestacijePage({ events, cat }: { events: EventItem[]; cat?: EvCat | null }) {
+export default function ManifestacijePage({ events, cat, cityName }: { events: EventItem[]; cat?: EvCat | null; cityName?: string }) {
   const { lang, t } = useLang();
   const [city, setCity] = useState("");
   const [month, setMonth] = useState("");
@@ -31,16 +31,16 @@ export default function ManifestacijePage({ events, cat }: { events: EventItem[]
     return true;
   }), [events, city, month, q, lc]);
 
-  const heading = cat ? evCatLabel(cat, lang) : (lang === "sr" ? "Manifestacije u Srbiji" : lang === "de" ? "Veranstaltungen in Serbien" : "Events in Serbia");
+  const heading = cityName ? (lang === "sr" ? `Manifestacije u ${cityName}` : lang === "de" ? `Veranstaltungen in ${cityName}` : `Events in ${cityName}`) : cat ? evCatLabel(cat, lang) : (lang === "sr" ? "Manifestacije u Srbiji" : lang === "de" ? "Veranstaltungen in Serbien" : "Events in Serbia");
   const lead = lang === "sr" ? "Festivali, sabori, gastro i kulturni događaji širom Srbije — kada su, gde su i šta da očekujete." : lang === "de" ? "Festivals, Volksfeste, Gastro- und Kulturevents in ganz Serbien — wann, wo und was Sie erwartet." : "Festivals, fairs, food and cultural events across Serbia — when, where and what to expect.";
 
   return (
     <>
       <section className="page-hero" style={{ backgroundImage: "linear-gradient(180deg,rgba(15,61,46,.35),rgba(15,61,46,.7)),url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1600&q=80')" }}>
-        <div className="container"><h1>{cat ? `${cat.icon} ${heading}` : `🎉 ${heading}`}</h1><p>{cat ? (lang === "sr" ? `${heading} — manifestacije širom Srbije.` : `${heading} in Serbia.`) : lead}</p></div>
+        <div className="container"><h1>{cat ? `${cat.icon} ${heading}` : `🎉 ${heading}`}</h1><p>{cityName ? (lang === "sr" ? `Festivali, sabori i događaji u ${cityName} — kalendar manifestacija.` : lang === "de" ? `Festivals und Events in ${cityName}.` : `Festivals and events in ${cityName}.`) : cat ? (lang === "sr" ? `${heading} — manifestacije širom Srbije.` : `${heading} in Serbia.`) : lead}</p></div>
       </section>
       <div className="container" style={{ paddingTop: 16 }}>
-        <Breadcrumbs items={cat ? [{ name: t("nav_home"), href: homePath(lang) }, { name: lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events", href: manifIndexPath(lang) }, { name: heading }] : [{ name: t("nav_home"), href: homePath(lang) }, { name: heading }]} />
+        <Breadcrumbs items={(cat || cityName) ? [{ name: t("nav_home"), href: homePath(lang) }, { name: lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events", href: manifIndexPath(lang) }, { name: heading }] : [{ name: t("nav_home"), href: homePath(lang) }, { name: heading }]} />
       </div>
 
       <div className="container">
@@ -49,13 +49,20 @@ export default function ManifestacijePage({ events, cat }: { events: EventItem[]
             <Link key={c.key} href={manifCatPath(c, lang)} className={"amen-chip" + (cat?.key === c.key ? " on" : "")}>{c.icon} {evCatLabel(c, lang)}</Link>
           ))}
         </div>
+        {!cat && !cityName && (
+          <div className="amen-filter" style={{ marginTop: 0, marginBottom: 6 }}>
+            {EVENT_CITIES.map((ci) => (
+              <Link key={ci.slug} href={manifCityPath(ci.slug, lang)} className="amen-chip">📍 {ci.name}</Link>
+            ))}
+          </div>
+        )}
         <div className="toolbar">
           <input className="grow" value={q} onChange={(e) => setQ(e.target.value)} placeholder={lang === "sr" ? "Pretraga manifestacija…" : lang === "de" ? "Veranstaltungen suchen…" : "Search events…"} />
           <select value={month} onChange={(e) => setMonth(e.target.value)}>
             <option value="">{lang === "sr" ? "Svi meseci" : lang === "de" ? "Alle Monate" : "All months"}</option>
             {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => <option key={m} value={m}>{monthName(m, lang)}</option>)}
           </select>
-          {cities.length > 1 && (
+          {cities.length > 1 && !cityName && (
             <select value={city} onChange={(e) => setCity(e.target.value)}>
               <option value="">{lang === "sr" ? "Svi gradovi" : lang === "de" ? "Alle Städte" : "All cities"}</option>
               {cities.map((c) => <option key={c} value={c}>{c}</option>)}

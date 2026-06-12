@@ -12,7 +12,7 @@ import { STRUCTURES, structPath } from "@/lib/structure";
 import { BG_INFO, bgInfoPath } from "@/lib/bgInfo";
 import { BIZ_CATS, firmeIndexPath, firmeCatPath, BIZ_CITIES, firmeCatCityPath, businessPath } from "@/lib/firme";
 import { getBusinesses } from "@/lib/businesses";
-import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath } from "@/lib/events";
+import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath, EVENT_CITIES, manifCityPath } from "@/lib/events";
 import { getEvents } from "@/lib/eventsData";
 import type { Kind } from "@/lib/types";
 
@@ -76,6 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(manifIndexPath("sr"), manifIndexPath("en"), manifIndexPath("de"));
   EVENT_CATS.forEach((c) => tri(manifCatPath(c, "sr"), manifCatPath(c, "en"), manifCatPath(c, "de")));
   events.forEach((e) => tri(eventPath(e.name, "sr"), eventPath(e.name, "en"), eventPath(e.name, "de")));
+  EVENT_CITIES.forEach((c) => tri(manifCityPath(c.slug, "sr"), manifCityPath(c.slug, "en"), manifCityPath(c.slug, "de")));
 
   return out;
 }

@@ -27,3 +27,23 @@ const MONTHS_SR = ["", "Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul"
 const MONTHS_EN = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const MONTHS_DE = ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 export const monthName = (m: number | null, lang: Lang) => !m ? "" : (lang === "sr" ? MONTHS_SR : lang === "de" ? MONTHS_DE : MONTHS_EN)[m] || "";
+
+export const EVENT_CITIES: { slug: string; name: string }[] = [
+  { slug: "beograd", name: "Beograd" },
+  { slug: "novi-sad", name: "Novi Sad" },
+  { slug: "nis", name: "Niš" },
+  { slug: "vrnjacka-banja", name: "Vrnjačka Banja" },
+  { slug: "leskovac", name: "Leskovac" },
+  { slug: "kragujevac", name: "Kragujevac" },
+  { slug: "zajecar", name: "Zaječar" },
+  { slug: "zrenjanin", name: "Zrenjanin" },
+  { slug: "smederevo", name: "Smederevo" },
+  { slug: "valjevo", name: "Valjevo" },
+  { slug: "negotin", name: "Negotin" },
+  { slug: "aleksandrovac", name: "Aleksandrovac" },
+  { slug: "palic", name: "Palić" },
+  { slug: "bajina-basta", name: "Bajina Bašta" },
+];
+export const eventCityBySlug = (slug: string) => EVENT_CITIES.find((c) => c.slug === slug);
+export const manifCityPath = (slug: string, lang: Lang) =>
+  lang === "sr" ? `/manifestacije/grad/${slug}` : lang === "de" ? `/de/veranstaltungen/stadt/${slug}` : `/en/events/city/${slug}`;

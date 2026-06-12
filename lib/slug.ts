@@ -57,10 +57,13 @@ export function switchLangPath(pathname: string, target: Lang): string {
   let p = pathname || "/";
   if (p.startsWith("/en") || p.startsWith("/de")) p = p.slice(3) || "/"; // strip locale prefix
   const segs = p.split("/").filter(Boolean);
-  if (segs.length > 0) {
-    const k = kindFromSlug(segs[0]);
-    if (k) segs[0] = catSlug(k, target);
-    else { const c = customSeg(segs[0], target); if (c) segs[0] = c; }
+  for (let i = 0; i < segs.length; i++) {
+    if (i === 0) {
+      const k = kindFromSlug(segs[0]);
+      if (k) { segs[0] = catSlug(k, target); continue; }
+    }
+    const c = customSeg(segs[i], target);
+    if (c) segs[i] = c;
   }
   const body = segs.length ? "/" + segs.join("/") : "";
   return target === "sr" ? (body || "/") : `/${target}` + body;
@@ -100,6 +103,13 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["firma", "business", "firma"],
   ["manifestacije", "events", "veranstaltungen"],
   ["manifestacija", "event", "veranstaltung"],
+  ["grad", "city", "stadt"],
+  ["muzika", "music", "musik"],
+  ["gastronomija", "food-wine", "gastronomie"],
+  ["kultura", "culture", "kultur"],
+  ["tradicija-i-sabori", "tradition", "tradition"],
+  ["sport", "sport", "sport"],
+  ["sajmovi", "fairs", "messen"],
 ];
 
 export function infoPath(which: "about" | "contact" | "terms" | "privacy" | "faq", locale: Lang) {
