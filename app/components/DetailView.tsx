@@ -7,6 +7,7 @@ import type { GooglePlace } from "@/lib/google";
 import BookingForm from "./BookingForm";
 import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
+import NearbyEvents from "./NearbyEvents";
 import Breadcrumbs, { NAVKEY } from "./Breadcrumbs";
 import ShareButtons from "./ShareButtons";
 import ViewTracker from "./ViewTracker";
@@ -198,6 +199,7 @@ export default function DetailView({
                 <div className="card-grid">{related.map((n) => <ListingCard key={n.id} item={n} />)}</div>
               </div>
             )}
+            <NearbyEvents nameSr={item.name.sr} municipality={item.municipality} />
           </div>
           <div>
             <BookingForm item={item} />
