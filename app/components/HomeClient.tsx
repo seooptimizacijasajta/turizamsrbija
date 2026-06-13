@@ -8,6 +8,7 @@ import { useLang } from "@/lib/i18n";
 import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath, listingPath, belgradePath } from "@/lib/slug";
 import { firmeIndexPath } from "@/lib/firme";
 import { pijacaPath } from "@/lib/pijaca";
+import { dealsPath } from "@/lib/deals";
 import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
@@ -81,6 +82,24 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
                 <div className="cat-meta"><h3>{t(c.key)}</h3><span>{c.sub}</span></div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head section-head--center">
+            <div className="eyebrow">{lang === "sr" ? "Brze veze" : lang === "de" ? "Schnellzugriff" : "Quick links"}</div>
+            <h2 className="section-title">{lang === "sr" ? "Popularno na portalu" : lang === "de" ? "Beliebt im Portal" : "Popular on the portal"}</h2>
+          </div>
+          <div className="amen-filter" style={{ justifyContent: "center" }}>
+            <Link className="amen-chip" href={belgradePath(lang)}>🏙 {lang === "sr" ? "Apartmani Beograd" : lang === "de" ? "Apartments Belgrad" : "Belgrade apartments"}</Link>
+            <Link className="amen-chip" href={dealsPath(lang)} style={{ color: "#e0492f" }}>🔥 {lang === "sr" ? "Akcije i popusti" : lang === "de" ? "Angebote" : "Deals"}</Link>
+            <Link className="amen-chip" href={sectionPath("stay", lang)}>🏠 {t("nav_stays")}</Link>
+            <Link className="amen-chip" href={manifIndexPath(lang)}>🎉 {lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
+            <Link className="amen-chip" href={firmeIndexPath(lang)}>🧭 {t("nav_firme")}</Link>
+            <Link className="amen-chip" href={pijacaPath(lang)}>🧺 {t("nav_pijaca")}</Link>
+            <Link className="amen-chip" href={voucherPath(lang)}>🎟 {lang === "sr" ? "Vaučeri" : lang === "de" ? "Gutscheine" : "Vouchers"}</Link>
           </div>
         </div>
       </section>
