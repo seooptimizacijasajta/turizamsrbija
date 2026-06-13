@@ -60,13 +60,13 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
   },
   stay: {
     sr: [
-      { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata. Nije potrebna obavezna online uplata." },
+      { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata." },
       { q: "Da li je oglašavanje smeštaja besplatno?", a: "Jeste — registracija i postavljanje oglasa su potpuno besplatni. Proviziju plaćate tek kada vam dovedemo goste." },
       { q: "Mogu li da oglasim više objekata?", a: "Možete neograničen broj — svaki smeštaj se dodaje zasebno, sa svojim naslovom, opisom, fotografijama, videom i kalendarom dostupnosti." },
       { q: "Kako da znam da je smeštaj slobodan?", a: "Na stranici svakog smeštaja prikazan je kalendar dostupnosti; domaćini ga ažuriraju i mogu da ga sinhronizuju sa Booking-om i Airbnb-om." },
     ],
     en: [
-      { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours. No mandatory online payment is required." },
+      { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours." },
       { q: "Is listing accommodation free?", a: "Yes — registering and posting a listing are completely free. You pay a commission only when we bring you guests." },
       { q: "Can I list multiple properties?", a: "You can list as many as you like — each is added separately, with its own title, description, photos, video and availability calendar." },
       { q: "How do I know if a place is available?", a: "Each listing shows an availability calendar; hosts keep it updated and can sync it with Booking.com and Airbnb." },
@@ -101,7 +101,7 @@ const FAQ_DE: Record<Kind, Faq[]> = {
     { q: "Eignen sich Ethno-Dörfer für einen Tagesausflug?", a: "Ja, besonders in Kombination mit der Umgebung; Drvengrad lässt sich gut mit der Šargan-Eight-Bahn verbinden, Sirogojno mit Zlatibor." },
   ],
   stay: [
-    { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden. Eine obligatorische Online-Zahlung ist nicht erforderlich." },
+    { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden." },
     { q: "Ist das Inserieren einer Unterkunft kostenlos?", a: "Ja — Registrierung und Inserieren sind völlig kostenlos. Eine Provision zahlen Sie erst, wenn wir Ihnen Gäste bringen." },
     { q: "Kann ich mehrere Objekte inserieren?", a: "Beliebig viele — jede Unterkunft wird separat hinzugefügt, mit Titel, Beschreibung, Fotos, Video und Verfügbarkeitskalender." },
     { q: "Woher weiß ich, ob eine Unterkunft frei ist?", a: "Jede Unterkunft zeigt einen Verfügbarkeitskalender; die Gastgeber halten ihn aktuell und können ihn mit Booking.com und Airbnb synchronisieren." },
@@ -119,7 +119,7 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
   sr: [
     { q: "Šta je Turizam Srbija?", a: "Turizam Srbija je trojezični (srpski, engleski i nemački) portal koji na jednom mestu okuplja najlepše destinacije i smeštaj u Srbiji — planine, jezera, banje, etno sela, apartmane u Beogradu i smeštaj širom zemlje." },
     { q: "Da li je korišćenje portala besplatno za goste?", a: "Jeste, u potpunosti. Pretraga destinacija i smeštaja, slanje upita i čitanje recenzija su besplatni, bez registracije." },
-    { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata, i dogovarate detalje. Online uplata nije obavezna." },
+    { q: "Kako da rezervišem smeštaj?", a: "Na stranici željenog smeštaja popunite formu za upit; domaćin vam odgovara, najčešće u roku od 24 sata, i dogovarate detalje." },
     { q: "Da li je oglašavanje besplatno za vlasnike smeštaja?", a: "Da — registracija i postavljanje oglasa su besplatni. Proviziju plaćate tek kada vam dovedemo goste, po principu plaćanja po rezultatu." },
     { q: "Mogu li da oglasim više smeštaja?", a: "Možete neograničen broj. Svaki smeštaj se dodaje zasebno — sa svojim naslovom, opisom, do 20 fotografija, video-snimkom, lokacijom na mapi i kalendarom dostupnosti." },
     { q: "Na kojim jezicima je portal dostupan?", a: "Na srpskom, engleskom i nemačkom. Svaki sadržaj ima svoju adresu na sva tri jezika, pa ga lako pronalaze i gosti iz inostranstva." },
@@ -133,7 +133,7 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
   en: [
     { q: "What is Turizam Srbija?", a: "Turizam Srbija is a trilingual (Serbian, English and German) portal that brings together Serbia's finest destinations and accommodation in one place — mountains, lakes, spas, ethno villages, Belgrade apartments and stays across the country." },
     { q: "Is the portal free for guests?", a: "Yes, completely. Browsing destinations and accommodation, sending inquiries and reading reviews are free, with no registration required." },
-    { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours, and you arrange the details. Online payment is not mandatory." },
+    { q: "How do I book accommodation?", a: "On the listing's page fill in the inquiry form; the host replies, usually within 24 hours, and you arrange the details." },
     { q: "Is listing free for property owners?", a: "Yes — registering and posting a listing are free. You pay a commission only when we bring you guests, on a pay-on-results basis." },
     { q: "Can I list multiple properties?", a: "You can list as many as you like. Each is added separately — with its own title, description, up to 20 photos, a video, a map location and an availability calendar." },
     { q: "Which languages is the portal available in?", a: "Serbian, English and German. Every page has its own address in all three languages, so international guests can find it easily." },
@@ -149,7 +149,7 @@ const GENERAL: { sr: Faq[]; en: Faq[] } = {
 const GENERAL_DE: Faq[] = [
   { q: "Was ist Turizam Srbija?", a: "Turizam Srbija ist ein mehrsprachiges Portal, das Serbiens schönste Reiseziele und Unterkünfte an einem Ort vereint — Berge, Seen, Kurorte, Ethno-Dörfer, Belgrad-Apartments und Unterkünfte im ganzen Land." },
   { q: "Ist die Nutzung des Portals für Gäste kostenlos?", a: "Ja, vollständig. Das Suchen von Reisezielen und Unterkünften, das Senden von Anfragen und das Lesen von Bewertungen sind kostenlos, ohne Registrierung." },
-  { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden. Eine Online-Zahlung ist nicht erforderlich." },
+  { q: "Wie buche ich eine Unterkunft?", a: "Füllen Sie auf der Seite der Unterkunft das Anfrageformular aus; der Gastgeber antwortet meist innerhalb von 24 Stunden." },
   { q: "Ist das Inserieren für Vermieter kostenlos?", a: "Ja — Registrierung und Inserieren sind kostenlos. Eine Provision zahlen Sie erst, wenn wir Ihnen Gäste bringen (Bezahlung nach Ergebnis)." },
   { q: "Kann ich mehrere Unterkünfte inserieren?", a: "Beliebig viele. Jede Unterkunft wird separat hinzugefügt — mit Titel, Beschreibung, bis zu 20 Fotos, Video, Kartenstandort und Verfügbarkeitskalender." },
   { q: "Ist die Kartenzahlung auf der Website sicher?", a: "Ja. Alle Kartenzahlungen laufen über 3-D Secure (Verified by Visa und Mastercard ID Check). Die Verbindung ist SSL-verschlüsselt und Ihre Kartendaten werden nicht gespeichert." },

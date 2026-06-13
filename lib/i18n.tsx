@@ -373,8 +373,8 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "en": "Send inquiry"
   },
   "f_note": {
-    "sr": "Nije potrebno plaćanje. Domaćin vam odgovara u roku od 24h.",
-    "en": "No payment required. The host replies within 24h."
+    "sr": "Domaćin vam odgovara u roku od 24h.",
+    "en": "The host replies within 24h."
   },
   "f_success": {
     "sr": "Hvala! Vaš upit je poslat. Kontaktiraćemo vas uskoro.",
@@ -615,7 +615,7 @@ export const DE: Record<string, string> = {
   f_guests: "Gäste",
   f_message: "Nachricht",
   f_submit: "Anfrage senden",
-  f_note: "Keine Zahlung erforderlich. Der Gastgeber antwortet innerhalb von 24 Std.",
+  f_note: "Der Gastgeber antwortet innerhalb von 24 Std.",
   f_success: "Anfrage gesendet! Der Gastgeber meldet sich in Kürze.",
   lead_mountain: "Skifahren, Wandern und frische Bergluft in ganz Serbien.",
   lead_lake: "Strände, Angeln und erholsame Tage am Wasser.",

@@ -56,12 +56,12 @@ const C: Record<Kind, { sr: Block[]; en: Block[] }> = {
     sr: [
       { h: "Smeštaj u Srbiji — hoteli i privatni apartmani", p: "Na jednom mestu uporedite hotele, apartmane, vile i etno domaćinstva širom Srbije. Bilo da putujete na planinu, jezero, u banju ili grad, smeštaj birate po lokaciji, ceni, kapacitetu i sadržaju, sa tačnom lokacijom na mapi i fotografijama u svakom oglasu." },
       { h: "Kako izabrati pravi smeštaj", p: "Filtrirajte po tipu i mestu, pogledajte ocene i recenzije gostiju, pa uporedite cene. Apartman sa kuhinjom je isplativiji za porodice i duži boravak, dok hoteli nude punu uslugu. Sačuvajte favorite klikom na srce i lako se vratite na njih." },
-      { h: "Rezervacija bez provizije", p: "Upit šaljete direktno vlasniku preko forme — bez posrednika, bez skrivenih troškova i bez obavezne online uplate. Termin i način plaćanja dogovarate sa domaćinom." },
+      { h: "Rezervacija bez provizije", p: "Upit šaljete direktno vlasniku preko forme — bez posrednika i bez skrivenih troškova. Termin i način plaćanja dogovarate sa domaćinom." },
     ],
     en: [
       { h: "Accommodation in Serbia — hotels and private apartments", p: "Compare hotels, apartments, villas and ethno homesteads across Serbia in one place. Whether you travel to the mountains, a lake, a spa or a city, you choose accommodation by location, price, capacity and amenities, with an exact map location and photos in every listing." },
       { h: "How to choose the right place", p: "Filter by type and place, check ratings and guest reviews, then compare prices. An apartment with a kitchen is better value for families and longer stays, while hotels offer full service. Save favourites with the heart icon and return to them easily." },
-      { h: "Booking with no commission", p: "Send your enquiry straight to the owner through the form — no middlemen, no hidden costs and no mandatory online payment. You arrange dates and payment method with the host." },
+      { h: "Booking with no commission", p: "Send your enquiry straight to the owner through the form — no middlemen and no hidden costs. You arrange dates and payment method with the host." },
     ],
   },
 };
@@ -91,7 +91,7 @@ const C_DE: Partial<Record<Kind, Block[]>> = {
   stay: [
     { h: "Unterkünfte in Serbien — Hotels und Privatapartments", p: "Vergleichen Sie an einem Ort Hotels, Apartments, Villen und Ethno-Höfe in ganz Serbien. Ob Berge, See, Kurort oder Stadt — die Unterkunft wählen Sie nach Lage, Preis, Kapazität und Ausstattung." },
     { h: "Die richtige Unterkunft wählen", p: "Filtern Sie nach Art und Ort, prüfen Sie Bewertungen und vergleichen Sie Preise. Ein Apartment mit Küche ist für Familien und längere Aufenthalte günstiger, Hotels bieten vollen Service." },
-    { h: "Buchen ohne Provision", p: "Senden Sie Ihre Anfrage direkt an den Gastgeber über das Formular — ohne Vermittler, ohne versteckte Kosten und ohne obligatorische Online-Zahlung." },
+    { h: "Buchen ohne Provision", p: "Senden Sie Ihre Anfrage direkt an den Gastgeber über das Formular — ohne Vermittler und ohne versteckte Kosten." },
   ],
 };
 
