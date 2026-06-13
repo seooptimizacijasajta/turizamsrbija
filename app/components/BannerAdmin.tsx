@@ -12,11 +12,14 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings">("stats");
   const [users, setUsers] = useState<any[]>([]);
   const [uListings, setUListings] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
   const [subs, setSubs] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [commPct, setCommPct] = useState("10");
+  const [showBk, setShowBk] = useState(false);
   const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [postEditing, setPostEditing] = useState<any>(null);
@@ -55,6 +58,44 @@ export default function BannerAdmin() {
     const { data } = await sb.from("newsletter").select("*").order("created_at", { ascending: false });
     setSubs(data || []);
   }, [sb]);
+  const loadBookings = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("bookings").select("*, listings(name_sr, owner_id)").order("created_at", { ascending: false });
+    setBookings(data || []);
+  }, [sb]);
+  const loadSettings = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("settings").select("value").eq("key", "commission_pct").maybeSingle();
+    if (data?.value) setCommPct(data.value);
+  }, [sb]);
+  async function saveCommPct() {
+    if (!sb) return;
+    await sb.from("settings").upsert({ key: "commission_pct", value: String(Number(commPct) || 0) });
+    alert("Provizija sačuvana / Saved");
+  }
+  async function addBooking(ev: React.FormEvent<HTMLFormElement>) {
+    ev.preventDefault();
+    if (!sb) return;
+    const f = new FormData(ev.currentTarget);
+    const g = (k: string) => String(f.get(k) || "").trim();
+    const amt = Number(g("amount")) || 0;
+    const pct = Number(commPct) || 0;
+    const { error } = await sb.from("bookings").insert({
+      listing_id: g("listing_id"), guest_name: g("guest_name") || null, email: g("email") || null, phone: g("phone") || null,
+      checkin: g("checkin") || null, checkout: g("checkout") || null, amount: amt, currency: "EUR",
+      commission_pct: pct, commission_amount: Math.round(amt * pct) / 100, host_paid: false,
+    });
+    if (error) { alert(error.message); return; }
+    setShowBk(false); loadBookings();
+  }
+  async function toggleHostPaid(b: any) {
+    if (!sb) return;
+    await sb.from("bookings").update({ host_paid: !b.host_paid }).eq("id", b.id); loadBookings();
+  }
+  async function delBooking(id: string) {
+    if (!sb || !confirm("Obrisati rezervaciju? / Delete booking?")) return;
+    await sb.from("bookings").delete().eq("id", id); loadBookings();
+  }
   const loadUsers = useCallback(async () => {
     if (!sb) return;
     const { data } = await sb.rpc("admin_users");
@@ -98,7 +139,7 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); }
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); loadBookings(); loadSettings(); }
   }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads, loadUsers]);
 
   useEffect(() => {
@@ -183,7 +224,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -197,6 +238,7 @@ export default function BannerAdmin() {
         {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
         {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
         {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
+        {tabBtn("bookings", `Rezervacije${bookings.length ? " (" + bookings.length + ")" : ""}`)}
       </div>
 
       {tab === "stats" && (
@@ -293,6 +335,77 @@ export default function BannerAdmin() {
                   <span style={{ color: "var(--slate)", fontSize: ".82rem" }}>{(s.lang || "sr").toUpperCase()} · {new Date(s.created_at).toLocaleDateString()}</span>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+      )}
+      {tab === "bookings" && (
+        <div>
+          <h1>Rezervacije i provizija / Bookings &amp; commission</h1>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", margin: "12px 0" }}>
+            <label style={{ fontSize: ".9rem" }}>Provizija % (globalno):</label>
+            <input type="number" min={0} step="0.5" value={commPct} onChange={(e) => setCommPct(e.target.value)} style={{ width: 90 }} />
+            <button className="btn btn--outline" onClick={saveCommPct}>Sačuvaj % / Save</button>
+            {!showBk && <button className="btn btn--primary" onClick={() => setShowBk(true)}>+ Dodaj rezervaciju</button>}
+          </div>
+          {showBk && (
+            <form onSubmit={addBooking} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: 16, display: "grid", gap: 10, marginBottom: 16 }}>
+              <div className="field"><label>Smeštaj / Listing</label>
+                <select name="listing_id" required defaultValue="">
+                  <option value="" disabled>— izaberi / select —</option>
+                  {uListings.filter((l) => l.kind === "stay").map((l) => <option key={l.id} value={l.id}>{l.name_sr}</option>)}
+                </select>
+              </div>
+              <div className="field-row">
+                <div className="field"><label>Dolazak / Check-in</label><input type="date" name="checkin" required /></div>
+                <div className="field"><label>Odlazak / Check-out</label><input type="date" name="checkout" required /></div>
+                <div className="field"><label>Iznos € / Amount</label><input type="number" name="amount" min={0} step="0.01" required /></div>
+              </div>
+              <div className="field-row">
+                <div className="field"><label>Gost / Guest</label><input name="guest_name" /></div>
+                <div className="field"><label>Email</label><input name="email" type="email" /></div>
+                <div className="field"><label>Telefon</label><input name="phone" /></div>
+              </div>
+              <div style={{ display: "flex", gap: 10 }}>
+                <button className="btn btn--primary" type="submit">Sačuvaj rezervaciju</button>
+                <button className="btn btn--outline" type="button" onClick={() => setShowBk(false)}>Otkaži</button>
+              </div>
+            </form>
+          )}
+          {(() => {
+            const owed: Record<string, { name: string; sum: number }> = {};
+            bookings.filter((b) => !b.host_paid).forEach((b) => {
+              const oid = b.listings?.owner_id || "?";
+              const u = users.find((x: any) => x.id === oid);
+              if (!owed[oid]) owed[oid] = { name: u?.email || oid, sum: 0 };
+              owed[oid].sum += Number(b.commission_amount) || 0;
+            });
+            const rows = Object.values(owed);
+            return rows.length ? (
+              <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "12px 16px", marginBottom: 16, background: "#f0f8f4" }}>
+                <strong>Neplaćena provizija po domaćinu / Unpaid by host:</strong>
+                <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>{rows.map((r, i) => <li key={i}>{r.name}: <b>€{r.sum.toFixed(2)}</b></li>)}</ul>
+              </div>
+            ) : null;
+          })()}
+          {bookings.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema rezervacija. / No bookings yet.</div> : (
+            <div style={{ display: "grid", gap: 10 }}>
+              {bookings.map((b) => {
+                const u = users.find((x: any) => x.id === b.listings?.owner_id);
+                return (
+                  <div key={b.id} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "12px 14px", display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+                    <div>
+                      <strong>{b.listings?.name_sr || "—"}</strong> <span style={{ color: "var(--slate)", fontSize: ".82rem" }}>· domaćin: {u?.email || "—"}</span>
+                      <div style={{ fontSize: ".88rem", marginTop: 4 }}>{b.checkin} → {b.checkout} · €{Number(b.amount || 0).toFixed(2)} · provizija {b.commission_pct}% = <b>€{Number(b.commission_amount || 0).toFixed(2)}</b></div>
+                      <div style={{ marginTop: 4, fontSize: ".85rem" }}>{b.host_paid ? <span style={{ color: "var(--green-600)" }}>✓ provizija plaćena</span> : <span style={{ color: "var(--danger)" }}>duguje proviziju</span>}</div>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
+                      <button className="btn btn--outline" onClick={() => toggleHostPaid(b)}>{b.host_paid ? "Označi neplaćeno" : "Označi plaćeno"}</button>
+                      <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delBooking(b.id)}>Obriši</button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
