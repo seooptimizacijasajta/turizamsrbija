@@ -203,12 +203,11 @@ h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
 .nav-dd-trigger:hover,.nav-dd-trigger.active{background:var(--green-50);color:var(--green-700)}
 .nav-dd-panel{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-md);padding:8px;min-width:180px;z-index:1001}
 .nav-dd-panel.open{display:flex;flex-direction:column}
-.nav-dd:hover .nav-dd-panel{display:flex;flex-direction:column}
+@media (hover:hover){.nav-dd:hover .nav-dd-panel{display:flex;flex-direction:column}}
 .nav-dd-panel a{padding:9px 12px;border-radius:8px;color:var(--slate);font-weight:600;font-size:.92rem}
 .nav-dd-panel a:hover{background:var(--green-50);color:var(--green-700)}
 @media (max-width:760px){
   .nav-dd-panel{position:static;box-shadow:none;border:none;padding:4px 0 4px 14px}
-  .nav-dd:hover .nav-dd-panel{display:none}
   .nav-dd-panel.open{display:flex}
 }
 
