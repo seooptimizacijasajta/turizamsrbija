@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website", siteName: "Turizam Srbija", locale: "sr_RS",
     alternateLocale: ["en_US", "de_DE"],
-    images: ["https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=80"],
+    images: [`/api/og?title=${encodeURIComponent("Turizam Srbija")}&subtitle=${encodeURIComponent("Smeštaj, destinacije i događaji u Srbiji")}`],
   },
   twitter: { card: "summary_large_image" },
   verification: {
