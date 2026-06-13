@@ -57,13 +57,13 @@ export default function BookingForm({ item }: { item: Listing }) {
       <h3 style={{ marginTop: 6 }}>{isStay ? t("book_title") : t("inquire_title")}</h3>
       {!sent ? (
         <form onSubmit={onSubmit}>
-          <div className="field"><label>{t("f_name")}</label><input required name="name" placeholder={t("f_name")} /></div>
-          <div className="field"><label>{t("f_email")}</label><input required type="email" name="email" placeholder="email@example.com" /></div>
-          <div className="field"><label>{t("f_phone")}</label><input name="phone" placeholder="+381 ..." /></div>
+          <div className="field"><label>{t("f_name")} *</label><input required name="name" placeholder={t("f_name")} /></div>
+          <div className="field"><label>{t("f_email")} *</label><input required type="email" name="email" placeholder="email@example.com" /></div>
+          <div className="field"><label>{t("f_phone")} *</label><input required name="phone" placeholder="+381 ..." /></div>
           {isStay && (
             <div className="field-row">
-              <div className="field"><label>{t("f_checkin")}</label><input type="date" name="checkin" /></div>
-              <div className="field"><label>{t("f_checkout")}</label><input type="date" name="checkout" /></div>
+              <div className="field"><label>{t("f_checkin")} *</label><input required type="date" name="checkin" /></div>
+              <div className="field"><label>{t("f_checkout")} *</label><input required type="date" name="checkout" /></div>
             </div>
           )}
           <div className="field"><label>{lang === "sr" ? "Odrasli" : lang === "de" ? "Erwachsene" : "Adults"}</label><input type="number" min={1} defaultValue={2} name="guests" /></div>
