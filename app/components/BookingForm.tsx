@@ -43,6 +43,39 @@ export default function BookingForm({ item }: { item: Listing }) {
     } finally { setBusy(false); }
   }
 
+  async function payNow(e: React.MouseEvent<HTMLButtonElement>) {
+    const form = e.currentTarget.closest("form");
+    if (!form) return;
+    const fd = new FormData(form);
+    const checkin = fd.get("checkin");
+    const checkout = fd.get("checkout");
+    if (!checkin || !checkout) {
+      setError(lang === "sr" ? "Izaberite datume dolaska i odlaska." : lang === "de" ? "Bitte An- und Abreisedatum wählen." : "Please choose check-in and check-out dates.");
+      return;
+    }
+    setBusy(true); setError("");
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ listing_id: item.id, checkin, checkout, guests: Number(fd.get("guests")) || 1 }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (res.ok && j.url) { window.location.href = j.url; return; }
+      if (j.error === "host_not_connected" || j.error === "not_configured") {
+        setError(lang === "sr"
+          ? "Online plaćanje trenutno nije dostupno za ovaj smeštaj — pošaljite upit ispod, domaćin će vam odgovoriti."
+          : lang === "de"
+          ? "Online-Zahlung ist für diese Unterkunft noch nicht verfügbar — senden Sie unten eine Anfrage."
+          : "Online payment isn't available for this place yet — send an inquiry below.");
+      } else {
+        setError(lang === "sr" ? "Greška, pokušajte ponovo." : "Something went wrong, please try again.");
+      }
+    } catch {
+      setError(lang === "sr" ? "Greška, pokušajte ponovo." : "Something went wrong, please try again.");
+    } finally { setBusy(false); }
+  }
+
   return (
     <aside className="booking">
       {isStay ? (
@@ -69,8 +102,13 @@ export default function BookingForm({ item }: { item: Listing }) {
           <div className="field"><label>{lang === "sr" ? "Odrasli" : lang === "de" ? "Erwachsene" : "Adults"}</label><input type="number" min={1} defaultValue={2} name="guests" /></div>
           <div className="field"><label>{lang === "sr" ? "Deca" : lang === "de" ? "Kinder" : "Children"}</label><input type="number" min={0} defaultValue={0} name="children" /></div>
           <div className="field"><label>{t("f_message")}</label><textarea rows={3} name="message" /></div>
-          <button className="btn btn--primary btn--block" type="submit" disabled={busy}>
-            {busy ? "..." : t("f_submit")}
+          {isStay && (
+            <button type="button" className="btn btn--primary btn--block" onClick={payNow} disabled={busy} style={{ marginBottom: 8 }}>
+              {busy ? "..." : (lang === "sr" ? "Rezerviši i plati online" : lang === "de" ? "Buchen & online bezahlen" : "Book & pay online")}
+            </button>
+          )}
+          <button className={"btn btn--block " + (isStay ? "btn--outline" : "btn--primary")} type="submit" disabled={busy}>
+            {busy ? "..." : (isStay ? (lang === "sr" ? "Ili pošalji upit (bez plaćanja)" : lang === "de" ? "Oder Anfrage senden" : "Or send inquiry") : t("f_submit"))}
           </button>
           {error && <p className="booking-note" style={{ color: "var(--danger)" }}>{error}</p>}
           <p className="booking-note">{t("f_note")}</p>

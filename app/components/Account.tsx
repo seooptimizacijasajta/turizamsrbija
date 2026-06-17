@@ -136,6 +136,11 @@ export default function Account() {
     return () => sub.subscription.unsubscribe();
   }, [sb, loadListings]);
 
+  useEffect(() => {
+    if (stripeAcct && !stripeOk) refreshStripeStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stripeAcct]);
+
   async function auth(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     if (!sb) return;
@@ -173,6 +178,15 @@ export default function Account() {
       alert(j?.error === "not_configured" ? "Stripe još nije podešen na portalu." : (j?.error || "Greška"));
     } catch { /* noop */ }
     setStripeBusy(false);
+  }
+  async function refreshStripeStatus() {
+    if (!sb) return;
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const res = await fetch("/api/stripe/account-status", { method: "POST", headers: { Authorization: `Bearer ${session?.access_token || ""}` } });
+      const j = await res.json();
+      if (j?.charges_enabled) setStripeOk(true);
+    } catch { /* noop */ }
   }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
