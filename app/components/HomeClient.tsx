@@ -11,6 +11,7 @@ import { pijacaPath } from "@/lib/pijaca";
 import { dealsPath } from "@/lib/deals";
 import ListingCard from "./ListingCard";
 import FaqAccordion from "./FaqAccordion";
+import HomeTestimonials from "./HomeTestimonials";
 import { generalFaqs } from "@/lib/faq";
 import type { Post } from "@/lib/blog";
 import type { EventItem } from "@/lib/eventsData";
@@ -292,6 +293,7 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
           </div>
         </section>
       )}
+      <HomeTestimonials />
       <FaqAccordion items={generalFaqs(lang)} heading={lang !== "sr" ? "Frequently asked questions" : "Često postavljana pitanja"} />
     </>
   );

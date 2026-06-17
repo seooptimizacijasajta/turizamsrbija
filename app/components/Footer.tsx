@@ -41,7 +41,7 @@ export default function Footer() {
             [t("nav_marketing"), marketingPath(lang)],
             [t("nav_hostguide"), hostGuidePath(lang)],
             ["FAQ", infoPath("faq", lang)],
-            [lang === "sr" ? "Utisci korisnika" : lang === "de" ? "Erfahrungen" : "Reviews", "/utisci-korisnika"],
+            [lang === "sr" ? "Utisci korisnika" : lang === "de" ? "Erfahrungen" : "Reviews", lang === "sr" ? "/utisci-korisnika" : lang === "de" ? "/de/erfahrungen" : "/en/reviews"],
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
           ])}
