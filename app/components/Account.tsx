@@ -284,7 +284,7 @@ export default function Account() {
         </div>
       </div>
 
-      {!isAdmin && (
+      {userId && (
         <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", marginTop: 16, background: stripeOk ? "#f0f8f4" : "#fff8ef", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <div style={{ fontSize: ".92rem", maxWidth: 640 }}>
             {stripeOk
