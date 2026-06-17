@@ -41,6 +41,8 @@ export default function Account() {
   const [stripeOk, setStripeOk] = useState(false);
   const [stripeAcct, setStripeAcct] = useState<string | null>(null);
   const [stripeBusy, setStripeBusy] = useState(false);
+  const [pwBusy, setPwBusy] = useState(false);
+  const [pwMsg, setPwMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
@@ -201,6 +203,24 @@ export default function Account() {
     if (error) setErr(error.message);
     else setMsg(lang === "sr" ? "Poslali smo vam mejl za reset lozinke. Proverite inbox (i spam folder)." : lang === "de" ? "Wir haben Ihnen eine E-Mail zum Zurücksetzen gesendet. Prüfen Sie Ihren Posteingang (und Spam)." : "We've sent you a password reset email. Check your inbox (and spam).");
   }
+  async function changePassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!sb) return;
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    const pw = String(f.get("newpw") || "");
+    const pw2 = String(f.get("newpw2") || "");
+    if (pw !== pw2) { setPwMsg({ ok: false, text: "Lozinke se ne poklapaju. / Passwords don't match." }); return; }
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}/.test(pw)) {
+      setPwMsg({ ok: false, text: "Min 8 znakova, malo i veliko slovo, broj i znak. / Min 8 chars incl. upper, lower, number, symbol." });
+      return;
+    }
+    setPwBusy(true);
+    const { error } = await sb.auth.updateUser({ password: pw });
+    setPwBusy(false);
+    if (error) setPwMsg({ ok: false, text: error.message });
+    else { setPwMsg({ ok: true, text: "Lozinka je promenjena! / Password changed!" }); form.reset(); }
+  }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
     const redirectTo = window.location.origin + accountPath(lang);
@@ -313,6 +333,18 @@ export default function Account() {
           </div>
           {!stripeOk && <button className="btn btn--primary" onClick={connectStripe} disabled={stripeBusy}>{stripeBusy ? "…" : (stripeAcct ? "Nastavi povezivanje" : "Poveži Stripe")}</button>}
         </div>
+      )}
+
+      {userId && (
+        <details style={{ marginTop: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "12px 16px" }}>
+          <summary style={{ cursor: "pointer", fontWeight: 700 }}>{lang === "sr" ? "Promeni lozinku" : lang === "de" ? "Passwort ändern" : "Change password"}</summary>
+          <form onSubmit={changePassword} style={{ marginTop: 10, display: "grid", gap: 8, maxWidth: 360 }}>
+            <input type="password" name="newpw" placeholder={lang === "sr" ? "Nova lozinka" : lang === "de" ? "Neues Passwort" : "New password"} minLength={8} required />
+            <input type="password" name="newpw2" placeholder={lang === "sr" ? "Ponovi lozinku" : lang === "de" ? "Passwort wiederholen" : "Repeat password"} minLength={8} required />
+            <button className="btn btn--primary" type="submit" disabled={pwBusy} style={{ width: "fit-content" }}>{pwBusy ? "..." : (lang === "sr" ? "Sačuvaj" : "Save")}</button>
+            {pwMsg && <span style={{ fontSize: ".85rem", color: pwMsg.ok ? "var(--green-600)" : "var(--danger)" }}>{pwMsg.text}</span>}
+          </form>
+        </details>
       )}
 
       {showForm && (
