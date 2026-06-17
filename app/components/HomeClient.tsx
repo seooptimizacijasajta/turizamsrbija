@@ -46,6 +46,21 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
 
   return (
     <>
+      {events.length > 0 && (() => {
+        const e = events[0];
+        const per = e.periodText || monthName(e.month, lang);
+        const meta = [per, e.city].filter(Boolean).join(" · ");
+        return (
+          <Link href={eventPath(e.name, lang)} style={{ display: "block", background: "linear-gradient(90deg,#0f3d2e,#176b4e)", color: "#fff", textDecoration: "none" }}>
+            <div className="container" style={{ padding: "9px 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap", fontSize: ".92rem", textAlign: "center" }}>
+              <span>🎉 {lang === "sr" ? "Uskoro" : lang === "de" ? "Demnächst" : "Coming up"}:</span>
+              <strong>{e.name}</strong>
+              {meta && <span style={{ opacity: 0.85 }}>· {meta}</span>}
+              <span style={{ fontWeight: 700, textDecoration: "underline" }}>{lang === "sr" ? "Detalji →" : "Details →"}</span>
+            </div>
+          </Link>
+        );
+      })()}
       <section className="hero">
         <div className="container hero-inner">
           <h1>{t("hero_title")}</h1>
