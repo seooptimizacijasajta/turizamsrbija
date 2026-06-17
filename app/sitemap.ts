@@ -15,6 +15,7 @@ import { getBusinesses } from "@/lib/businesses";
 import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath, EVENT_CITIES, manifCityPath } from "@/lib/events";
 import { getEvents } from "@/lib/eventsData";
 import { dealsPath } from "@/lib/deals";
+import { TERMS, termPath } from "@/lib/recnik";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -39,6 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(belgradePath("sr"), belgradePath("en"), belgradePath("de"));
   tri(listPath("sr"), listPath("en"), listPath("de"));
   tri("/utisci-korisnika", "/en/reviews", "/de/erfahrungen");
+  tri("/recnik", "/en/glossary", "/de/glossar");
+  TERMS.forEach((tm) => tri(termPath(tm.slug, "sr"), termPath(tm.slug, "en"), termPath(tm.slug, "de")));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));

@@ -4,6 +4,7 @@ import PaymentBadges from "./PaymentBadges";
 import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
 import { dealsPath } from "@/lib/deals";
+import { recnikPath } from "@/lib/recnik";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath } from "@/lib/firme";
@@ -42,6 +43,7 @@ export default function Footer() {
             [t("nav_hostguide"), hostGuidePath(lang)],
             ["FAQ", infoPath("faq", lang)],
             [lang === "sr" ? "Utisci korisnika" : lang === "de" ? "Erfahrungen" : "Reviews", lang === "sr" ? "/utisci-korisnika" : lang === "de" ? "/de/erfahrungen" : "/en/reviews"],
+            [lang === "sr" ? "Rečnik turizma" : lang === "de" ? "Tourismus-Glossar" : "Tourism glossary", recnikPath(lang)],
             [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
             [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
           ])}
