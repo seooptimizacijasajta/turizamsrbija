@@ -38,12 +38,17 @@ export default function Account() {
   const [evts, setEvts] = useState<any[]>([]);
   const [showEv, setShowEv] = useState(false);
   const [editingEv, setEditingEv] = useState<any>(null);
+  const [stripeOk, setStripeOk] = useState(false);
+  const [stripeAcct, setStripeAcct] = useState<string | null>(null);
+  const [stripeBusy, setStripeBusy] = useState(false);
 
   const loadListings = useCallback(async (uid: string) => {
     if (!sb) return;
-    const { data: p } = await sb.from("profiles").select("role").eq("id", uid).single();
+    const { data: p } = await sb.from("profiles").select("role, stripe_account_id, stripe_charges_enabled").eq("id", uid).single();
     const admin = p?.role === "admin";
     setIsAdmin(admin);
+    setStripeOk(!!p?.stripe_charges_enabled);
+    setStripeAcct((p?.stripe_account_id as string) || null);
     let q = sb.from("listings").select("*, listing_images(url,sort)").order("created_at", { ascending: false });
     if (!admin) q = q.eq("owner_id", uid);
     const { data } = await q;
@@ -157,6 +162,18 @@ export default function Account() {
   }
 
   async function logout() { if (sb) await sb.auth.signOut(); }
+  async function connectStripe() {
+    if (!sb) return;
+    setStripeBusy(true);
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const res = await fetch("/api/stripe/connect", { method: "POST", headers: { Authorization: `Bearer ${session?.access_token || ""}` } });
+      const j = await res.json();
+      if (j?.url) { window.location.href = j.url; return; }
+      alert(j?.error === "not_configured" ? "Stripe još nije podešen na portalu." : (j?.error || "Greška"));
+    } catch { /* noop */ }
+    setStripeBusy(false);
+  }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
     const redirectTo = window.location.origin + accountPath(lang);
@@ -252,6 +269,17 @@ export default function Account() {
           <button className="btn btn--outline" onClick={logout}>{t("acc_logout")}</button>
         </div>
       </div>
+
+      {!isAdmin && (
+        <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", marginTop: 16, background: stripeOk ? "#f0f8f4" : "#fff8ef", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ fontSize: ".92rem", maxWidth: 640 }}>
+            {stripeOk
+              ? <span style={{ color: "var(--green-600)" }}><b>✓ Stripe naplata aktivna.</b> Gosti mogu da rezervišu i plate online; vaš deo ide direktno na vaš Stripe nalog, a provizija portala se automatski odbija.</span>
+              : <span><b>Online naplata (Stripe).</b> Povežite svoj Stripe nalog da biste primali rezervacije sa online plaćanjem. Gost plaća pun iznos, vaš deo stiže direktno vama, a provizija portala se automatski odbija.</span>}
+          </div>
+          {!stripeOk && <button className="btn btn--primary" onClick={connectStripe} disabled={stripeBusy}>{stripeBusy ? "…" : (stripeAcct ? "Nastavi povezivanje" : "Poveži Stripe")}</button>}
+        </div>
+      )}
 
       {showForm && (
         <ListingForm
