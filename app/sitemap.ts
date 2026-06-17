@@ -38,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(homePath("sr"), homePath("en"), homePath("de"));
   tri(belgradePath("sr"), belgradePath("en"), belgradePath("de"));
   tri(listPath("sr"), listPath("en"), listPath("de"));
+  out.push({ url: BASE + "/utisci-korisnika", lastModified: now, changeFrequency: "monthly", priority: 0.5 });
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));

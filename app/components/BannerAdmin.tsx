@@ -12,7 +12,7 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "utisci">("stats");
   const [users, setUsers] = useState<any[]>([]);
   const [uListings, setUListings] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
@@ -20,6 +20,8 @@ export default function BannerAdmin() {
   const [bookings, setBookings] = useState<any[]>([]);
   const [commPct, setCommPct] = useState("10");
   const [showBk, setShowBk] = useState(false);
+  const [testis, setTestis] = useState<any[]>([]);
+  const [feedbk, setFeedbk] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [posts, setPosts] = useState<any[]>([]);
   const [postEditing, setPostEditing] = useState<any>(null);
@@ -63,6 +65,20 @@ export default function BannerAdmin() {
     const { data } = await sb.from("bookings").select("*, listings(name_sr, owner_id)").order("created_at", { ascending: false });
     setBookings(data || []);
   }, [sb]);
+  const loadTestis = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("testimonials").select("*").order("created_at", { ascending: false });
+    setTestis(data || []);
+  }, [sb]);
+  const loadFeedback = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("feedback").select("*").order("created_at", { ascending: false });
+    setFeedbk(data || []);
+  }, [sb]);
+  async function approveTesti(id: string) { if (!sb) return; await sb.from("testimonials").update({ status: "approved" }).eq("id", id); loadTestis(); }
+  async function delTesti(id: string) { if (!sb || !confirm("Obrisati utisak? / Delete review?")) return; await sb.from("testimonials").delete().eq("id", id); loadTestis(); }
+  async function toggleFb(f: any) { if (!sb) return; await sb.from("feedback").update({ handled: !f.handled }).eq("id", f.id); loadFeedback(); }
+  async function delFb(id: string) { if (!sb || !confirm("Obrisati predlog? / Delete feedback?")) return; await sb.from("feedback").delete().eq("id", id); loadFeedback(); }
   const loadSettings = useCallback(async () => {
     if (!sb) return;
     const { data } = await sb.from("settings").select("value").eq("key", "commission_pct").maybeSingle();
@@ -139,7 +155,7 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); loadBookings(); loadSettings(); }
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); loadBookings(); loadSettings(); loadTestis(); loadFeedback(); }
   }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads, loadUsers]);
 
   useEffect(() => {
@@ -224,7 +240,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "utisci", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -239,6 +255,7 @@ export default function BannerAdmin() {
         {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
         {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
         {tabBtn("bookings", `Rezervacije${bookings.length ? " (" + bookings.length + ")" : ""}`)}
+        {tabBtn("utisci", `Utisci${testis.filter((x) => x.status !== "approved").length ? " (" + testis.filter((x) => x.status !== "approved").length + ")" : ""}`)}
       </div>
 
       {tab === "stats" && (
@@ -528,6 +545,47 @@ export default function BannerAdmin() {
           </div>
         )}
       </>)}
+
+      {tab === "utisci" && (
+        <div>
+          <h1>Utisci i predlozi / Reviews &amp; feedback</h1>
+          <h2 style={{ marginTop: 18 }}>Utisci korisnika ({testis.length})</h2>
+          {testis.length === 0 ? <div className="empty" style={{ marginTop: 10 }}>Još nema utisaka.</div> : (
+            <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+              {testis.map((x) => (
+                <div key={x.id} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "12px 14px", display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+                  <div>
+                    <strong>{x.name}</strong>{x.city ? <span style={{ color: "var(--slate)" }}> · {x.city}</span> : null} {x.rating ? <span style={{ color: "#e8a13a" }}>{"★".repeat(x.rating)}</span> : null}
+                    <span style={{ marginLeft: 8, fontSize: ".78rem", color: x.status === "approved" ? "var(--green-600)" : "var(--sun)" }}>· {x.status}</span>
+                    <div style={{ fontSize: ".9rem", marginTop: 4 }}>{x.body}</div>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
+                    {x.status !== "approved" && <button className="btn btn--primary" onClick={() => approveTesti(x.id)}>✓ Odobri</button>}
+                    <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delTesti(x.id)}>Obriši</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <h2 style={{ marginTop: 28 }}>Predlozi / Feedback ({feedbk.length})</h2>
+          {feedbk.length === 0 ? <div className="empty" style={{ marginTop: 10 }}>Još nema predloga.</div> : (
+            <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+              {feedbk.map((f) => (
+                <div key={f.id} style={{ border: "1px solid var(--line)", borderRadius: 12, padding: "12px 14px", display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", opacity: f.handled ? 0.6 : 1 }}>
+                  <div>
+                    <strong>{f.name || "Anonimno"}</strong>{f.email ? <span style={{ color: "var(--slate)" }}> · {f.email}</span> : null}
+                    <div style={{ fontSize: ".9rem", marginTop: 4 }}>{f.message}</div>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
+                    <button className="btn btn--outline" onClick={() => toggleFb(f)}>{f.handled ? "Vrati" : "Rešeno"}</button>
+                    <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delFb(f.id)}>Obriši</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );
