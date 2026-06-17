@@ -9,10 +9,9 @@ const SELLER = {
   companyId: "54801770",
   email: "info@turizamsrbija.com",
   web: "turizamsrbija.com",
-  // TODO: zameniti pravim podacima (korisnik dostavlja)
-  bankName: "____________",
-  iban: "____________",
-  swift: "____________",
+  bankName: "Tatra banka a.s.",
+  iban: "SK67 1100 0000 0029 3266 3057",
+  swift: "TATRSKBX",
 };
 
 type Item = { opis: string; kol: number; cena: number };

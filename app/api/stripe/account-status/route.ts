@@ -29,7 +29,10 @@ export async function POST(req: NextRequest) {
   let chargesEnabled = false;
   try {
     const account = await stripe.accounts.retrieve(acct);
-    chargesEnabled = !!account.charges_enabled;
+    // Destination-charge model: the host only needs the "transfers" capability
+    // active to receive their share. Full card_payments (charges_enabled) is not
+    // required, and is often still "in review" on fresh accounts.
+    chargesEnabled = !!account.charges_enabled || account.capabilities?.transfers === "active";
   } catch {
     return NextResponse.json({ connected: true, charges_enabled: false });
   }
