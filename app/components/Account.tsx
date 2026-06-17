@@ -188,6 +188,19 @@ export default function Account() {
       if (j?.charges_enabled) setStripeOk(true);
     } catch { /* noop */ }
   }
+  async function forgotPassword(e: React.MouseEvent<HTMLButtonElement>) {
+    if (!sb) return;
+    const form = e.currentTarget.closest("form");
+    const em = form ? String(new FormData(form).get("email") || "").trim() : "";
+    if (!em) {
+      setErr(lang === "sr" ? "Prvo upišite email iznad, pa kliknite ponovo." : lang === "de" ? "Bitte oben die E-Mail eingeben." : "Enter your email above first, then click again.");
+      return;
+    }
+    setErr(""); setMsg("");
+    const { error } = await sb.auth.resetPasswordForEmail(em, { redirectTo: window.location.origin + "/reset-lozinka" });
+    if (error) setErr(error.message);
+    else setMsg(lang === "sr" ? "Poslali smo vam mejl za reset lozinke. Proverite inbox (i spam folder)." : lang === "de" ? "Wir haben Ihnen eine E-Mail zum Zurücksetzen gesendet. Prüfen Sie Ihren Posteingang (und Spam)." : "We've sent you a password reset email. Check your inbox (and spam).");
+  }
   async function oauth(provider: "google" | "facebook") {
     if (!sb) return;
     const redirectTo = window.location.origin + accountPath(lang);
@@ -253,6 +266,13 @@ export default function Account() {
             <button className="btn btn--primary btn--block" disabled={busy} type="submit">
               {busy ? "..." : mode === "login" ? t("acc_login_btn") : t("acc_signup_btn")}
             </button>
+            {mode === "login" && (
+              <p style={{ textAlign: "center", marginTop: 10 }}>
+                <button type="button" onClick={forgotPassword} style={{ color: "var(--slate)", fontSize: ".82rem", textDecoration: "underline" }}>
+                  {lang === "sr" ? "Zaboravili ste lozinku?" : lang === "de" ? "Passwort vergessen?" : "Forgot password?"}
+                </button>
+              </p>
+            )}
             <div style={{ textAlign: "center", color: "var(--slate)", fontSize: ".82rem", margin: "10px 0" }}>— ili / or —</div>
             <button type="button" className="btn btn--outline btn--block" onClick={() => oauth("google")} style={{ marginBottom: 8 }}>Nastavi sa Google</button>
             <button type="button" className="btn btn--outline btn--block" onClick={() => oauth("facebook")}>Nastavi sa Facebook</button>
