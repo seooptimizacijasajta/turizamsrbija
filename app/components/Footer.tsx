@@ -49,8 +49,12 @@ export default function Footer() {
             ["FAQ", infoPath("faq", lang)],
             [lang === "sr" ? "Utisci korisnika" : lang === "de" ? "Erfahrungen" : "Reviews", lang === "sr" ? "/utisci-korisnika" : lang === "de" ? "/de/erfahrungen" : "/en/reviews"],
             [lang === "sr" ? "Rečnik turizma" : lang === "de" ? "Tourismus-Glossar" : "Tourism glossary", recnikPath(lang)],
-            [t("foot_about_link"), infoPath("about", lang)], [t("foot_contact"), infoPath("contact", lang)],
-            [t("foot_terms"), infoPath("terms", lang)], [t("foot_privacy"), infoPath("privacy", lang)],
+          ])}
+          {col(lang === "sr" ? "Informacije" : lang === "de" ? "Informationen" : "Information", [
+            [t("foot_about_link"), infoPath("about", lang)],
+            [t("foot_contact"), infoPath("contact", lang)],
+            [t("foot_terms"), infoPath("terms", lang)],
+            [t("foot_privacy"), infoPath("privacy", lang)],
           ])}
           {col(lang !== "sr" ? "By amenity" : "Po pogodnosti", [
             [lang !== "sr" ? "Accepts vouchers" : "Prima vaučere", amenityPath("vouchers", lang)],
