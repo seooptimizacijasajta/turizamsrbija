@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Listing } from "@/lib/types";
@@ -30,6 +30,10 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
   const router = useRouter();
   const [type, setType] = useState<"mountain"|"lake"|"spa"|"ethno"|"stay">("mountain");
   const [q, setQ] = useState("");
+  const [stripClosed, setStripClosed] = useState(false);
+  useEffect(() => {
+    try { if (events[0] && localStorage.getItem("evStripClosed") === events[0].id) setStripClosed(true); } catch { /* noop */ }
+  }, [events]);
 
   const featuredSlugs = ["kopaonik", "zlatibor", "tara", "vrnjacka-banja", "drvengrad-mecavnik", "srebrno-jezero"];
   const featured = featuredSlugs
@@ -46,19 +50,23 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
 
   return (
     <>
-      {events.length > 0 && (() => {
+      {!stripClosed && events.length > 0 && (() => {
         const e = events[0];
         const per = e.periodText || monthName(e.month, lang);
         const meta = [per, e.city].filter(Boolean).join(" · ");
         return (
-          <Link href={eventPath(e.name, lang)} style={{ display: "block", background: "linear-gradient(90deg,#0f3d2e,#176b4e)", color: "#fff", textDecoration: "none" }}>
-            <div className="container" style={{ padding: "9px 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap", fontSize: ".92rem", textAlign: "center" }}>
-              <span>🎉 {lang === "sr" ? "Uskoro" : lang === "de" ? "Demnächst" : "Coming up"}:</span>
-              <strong>{e.name}</strong>
-              {meta && <span style={{ opacity: 0.85 }}>· {meta}</span>}
-              <span style={{ fontWeight: 700, textDecoration: "underline" }}>{lang === "sr" ? "Detalji →" : "Details →"}</span>
+          <div style={{ background: "linear-gradient(90deg,#0f3d2e,#176b4e)", color: "#fff" }}>
+            <div className="container" style={{ position: "relative", padding: "9px 34px", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap", fontSize: ".92rem", textAlign: "center" }}>
+              <Link href={eventPath(e.name, lang)} style={{ color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+                <span>🎉 {lang === "sr" ? "Uskoro" : lang === "de" ? "Demnächst" : "Coming up"}:</span>
+                <strong>{e.name}</strong>
+                {meta && <span style={{ opacity: 0.85 }}>· {meta}</span>}
+                <span style={{ fontWeight: 700, textDecoration: "underline" }}>{lang === "sr" ? "Detalji →" : "Details →"}</span>
+              </Link>
+              <button aria-label="Zatvori" onClick={() => { setStripClosed(true); try { localStorage.setItem("evStripClosed", e.id); } catch { /* noop */ } }}
+                style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "transparent", border: 0, color: "#fff", fontSize: "1.25rem", lineHeight: 1, opacity: 0.85, cursor: "pointer", padding: 4 }}>×</button>
             </div>
-          </Link>
+          </div>
         );
       })()}
       <section className="hero">
