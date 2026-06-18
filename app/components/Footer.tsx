@@ -26,6 +26,11 @@ export default function Footer() {
           <div>
             <div className="footer-brand"><span className="mark">★</span> TurizamSrbija</div>
             <p style={{ maxWidth: 340, color: "#bfe0d3", fontSize: ".92rem" }}>{t("foot_about")}</p>
+            <div style={{ display: "flex", gap: 16, marginTop: 14, fontWeight: 600 }}>
+              <a href="#" aria-label="Instagram">Instagram</a>
+              <a href="#" aria-label="Facebook">Facebook</a>
+              <a href="#" aria-label="YouTube">YouTube</a>
+            </div>
           </div>
           {col(t("foot_explore"), [
             [t("nav_mountains"), sectionPath("mountain", lang)],
@@ -54,7 +59,6 @@ export default function Footer() {
             [lang !== "sr" ? "Family friendly" : "Za porodice sa decom", amenityPath("kids", lang)],
             [lang !== "sr" ? "With wellness" : "Sa wellness sadržajem", amenityPath("wellness", lang)],
           ])}
-          {col(t("foot_follow"), [["Instagram", "#"], ["Facebook", "#"], ["YouTube", "#"]])}
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,.12)", marginTop: 24, paddingTop: 18 }}><PaymentBadges compact /></div>
         <div className="footer-bottom">
