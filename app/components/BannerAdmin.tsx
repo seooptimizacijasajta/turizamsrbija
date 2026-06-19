@@ -256,6 +256,7 @@ export default function BannerAdmin() {
         {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
         {tabBtn("bookings", `Rezervacije${bookings.length ? " (" + bookings.length + ")" : ""}`)}
         {tabBtn("utisci", `Utisci${testis.filter((x) => x.status !== "approved").length ? " (" + testis.filter((x) => x.status !== "approved").length + ")" : ""}`)}
+        <a href="/predracun" className="btn btn--outline" style={{ marginLeft: "auto" }}>🧾 Predračun</a>
       </div>
 
       {tab === "stats" && (
