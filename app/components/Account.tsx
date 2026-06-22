@@ -8,6 +8,8 @@ import AvailabilityCalendar from "./AvailabilityCalendar";
 import ProductForm from "./ProductForm";
 import BusinessForm from "./BusinessForm";
 import EventForm from "./EventForm";
+import PropertyForm from "./PropertyForm";
+import { propTypeByKey, propTypeLabel, dealKindLabel } from "@/lib/nekretnine";
 import { bizCatByKey, bizCatLabel } from "@/lib/firme";
 import { evCatByKey, evCatLabel } from "@/lib/events";
 import { pcatLabel, pcatIcon } from "@/lib/pijaca";
@@ -38,6 +40,9 @@ export default function Account() {
   const [evts, setEvts] = useState<any[]>([]);
   const [showEv, setShowEv] = useState(false);
   const [editingEv, setEditingEv] = useState<any>(null);
+  const [props, setProps] = useState<any[]>([]);
+  const [showProp, setShowProp] = useState(false);
+  const [editingProp, setEditingProp] = useState<any>(null);
   const [stripeOk, setStripeOk] = useState(false);
   const [stripeAcct, setStripeAcct] = useState<string | null>(null);
   const [stripeBusy, setStripeBusy] = useState(false);
@@ -67,6 +72,10 @@ export default function Account() {
     if (!admin) eq = eq.eq("owner_id", uid);
     const { data: ev } = await eq;
     setEvts(ev || []);
+    let prq = sb.from("properties").select("*").order("created_at", { ascending: false });
+    if (!admin) prq = prq.eq("owner_id", uid);
+    const { data: prp } = await prq;
+    setProps(prp || []);
   }, [sb]);
 
   async function delProduct(id: string) {
@@ -116,6 +125,30 @@ export default function Account() {
       const n = Math.max(1, Number(days) || 30);
       const until = new Date(); until.setDate(until.getDate() + n);
       await sb.from("events").update({ featured: true, featured_until: until.toISOString().slice(0, 10) }).eq("id", b.id);
+    }
+    loadListings(userId);
+  }
+  async function delProperty(id: string) {
+    if (!sb || !userId) return;
+    if (!confirm("Obrisati nekretninu? / Delete property?")) return;
+    await sb.from("properties").delete().eq("id", id);
+    loadListings(userId);
+  }
+  async function approveProperty(id: string) {
+    if (!sb || !userId) return;
+    await sb.from("properties").update({ status: "approved" }).eq("id", id);
+    loadListings(userId);
+  }
+  async function togglePropFeatured(p: any) {
+    if (!sb || !userId) return;
+    if (p.featured) {
+      await sb.from("properties").update({ featured: false, featured_until: null }).eq("id", p.id);
+    } else {
+      const days = prompt("Izdvojiti nekretninu na koliko dana? / Feature for how many days?", "30");
+      if (days === null) return;
+      const n = Math.max(1, Number(days) || 30);
+      const until = new Date(); until.setDate(until.getDate() + n);
+      await sb.from("properties").update({ featured: true, featured_until: until.toISOString().slice(0, 10) }).eq("id", p.id);
     }
     loadListings(userId);
   }
@@ -481,6 +514,42 @@ export default function Account() {
                           {isAdmin && <button className={"btn btn--outline" + (b.featured ? " promo-on" : "")} title="Izdvoj" onClick={() => toggleEvFeatured(b)}>★ Izdvoj</button>}
                           <button className="btn btn--outline" onClick={() => { setEditingEv(b); setShowEv(true); }}>{t("acc_edit")}</button>
                           <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delEvent(b.id)}>{t("acc_delete")}</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            )}
+          </div>
+
+          <div style={{ marginTop: 40, borderTop: "1px solid var(--line)", paddingTop: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+              <h2 style={{ margin: 0 }}>{lang === "sr" ? "Nekretnine" : lang === "de" ? "Immobilien" : "Real estate"} — {isAdmin ? "sve / all" : "moje / mine"}</h2>
+              {!showProp && <button className="btn btn--primary" onClick={() => { setEditingProp(null); setShowProp(true); }}>Dodaj nekretninu / Add property</button>}
+            </div>
+            {showProp && userId && (
+              <PropertyForm sb={sb} ownerId={userId} existing={editingProp}
+                onSaved={() => { setShowProp(false); setEditingProp(null); loadListings(userId); }}
+                onCancel={() => { setShowProp(false); setEditingProp(null); }} />
+            )}
+            {!showProp && (
+              props.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema nekretnina. / No properties yet.</div> : (
+                <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+                  {props.map((p) => {
+                    const c = propTypeByKey(p.property_type);
+                    return (
+                      <div key={p.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, border: "1px solid var(--line)", borderRadius: 12, padding: "14px 16px", flexWrap: "wrap" }}>
+                        <div>
+                          <strong>{p.title}</strong>{" "}
+                          <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {dealKindLabel(p.deal_type, lang)}{c ? " · " + propTypeLabel(c, lang) : ""}{p.city ? " · " + p.city : ""}{p.price != null ? ` · €${Number(p.price).toLocaleString("de-DE")}` : ""}</span>
+                          <div style={{ marginTop: 6 }}>{statusBadge(p.status)}{isAdmin && p.featured && p.featured_until ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>★ Izdvojeno do {p.featured_until}</span> : null}</div>
+                        </div>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          {isAdmin && p.status !== "approved" && <button className="btn btn--primary" onClick={() => approveProperty(p.id)}>✓ Odobri / Approve</button>}
+                          {isAdmin && <button className={"btn btn--outline" + (p.featured ? " promo-on" : "")} title="Izdvoj" onClick={() => togglePropFeatured(p)}>★ Izdvoj</button>}
+                          <button className="btn btn--outline" onClick={() => { setEditingProp(p); setShowProp(true); }}>{t("acc_edit")}</button>
+                          <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delProperty(p.id)}>{t("acc_delete")}</button>
                         </div>
                       </div>
                     );
