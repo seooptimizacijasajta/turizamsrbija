@@ -10,6 +10,7 @@ import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath, firmeCatPath, BIZ_CATS, bizCatLabel } from "@/lib/firme";
 import { manifIndexPath } from "@/lib/events";
 import { dealsPath } from "@/lib/deals";
+import { nekretnineIndexPath } from "@/lib/nekretnine";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -73,6 +74,7 @@ export default function Header() {
 
           <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
           <Link href={manifIndexPath(lang)} className={path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") ? "active" : ""} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
+          <Link href={nekretnineIndexPath(lang)} className={path.includes("/nekretnin") || path.includes("/real-estate") || path.includes("/immobili") ? "active" : ""} onClick={close}>{lang === "sr" ? "Nekretnine" : lang === "de" ? "Immobilien" : "Real estate"}</Link>
           <Link href={dealsPath(lang)} className={path.includes("/akcije") || path.includes("/deals") || path.includes("/angebote") ? "active" : ""} onClick={close} style={{ color: "#e0492f", fontWeight: 700 }}>🔥 {lang === "sr" ? "Akcije" : lang === "de" ? "Angebote" : "Deals"}</Link>
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
 

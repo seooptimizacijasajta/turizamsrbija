@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
 import { dealsPath } from "@/lib/deals";
 import { recnikPath } from "@/lib/recnik";
+import { nekretnineIndexPath } from "@/lib/nekretnine";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath } from "@/lib/firme";
@@ -43,6 +44,7 @@ export default function Footer() {
             [lang === "sr" ? "🔥 Akcije i popusti" : lang === "de" ? "🔥 Angebote" : "🔥 Deals", dealsPath(lang)],
             [t("nav_pijaca"), pijacaPath(lang)],
             [t("nav_firme"), firmeIndexPath(lang)],
+            [lang === "sr" ? "Nekretnine" : lang === "de" ? "Immobilien" : "Real estate", nekretnineIndexPath(lang)],
             [t("nav_vauceri"), voucherPath(lang)],
             [t("nav_marketing"), marketingPath(lang)],
             [t("nav_hostguide"), hostGuidePath(lang)],

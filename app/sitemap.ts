@@ -16,6 +16,8 @@ import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath, EVENT_CITIES, mani
 import { getEvents } from "@/lib/eventsData";
 import { dealsPath } from "@/lib/deals";
 import { TERMS, termPath } from "@/lib/recnik";
+import { getProperties } from "@/lib/properties";
+import { PROP_TYPES, nekretnineIndexPath, propTypePath, propertyPath } from "@/lib/nekretnine";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -23,7 +25,7 @@ const BASE = "https://turizamsrbija.com";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [all, posts, biz, events] = await Promise.all([getListings(), getPosts(), getBusinesses(), getEvents()]);
+  const [all, posts, biz, events, properties] = await Promise.all([getListings(), getPosts(), getBusinesses(), getEvents(), getProperties()]);
   const now = new Date();
   const out: MetadataRoute.Sitemap = [];
 
@@ -42,6 +44,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri("/utisci-korisnika", "/en/reviews", "/de/erfahrungen");
   tri("/recnik", "/en/glossary", "/de/glossar");
   TERMS.forEach((tm) => tri(termPath(tm.slug, "sr"), termPath(tm.slug, "en"), termPath(tm.slug, "de")));
+  tri(nekretnineIndexPath("sr"), nekretnineIndexPath("en"), nekretnineIndexPath("de"));
+  PROP_TYPES.forEach((c) => tri(propTypePath(c, "sr"), propTypePath(c, "en"), propTypePath(c, "de")));
+  properties.forEach((p) => tri(propertyPath(p.id, "sr"), propertyPath(p.id, "en"), propertyPath(p.id, "de")));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));
