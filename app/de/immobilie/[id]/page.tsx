@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PropertyDetail from "@/app/components/PropertyDetail";
-import { getPropertyById } from "@/lib/properties";
-import { propTypeByKey, dealKindLabel, idFromParam, propertyPath } from "@/lib/nekretnine";
+import { getPropertyByParam } from "@/lib/properties";
+import { propTypeByKey, dealKindLabel, propertyPath } from "@/lib/nekretnine";
 
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const p = await getPropertyById(idFromParam(id));
+  const p = await getPropertyByParam(id);
   if (!p) return { title: "Immobilien — Turizam Srbija" };
   const c = propTypeByKey(p.property_type);
   const desc = (p.description || `${dealKindLabel(p.deal_type, "de")} — ${[c?.de, p.city, p.area ? p.area + " m²" : ""].filter(Boolean).join(", ")}`).slice(0, 160);
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const p = await getPropertyById(idFromParam(id));
+  const p = await getPropertyByParam(id);
   if (!p) notFound();
   return <PropertyDetail item={p} />;
 }

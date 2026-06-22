@@ -25,8 +25,6 @@ export const nekretnineIndexPath = (lang: Lang) => (lang === "sr" ? "/nekretnine
 export const propTypePath = (c: PropType, lang: Lang) =>
   lang === "sr" ? `/nekretnine/${c.srSlug}` : lang === "de" ? `/de/immobilien/${c.enSlug}` : `/en/real-estate/${c.enSlug}`;
 export const propertyPath = (p: { id: string; title: string }, lang: Lang) => {
-  const s = slugify(p.title || "nekretnina");
-  return lang === "sr" ? `/nekretnina/${s}-${p.id}` : lang === "de" ? `/de/immobilie/${s}-${p.id}` : `/en/property/${s}-${p.id}`;
+  const s = `${slugify(p.title || "nekretnina")}-${p.id.slice(0, 8)}`;
+  return lang === "sr" ? `/nekretnina/${s}` : lang === "de" ? `/de/immobilie/${s}` : `/en/property/${s}`;
 };
-// uuid je poslednjih 36 karaktera URL parametra (slug-uuid)
-export const idFromParam = (param: string) => param.slice(-36);

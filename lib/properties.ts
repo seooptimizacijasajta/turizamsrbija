@@ -55,3 +55,11 @@ export async function getPropertyById(id: string): Promise<Property | null> {
   const { data } = await sb.from("properties").select("*").eq("id", id).eq("status", "approved").maybeSingle();
   return data ? row(data) : null;
 }
+
+/** Resolve a property from a URL param like "seosko-domacinstvo-kod-ivanjice-68f06ad6".
+ *  Matches both the new short form (8-char id suffix) and old full-uuid links. */
+export async function getPropertyByParam(param: string): Promise<Property | null> {
+  const p = (param || "").toLowerCase();
+  const all = await getProperties();
+  return all.find((x) => p.endsWith(x.id.toLowerCase()) || p.endsWith(x.id.slice(0, 8).toLowerCase())) || null;
+}
