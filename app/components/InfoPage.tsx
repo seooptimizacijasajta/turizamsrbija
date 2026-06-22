@@ -24,9 +24,25 @@ const CONTENT: Record<string, { sr: [string, string]; en: [string, string]; de: 
 export default function InfoPage({ page }: { page: "about" | "terms" | "privacy" }) {
   const { lang } = useLang();
   const [title, body] = CONTENT[page][lang === "sr" ? "sr" : lang === "de" ? "de" : "en"];
+  const crumbs = [{ name: lang === "sr" ? "Početna" : lang === "de" ? "Startseite" : "Home", href: homePath(lang) }, { name: title }];
+
+  if (page === "about") {
+    return (
+      <>
+        <section className="page-hero" style={{ background: "linear-gradient(180deg,rgba(15,61,46,.42),rgba(15,61,46,.68)),url('/o-nama.jpg') center/cover no-repeat" }}>
+          <div className="container"><h1>{title}</h1></div>
+        </section>
+        <section className="section"><div className="container" style={{ maxWidth: 760 }}>
+          <Breadcrumbs items={crumbs} />
+          <p style={{ color: "var(--slate)", lineHeight: 1.8, whiteSpace: "pre-line", marginTop: 8 }}>{body}</p>
+        </div></section>
+      </>
+    );
+  }
+
   return (
     <section className="section"><div className="container" style={{ maxWidth: 760 }}>
-      <Breadcrumbs items={[{ name: lang === "sr" ? "Početna" : lang === "de" ? "Startseite" : "Home", href: homePath(lang) }, { name: title }]} />
+      <Breadcrumbs items={crumbs} />
       <h1 style={{ marginBottom: 18 }}>{title}</h1>
       <p style={{ color: "var(--slate)", lineHeight: 1.8, whiteSpace: "pre-line" }}>{body}</p>
     </div></section>
