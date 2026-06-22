@@ -1,4 +1,5 @@
 import type { Lang } from "./types";
+import { slugify } from "./slug";
 
 export type PropType = { key: string; sr: string; en: string; de: string; srSlug: string; enSlug: string; icon: string };
 
@@ -23,5 +24,9 @@ export const dealKindLabel = (d: string | null | undefined, lang: Lang) =>
 export const nekretnineIndexPath = (lang: Lang) => (lang === "sr" ? "/nekretnine" : lang === "de" ? "/de/immobilien" : "/en/real-estate");
 export const propTypePath = (c: PropType, lang: Lang) =>
   lang === "sr" ? `/nekretnine/${c.srSlug}` : lang === "de" ? `/de/immobilien/${c.enSlug}` : `/en/real-estate/${c.enSlug}`;
-export const propertyPath = (id: string, lang: Lang) =>
-  lang === "sr" ? `/nekretnina/${id}` : lang === "de" ? `/de/immobilie/${id}` : `/en/property/${id}`;
+export const propertyPath = (p: { id: string; title: string }, lang: Lang) => {
+  const s = slugify(p.title || "nekretnina");
+  return lang === "sr" ? `/nekretnina/${s}-${p.id}` : lang === "de" ? `/de/immobilie/${s}-${p.id}` : `/en/property/${s}-${p.id}`;
+};
+// uuid je poslednjih 36 karaktera URL parametra (slug-uuid)
+export const idFromParam = (param: string) => param.slice(-36);

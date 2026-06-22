@@ -69,12 +69,12 @@ export default function Header() {
             <div className={"nav-dd-panel" + (dd === "firme" ? " open" : "")}>
               <Link href={firmeIndexPath(lang)} onClick={close}><strong>{allFirme}</strong></Link>
               {BIZ_CATS.map((c) => <Link key={c.key} href={firmeCatPath(c, lang)} onClick={close}>{c.icon} {bizCatLabel(c, lang)}</Link>)}
+              <Link href={nekretnineIndexPath(lang)} onClick={close} style={{ borderTop: "1px solid rgba(0,0,0,.08)", marginTop: 4, paddingTop: 8, fontWeight: 600 }}>🏠 {lang === "sr" ? "Nekretnine (prodaja)" : lang === "de" ? "Immobilien (Verkauf)" : "Real estate (sale)"}</Link>
             </div>
           </div>
 
           <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
           <Link href={manifIndexPath(lang)} className={path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") ? "active" : ""} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
-          <Link href={nekretnineIndexPath(lang)} className={path.includes("/nekretnin") || path.includes("/real-estate") || path.includes("/immobili") ? "active" : ""} onClick={close}>{lang === "sr" ? "Nekretnine" : lang === "de" ? "Immobilien" : "Real estate"}</Link>
           <Link href={dealsPath(lang)} className={path.includes("/akcije") || path.includes("/deals") || path.includes("/angebote") ? "active" : ""} onClick={close} style={{ color: "#e0492f", fontWeight: 700 }}>🔥 {lang === "sr" ? "Akcije" : lang === "de" ? "Angebote" : "Deals"}</Link>
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
 

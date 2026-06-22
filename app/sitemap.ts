@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   TERMS.forEach((tm) => tri(termPath(tm.slug, "sr"), termPath(tm.slug, "en"), termPath(tm.slug, "de")));
   tri(nekretnineIndexPath("sr"), nekretnineIndexPath("en"), nekretnineIndexPath("de"));
   PROP_TYPES.forEach((c) => tri(propTypePath(c, "sr"), propTypePath(c, "en"), propTypePath(c, "de")));
-  properties.forEach((p) => tri(propertyPath(p.id, "sr"), propertyPath(p.id, "en"), propertyPath(p.id, "de")));
+  properties.forEach((p) => tri(propertyPath(p, "sr"), propertyPath(p, "en"), propertyPath(p, "de")));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));

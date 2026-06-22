@@ -17,7 +17,6 @@ export default function PropertyForm({ sb, ownerId, existing, onSaved, onCancel 
   { sb: SupabaseClient; ownerId: string; existing?: any; onSaved: () => void; onCancel: () => void }) {
   const { t } = useLang();
   const e = existing;
-  const [dealType, setDealType] = useState(e?.deal_type || "prodaja");
   const [propType, setPropType] = useState(e?.property_type || "stan");
   const [image, setImage] = useState<string>(e?.image || "");
   const [images, setImages] = useState<string[]>(Array.isArray(e?.images) ? e.images : []);
@@ -53,7 +52,7 @@ export default function PropertyForm({ sb, ownerId, existing, onSaved, onCancel 
     const num = (k: string) => { const v = g(k); return v ? Number(v) : null; };
     if (!g("title")) { setErr("Naslov oglasa je obavezan."); setBusy(false); return; }
     const row: any = {
-      owner_id: ownerId, deal_type: dealType, property_type: propType, title: g("title"),
+      owner_id: ownerId, deal_type: "prodaja", property_type: propType, title: g("title"),
       description: g("description") || null,
       price: num("price"), area: num("area"), land_area: num("land_area"), rooms: num("rooms"),
       city: g("city") || null, municipality: g("municipality") || null, address: g("address") || null,
@@ -78,23 +77,15 @@ export default function PropertyForm({ sb, ownerId, existing, onSaved, onCancel 
   return (
     <form onSubmit={submit} style={{ marginTop: 24, border: "1px solid var(--line)", borderRadius: 12, padding: 20 }}>
       <h3 style={{ marginBottom: 14 }}>{e?.id ? "Izmena nekretnine / Edit property" : "Nova nekretnina / New property"}</h3>
-      <div className="field-row">
-        <div className="field"><label>Ponuda / Offer</label>
-          <select value={dealType} onChange={(ev) => setDealType(ev.target.value)}>
-            <option value="prodaja">Prodaja / Sale</option>
-            <option value="najam">Izdavanje / Rent</option>
-          </select>
-        </div>
-        <div className="field"><label>Tip / Type</label>
-          <select value={propType} onChange={(ev) => setPropType(ev.target.value)}>
-            {PROP_TYPES.map((c) => <option key={c.key} value={c.key}>{c.icon} {c.sr}</option>)}
-          </select>
-        </div>
+      <div className="field"><label>Tip nekretnine / Type</label>
+        <select value={propType} onChange={(ev) => setPropType(ev.target.value)}>
+          {PROP_TYPES.map((c) => <option key={c.key} value={c.key}>{c.icon} {c.sr}</option>)}
+        </select>
       </div>
       {fld("title", "Naslov oglasa * (npr. Dvosoban stan na Vračaru, 58 m²)", e?.title)}
       <div className="field"><label>Opis</label><textarea name="description" rows={5} defaultValue={e?.description || ""} placeholder="Detaljan opis: stanje, grejanje, sprat, uknjiženost, okolina…" /></div>
       <div className="field-row">
-        {fld("price", dealType === "najam" ? "Cena € / mesec" : "Cena €", e?.price != null ? String(e.price) : "", "number")}
+        {fld("price", "Cena €", e?.price != null ? String(e.price) : "", "number")}
         {fld("area", "Površina (m²)", e?.area != null ? String(e.area) : "", "number")}
         {fld("land_area", "Plac (ari)", e?.land_area != null ? String(e.land_area) : "", "number")}
         {fld("rooms", "Broj soba", e?.rooms != null ? String(e.rooms) : "", "number")}
