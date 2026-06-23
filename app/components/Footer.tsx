@@ -6,6 +6,7 @@ import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from
 import { dealsPath } from "@/lib/deals";
 import { recnikPath } from "@/lib/recnik";
 import { nekretnineIndexPath } from "@/lib/nekretnine";
+import { letovanjePath, zimovanjePath } from "@/lib/sezona";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath } from "@/lib/firme";
@@ -28,9 +29,8 @@ export default function Footer() {
             <div className="footer-brand"><span className="mark">★</span> TurizamSrbija</div>
             <p style={{ maxWidth: 340, color: "#bfe0d3", fontSize: ".92rem" }}>{t("foot_about")}</p>
             <div style={{ display: "flex", gap: 16, marginTop: 14, fontWeight: 600 }}>
-              <a href="#" aria-label="Instagram">Instagram</a>
-              <a href="#" aria-label="Facebook">Facebook</a>
-              <a href="#" aria-label="YouTube">YouTube</a>
+              <a href="https://www.instagram.com/turizamsrbija_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+              <a href="https://www.facebook.com/profile.php?id=61591282649462" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
             </div>
           </div>
           {col(t("foot_explore"), [
@@ -39,6 +39,8 @@ export default function Footer() {
             [t("nav_spas"), sectionPath("spa", lang)],
             [t("nav_ethno"), sectionPath("ethno", lang)],
             [t("nav_stays"), sectionPath("stay", lang)],
+            [lang === "sr" ? "☀️ Letovanje" : lang === "de" ? "☀️ Sommerurlaub" : "☀️ Summer", letovanjePath(lang)],
+            [lang === "sr" ? "❄️ Zimovanje" : lang === "de" ? "❄️ Winterurlaub" : "❄️ Winter", zimovanjePath(lang)],
           ])}
           {col(t("foot_company"), [
             [lang === "sr" ? "🔥 Akcije i popusti" : lang === "de" ? "🔥 Angebote" : "🔥 Deals", dealsPath(lang)],

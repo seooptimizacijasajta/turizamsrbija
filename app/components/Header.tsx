@@ -11,6 +11,7 @@ import { firmeIndexPath, firmeCatPath, BIZ_CATS, bizCatLabel } from "@/lib/firme
 import { manifIndexPath } from "@/lib/events";
 import { dealsPath } from "@/lib/deals";
 import { nekretnineIndexPath } from "@/lib/nekretnine";
+import { letovanjePath, zimovanjePath } from "@/lib/sezona";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -53,6 +54,8 @@ export default function Header() {
             <div className={"nav-dd-panel" + (dd === "dest" ? " open" : "")}>
               {DEST.map((d) => <Link key={d.kind} href={sectionPath(d.kind, lang)} onClick={close}>{t(d.key)}</Link>)}
               <Link href={mapPath(lang)} onClick={close}>🗺 {t("nav_map")}</Link>
+              <Link href={letovanjePath(lang)} onClick={close} style={{ borderTop: "1px solid rgba(0,0,0,.08)", marginTop: 4, paddingTop: 8 }}>☀️ {lang === "sr" ? "Letovanje" : lang === "de" ? "Sommerurlaub" : "Summer holidays"}</Link>
+              <Link href={zimovanjePath(lang)} onClick={close}>❄️ {lang === "sr" ? "Zimovanje" : lang === "de" ? "Winterurlaub" : "Winter holidays"}</Link>
             </div>
           </div>
 
