@@ -73,8 +73,13 @@ export default function Header() {
             </div>
           </div>
 
-          <Link href={pijacaPath(lang)} className={path === pijacaPath(lang) ? "active" : ""} onClick={close}>{t("nav_pijaca")}</Link>
-          <Link href={manifIndexPath(lang)} className={path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") ? "active" : ""} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
+          <div className="nav-dd">
+            <button className={"nav-dd-trigger" + ((path === pijacaPath(lang) || path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") || path.includes("/pijaca") || path.includes("/markt") || path.includes("/marketplace")) ? " active" : "")} onClick={() => toggle("info")}>Info ▾</button>
+            <div className={"nav-dd-panel" + (dd === "info" ? " open" : "")}>
+              <Link href={manifIndexPath(lang)} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
+              <Link href={pijacaPath(lang)} onClick={close}>{t("nav_pijaca")}</Link>
+            </div>
+          </div>
           <Link href={dealsPath(lang)} className={path.includes("/akcije") || path.includes("/deals") || path.includes("/angebote") ? "active" : ""} onClick={close} style={{ color: "#e0492f", fontWeight: 700 }}>🔥 {lang === "sr" ? "Akcije" : lang === "de" ? "Angebote" : "Deals"}</Link>
           <Link href={blogPath(lang)} className={(path === "/blog" || path === "/en/blog" || path === "/de/blog") ? "active" : ""} onClick={close}>{t("nav_blog")}</Link>
 

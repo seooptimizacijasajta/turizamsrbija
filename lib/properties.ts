@@ -1,4 +1,5 @@
 import { getServerClient } from "./supabase";
+import { slugify } from "./slug";
 
 export type Property = {
   id: string;
@@ -56,10 +57,10 @@ export async function getPropertyById(id: string): Promise<Property | null> {
   return data ? row(data) : null;
 }
 
-/** Resolve a property from a URL param like "seosko-domacinstvo-kod-ivanjice-68f06ad6".
- *  Matches both the new short form (8-char id suffix) and old full-uuid links. */
-export async function getPropertyByParam(param: string): Promise<Property | null> {
-  const p = (param || "").toLowerCase();
+/** Resolve a property from a URL slug like "seosko-domacinstvo-kod-ivanjice".
+ *  Also matches older links that had an id suffix (slug-...). */
+export async function getPropertyBySlug(slug: string): Promise<Property | null> {
+  const s = (slug || "").toLowerCase();
   const all = await getProperties();
-  return all.find((x) => p.endsWith(x.id.toLowerCase()) || p.endsWith(x.id.slice(0, 8).toLowerCase())) || null;
+  return all.find((x) => { const base = slugify(x.title); return s === base || s.startsWith(base + "-"); }) || null;
 }
