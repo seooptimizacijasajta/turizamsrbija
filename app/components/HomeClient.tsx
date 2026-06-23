@@ -20,6 +20,7 @@ import { eventPath, manifIndexPath, monthName, evCatByKey, evCatLabel } from "@/
 const CATS = [
   { kind: "mountain" as const, key: "nav_mountains", img: "1551524559-8af4e6624178", sub: "Kopaonik · Zlatibor · Tara" },
   { kind: "lake" as const, key: "nav_lakes", img: "1439066615861-d1af74d74000", sub: "Palić · Perućac · Vlasina" },
+  { kind: "river" as const, key: "nav_rivers", img: "1437482078695-73f5ca6c96e2", sub: "Drina · Tara · Uvac" },
   { kind: "spa" as const, key: "nav_spas", img: "1540555700478-4be289fbecef", sub: "Vrnjačka · Sokobanja" },
   { kind: "ethno" as const, key: "nav_ethno", img: "1518780664697-55e3ad937233", sub: "Drvengrad · Sirogojno" },
   { kind: "stay" as const, key: "nav_stays", img: "1566073771259-6a8506099945", sub: "Hoteli · Apartmani" },
@@ -28,7 +29,7 @@ const CATS = [
 export default function HomeClient({ all, posts = [], events = [] }: { all: Listing[]; posts?: Post[]; events?: EventItem[] }) {
   const { t, lang } = useLang();
   const router = useRouter();
-  const [type, setType] = useState<"mountain"|"lake"|"spa"|"ethno"|"stay">("mountain");
+  const [type, setType] = useState<"mountain"|"lake"|"river"|"spa"|"ethno"|"stay">("mountain");
   const [q, setQ] = useState("");
   const [stripClosed, setStripClosed] = useState(false);
   useEffect(() => {
@@ -79,9 +80,10 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
           </div>
           <form className="searchbar" onSubmit={(e) => { e.preventDefault(); router.push(`${searchPath(lang)}?q=${encodeURIComponent(q)}&type=${type}`); }}>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("search_ph")} />
-            <select value={type} onChange={(e) => setType(e.target.value as "mountain"|"lake"|"spa"|"ethno"|"stay")}>
+            <select value={type} onChange={(e) => setType(e.target.value as "mountain"|"lake"|"river"|"spa"|"ethno"|"stay")}>
               <option value="mountain">{t("nav_mountains")}</option>
               <option value="lake">{t("nav_lakes")}</option>
+              <option value="river">{t("nav_rivers")}</option>
               <option value="spa">{t("nav_spas")}</option>
               <option value="ethno">{t("nav_ethno")}</option>
               <option value="stay">{t("nav_stays")}</option>

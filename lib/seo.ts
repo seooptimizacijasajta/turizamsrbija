@@ -12,6 +12,11 @@ const SECTION: Record<Kind, { sr: [string, string]; en: [string, string]; de: [s
     en: ["Lakes of Serbia — destinations & stays", "Serbia's finest lakes: Palić, Silver Lake, Perućac, Vlasina and more — beaches, nature and stays."],
     de: ["Seen Serbiens — Reiseziele & Unterkünfte", "Die schönsten Seen Serbiens: Palić, Silbersee, Perućac, Vlasina-See und mehr — Strände, Natur und Unterkünfte."],
   },
+  river: {
+    sr: ["Reke Srbije — rafting, plaže i smeštaj", "Najlepše reke Srbije: Drina, Tara, Dunav, Uvac, Ibar i druge — rafting, splavarenje, rečne plaže i smeštaj uz vodu."],
+    en: ["Rivers of Serbia — rafting, beaches & stays", "Serbia's finest rivers: Drina, Tara, Danube, Uvac, Ibar and more — rafting, river beaches and stays by the water."],
+    de: ["Flüsse Serbiens — Rafting, Strände & Unterkünfte", "Die schönsten Flüsse Serbiens: Drina, Tara, Donau, Uvac, Ibar und mehr — Rafting, Flussstrände und Unterkünfte am Wasser."],
+  },
   spa: {
     sr: ["Banje Srbije — lečenje, wellness i smeštaj", "Najpoznatije banje Srbije: Vrnjačka Banja, Sokobanja, Niška, Prolom i druge — termalni izvori, wellness i smeštaj."],
     en: ["Spas of Serbia — wellness & stays", "Serbia's best-known spas: Vrnjačka Banja, Sokobanja, Niška Banja and more — thermal springs, wellness and accommodation."],

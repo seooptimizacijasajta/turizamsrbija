@@ -14,22 +14,22 @@ export function slugify(input: string): string {
 
 /* Category segment per language */
 export const KIND_TO_SLUG: Record<Kind, string> = {
-  mountain: "planine", lake: "jezera", spa: "banje", ethno: "etno-sela", stay: "smestaj",
+  mountain: "planine", lake: "jezera", river: "reke", spa: "banje", ethno: "etno-sela", stay: "smestaj",
 };
 export const KIND_TO_SLUG_EN: Record<Kind, string> = {
-  mountain: "mountains", lake: "lakes", spa: "spas", ethno: "ethno-villages", stay: "accommodation",
+  mountain: "mountains", lake: "lakes", river: "rivers", spa: "spas", ethno: "ethno-villages", stay: "accommodation",
 };
 export const SLUG_TO_KIND: Record<string, Kind> = {
-  planine: "mountain", jezera: "lake", banje: "spa", "etno-sela": "ethno", smestaj: "stay",
+  planine: "mountain", jezera: "lake", reke: "river", banje: "spa", "etno-sela": "ethno", smestaj: "stay",
 };
 export const SLUG_TO_KIND_EN: Record<string, Kind> = {
-  mountains: "mountain", lakes: "lake", spas: "spa", "ethno-villages": "ethno", accommodation: "stay",
+  mountains: "mountain", lakes: "lake", rivers: "river", spas: "spa", "ethno-villages": "ethno", accommodation: "stay",
 };
 export const KIND_TO_SLUG_DE: Record<Kind, string> = {
-  mountain: "berge", lake: "seen", spa: "kurorte", ethno: "ethno-doerfer", stay: "unterkunft",
+  mountain: "berge", lake: "seen", river: "fluesse", spa: "kurorte", ethno: "ethno-doerfer", stay: "unterkunft",
 };
 export const SLUG_TO_KIND_DE: Record<string, Kind> = {
-  berge: "mountain", seen: "lake", kurorte: "spa", "ethno-doerfer": "ethno", unterkunft: "stay",
+  berge: "mountain", seen: "lake", fluesse: "river", kurorte: "spa", "ethno-doerfer": "ethno", unterkunft: "stay",
 };
 
 export function catSlug(kind: Kind, locale: Lang): string {

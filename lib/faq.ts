@@ -30,6 +30,20 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
       { q: "Is there accommodation by the lakes?", a: "Yes — from apartments and villas to lakeside homesteads. You can compare all options and prices in the Accommodation section." },
     ],
   },
+  river: {
+    sr: [
+      { q: "Koja reka u Srbiji je najbolja za rafting?", a: "Tara i Drina su najpoznatije za rafting, sa brzacima i kanjonima netaknute prirode. Drinska regata kod Bajine Bašte je najveći rečni spektakl, dok je Uvac idealan za mirnu vožnju čamcem kroz čuvene meandre." },
+      { q: "Gde se može kupati na rekama u Srbiji?", a: "Uz Dunav postoje uređene rečne plaže (Lido, Štrand u Novom Sadu, Srebrno jezero uz Dunav), a popularna su i kupališta na Drini i Zapadnoj Moravi tokom leta." },
+      { q: "Da li je za ribolov na reci potrebna dozvola?", a: "Jeste — za pecanje na Dunavu, Drini, Ibru i drugim rekama potrebna je dozvola koju izdaju lokalna ribolovačka udruženja ili upravljači ribarskih područja." },
+      { q: "Ima li smeštaja uz reke?", a: "Da — vikendice, apartmani i etno domaćinstva uz samu vodu, posebno uz Drinu, Taru i Uvac. Opcije i cene uporedite u sekciji Smeštaj." },
+    ],
+    en: [
+      { q: "Which river in Serbia is best for rafting?", a: "The Tara and Drina are the best known for rafting, with rapids and pristine canyons. The Drina Regatta near Bajina Bašta is the biggest river event, while the Uvac is ideal for calm boat trips through its famous meanders." },
+      { q: "Where can you swim on Serbia's rivers?", a: "The Danube has landscaped river beaches (Lido, Štrand in Novi Sad, Silver Lake by the Danube), and there are popular bathing spots on the Drina and Zapadna Morava in summer." },
+      { q: "Do you need a permit to fish on a river?", a: "Yes — fishing on the Danube, Drina, Ibar and other rivers requires a permit issued by local angling associations or fishing-area managers." },
+      { q: "Is there accommodation by the rivers?", a: "Yes — cottages, apartments and ethno homesteads right by the water, especially along the Drina, Tara and Uvac. Compare options and prices in the Accommodation section." },
+    ],
+  },
   spa: {
     sr: [
       { q: "Koja banja je najbolja za reumu i bolove u zglobovima?", a: "Vrnjačka Banja i Sokobanja imaju dugu tradiciju lečenja reumatskih i kardiovaskularnih tegoba, dok je Banja Koviljača poznata po sumporovitim izvorima za kožu i zglobove." },
@@ -87,6 +101,12 @@ const FAQ_DE: Record<Kind, Faq[]> = {
     { q: "Wann ist die Badesaison an den Seen?", a: "Die Hauptsaison läuft von Juni bis Anfang September, wenn das Wasser warm genug ist; Silbersee und Palić haben dann gepflegte Strände und Wassersport." },
     { q: "Welche Seen sind gut zum Angeln?", a: "Die Seen Vlasina, Zlatar und Perućac sind fürs Angeln bekannt; eine Genehmigung der örtlichen Angelvereine ist erforderlich." },
     { q: "Gibt es Unterkünfte an den Seen?", a: "Ja — von Apartments und Villen bis zu Ethno-Höfen am Ufer. Alle Optionen und Preise vergleichen Sie im Bereich Unterkünfte." },
+  ],
+  river: [
+    { q: "Welcher Fluss in Serbien eignet sich am besten zum Rafting?", a: "Tara und Drina sind die bekanntesten fürs Rafting, mit Stromschnellen und unberührten Schluchten. Die Drina-Regatta bei Bajina Bašta ist das größte Flussspektakel, während der Uvac mit seinen berühmten Mäandern ideal für ruhige Bootsfahrten ist." },
+    { q: "Wo kann man in Serbiens Flüssen baden?", a: "An der Donau gibt es gepflegte Flussstrände (Lido, Štrand in Novi Sad, Silbersee an der Donau), und im Sommer sind auch Badestellen an der Drina und der Zapadna Morava beliebt." },
+    { q: "Braucht man zum Angeln am Fluss eine Genehmigung?", a: "Ja — zum Angeln an Donau, Drina, Ibar und anderen Flüssen ist eine Genehmigung der örtlichen Angelvereine oder Fischereiverwalter erforderlich." },
+    { q: "Gibt es Unterkünfte an den Flüssen?", a: "Ja — Ferienhäuser, Apartments und Ethno-Höfe direkt am Wasser, besonders an Drina, Tara und Uvac. Optionen und Preise vergleichen Sie im Bereich Unterkünfte." },
   ],
   spa: [
     { q: "Welcher Kurort ist am besten bei Rheuma und Gelenkschmerzen?", a: "Vrnjačka Banja und Sokobanja haben eine lange Tradition in der Behandlung rheumatischer und kardiovaskulärer Beschwerden, während Banja Koviljača für Schwefelquellen für Haut und Gelenke bekannt ist." },

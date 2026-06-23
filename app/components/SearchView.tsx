@@ -7,7 +7,7 @@ import ListingCard from "./ListingCard";
 
 const TYPES: { k: Kind | "all"; key: string }[] = [
   { k: "all", key: "cat_all" }, { k: "mountain", key: "nav_mountains" }, { k: "lake", key: "nav_lakes" },
-  { k: "spa", key: "nav_spas" }, { k: "ethno", key: "nav_ethno" }, { k: "stay", key: "nav_stays" },
+  { k: "river", key: "nav_rivers" }, { k: "spa", key: "nav_spas" }, { k: "ethno", key: "nav_ethno" }, { k: "stay", key: "nav_stays" },
 ];
 
 export default function SearchView({ items }: { items: Listing[] }) {

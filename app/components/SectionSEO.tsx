@@ -28,6 +28,18 @@ const C: Record<Kind, { sr: Block[]; en: Block[] }> = {
       { h: "Apartments and villas by the lake", p: "Compare apartments, villas and ethno homesteads on the shore, save favourites and contact the owner through the form. No guest commission — you arrange dates and price directly, and see the location on the map." },
     ],
   },
+  river: {
+    sr: [
+      { h: "Reke Srbije — rafting, splavarenje i rečne plaže", p: "Reke u Srbiji su raj za avanturiste i ljubitelje vode: rafting na Drini i Tari, splavarenje, kajak i ribolov, kao i uređene rečne plaže uz Dunav. Drina, Tara, Uvac sa čuvenim meandrima, Ibar i Zapadna Morava nude netaknutu prirodu, čist vazduh i smeštaj uz samu vodu." },
+      { h: "Gde na rafting, a gde na plažu", p: "Za rafting i splavarenje najpoznatije su Drina (Drinska regata kod Bajine Bašte) i Tara. Uvac je poznat po meandrima i pticama grabljivicama, idealan za vožnju čamcem. Za kupanje su tu rečne plaže na Dunavu, a mir i ribolov potražite na Ibru i Zapadnoj Moravi." },
+      { h: "Smeštaj uz reku bez provizije", p: "Pronađite vikendice, apartmane i etno domaćinstva uz vodu, sačuvajte favorite i javite se vlasniku direktno. Bez provizije za gosta — termin i cenu dogovarate sa domaćinom, a lokaciju na reci vidite na mapi." },
+    ],
+    en: [
+      { h: "Rivers of Serbia — rafting, river rafts and beaches", p: "Serbia's rivers are a paradise for adventurers and water lovers: rafting on the Drina and Tara, river rafts, kayaking and fishing, plus landscaped river beaches along the Danube. The Drina, Tara, Uvac with its famous meanders, Ibar and Zapadna Morava offer pristine nature, fresh air and accommodation right by the water." },
+      { h: "Where to raft and where to swim", p: "The Drina (the Drina Regatta near Bajina Bašta) and Tara are best known for rafting and river rafts. Uvac is famous for its meanders and griffon vultures, ideal for boat trips. For swimming there are Danube river beaches, and for peace and fishing head to the Ibar and Zapadna Morava." },
+      { h: "Riverside stays with no commission", p: "Find cottages, apartments and ethno homesteads by the water, save favourites and contact the owner directly. No guest commission — you arrange dates and price with the host, and see the riverside location on the map." },
+    ],
+  },
   spa: {
     sr: [
       { h: "Banje Srbije — lečenje, opuštanje i wellness", p: "Banje u Srbiji spajaju lekovitu termomineralnu vodu, vrhunsku medicinu i wellness sadržaje. Vrnjačka, Soko, Banja Koviljača, Prolom, Niška i Banja Vrujci samo su deo bogate ponude. Smeštaj u banji birate po blizini izvora i bazena, ceni i programima oporavka." },

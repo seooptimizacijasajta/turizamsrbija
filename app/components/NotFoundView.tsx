@@ -5,7 +5,7 @@ import { homePath, sectionPath } from "@/lib/slug";
 import type { Kind } from "@/lib/types";
 
 const CATS: { k: Kind; key: string }[] = [
-  { k: "mountain", key: "nav_mountains" }, { k: "lake", key: "nav_lakes" }, { k: "spa", key: "nav_spas" },
+  { k: "mountain", key: "nav_mountains" }, { k: "lake", key: "nav_lakes" }, { k: "river", key: "nav_rivers" }, { k: "spa", key: "nav_spas" },
   { k: "ethno", key: "nav_ethno" }, { k: "stay", key: "nav_stays" },
 ];
 

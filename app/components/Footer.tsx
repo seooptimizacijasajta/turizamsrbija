@@ -36,6 +36,7 @@ export default function Footer() {
           {col(t("foot_explore"), [
             [t("nav_mountains"), sectionPath("mountain", lang)],
             [t("nav_lakes"), sectionPath("lake", lang)],
+            [t("nav_rivers"), sectionPath("river", lang)],
             [t("nav_spas"), sectionPath("spa", lang)],
             [t("nav_ethno"), sectionPath("ethno", lang)],
             [t("nav_stays"), sectionPath("stay", lang)],

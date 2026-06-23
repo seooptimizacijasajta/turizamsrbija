@@ -5,7 +5,7 @@ import { slugify } from "@/lib/slug";
 import Turnstile from "./Turnstile";
 
 const POSITIONS = ["top", "sidebar", "bottom", "inlist"];
-const KINDS = ["mountain", "lake", "spa", "ethno", "stay"];
+const KINDS = ["mountain", "lake", "river", "spa", "ethno", "stay"];
 
 export default function BannerAdmin() {
   const sb = getBrowserClient();

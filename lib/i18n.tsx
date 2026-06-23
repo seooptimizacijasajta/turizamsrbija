@@ -124,6 +124,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "sr": "Jezera",
     "en": "Lakes"
   },
+  "nav_rivers": {
+    "sr": "Reke",
+    "en": "Rivers"
+  },
   "nav_spas": {
     "sr": "Banje",
     "en": "Spas"
@@ -388,6 +392,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "sr": "Smaragdna jezera, peščane plaže i mirne visoravni širom Srbije.",
     "en": "Emerald lakes, sandy beaches and quiet plateaus across Serbia."
   },
+  "lead_river": {
+    "sr": "Rafting na Tari i Drini, meandri Uvca i rečne plaže uz Dunav — reke Srbije.",
+    "en": "Rafting on the Tara and Drina, the Uvac meanders and Danube beaches — Serbia's rivers."
+  },
   "lead_spa": {
     "sr": "Termomineralni izvori i wellness ponuda u najpoznatijim banjama Srbije.",
     "en": "Thermo-mineral springs and wellness at Serbia's best-known spas."
@@ -553,6 +561,7 @@ export const DE: Record<string, string> = {
   nav_home: "Startseite",
   nav_mountains: "Berge",
   nav_lakes: "Seen",
+  nav_rivers: "Flüsse",
   nav_spas: "Kurorte",
   nav_ethno: "Ethno-Dörfer",
   nav_stays: "Unterkünfte",
@@ -619,6 +628,7 @@ export const DE: Record<string, string> = {
   f_success: "Anfrage gesendet! Der Gastgeber meldet sich in Kürze.",
   lead_mountain: "Skifahren, Wandern und frische Bergluft in ganz Serbien.",
   lead_lake: "Strände, Angeln und erholsame Tage am Wasser.",
+  lead_river: "Rafting auf Tara und Drina, die Uvac-Mäander und Flussstrände an der Donau.",
   lead_spa: "Heilquellen, Wellness und Erholung in Serbiens Kurorten.",
   lead_ethno: "Tradition, Hausmannskost und die Ruhe des Dorflebens.",
   lead_stay: "Hotels und Privatunterkünfte in ganz Serbien.",

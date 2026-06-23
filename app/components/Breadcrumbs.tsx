@@ -23,4 +23,4 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
   );
 }
 
-export const NAVKEY: Record<string, string> = { mountain: "nav_mountains", lake: "nav_lakes", spa: "nav_spas", ethno: "nav_ethno", stay: "nav_stays" };
+export const NAVKEY: Record<string, string> = { mountain: "nav_mountains", lake: "nav_lakes", river: "nav_rivers", spa: "nav_spas", ethno: "nav_ethno", stay: "nav_stays" };
