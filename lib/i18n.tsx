@@ -416,6 +416,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "sr": "Jezero",
     "en": "Lake"
   },
+  "type_river": {
+    "sr": "Reka",
+    "en": "River"
+  },
   "type_spa": {
     "sr": "Banja",
     "en": "Spa"
@@ -634,6 +638,7 @@ export const DE: Record<string, string> = {
   lead_stay: "Hotels und Privatunterkünfte in ganz Serbien.",
   type_mountain: "Berg",
   type_lake: "See",
+  type_river: "Fluss",
   type_spa: "Kurort",
   type_ethno: "Ethno-Dorf",
   type_stay: "Unterkunft",
