@@ -107,6 +107,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["pijaca", "marketplace", "markt"],
   ["vauceri", "vouchers", "gutscheine"],
   ["oglasavanje", "advertising", "werbung"],
+  ["gde-na-odmor-u-srbiji", "where-to-go-in-serbia", "wohin-in-serbien"],
   ["o-nama", "about", "ueber-uns"],
   ["kontakt", "contact", "kontakt"],
   ["uslovi", "terms", "agb"],

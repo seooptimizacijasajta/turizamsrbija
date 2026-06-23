@@ -19,6 +19,7 @@ import { TERMS, termPath } from "@/lib/recnik";
 import { getProperties } from "@/lib/properties";
 import { PROP_TYPES, nekretnineIndexPath, propTypePath, propertyPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
+import { gdeNaOdmorPath } from "@/lib/gdenaodmor";
 import type { Kind } from "@/lib/types";
 
 const BASE = "https://turizamsrbija.com";
@@ -50,6 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   properties.forEach((p) => tri(propertyPath(p, "sr"), propertyPath(p, "en"), propertyPath(p, "de")));
   tri(letovanjePath("sr"), letovanjePath("en"), letovanjePath("de"));
   tri(zimovanjePath("sr"), zimovanjePath("en"), zimovanjePath("de"));
+  tri(gdeNaOdmorPath("sr"), gdeNaOdmorPath("en"), gdeNaOdmorPath("de"));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));

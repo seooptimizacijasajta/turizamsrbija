@@ -12,6 +12,7 @@ import { manifIndexPath } from "@/lib/events";
 import { dealsPath } from "@/lib/deals";
 import { nekretnineIndexPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
+import { gdeNaOdmorPath } from "@/lib/gdenaodmor";
 import type { Kind } from "@/lib/types";
 
 const DEST: { kind: Kind; key: string }[] = [
@@ -80,6 +81,7 @@ export default function Header() {
           <div className="nav-dd">
             <button className={"nav-dd-trigger" + ((path === pijacaPath(lang) || path.includes("/manifestacij") || path.includes("/events") || path.includes("/veranstaltung") || path.includes("/pijaca") || path.includes("/markt") || path.includes("/marketplace")) ? " active" : "")} onClick={() => toggle("info")}>Info ▾</button>
             <div className={"nav-dd-panel" + (dd === "info" ? " open" : "")}>
+              <Link href={gdeNaOdmorPath(lang)} onClick={close}>{lang === "sr" ? "Gde na odmor?" : lang === "de" ? "Wohin in den Urlaub?" : "Where to go?"}</Link>
               <Link href={manifIndexPath(lang)} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
               <Link href={pijacaPath(lang)} onClick={close}>{t("nav_pijaca")}</Link>
             </div>

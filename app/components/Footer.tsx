@@ -7,6 +7,7 @@ import { dealsPath } from "@/lib/deals";
 import { recnikPath } from "@/lib/recnik";
 import { nekretnineIndexPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
+import { gdeNaOdmorPath } from "@/lib/gdenaodmor";
 import { amenityPath } from "@/lib/amenities";
 import { pijacaPath } from "@/lib/pijaca";
 import { firmeIndexPath } from "@/lib/firme";
@@ -40,6 +41,7 @@ export default function Footer() {
             [t("nav_spas"), sectionPath("spa", lang)],
             [t("nav_ethno"), sectionPath("ethno", lang)],
             [t("nav_stays"), sectionPath("stay", lang)],
+            [lang === "sr" ? "Gde na odmor?" : lang === "de" ? "Wohin in den Urlaub?" : "Where to go?", gdeNaOdmorPath(lang)],
             [lang === "sr" ? "☀️ Letovanje" : lang === "de" ? "☀️ Sommerurlaub" : "☀️ Summer", letovanjePath(lang)],
             [lang === "sr" ? "❄️ Zimovanje" : lang === "de" ? "❄️ Winterurlaub" : "❄️ Winter", zimovanjePath(lang)],
           ])}
