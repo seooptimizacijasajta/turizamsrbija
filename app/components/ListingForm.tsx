@@ -6,6 +6,7 @@ import { DEAL_TYPES } from "@/lib/deals";
 import { SERBIA_MUNICIPALITIES } from "@/lib/places";
 import { SETTLEMENTS, SETTLEMENT_MUNI } from "@/lib/settlements";
 import LocationPicker from "./LocationPicker";
+import { STAY_TYPES } from "@/lib/stayTypes";
 import { AMENITIES, PRICE_UNITS } from "@/lib/amenities";
 import { STRUCTURES } from "@/lib/structure";
 
@@ -110,6 +111,7 @@ export default function ListingForm({
     const row: any = {
       owner_id: ownerId,
       kind, category: kind === "stay" ? category : null,
+      stay_type: kind === "stay" ? (get("stay_type") || null) : null,
       status: "pending",
       name_sr: get("name_sr"), name_en: get("name_en"),
       region_sr: place, region_en: place,
@@ -179,6 +181,14 @@ export default function ListingForm({
             <select value={category} onChange={(ev) => setCategory(ev.target.value)}>
               <option value="private">{t("cat_private")}</option>
               <option value="hotel">{t("cat_hotel")}</option>
+            </select>
+          </div>
+        )}
+        {kind === "stay" && (
+          <div className="field"><label>Tip objekta / Property type</label>
+            <select name="stay_type" defaultValue={(e as any)?.stay_type || ""}>
+              <option value="">—</option>
+              {STAY_TYPES.map((s) => <option key={s.key} value={s.key}>{s.name.sr}</option>)}
             </select>
           </div>
         )}

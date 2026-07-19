@@ -5,6 +5,7 @@ export interface Listing {
   id: string;
   type: Kind;
   category?: "hotel" | "private";
+  stayType?: string;
   place?: string;
   name: Bi;
   region: Bi;

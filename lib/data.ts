@@ -19,6 +19,7 @@ function rowToListing(r: any): Listing {
     id: r.id,
     type: r.kind,
     category: r.category || undefined,
+    stayType: r.stay_type || undefined,
     name: { sr: r.name_sr, en: r.name_en },
     region: { sr: r.region_sr || "", en: r.region_en || "" },
     short: { sr: r.short_sr || "", en: r.short_en || "" },

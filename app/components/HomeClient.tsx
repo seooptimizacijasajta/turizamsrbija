@@ -6,6 +6,11 @@ import Image from "next/image";
 import { Listing } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 import { slugify, sectionPath, searchPath, voucherPath, marketingPath, hostGuidePath, listingPath, belgradePath } from "@/lib/slug";
+import { STAY_TYPES, stayTypeName, stayTypePath } from "@/lib/stayTypes";
+import { MESTA, mestoName, apartmentsCityPath } from "@/lib/apartmanMesta";
+import { BLOG_CATS, catName, catPath, catsIndexPath } from "@/lib/blogCategories";
+import { weatherPath } from "@/lib/weather";
+import { amenityPath } from "@/lib/amenities";
 import { firmeIndexPath } from "@/lib/firme";
 import { pijacaPath } from "@/lib/pijaca";
 import { dealsPath } from "@/lib/deals";
@@ -249,6 +254,8 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
               { icon: "🎟️", label: t("nav_vauceri"), sub: lang === "sr" ? "Odmor uz vaučere" : lang === "de" ? "Urlaub mit Gutscheinen" : "Holidays with vouchers", href: voucherPath(lang) },
               { icon: "📣", label: t("nav_marketing"), sub: lang === "sr" ? "Oglašavanje na portalu" : lang === "de" ? "Werben auf dem Portal" : "Advertise on the portal", href: marketingPath(lang) },
               { icon: "🏠", label: t("nav_hostguide"), sub: lang === "sr" ? "Oglasite svoj smeštaj" : lang === "de" ? "Unterkunft inserieren" : "List your property", href: hostGuidePath(lang) },
+              { icon: "🌤️", label: lang === "sr" ? "Vremenska prognoza" : lang === "de" ? "Wetter" : "Weather", sub: lang === "sr" ? "50+ destinacija, 7 dana" : lang === "de" ? "50+ Ziele, 7 Tage" : "50+ destinations, 7 days", href: weatherPath(lang) },
+              { icon: "🌍", label: lang === "sr" ? "Inostranstvo i teme" : lang === "de" ? "Ausland & Themen" : "Abroad & topics", sub: lang === "sr" ? "Grčka, Crna Gora, Hrvatska…" : lang === "de" ? "Griechenland, Montenegro…" : "Greece, Montenegro, Croatia…", href: catsIndexPath(lang) },
             ].map((x) => (
               <Link key={x.href} className="card" href={x.href} style={{ padding: 22 }}>
                 <div style={{ fontSize: "1.9rem", marginBottom: 6 }}>{x.icon}</div>
@@ -322,6 +329,51 @@ export default function HomeClient({ all, posts = [], events = [] }: { all: List
       )}
       <HomeTestimonials />
       <FaqAccordion items={generalFaqs(lang)} heading={lang !== "sr" ? "Frequently asked questions" : "Često postavljana pitanja"} />
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <div className="eyebrow">{lang === "sr" ? "Smeštaj" : lang === "de" ? "Unterkunft" : "Accommodation"}</div>
+            <h2 className="section-title">{lang === "sr" ? "Pronađite smeštaj po tipu" : lang === "de" ? "Unterkunft nach Art" : "Find accommodation by type"}</h2>
+            <p className="section-lead">{lang === "sr" ? "Apartmani, sobe, brvnare, vikendice, kuće, hoteli i seoska domaćinstva — bez provizije za gosta." : lang === "de" ? "Apartments, Zimmer, Blockhütten, Ferienhäuser, Häuser, Hotels und Bauernhöfe." : "Apartments, rooms, cabins, cottages, houses, hotels and farm stays."}</p>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {STAY_TYPES.map((s2) => (
+              <Link key={s2.key} href={stayTypePath(s2, lang)} className="amen-chip on">{stayTypeName(s2, lang)}</Link>
+            ))}
+            <Link href={amenityPath("pool", lang)} className="amen-chip on">🏊 {lang === "sr" ? "Sa bazenom" : lang === "de" ? "Mit Pool" : "With pool"}</Link>
+            <Link href={amenityPath("vouchers", lang)} className="amen-chip on">🎟️ {lang === "sr" ? "Prima vaučere" : lang === "de" ? "Gutscheine" : "Accepts vouchers"}</Link>
+          </div>
+          <div className="section-head" style={{ marginTop: 26 }}>
+            <h2 className="section-title" style={{ fontSize: "1.25rem" }}>{lang === "sr" ? "Apartmani po mestima" : lang === "de" ? "Apartments nach Orten" : "Apartments by destination"}</h2>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {MESTA.slice(0, 28).map((m) => (
+              <Link key={m.slug} href={apartmentsCityPath(m.slug, lang)} className="amen-chip on">
+                {lang === "sr" ? "Apartmani" : "Apartments"} {mestoName(m, lang)}
+              </Link>
+            ))}
+            <Link href={stayTypePath(STAY_TYPES[0], lang)} className="amen-chip on">{lang === "sr" ? "sva mesta →" : lang === "de" ? "alle Orte →" : "all destinations →"}</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--soft">
+        <div className="container">
+          <div className="section-head">
+            <div className="eyebrow">{lang === "sr" ? "Teme" : lang === "de" ? "Themen" : "Topics"}</div>
+            <h2 className="section-title">{lang === "sr" ? "Inostranstvo, manastiri, gastronomija i saveti" : lang === "de" ? "Ausland, Klöster, Gastronomie und Tipps" : "Abroad, monasteries, food and tips"}</h2>
+            <p className="section-lead">{lang === "sr" ? "Vodiči i tekstovi po temama — od Grčke i Crne Gore do manastira, agencija i prevoza." : lang === "de" ? "Reiseführer und Beiträge nach Themen." : "Guides and articles by topic."}</p>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {BLOG_CATS.map((c2) => (
+              <Link key={c2.id} href={catPath(c2, lang)} className="amen-chip on">
+                {c2.country ? c2.country.flag + " " : ""}{catName(c2, lang)}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

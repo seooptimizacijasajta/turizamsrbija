@@ -18,6 +18,8 @@ import { dealsPath } from "@/lib/deals";
 import { TERMS, termPath } from "@/lib/recnik";
 import { WX_PLACES, weatherPath, weatherPlacePath } from "@/lib/weather";
 import { BLOG_CATS, catPath, catsIndexPath } from "@/lib/blogCategories";
+import { STAY_TYPES, stayTypePath } from "@/lib/stayTypes";
+import { MESTA, apartmentsCityPath } from "@/lib/apartmanMesta";
 import { getProperties } from "@/lib/properties";
 import { PROP_TYPES, nekretnineIndexPath, propTypePath, propertyPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
@@ -57,6 +59,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(weatherPath("sr"), weatherPath("en"), weatherPath("de"));
   tri(catsIndexPath("sr"), catsIndexPath("en"), catsIndexPath("de"));
   BLOG_CATS.forEach((cx) => tri(catPath(cx, "sr"), catPath(cx, "en"), catPath(cx, "de")));
+  STAY_TYPES.forEach((sx) => tri(stayTypePath(sx, "sr"), stayTypePath(sx, "en"), stayTypePath(sx, "de")));
+  MESTA.forEach((mx) => tri(apartmentsCityPath(mx.slug, "sr"), apartmentsCityPath(mx.slug, "en"), apartmentsCityPath(mx.slug, "de")));
   WX_PLACES.forEach((p) => tri(weatherPlacePath("sr", p.slug), weatherPlacePath("en", p.slug), weatherPlacePath("de", p.slug)));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
