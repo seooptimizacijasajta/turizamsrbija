@@ -103,6 +103,20 @@ export default function Account() {
     }
     loadListings(userId);
   }
+  async function toggleBizPaid(b: any) {
+    if (!sb || !userId) return;
+    if (b.paid) {
+      if (!confirm("Isključiti plaćeni prikaz (kontakt i link)? / Turn off paid listing?")) return;
+      await sb.from("businesses").update({ paid: false, paid_until: null }).eq("id", b.id);
+    } else {
+      const days = prompt("Plaćeni prikaz (kontakt + klikabilan link) na koliko dana? / Paid listing for how many days?", "365");
+      if (days === null) return;
+      const n = Math.max(1, Number(days) || 365);
+      const until = new Date(); until.setDate(until.getDate() + n);
+      await sb.from("businesses").update({ paid: true, paid_until: until.toISOString().slice(0, 10) }).eq("id", b.id);
+    }
+    loadListings(userId);
+  }
 
   async function delEvent(id: string) {
     if (!sb || !userId) return;
@@ -472,9 +486,10 @@ export default function Account() {
                         <div>
                           <strong>{b.name}</strong>{" "}
                           <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {c ? bizCatLabel(c, lang) : b.category}{b.city ? " · " + b.city : ""}</span>
-                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}{isAdmin && b.featured && b.featured_until ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>★ Izdvojeno do {b.featured_until}</span> : null}</div>
+                          <div style={{ marginTop: 6 }}>{statusBadge(b.status)}{isAdmin && b.featured && b.featured_until ? <span style={{ marginLeft: 8, color: "var(--green-600)", fontSize: ".78rem" }}>★ Izdvojeno do {b.featured_until}</span> : null}{isAdmin && b.paid && b.paid_until ? <span style={{ marginLeft: 8, color: "var(--green-700,#0f3d2e)", fontSize: ".78rem", fontWeight: 600 }}>💳 Plaćeno do {b.paid_until}</span> : null}</div>
                         </div>
                         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          {isAdmin && <button className={"btn btn--outline" + (b.paid ? " promo-on" : "")} title="Plaćeni prikaz: kontakt + klikabilan link" onClick={() => toggleBizPaid(b)}>💳 Plaćeno</button>}
                           {isAdmin && <button className={"btn btn--outline" + (b.featured ? " promo-on" : "")} title="Izdvoj firmu" onClick={() => toggleBizFeatured(b)}>★ Izdvoj</button>}
                           <button className="btn btn--outline" onClick={() => { setEditingBiz(b); setShowBiz(true); }}>{t("acc_edit")}</button>
                           <button className="btn btn--outline" style={{ color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => delBusiness(b.id)}>{t("acc_delete")}</button>

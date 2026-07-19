@@ -29,7 +29,7 @@ export default function BusinessDetail({ b, geo, related = [] }: { b: Business; 
   const ld = {
     "@context": "https://schema.org", "@type": "LocalBusiness",
     name: b.name, description: b.desc[lc] || undefined, image: b.image || undefined,
-    telephone: b.phone || undefined, url: b.website || undefined,
+    telephone: (b.paid && b.phone) || undefined, url: (b.paid && b.website) || undefined,
     address: { "@type": "PostalAddress", streetAddress: b.address || undefined, addressLocality: b.city || undefined, addressCountry: "RS" },
     ...(avg > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: avg.toFixed(1), reviewCount: revs.length } } : {}),
     ...(revs.length > 0 ? { review: revs.slice(0, 10).map((r: any) => ({ "@type": "Review", reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 }, author: { "@type": "Person", name: r.author || "Gost" }, ...(r.created_at ? { datePublished: String(r.created_at).slice(0, 10) } : {}), ...(r.comment ? { reviewBody: r.comment } : {}) })) } : {}),
@@ -44,12 +44,21 @@ export default function BusinessDetail({ b, geo, related = [] }: { b: Business; 
         <h1 style={{ margin: "6px 0 10px" }}>{b.name}{b.featured && <span style={{ marginLeft: 8, color: "var(--green-600)" }}>★</span>}{avg > 0 && <span style={{ marginLeft: 10, fontSize: "1rem", color: "var(--sun,#e0a106)" }}>★ {avg.toFixed(1)} ({revs.length})</span>}</h1>
         {b.address && <p style={{ color: "var(--slate)" }}>📍 {b.address}{b.city ? ", " + b.city : ""}</p>}
         {b.desc[lc] && <p style={{ whiteSpace: "pre-line", lineHeight: 1.85, marginTop: 14 }}>{b.desc[lc]}</p>}
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 20 }}>
-          {b.phone && <a className="btn btn--primary btn--lg" href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : lang === "de" ? "Anrufen" : "Call"} {b.phone}</a>}
-          {b.phone && <a className="btn btn--outline btn--lg" href={`viber://chat?number=${encodeURIComponent(b.phone)}`}>Viber</a>}
-          {b.email && <a className="btn btn--outline btn--lg" href={`mailto:${b.email}`}>Email</a>}
-          {b.website && <a className="btn btn--outline btn--lg" href={b.website} target="_blank" rel="noopener noreferrer nofollow">{lang === "sr" ? "Web sajt" : "Website"}</a>}
-        </div>
+        {b.paid ? (
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 20 }}>
+            {b.phone && <a className="btn btn--primary btn--lg" href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : lang === "de" ? "Anrufen" : "Call"} {b.phone}</a>}
+            {b.phone && <a className="btn btn--outline btn--lg" href={`viber://chat?number=${encodeURIComponent(b.phone)}`}>Viber</a>}
+            {b.email && <a className="btn btn--outline btn--lg" href={`mailto:${b.email}`}>Email</a>}
+            {b.website && <a className="btn btn--outline btn--lg" href={b.website} target="_blank" rel="noopener noreferrer">{lang === "sr" ? "Web sajt" : "Website"}</a>}
+          </div>
+        ) : (
+          <div style={{ marginTop: 20, padding: "14px 16px", background: "#f4f9f7", borderRadius: 10, fontSize: ".92rem", color: "var(--slate)", lineHeight: 1.7 }}>
+            {lang === "sr" ? "Kontakt podaci i link ka sajtu prikazuju se uz premium prikaz." : lang === "de" ? "Kontaktdaten und Website-Link werden mit der Premium-Anzeige angezeigt." : "Contact details and website link are shown with the premium listing."}{" "}
+            <Link href={lang === "sr" ? "/oglasavanje" : lang === "de" ? "/de/werbung" : "/en/advertising"} style={{ color: "var(--green-600)", fontWeight: 600 }}>
+              {lang === "sr" ? "Vi ste vlasnik? Aktivirajte →" : lang === "de" ? "Sie sind Inhaber? Jetzt aktivieren →" : "Own this business? Activate →"}
+            </Link>
+          </div>
+        )}
         {geo && (
           <div style={{ marginTop: 26, borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)" }}>
             <iframe title="map" width="100%" height="300" style={{ border: 0 }} loading="lazy"
