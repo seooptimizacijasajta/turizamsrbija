@@ -19,6 +19,7 @@ const DEST: { kind: Kind; key: string }[] = [
   { kind: "mountain", key: "nav_mountains" },
   { kind: "lake", key: "nav_lakes" },
   { kind: "river", key: "nav_rivers" },
+  { kind: "monastery", key: "nav_monasteries" },
   { kind: "spa", key: "nav_spas" },
   { kind: "ethno", key: "nav_ethno" },
 ];

@@ -13,6 +13,7 @@ const HERO: Record<Kind, { title: string; lead: string; bg: string }> = {
   mountain: { title: "nav_mountains", lead: "lead_mountain", bg: "1551524559-8af4e6624178" },
   lake: { title: "nav_lakes", lead: "lead_lake", bg: "1439066615861-d1af74d74000" },
   river: { title: "nav_rivers", lead: "lead_river", bg: "1437482078695-73f5ca6c96e2" },
+  monastery: { title: "nav_monasteries", lead: "lead_monastery", bg: "1548013146-72479768bada" },
   spa: { title: "nav_spas", lead: "lead_spa", bg: "1540555700478-4be289fbecef" },
   ethno: { title: "nav_ethno", lead: "lead_ethno", bg: "1518780664697-55e3ad937233" },
   stay: { title: "nav_stays", lead: "lead_stay", bg: "1566073771259-6a8506099945" },

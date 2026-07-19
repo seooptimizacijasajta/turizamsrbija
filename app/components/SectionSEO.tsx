@@ -40,6 +40,18 @@ const C: Record<Kind, { sr: Block[]; en: Block[] }> = {
       { h: "Riverside stays with no commission", p: "Find cottages, apartments and ethno homesteads by the water, save favourites and contact the owner directly. No guest commission — you arrange dates and price with the host, and see the riverside location on the map." },
     ],
   },
+  monastery: {
+    sr: [
+      { h: "Manastiri Srbije — osam vekova istorije u kamenu i freskama", p: "Srpski srednjovekovni manastiri spadaju u najvrednije spomenike evropske kulture. Studenica je pod zaštitom UNESCO-a, Sopoćani i Mileševa čuvaju freske svetskog značaja, a Manasija i Ravanica su i utvrđenja i svetilišta. Većina se nalazi u prelepim predelima, pa se poseta lako spaja sa odmorom u prirodi." },
+      { h: "Kuda krenuti — rute po regionima", p: "Dolina kraljeva uz Ibar okuplja Studenicu, Žiču i Maglič. Raška oblast vodi ka Sopoćanima i Đurđevim stupovima, a jug ka Mileševi sa Belim anđelom. U Šumadiji i Pomoravlju su Manasija, Ravanica i Ljubostinja, a na Fruškoj gori čak šesnaest manastira na maloj razdaljini." },
+      { h: "Smeštaj u blizini manastira", p: "Uz gotovo svaki manastir postoje etno domaćinstva, vikendice i apartmani. Pregledajte ponudu, sačuvajte favorite i javite se domaćinu direktno — bez provizije za gosta." },
+    ],
+    en: [
+      { h: "Monasteries of Serbia — eight centuries in stone and fresco", p: "Serbian medieval monasteries rank among Europe's most valuable cultural monuments. Studenica is UNESCO-protected, Sopoćani and Mileševa hold frescoes of world significance, while Manasija and Ravanica are both fortresses and sanctuaries. Most sit in beautiful landscapes, so a visit combines easily with a holiday in nature." },
+      { h: "Where to go — routes by region", p: "The Valley of Kings along the Ibar gathers Studenica, Žiča and Maglič. The Raška region leads to Sopoćani and Đurđevi Stupovi, and the south to Mileševa with the White Angel. Šumadija holds Manasija, Ravanica and Ljubostinja, while Fruška Gora has sixteen monasteries within a short distance." },
+      { h: "Accommodation near the monasteries", p: "Ethno homesteads, cottages and apartments exist near almost every monastery. Browse the offer, save favourites and contact the host directly — with no guest commission." },
+    ],
+  },
   spa: {
     sr: [
       { h: "Banje Srbije — lečenje, opuštanje i wellness", p: "Banje u Srbiji spajaju lekovitu termomineralnu vodu, vrhunsku medicinu i wellness sadržaje. Vrnjačka, Soko, Banja Koviljača, Prolom, Niška i Banja Vrujci samo su deo bogate ponude. Smeštaj u banji birate po blizini izvora i bazena, ceni i programima oporavka." },

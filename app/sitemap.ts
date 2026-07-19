@@ -62,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     tri(infoPath(w, "sr"), infoPath(w, "en"), infoPath(w, "de")));
 
   // Sections
-  (["mountain", "lake", "river", "spa", "ethno", "stay"] as Kind[]).forEach((k) =>
+  (["mountain", "lake", "river", "monastery", "spa", "ethno", "stay"] as Kind[]).forEach((k) =>
     tri(sectionPath(k, "sr"), sectionPath(k, "en"), sectionPath(k, "de")));
 
   // Listings

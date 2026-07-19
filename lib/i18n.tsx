@@ -128,6 +128,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "sr": "Reke",
     "en": "Rivers"
   },
+  "nav_monasteries": {
+    "sr": "Manastiri",
+    "en": "Monasteries"
+  },
   "nav_spas": {
     "sr": "Banje",
     "en": "Spas"
@@ -396,6 +400,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
     "sr": "Rafting na Tari i Drini, meandri Uvca i rečne plaže uz Dunav — reke Srbije.",
     "en": "Rafting on the Tara and Drina, the Uvac meanders and Danube beaches — Serbia's rivers."
   },
+  "lead_monastery": {
+    "sr": "Studenica, Žiča, Sopoćani, Mileševa — srednjovekovni manastiri, freske i duhovno nasleđe Srbije.",
+    "en": "Studenica, Žiča, Sopoćani, Mileševa — medieval monasteries, frescoes and Serbia's spiritual heritage."
+  },
   "lead_spa": {
     "sr": "Termomineralni izvori i wellness ponuda u najpoznatijim banjama Srbije.",
     "en": "Thermo-mineral springs and wellness at Serbia's best-known spas."
@@ -419,6 +427,10 @@ export const I18N: Record<string,{sr:string;en:string;de?:string}> = {
   "type_river": {
     "sr": "Reka",
     "en": "River"
+  },
+  "type_monastery": {
+    "sr": "Manastir",
+    "en": "Monastery"
   },
   "type_spa": {
     "sr": "Banja",
@@ -566,6 +578,7 @@ export const DE: Record<string, string> = {
   nav_mountains: "Berge",
   nav_lakes: "Seen",
   nav_rivers: "Flüsse",
+  nav_monasteries: "Klöster",
   nav_spas: "Kurorte",
   nav_ethno: "Ethno-Dörfer",
   nav_stays: "Unterkünfte",
@@ -633,12 +646,14 @@ export const DE: Record<string, string> = {
   lead_mountain: "Skifahren, Wandern und frische Bergluft in ganz Serbien.",
   lead_lake: "Strände, Angeln und erholsame Tage am Wasser.",
   lead_river: "Rafting auf Tara und Drina, die Uvac-Mäander und Flussstrände an der Donau.",
+  lead_monastery: "Studenica, Žiča, Sopoćani, Mileševa — mittelalterliche Klöster, Fresken und geistliches Erbe Serbiens.",
   lead_spa: "Heilquellen, Wellness und Erholung in Serbiens Kurorten.",
   lead_ethno: "Tradition, Hausmannskost und die Ruhe des Dorflebens.",
   lead_stay: "Hotels und Privatunterkünfte in ganz Serbien.",
   type_mountain: "Berg",
   type_lake: "See",
   type_river: "Fluss",
+  type_monastery: "Kloster",
   type_spa: "Kurort",
   type_ethno: "Ethno-Dorf",
   type_stay: "Unterkunft",

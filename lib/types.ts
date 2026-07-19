@@ -1,4 +1,4 @@
-export type Kind = "mountain" | "lake" | "river" | "spa" | "ethno" | "stay";
+export type Kind = "mountain" | "lake" | "river" | "monastery" | "spa" | "ethno" | "stay";
 export type Lang = "sr" | "en" | "de";
 export interface Bi { sr: string; en: string }
 export interface Listing {

@@ -169,6 +169,7 @@ export default function ListingForm({
             <option value="mountain">{t("nav_mountains")}</option>
             <option value="lake">{t("nav_lakes")}</option>
             <option value="river">{t("nav_rivers")}</option>
+            <option value="monastery">{t("nav_monasteries")}</option>
             <option value="spa">{t("nav_spas")}</option>
             <option value="ethno">{t("nav_ethno")}</option>
           </select>

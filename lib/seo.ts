@@ -17,6 +17,11 @@ const SECTION: Record<Kind, { sr: [string, string]; en: [string, string]; de: [s
     en: ["Rivers of Serbia — rafting, beaches & stays", "Serbia's finest rivers: Drina, Tara, Danube, Uvac, Ibar and more — rafting, river beaches and stays by the water."],
     de: ["Flüsse Serbiens — Rafting, Strände & Unterkünfte", "Die schönsten Flüsse Serbiens: Drina, Tara, Donau, Uvac, Ibar und mehr — Rafting, Flussstrände und Unterkünfte am Wasser."],
   },
+  monastery: {
+    sr: ["Manastiri Srbije — duhovno nasleđe i freske", "Najlepši manastiri Srbije: Studenica, Žiča, Sopoćani, Mileševa, Manasija i drugi — istorija, freske, kako do njih i smeštaj u blizini."],
+    en: ["Monasteries of Serbia — heritage & frescoes", "Serbia's finest monasteries: Studenica, Žiča, Sopoćani, Mileševa, Manasija and more — history, frescoes, how to get there and nearby stays."],
+    de: ["Klöster Serbiens — Erbe & Fresken", "Die schönsten Klöster Serbiens: Studenica, Žiča, Sopoćani, Mileševa, Manasija und mehr — Geschichte, Fresken, Anreise und Unterkünfte."],
+  },
   spa: {
     sr: ["Banje Srbije — lečenje, wellness i smeštaj", "Najpoznatije banje Srbije: Vrnjačka Banja, Sokobanja, Niška, Prolom i druge — termalni izvori, wellness i smeštaj."],
     en: ["Spas of Serbia — wellness & stays", "Serbia's best-known spas: Vrnjačka Banja, Sokobanja, Niška Banja and more — thermal springs, wellness and accommodation."],

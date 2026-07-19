@@ -44,6 +44,20 @@ const FAQ: Record<Kind, { sr: Faq[]; en: Faq[] }> = {
       { q: "Is there accommodation by the rivers?", a: "Yes — cottages, apartments and ethno homesteads right by the water, especially along the Drina, Tara and Uvac. Compare options and prices in the Accommodation section." },
     ],
   },
+  monastery: {
+    sr: [
+      { q: "Koji manastir u Srbiji je najlepši za posetu?", a: "Studenica je pod zaštitom UNESCO-a i najpoznatija je zadužbina Stefana Nemanje, sa belim mermerom i freskama iz 13. veka. Sopoćani i Mileševa čuvaju freske svetskog značaja, među njima i Belog anđela." },
+      { q: "Da li se manastiri mogu posetiti tokom cele godine?", a: "Mogu. Većina je otvorena svakog dana, uz prilagođeno radno vreme zimi. Za grupne posete i vodiča najbolje je najaviti se ranije." },
+      { q: "Kako se treba obući za posetu manastiru?", a: "Poželjna je pristojna odeća — pokrivena ramena i kolena. Mnogi manastiri na ulazu nude marame i prekrivače za posetioce." },
+      { q: "Može li se prenoćiti u manastiru ili blizu njega?", a: "Neki manastiri imaju konake za goste, a u okolini gotovo svakog postoji privatni smeštaj, etno domaćinstva i vikendice." },
+    ],
+    en: [
+      { q: "Which monastery in Serbia is most worth visiting?", a: "Studenica is UNESCO-protected and the best-known endowment of Stefan Nemanja, with white marble and 13th-century frescoes. Sopoćani and Mileševa hold frescoes of world significance, including the White Angel." },
+      { q: "Can monasteries be visited year-round?", a: "Yes. Most are open daily with adjusted winter hours. For group visits and guides it is best to announce your arrival in advance." },
+      { q: "How should I dress for a monastery visit?", a: "Modest clothing is expected — covered shoulders and knees. Many monasteries provide scarves and wraps at the entrance." },
+      { q: "Can you stay overnight at or near a monastery?", a: "Some monasteries have guest lodgings, and private accommodation, ethno homesteads and cottages exist near almost all of them." },
+    ],
+  },
   spa: {
     sr: [
       { q: "Koja banja je najbolja za reumu i bolove u zglobovima?", a: "Vrnjačka Banja i Sokobanja imaju dugu tradiciju lečenja reumatskih i kardiovaskularnih tegoba, dok je Banja Koviljača poznata po sumporovitim izvorima za kožu i zglobove." },
@@ -107,6 +121,12 @@ const FAQ_DE: Record<Kind, Faq[]> = {
     { q: "Wo kann man in Serbiens Flüssen baden?", a: "An der Donau gibt es gepflegte Flussstrände (Lido, Štrand in Novi Sad, Silbersee an der Donau), und im Sommer sind auch Badestellen an der Drina und der Zapadna Morava beliebt." },
     { q: "Braucht man zum Angeln am Fluss eine Genehmigung?", a: "Ja — zum Angeln an Donau, Drina, Ibar und anderen Flüssen ist eine Genehmigung der örtlichen Angelvereine oder Fischereiverwalter erforderlich." },
     { q: "Gibt es Unterkünfte an den Flüssen?", a: "Ja — Ferienhäuser, Apartments und Ethno-Höfe direkt am Wasser, besonders an Drina, Tara und Uvac. Optionen und Preise vergleichen Sie im Bereich Unterkünfte." },
+  ],
+  monastery: [
+    { q: "Welches Kloster in Serbien lohnt den Besuch am meisten?", a: "Studenica steht unter UNESCO-Schutz und ist die bekannteste Stiftung Stefan Nemanjas, mit weißem Marmor und Fresken aus dem 13. Jahrhundert. Sopoćani und Mileševa bewahren Fresken von Weltrang, darunter den Weißen Engel." },
+    { q: "Sind die Klöster ganzjährig zu besichtigen?", a: "Ja. Die meisten sind täglich geöffnet, im Winter mit angepassten Zeiten. Für Gruppen und Führungen empfiehlt sich eine Voranmeldung." },
+    { q: "Wie sollte man sich kleiden?", a: "Angemessene Kleidung — bedeckte Schultern und Knie. Viele Klöster stellen am Eingang Tücher bereit." },
+    { q: "Kann man im Kloster übernachten?", a: "Einige Klöster haben Gästehäuser; in der Umgebung fast aller gibt es Privatunterkünfte, Ethno-Höfe und Ferienhäuser." },
   ],
   spa: [
     { q: "Welcher Kurort ist am besten bei Rheuma und Gelenkschmerzen?", a: "Vrnjačka Banja und Sokobanja haben eine lange Tradition in der Behandlung rheumatischer und kardiovaskulärer Beschwerden, während Banja Koviljača für Schwefelquellen für Haut und Gelenke bekannt ist." },
