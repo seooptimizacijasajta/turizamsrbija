@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/slug";
 const PATHS = { sr: "/faq", en: "/en/faq", de: "/de/faq" };
 export const metadata = pageMeta("de", PATHS, {
   title: "Häufige Fragen — Buchung und Inserate | Turizam Srbija",
-  description: "Antworten auf häufige Fragen: wie man den Gastgeber kontaktiert, wie man eine Unterkunft inseriert, ob Provision anfällt und wie Zahlung und Gutscheine funktionieren.",
+  description: "Antworten auf häufige Fragen: Gastgeber kontaktieren, Unterkunft inserieren, Provision und wie Zahlung und Gutscheine funktionieren.",
   image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=1600&q=80",
 });
 
