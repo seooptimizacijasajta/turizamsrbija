@@ -7,6 +7,9 @@ import { useFavorites } from "@/lib/favorites";
 import { useCurrency } from "@/lib/currency";
 import { homePath, sectionPath, switchLangPath, belgradePath, listPath, accountPath, mapPath, searchPath, savedPath, blogPath } from "@/lib/slug";
 import { pijacaPath } from "@/lib/pijaca";
+import { STAY_TYPES, stayTypeName, stayTypePath } from "@/lib/stayTypes";
+import { BLOG_CATS, catName, catPath, catsIndexPath } from "@/lib/blogCategories";
+import { weatherPath } from "@/lib/weather";
 import { firmeIndexPath, firmeCatPath, BIZ_CATS, bizCatLabel } from "@/lib/firme";
 import { manifIndexPath } from "@/lib/events";
 import { dealsPath } from "@/lib/deals";
@@ -67,6 +70,9 @@ export default function Header() {
             <div className={"nav-dd-panel" + (dd === "stay" ? " open" : "")}>
               <Link href={sectionPath("stay", lang)} onClick={close}>{allStays}</Link>
               <Link href={belgradePath(lang)} onClick={close}>{t("nav_belgrade")}</Link>
+              {STAY_TYPES.map((s2) => (
+                <Link key={s2.key} href={stayTypePath(s2, lang)} onClick={close}>{stayTypeName(s2, lang)}</Link>
+              ))}
             </div>
           </div>
 
@@ -85,6 +91,14 @@ export default function Header() {
               <Link href={gdeNaOdmorPath(lang)} onClick={close}>{lang === "sr" ? "Gde na odmor?" : lang === "de" ? "Wohin in den Urlaub?" : "Where to go?"}</Link>
               <Link href={manifIndexPath(lang)} onClick={close}>{lang === "sr" ? "Manifestacije" : lang === "de" ? "Veranstaltungen" : "Events"}</Link>
               <Link href={pijacaPath(lang)} onClick={close}>{t("nav_pijaca")}</Link>
+              <Link href={weatherPath(lang)} onClick={close} style={{ borderTop: "1px solid rgba(0,0,0,.08)", marginTop: 4, paddingTop: 8 }}>🌤️ {lang === "sr" ? "Vremenska prognoza" : lang === "de" ? "Wetter" : "Weather"}</Link>
+              <Link href={catsIndexPath(lang)} onClick={close}><strong>🌍 {lang === "sr" ? "Sve teme" : lang === "de" ? "Alle Themen" : "All topics"}</strong></Link>
+              {BLOG_CATS.filter((c2) => c2.country).map((c2) => (
+                <Link key={c2.id} href={catPath(c2, lang)} onClick={close}>{c2.country!.flag} {catName(c2, lang)}</Link>
+              ))}
+              {BLOG_CATS.filter((c2) => !c2.country).map((c2) => (
+                <Link key={c2.id} href={catPath(c2, lang)} onClick={close}>{catName(c2, lang)}</Link>
+              ))}
             </div>
           </div>
           <Link href={dealsPath(lang)} className={path.includes("/akcije") || path.includes("/deals") || path.includes("/angebote") ? "active" : ""} onClick={close} style={{ color: "#e0492f", fontWeight: 700 }}>🔥 {lang === "sr" ? "Akcije" : lang === "de" ? "Angebote" : "Deals"}</Link>
