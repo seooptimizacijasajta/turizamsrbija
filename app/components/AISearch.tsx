@@ -94,7 +94,7 @@ export default function AISearch({ listings, businesses, products, posts }: { li
           <div className="card" key={b.id}><div className="card-body">
             <span className="card-region">{c?.icon} {c ? bizCatLabel(c, lang) : b.category}{b.city ? " · " + b.city : ""}</span>
             <h3 className="card-title">{b.name}</h3><p className="card-desc">{b.desc[lc]}</p>
-            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>{b.phone && <a className="btn btn--primary" style={{ fontSize: ".8rem", padding: "6px 10px" }} href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : "Call"}</a>}{b.website && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "6px 10px" }} href={b.website} target="_blank" rel="noopener noreferrer nofollow">Web</a>}</div>
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>{b.paid && b.phone && <a className="btn btn--primary" style={{ fontSize: ".8rem", padding: "6px 10px" }} href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : "Call"}</a>}{b.paid && b.website && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "6px 10px" }} href={b.website} target="_blank" rel="noopener noreferrer">Web</a>}</div>
           </div></div>); })}</div></>)}
 
       {res.products.length > 0 && (<>{SectionTitle(t("nav_pijaca"))}

@@ -75,9 +75,9 @@ export default function FirmePage({ businesses, cat, cityName }: { businesses: B
                     <h3 className="card-title"><Link href={businessPath(b.name, lang)} style={{ color: "inherit" }}>{b.name}</Link></h3>
                     <p className="card-desc">{d}</p>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
-                      {b.phone && <a className="btn btn--primary" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : lang === "de" ? "Anrufen" : "Call"}</a>}
-                      {b.email && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={`mailto:${b.email}`}>Email</a>}
-                      {b.website && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={b.website} target="_blank" rel="noopener noreferrer nofollow">{lang === "sr" ? "Sajt" : "Web"}</a>}
+                      {b.paid && b.phone && <a className="btn btn--primary" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={`tel:${b.phone}`}>{lang === "sr" ? "Pozovi" : lang === "de" ? "Anrufen" : "Call"}</a>}
+                      {b.paid && b.email && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={`mailto:${b.email}`}>Email</a>}
+                      {b.paid && b.website && <a className="btn btn--outline" style={{ fontSize: ".8rem", padding: "7px 11px" }} href={b.website} target="_blank" rel="noopener noreferrer">{lang === "sr" ? "Sajt" : "Web"}</a>}
                     </div>
                   </div>
                 </div>
