@@ -127,6 +127,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["spanija", "spain", "spanien"],
   ["crkve-i-manastiri", "churches-and-monasteries", "kirchen-und-kloester"],
   ["gastronomija", "food-and-drink", "gastronomie"],
+  ["vinarije-srbije", "wineries-of-serbia", "weingueter-serbien"],
   ["turisticke-agencije", "travel-agencies", "reisebueros"],
   ["prevoz", "transport", "transport"],
   ["saveti-za-putovanje", "travel-tips", "reisetipps"],

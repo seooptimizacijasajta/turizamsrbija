@@ -36,6 +36,17 @@ export const BLOG_CATS: BlogCat[] = [
     hero: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80",
   },
   {
+    id: "vinarije",
+    slug: { sr: "vinarije-srbije", en: "wineries-of-serbia", de: "weingueter-serbien" },
+    name: { sr: "Vinarije Srbije", en: "Wineries of Serbia", de: "Weingüter Serbiens" },
+    lead: {
+      sr: "Vinski putevi, vinarije i degustacije — Fruška gora, Vršac, Negotinska krajina, Župa, Tri Morave i Šumadija.",
+      en: "Wine roads, wineries and tastings — Fruška Gora, Vršac, the Negotin region, Župa, Tri Morave and Šumadija.",
+      de: "Weinstraßen, Weingüter und Verkostungen — Fruška Gora, Vršac, Negotin, Župa und Šumadija.",
+    },
+    hero: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
     id: "gastronomija",
     slug: { sr: "gastronomija", en: "food-and-drink", de: "gastronomie" },
     name: { sr: "Gastronomija", en: "Food & drink", de: "Gastronomie" },
