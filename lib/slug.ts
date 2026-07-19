@@ -110,6 +110,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["vauceri", "vouchers", "gutscheine"],
   ["oglasavanje", "advertising", "werbung"],
   ["gde-na-odmor-u-srbiji", "where-to-go-in-serbia", "wohin-in-serbien"],
+  ["vremenska-prognoza", "weather", "wetter"],
   ["o-nama", "about", "ueber-uns"],
   ["kontakt", "contact", "kontakt"],
   ["uslovi", "terms", "agb"],

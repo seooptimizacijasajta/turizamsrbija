@@ -16,6 +16,7 @@ import { EVENT_CATS, manifIndexPath, manifCatPath, eventPath, EVENT_CITIES, mani
 import { getEvents } from "@/lib/eventsData";
 import { dealsPath } from "@/lib/deals";
 import { TERMS, termPath } from "@/lib/recnik";
+import { WX_PLACES, weatherPath, weatherPlacePath } from "@/lib/weather";
 import { getProperties } from "@/lib/properties";
 import { PROP_TYPES, nekretnineIndexPath, propTypePath, propertyPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
@@ -52,6 +53,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   tri(letovanjePath("sr"), letovanjePath("en"), letovanjePath("de"));
   tri(zimovanjePath("sr"), zimovanjePath("en"), zimovanjePath("de"));
   tri(gdeNaOdmorPath("sr"), gdeNaOdmorPath("en"), gdeNaOdmorPath("de"));
+  tri(weatherPath("sr"), weatherPath("en"), weatherPath("de"));
+  WX_PLACES.forEach((p) => tri(weatherPlacePath("sr", p.slug), weatherPlacePath("en", p.slug), weatherPlacePath("de", p.slug)));
   tri(blogPath("sr"), blogPath("en"), blogPath("de"));
   tri(pijacaPath("sr"), pijacaPath("en"), pijacaPath("de"));
   tri(dealsPath("sr"), dealsPath("en"), dealsPath("de"));

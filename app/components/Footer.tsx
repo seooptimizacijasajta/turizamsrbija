@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n";
 import { sectionPath, infoPath, voucherPath, marketingPath, hostGuidePath } from "@/lib/slug";
 import { dealsPath } from "@/lib/deals";
 import { recnikPath } from "@/lib/recnik";
+import { weatherPath } from "@/lib/weather";
 import { nekretnineIndexPath } from "@/lib/nekretnine";
 import { letovanjePath, zimovanjePath } from "@/lib/sezona";
 import { gdeNaOdmorPath } from "@/lib/gdenaodmor";
@@ -45,6 +46,7 @@ export default function Footer() {
             [lang === "sr" ? "Gde na odmor?" : lang === "de" ? "Wohin in den Urlaub?" : "Where to go?", gdeNaOdmorPath(lang)],
             [lang === "sr" ? "☀️ Letovanje" : lang === "de" ? "☀️ Sommerurlaub" : "☀️ Summer", letovanjePath(lang)],
             [lang === "sr" ? "❄️ Zimovanje" : lang === "de" ? "❄️ Winterurlaub" : "❄️ Winter", zimovanjePath(lang)],
+            [lang === "sr" ? "🌤️ Vremenska prognoza" : lang === "de" ? "🌤️ Wetter" : "🌤️ Weather", weatherPath(lang)],
           ])}
           {col(t("foot_company"), [
             [lang === "sr" ? "🔥 Akcije i popusti" : lang === "de" ? "🔥 Angebote" : "🔥 Deals", dealsPath(lang)],
