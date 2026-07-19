@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
+import { BLOG_CATS } from "@/lib/blogCategories";
 import { slugify } from "@/lib/slug";
 import Turnstile from "./Turnstile";
 
@@ -141,6 +142,8 @@ export default function BannerAdmin() {
     const row: any = { slug, title_sr, title_en: String(f.get("title_en") || "") || null,
       excerpt_sr: String(f.get("excerpt_sr") || "") || null, excerpt_en: String(f.get("excerpt_en") || "") || null,
       body_sr: String(f.get("body_sr") || "") || null, body_en: String(f.get("body_en") || "") || null,
+      title_de: String(f.get("title_de") || "") || null, excerpt_de: String(f.get("excerpt_de") || "") || null, body_de: String(f.get("body_de") || "") || null,
+      category: String(f.get("category") || "") || null,
       cover_image: String(f.get("cover_image") || "") || null, status: String(f.get("status") || "draft") };
     try {
       if (postEditing?.id) { const { error } = await sb.from("posts").update(row).eq("id", postEditing.id); if (error) throw error; }
@@ -521,9 +524,20 @@ export default function BannerAdmin() {
               <div className="field"><label>Kratak opis (SR)</label><input name="excerpt_sr" defaultValue={postEditing?.excerpt_sr || ""} /></div>
               <div className="field"><label>Kratak opis (EN)</label><input name="excerpt_en" defaultValue={postEditing?.excerpt_en || ""} /></div>
             </div>
-            <div className="field"><label>Naslovna slika (URL)</label><input name="cover_image" defaultValue={postEditing?.cover_image || ""} placeholder="https://..." /></div>
+            <div className="field-row">
+              <div className="field"><label>Naslov (DE)</label><input name="title_de" defaultValue={postEditing?.title_de || ""} /></div>
+              <div className="field"><label>Kratak opis (DE)</label><input name="excerpt_de" defaultValue={postEditing?.excerpt_de || ""} /></div>
+            </div>
+            <div className="field"><label>Kategorija</label>
+              <select name="category" defaultValue={postEditing?.category || ""}>
+                <option value="">— bez kategorije —</option>
+                {BLOG_CATS.map((c) => <option key={c.id} value={c.id}>{c.name.sr}</option>)}
+              </select>
+            </div>
+            <div className="field"><label>Naslovna slika (URL)</label><input name="cover_image" defaultValue={postEditing?.cover_image || ""} placeholder="https://images.unsplash.com/..." /></div>
             <div className="field"><label>Tekst (SR)</label><textarea name="body_sr" rows={10} defaultValue={postEditing?.body_sr || ""} /></div>
             <div className="field"><label>Tekst (EN)</label><textarea name="body_en" rows={8} defaultValue={postEditing?.body_en || ""} /></div>
+            <div className="field"><label>Tekst (DE)</label><textarea name="body_de" rows={8} defaultValue={postEditing?.body_de || ""} /></div>
             <div className="field"><label>Status</label><select name="status" defaultValue={postEditing?.status || "draft"}><option value="draft">draft (nije objavljeno)</option><option value="published">published (objavljeno)</option></select></div>
             {err && <p style={{ color: "var(--danger)", fontSize: ".9rem" }}>{err}</p>}
             <div style={{ display: "flex", gap: 10 }}>
