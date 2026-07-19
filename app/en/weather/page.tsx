@@ -6,8 +6,8 @@ const ALT = { "sr-Latn-RS": "/vremenska-prognoza", en: "/en/weather", de: "/de/w
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: 'Weather forecast Serbia — 50+ tourist destinations | Turizam Srbija',
-  description: "Weather forecast for Serbia's mountains, spa towns, lakes, rivers and cities. Current weather and a detailed 7-day forecast — Kopaonik, Zlatibor, Vrnjačka Banja, Silver Lake and more.",
+  title: 'Serbia weather — 55 destinations, 7-day forecast',
+  description: "Forecast for Serbia's mountains, spa towns, lakes and cities: Kopaonik, Zlatibor, Vrnjačka Banja, Sokobanja, Silver Lake — current weather and 7 days ahead.",
   alternates: { canonical: '/en/weather', languages: ALT },
   openGraph: { title: 'Weather forecast for destinations in Serbia', description: '7-day forecast — mountains, spas, lakes and cities', images: [`/api/og?title=${encodeURIComponent('Weather forecast for destinations in Serbia')}&subtitle=${encodeURIComponent('7-day forecast — mountains, spas, lakes and cities')}`] },
 };

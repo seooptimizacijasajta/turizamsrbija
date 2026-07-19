@@ -1,7 +1,13 @@
 import { getListings } from "@/lib/data";
 import MapView from "@/app/components/MapView";
+import { pageMeta } from "@/lib/slug";
 export const revalidate = 60;
-export const metadata = { title: "Map of stays and destinations — Turizam Srbija", description: "Interactive map of Serbia with all destinations and accommodation." };
+const PATHS = { sr: "/mapa", en: "/en/map", de: "/de/karte" };
+export const metadata = pageMeta("en", PATHS, {
+  title: "Map of Serbia — destinations and stays | Turizam Srbija",
+  description: "Interactive map of Serbia with mountains, lakes, rivers, spas, monasteries and accommodation — find a place by location and contact the host directly.",
+  image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1600&q=80",
+});
 export default async function Page() {
   const items = (await getListings()).filter((d) => typeof d.lat === "number" && typeof d.lng === "number");
   return (

@@ -7,7 +7,7 @@ export const revalidate = 1800;
 
 export const metadata: Metadata = {
   title: 'Wetter Serbien — 50+ Reiseziele | Turizam Srbija',
-  description: 'Wettervorhersage für Serbiens Berge, Kurorte, Seen, Flüsse und Städte. Aktuelles Wetter und ausführliche 7-Tage-Vorhersage — Kopaonik, Zlatibor, Vrnjačka Banja, Silbersee und mehr.',
+  description: 'Vorhersage für Serbiens Berge, Kurorte, Seen und Städte: Kopaonik, Zlatibor, Vrnjačka Banja, Sokobanja, Silbersee — aktuelles Wetter und 7 Tage.',
   alternates: { canonical: '/de/wetter', languages: ALT },
   openGraph: { title: 'Wettervorhersage für Reiseziele in Serbien', description: '7-Tage-Vorhersage — Berge, Kurorte, Seen und Städte', images: [`/api/og?title=${encodeURIComponent('Wettervorhersage für Reiseziele in Serbien')}&subtitle=${encodeURIComponent('7-Tage-Vorhersage — Berge, Kurorte, Seen und Städte')}`] },
 };

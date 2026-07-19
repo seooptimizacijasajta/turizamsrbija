@@ -19,8 +19,32 @@ export const AMENITIES: Amenity[] = [
   { key: "luxury", sr: "Luksuzno", en: "Luxury", icon: "💎" },
 ];
 
+/** Nemački nazivi pogodnosti (za /de stranice i filtere). */
+export const AMENITY_DE: Record<string, string> = {
+  vouchers: "Akzeptiert Gutscheine",
+  pool: "Pool",
+  wellness: "Wellness / Spa",
+  pet: "Haustiere erlaubt",
+  kids: "Familienfreundlich",
+  parking: "Parkplatz",
+  wifi: "WLAN",
+  ac: "Klimaanlage",
+  kitchen: "Küche",
+  restaurant: "Restaurant",
+  bbq: "Grill / Gartenlaube",
+  river: "Nahe Fluss/See",
+  jacuzzi: "Whirlpool",
+  luxury: "Luxuriös",
+};
+
 export const amenityByKey = (k: string) => AMENITIES.find((a) => a.key === k);
-export const amenityLabel = (k: string, lang: Lang) => { const a = amenityByKey(k); return a ? (lang === "sr" ? a.sr : a.en) : k; };
+export const amenityLabel = (k: string, lang: Lang) => {
+  const a = amenityByKey(k);
+  if (!a) return k;
+  if (lang === "sr") return a.sr;
+  if (lang === "de") return AMENITY_DE[k] || a.en;
+  return a.en;
+};
 
 export type PriceUnit = { key: string; sr: string; en: string };
 export const PRICE_UNITS: PriceUnit[] = [

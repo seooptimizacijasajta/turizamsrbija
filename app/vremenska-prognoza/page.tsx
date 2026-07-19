@@ -6,8 +6,8 @@ const ALT = { "sr-Latn-RS": "/vremenska-prognoza", en: "/en/weather", de: "/de/w
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: 'Vremenska prognoza Srbija — 50+ turističkih destinacija | Turizam Srbija',
-  description: 'Vremenska prognoza za planine, banje, jezera, reke i gradove Srbije. Trenutno vreme i detaljna prognoza za 7 dana — Kopaonik, Zlatibor, Vrnjačka Banja, Sokobanja, Srebrno jezero i druge destinacije.',
+  title: 'Vremenska prognoza Srbija — 55 destinacija, 7 dana',
+  description: 'Prognoza za planine, banje, jezera i gradove Srbije: Kopaonik, Zlatibor, Vrnjačka Banja, Sokobanja, Srebrno jezero — trenutno vreme i 7 dana unapred.',
   alternates: { canonical: '/vremenska-prognoza', languages: ALT },
   openGraph: { title: 'Vremenska prognoza za destinacije u Srbiji', description: 'Prognoza za 7 dana — planine, banje, jezera i gradovi', images: [`/api/og?title=${encodeURIComponent('Vremenska prognoza za destinacije u Srbiji')}&subtitle=${encodeURIComponent('Prognoza za 7 dana — planine, banje, jezera i gradovi')}`] },
 };

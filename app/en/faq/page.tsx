@@ -1,7 +1,13 @@
 import FaqAccordion from "@/app/components/FaqAccordion";
 import { generalFaqs } from "@/lib/faq";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
-export const metadata = { title: "FAQ — Turizam Srbija", description: "Answers to common questions about the portal, booking, listing and payment." };
+import { pageMeta } from "@/lib/slug";
+const PATHS = { sr: "/faq", en: "/en/faq", de: "/de/faq" };
+export const metadata = pageMeta("en", PATHS, {
+  title: "FAQ — booking and listing | Turizam Srbija",
+  description: "Answers to common questions: how to contact a host, how to list your property, whether there is a commission, and how payment and vouchers work.",
+  image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=1600&q=80",
+});
 export default function Page() {
   return (
     <>
