@@ -8,6 +8,8 @@ export function slugify(input: string): string {
     .replace(/š/g, "s")
     .replace(/ž/g, "z")
     .replace(/đ/g, "dj")
+    .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
