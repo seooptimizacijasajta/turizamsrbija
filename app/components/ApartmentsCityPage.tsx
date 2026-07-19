@@ -5,7 +5,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import ListingCard from "./ListingCard";
 import JsonLd from "./JsonLd";
 import { homePath, sectionPath } from "@/lib/slug";
-import { MESTA, mestoName, mestoHook, apartmentsCityPath, type Mesto } from "@/lib/apartmanMesta";
+import { MESTA, mestoName, mestoHook, mestoImg, apartmentsCityPath, type Mesto } from "@/lib/apartmanMesta";
 import { STAY_TYPES, stayTypeName, stayTypePath } from "@/lib/stayTypes";
 import { weatherPlacePath } from "@/lib/weather";
 import { WX_PLACES } from "@/lib/weather";
@@ -65,7 +65,7 @@ export default function ApartmentsCityPage({ mesto, items }: { mesto: Mesto; ite
   return (
     <>
       <JsonLd data={ld} />
-      <section className="page-hero" style={{ background: "linear-gradient(180deg,rgba(15,61,46,.45),rgba(15,61,46,.72)),url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat" }}>
+      <section className="page-hero" style={{ background: `linear-gradient(180deg,rgba(15,61,46,.45),rgba(15,61,46,.72)),url('${mestoImg(mesto)}') center/cover no-repeat` }}>
         <div className="container"><h1>{title}</h1><p>{mestoHook(mesto, lang)}</p></div>
       </section>
 

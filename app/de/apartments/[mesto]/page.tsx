@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ApartmentsCityPage from "@/app/components/ApartmentsCityPage";
-import { MESTA, mestoBySlug, mestoName, mestoHook, listingsForMesto } from "@/lib/apartmanMesta";
+import { MESTA, mestoBySlug, mestoName, mestoHook, mestoImg, listingsForMesto } from "@/lib/apartmanMesta";
 import { getListings } from "@/lib/data";
 
 export const revalidate = 60;
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ mesto: st
       canonical: `/de/apartments/${m.slug}`,
       languages: { "sr-Latn-RS": `/apartmani/${m.slug}`, en: `/en/apartments/${m.slug}`, de: `/de/apartments/${m.slug}`, "x-default": `/apartmani/${m.slug}` },
     },
-    openGraph: { title, description },
+    openGraph: { title, description, images: [mestoImg(m)] },
   };
 }
 

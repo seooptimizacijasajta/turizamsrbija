@@ -75,7 +75,7 @@ export function switchLangPath(pathname: string, target: Lang): string {
 const OG_LOCALE: Record<Lang, string> = { sr: "sr_RS", en: "en_US", de: "de_DE" };
 const HOME_META: Record<Lang, { title: string; description: string }> = {
   sr: { title: "Turizam Srbija — Planine, jezera, banje i etno sela", description: "Turistički portal Srbije: planine, jezera, banje, etno sela, hoteli i privatni smeštaj iz cele Srbije." },
-  en: { title: "Turizam Srbija — Mountains, lakes, spas & ethno villages of Serbia", description: "Serbia's tourism portal: mountains, lakes, spas, ethno villages, hotels and private accommodation across Serbia." },
+  en: { title: "Turizam Srbija — mountains, lakes, spas & stays", description: "Serbia's tourism portal: mountains, lakes, spas, ethno villages, hotels and private accommodation across Serbia." },
   de: { title: "Turizam Srbija — Berge, Seen, Kurorte & Ethno-Dörfer Serbiens", description: "Serbiens Tourismusportal: Berge, Seen, Kurorte, Ethno-Dörfer, Hotels und Privatunterkünfte in ganz Serbien." },
 };
 
@@ -96,7 +96,38 @@ export function altMeta(locale: Lang, kind?: Kind, slug?: string) {
     ...base,
     title: m.title,
     description: m.description,
-    openGraph: { title: m.title, description: m.description, locale: OG_LOCALE[locale], url: canonical },
+    openGraph: {
+      title: m.title,
+      description: m.description,
+      locale: OG_LOCALE[locale],
+      url: canonical,
+      images: [`/api/og?title=${encodeURIComponent(m.title)}&subtitle=${encodeURIComponent(m.description.slice(0, 90))}`],
+    },
+  };
+}
+
+/** Canonical + hreflang za stranice koje nisu vezane za Kind (blog, faq, mapa…). */
+export function pageMeta(
+  locale: Lang,
+  paths: { sr: string; en: string; de: string },
+  m: { title: string; description: string; image?: string; noindex?: boolean },
+) {
+  const canonical = locale === "sr" ? paths.sr : locale === "en" ? paths.en : paths.de;
+  return {
+    title: m.title,
+    description: m.description,
+    alternates: {
+      canonical,
+      languages: { "sr-Latn-RS": paths.sr, en: paths.en, de: paths.de, "x-default": paths.sr },
+    },
+    ...(m.noindex ? { robots: { index: false, follow: true } } : {}),
+    openGraph: {
+      title: m.title,
+      description: m.description,
+      locale: OG_LOCALE[locale],
+      url: canonical,
+      images: [m.image || `/api/og?title=${encodeURIComponent(m.title)}&subtitle=${encodeURIComponent(m.description.slice(0, 90))}`],
+    },
   };
 }
 
@@ -128,6 +159,7 @@ const CUSTOM_PAIRS: [string, string, string][] = [
   ["crkve-i-manastiri", "churches-and-monasteries", "kirchen-und-kloester"],
   ["gastronomija", "food-and-drink", "gastronomie"],
   ["vinarije-srbije", "wineries-of-serbia", "weingueter-serbien"],
+  ["banje-i-wellness", "spas-and-wellness", "kurorte-und-wellness"],
   ["turisticke-agencije", "travel-agencies", "reisebueros"],
   ["prevoz", "transport", "transport"],
   ["saveti-za-putovanje", "travel-tips", "reisetipps"],

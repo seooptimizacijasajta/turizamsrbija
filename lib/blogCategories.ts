@@ -36,6 +36,17 @@ export const BLOG_CATS: BlogCat[] = [
     hero: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80",
   },
   {
+    id: "banje",
+    slug: { sr: "banje-i-wellness", en: "spas-and-wellness", de: "kurorte-und-wellness" },
+    name: { sr: "Banje i wellness", en: "Spas & wellness", de: "Kurorte & Wellness" },
+    lead: {
+      sr: "Termalni izvori, lečenje i wellness — Vrnjačka Banja, Sokobanja, Banja Vrujci, Koviljača i druge banje Srbije.",
+      en: "Thermal springs, treatment and wellness — Vrnjačka Banja, Sokobanja, Banja Vrujci, Koviljača and other Serbian spas.",
+      de: "Thermalquellen, Kuren und Wellness — Vrnjačka Banja, Sokobanja, Banja Vrujci und weitere Kurorte Serbiens.",
+    },
+    hero: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
     id: "vinarije",
     slug: { sr: "vinarije-srbije", en: "wineries-of-serbia", de: "weingueter-serbien" },
     name: { sr: "Vinarije Srbije", en: "Wineries of Serbia", de: "Weingüter Serbiens" },

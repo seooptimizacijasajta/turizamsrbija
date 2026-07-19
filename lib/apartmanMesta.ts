@@ -277,6 +277,41 @@ export const MESTA: Mesto[] = [
     "Weinberge im Vršac-Gebirge und der höchste Kirchturm der Vojvodina."] },
 ];
 
+/** Naslovne slike po tipu mesta (svaka stranica ima svoj heder). */
+const GROUP_IMG: Record<MestoGroup, string> = {
+  grad: "1519677100203-a0e668c92439",
+  planina: "1464822759023-fed622ff2c3b",
+  banja: "1571902943202-507ec2618e8f",
+  jezero: "1439066615861-d1af74d74000",
+  reka: "1437482078695-73f5ca6c96e2",
+  selo: "1500382017468-9049fed747ef",
+};
+
+/** Slike za pojedinačna, najtraženija mesta. */
+const MESTO_IMG: Record<string, string> = {
+  beograd: "1519677100203-a0e668c92439",
+  "novi-sad": "1516483638261-f4dbaf036963",
+  zlatibor: "1464822759023-fed622ff2c3b",
+  kopaonik: "1551524559-8af4e6624178",
+  tara: "1469474968028-56623f02e42e",
+  divcibare: "1483728642387-6c3bdd6c93e5",
+  "stara-planina": "1454496522488-7a8e488e8606",
+  "vrnjacka-banja": "1544161515-4ab6ce6db874",
+  sokobanja: "1571902943202-507ec2618e8f",
+  "banja-vrujci": "1540555700478-4be289fbecef",
+  "srebrno-jezero": "1439066615861-d1af74d74000",
+  palic: "1520250497591-112f2f40a3f4",
+  perucac: "1470071459604-3b5ec3a7fe05",
+  "bajina-basta": "1437482078695-73f5ca6c96e2",
+  uvac: "1426604966848-d7adac402bff",
+  "mokra-gora": "1523906834658-6e24ef2386f9",
+  sirogojno: "1500382017468-9049fed747ef",
+  drvengrad: "1449158743715-0a90ebb6d2d8",
+};
+
+export const mestoImg = (m: Mesto) =>
+  `https://images.unsplash.com/photo-${MESTO_IMG[m.slug] || GROUP_IMG[m.group]}?auto=format&fit=crop&w=1600&q=80`;
+
 export const mestoBySlug = (s: string) => MESTA.find((m) => m.slug === s);
 export const mestoName = (m: Mesto, l: Lang) => (l === "sr" ? m.sr : l === "de" ? m.de : m.en);
 export const mestoHook = (m: Mesto, l: Lang) => (l === "sr" ? m.hook[0] : l === "de" ? m.hook[2] : m.hook[1]);
