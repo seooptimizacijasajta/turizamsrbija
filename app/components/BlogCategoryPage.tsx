@@ -9,7 +9,7 @@ import { BLOG_CATS, catName, catPath, type BlogCat } from "@/lib/blogCategories"
 import { tri, triL } from "@/lib/inostranstvo";
 import type { Post } from "@/lib/blog";
 
-export default function BlogCategoryPage({ cat, posts }: { cat: BlogCat; posts: Post[] }) {
+export default function BlogCategoryPage({ cat, posts, extra }: { cat: BlogCat; posts: Post[]; extra?: React.ReactNode }) {
   const { lang, t } = useLang();
   const lc = lang === "sr" ? "sr" : lang === "de" ? "de" : "en";
   const L = (sr: string, en: string, de: string) => (lc === "sr" ? sr : lc === "de" ? de : en);
@@ -112,6 +112,8 @@ export default function BlogCategoryPage({ cat, posts }: { cat: BlogCat; posts: 
             </div>
           </section>
         )}
+
+        {extra}
 
         <h2 className="section-title" style={{ marginTop: 34 }}>{L("Ostale teme", "Other topics", "Weitere Themen")}</h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 12 }}>

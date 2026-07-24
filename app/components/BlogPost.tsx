@@ -17,7 +17,7 @@ function inlineMd(text: string) {
     if (m.index > last) out.push(text.slice(last, m.index));
     const label = m[1], href = m[2];
     if (href.startsWith("/")) out.push(<Link key={k++} href={href} style={{ color: "var(--green-600)", fontWeight: 600 }}>{label}</Link>);
-    else out.push(<a key={k++} href={href} target="_blank" rel="noopener noreferrer">{label}</a>);
+    else out.push(<a key={k++} href={href} target="_blank" rel="nofollow ugc noopener noreferrer">{label}</a>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(text.slice(last));

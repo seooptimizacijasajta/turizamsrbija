@@ -10,11 +10,14 @@ export async function POST(req: NextRequest) {
     business: "Nova firma u direktorijumu / New business",
     product: "Nov proizvod (Pijaca) / New product",
     event: "Nova manifestacija / New event",
+    putopis: "Nov putopis od posetioca / New visitor travelogue",
   };
   if (!titles[kind]) return NextResponse.json({ error: "unknown kind" }, { status: 400 });
   const rows: [string, any][] = [
     ["Naziv / Name", b.name], ["Tip / Type", b.business_type || b.category], ["Paket / Package", b.package],
-    ["Email", b.email], ["Telefon / Phone", b.phone], ["Grad / City", b.city], ["Poruka / Message", b.message],
+    ["Email", b.email], ["Telefon / Phone", b.phone], ["Grad / City", b.city],
+    ["Naslov / Title", b.title], ["Destinacija / Destination", b.destination], ["Link (slike/video)", b.source],
+    ["Poruka / Message", b.message],
   ];
   await sendEmail(ADMIN_EMAIL, titles[kind], wrap(titles[kind], rows, "Otvorite /admin za detalje."), b.email || undefined);
   return NextResponse.json({ ok: true });

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BlogCategoryPage from "@/app/components/BlogCategoryPage";
+import TravelogueSubmit from "@/app/components/TravelogueSubmit";
 import { catById, catName } from "@/lib/blogCategories";
 import { tri } from "@/lib/inostranstvo";
 import { getPostsByCategory } from "@/lib/blog";
@@ -21,5 +22,5 @@ export function generateMetadata(): Metadata {
 
 export default async function Page() {
   const posts = await getPostsByCategory('putopisi');
-  return <BlogCategoryPage cat={CAT} posts={posts} />;
+  return <BlogCategoryPage cat={CAT} posts={posts} extra={<TravelogueSubmit />} />;
 }
