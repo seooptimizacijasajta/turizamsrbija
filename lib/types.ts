@@ -1,6 +1,6 @@
 export type Kind = "mountain" | "lake" | "river" | "monastery" | "spa" | "ethno" | "stay";
 export type Lang = "sr" | "en" | "de";
-export interface Bi { sr: string; en: string }
+export interface Bi { sr: string; en: string; de?: string }
 export interface Listing {
   id: string;
   type: Kind;
@@ -11,7 +11,7 @@ export interface Listing {
   region: Bi;
   short: Bi;
   desc: Bi;
-  features: { sr: string[]; en: string[] };
+  features: { sr: string[]; en: string[]; de?: string[] };
   img: string;
   gallery: string[];
   price: number;

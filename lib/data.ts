@@ -2,6 +2,22 @@ import seed from "./seed.json";
 import { Listing, Kind } from "./types";
 import { getServerClient } from "./supabase";
 import { slugify } from "./slug";
+import { DEST_DE } from "./destDe";
+
+/** Spaja nemački prevod destinacije iz koda kada u bazi nema DE teksta. */
+function withDe(l: Listing): Listing {
+  if (l.desc.de) return l; // baza već ima nemački — ne diramo
+  const de = DEST_DE[`${l.type}||${l.name.sr}`];
+  if (!de) return l;
+  return {
+    ...l,
+    name: { ...l.name, de: de.name },
+    region: { ...l.region, de: de.region },
+    short: { ...l.short, de: de.short },
+    desc: { ...l.desc, de: de.desc },
+    features: { ...l.features, de: de.features },
+  };
+}
 
 const FALLBACK = seed as unknown as Listing[];
 
@@ -15,16 +31,16 @@ function rowToListing(r: any): Listing {
     .sort((a: any, b: any) => (a.sort || 0) - (b.sort || 0))
     .map((i: any) => i.url);
   const dealActive = !!r.deal_type && r.deal_price != null && promoActive(r.deal_until);
-  return {
+  return withDe({
     id: r.id,
     type: r.kind,
     category: r.category || undefined,
     stayType: r.stay_type || undefined,
-    name: { sr: r.name_sr, en: r.name_en },
-    region: { sr: r.region_sr || "", en: r.region_en || "" },
-    short: { sr: r.short_sr || "", en: r.short_en || "" },
-    desc: { sr: r.desc_sr || "", en: r.desc_en || "" },
-    features: { sr: r.features_sr || [], en: r.features_en || [] },
+    name: { sr: r.name_sr, en: r.name_en, de: r.name_de || undefined },
+    region: { sr: r.region_sr || "", en: r.region_en || "", de: r.region_de || undefined },
+    short: { sr: r.short_sr || "", en: r.short_en || "", de: r.short_de || undefined },
+    desc: { sr: r.desc_sr || "", en: r.desc_en || "", de: r.desc_de || undefined },
+    features: { sr: r.features_sr || [], en: r.features_en || [], de: r.features_de || undefined },
     img: r.hero_image || IMG("1551524559-8af4e6624178"),
     gallery: gallery.length ? gallery : [],
     price: Number(r.price) || 0,
@@ -55,7 +71,7 @@ function rowToListing(r: any): Listing {
     dealUntil: r.deal_until ?? null,
     dealNote: r.deal_note ?? null,
     deal: dealActive,
-  };
+  });
 }
 
 export async function getListings(kind?: Kind): Promise<Listing[]> {
@@ -69,7 +85,7 @@ export async function getListings(kind?: Kind): Promise<Listing[]> {
     const { data, error } = await q;
     if (!error && data && data.length) return data.map(rowToListing);
   }
-  return kind ? FALLBACK.filter((l) => l.type === kind) : FALLBACK;
+  return (kind ? FALLBACK.filter((l) => l.type === kind) : FALLBACK).map(withDe);
 }
 
 export async function getListing(id: string): Promise<Listing | null> {
@@ -82,7 +98,8 @@ export async function getListing(id: string): Promise<Listing | null> {
       .maybeSingle();
     if (data) return rowToListing(data);
   }
-  return FALLBACK.find((l) => l.id === id) || null;
+  const f = FALLBACK.find((l) => l.id === id);
+  return f ? withDe(f) : null;
 }
 
 /** Look up a listing by its category + friendly slug (e.g. mountain + "kopaonik"). */
