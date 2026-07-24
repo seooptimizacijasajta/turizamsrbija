@@ -26,18 +26,16 @@ export default function PijacaPage({ products }: { products: Product[] }) {
   }), [products, cat, q, lang]);
 
   const cats = useMemo(() => PCATS.filter((c) => products.some((p) => p.category === c.key)), [products]);
+  // Obična ItemList (naziv + slika) — bez @type Product, jer domaći proizvodi nemaju
+  // recenzije/ocene, pa bi Product schema izazvala „missing review/aggregateRating" upozorenja u GSC.
   const itemListLd = useMemo(() => ({
     "@context": "https://schema.org", "@type": "ItemList",
+    name: "Pijaca — domaći proizvodi",
+    numberOfItems: list.length,
     itemListElement: list.slice(0, 50).map((p, i) => ({
       "@type": "ListItem", position: i + 1,
-      item: {
-        "@type": "Product", name: p.name.sr || p.name.en,
-        ...(p.desc.sr || p.desc.en ? { description: (p.desc.sr || p.desc.en).slice(0, 300) } : {}),
-        ...(p.image ? { image: p.image } : {}),
-        category: pcatLabel(p.category, "sr"),
-        ...(p.producer ? { brand: { "@type": "Brand", name: p.producer } } : {}),
-        ...(p.price != null ? { offers: { "@type": "Offer", price: p.price, priceCurrency: "RSD", availability: "https://schema.org/InStock", ...(p.producer ? { seller: { "@type": "Organization", name: p.producer } } : {}) } } : {}),
-      },
+      name: p.name.sr || p.name.en,
+      ...(p.image ? { image: p.image } : {}),
     })),
   }), [list]);
   const heading = lang === "sr" ? "Pijaca — domaći proizvodi" : lang === "de" ? "Markt — heimische Produkte" : "Marketplace — local products";
