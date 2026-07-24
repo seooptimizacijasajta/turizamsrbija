@@ -183,6 +183,32 @@ export default function MarketingPage() {
             </div>
           ))}
         </div>
+
+        {/* Podaci za uplatu */}
+        <div className="section-head" style={{ marginTop: 40 }}>
+          <h2 className="section-title" style={{ fontSize: "1.3rem" }}>{tt({ sr: "Podaci za uplatu", en: "Payment details", de: "Zahlungsdaten" }, l)}</h2>
+          <p className="section-lead">{tt({ sr: "Uplatu vršite nalogom za prenos na tekući račun. Po evidentiranoj uplati aktiviramo paket.", en: "Pay by bank transfer to the account below. We activate the plan once the payment is received.", de: "Zahlung per Überweisung auf das Konto unten. Nach Zahlungseingang aktivieren wir das Paket." }, l)}</p>
+        </div>
+        <div style={{ maxWidth: 560, border: "1px solid var(--line)", borderRadius: 14, padding: "18px 22px", background: "#fff", display: "grid", gap: 8 }}>
+          {[
+            [tt({ sr: "Primalac", en: "Recipient", de: "Empfänger" }, l), "Branislav Grujić"],
+            [tt({ sr: "Banka", en: "Bank", de: "Bank" }, l), "Raiffeisen banka"],
+            [tt({ sr: "Broj računa", en: "Account number", de: "Kontonummer" }, l), "265-0000007546391-52"],
+            [tt({ sr: "Svrha uplate", en: "Payment purpose", de: "Verwendungszweck" }, l), tt({ sr: "Oglašavanje — naziv vaše firme", en: "Advertising — your business name", de: "Werbung — Ihr Firmenname" }, l)],
+          ].map(([k, v]) => (
+            <div key={k} style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+              <span style={{ color: "var(--slate)" }}>{k}</span>
+              <strong style={{ textAlign: "right" }}>{v}</strong>
+            </div>
+          ))}
+          <p style={{ margin: "6px 0 0", fontSize: ".85rem", color: "var(--slate)" }}>
+            {tt({
+              sr: "U poziv na broj / svrhu uplate upišite naziv firme i paket, pa nam pošaljite potvrdu na info@turizamsrbija.com.",
+              en: "In the payment reference add your business name and plan, then email the receipt to info@turizamsrbija.com.",
+              de: "Geben Sie im Verwendungszweck Firmennamen und Paket an und senden Sie den Beleg an info@turizamsrbija.com.",
+            }, l)}
+          </p>
+        </div>
       </div></section>
 
       {/* Forma */}
