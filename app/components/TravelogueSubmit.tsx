@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
-import { getBrowserClient } from "@/lib/supabaseBrowser";
 
 type L3 = { sr: string; en: string; de: string };
 const tt = (o: L3, l: string) => (l === "sr" ? o.sr : l === "de" ? o.de : o.en);
@@ -21,18 +20,11 @@ export default function TravelogueSubmit() {
     const f = new FormData(ev.currentTarget); const g = (k: string) => String(f.get(k) || "").trim();
     if (!g("name") || !g("title") || !g("message")) { setErr("*"); setBusy(false); return; }
     try {
-      // Ako postoji tabela travelogues sa javnim insertom, upiši i tamo (status pending).
-      const sb = getBrowserClient();
-      if (sb) {
-        await sb.from("travelogues").insert({
-          author_name: g("name"), destination: g("destination"), title: g("title"),
-          body: g("message"), source_url: g("source") || null, lang, status: "pending",
-        }).then(() => {}, () => {}); // tabela je opciona — ne prekidaj ako ne postoji
-      }
-      await fetch("/api/notify", {
+      const r = await fetch("/api/submit", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "putopis", name: g("name"), destination: g("destination"), title: g("title"), source: g("source"), message: g("message") }),
+        body: JSON.stringify({ kind: "travelogue", name: g("name"), destination: g("destination"), title: g("title"), source: g("source"), message: g("message"), lang }),
       });
+      if (!r.ok) throw new Error("save failed");
       setSent(true);
     } catch (x: any) { setErr(x.message || "Greška / Error"); } finally { setBusy(false); }
   }

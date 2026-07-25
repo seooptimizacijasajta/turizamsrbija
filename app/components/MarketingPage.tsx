@@ -3,7 +3,6 @@ import { useState, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
-import { getBrowserClient } from "@/lib/supabaseBrowser";
 
 type L3 = { sr: string; en: string; de: string };
 const tt = (o: L3, l: string) => (l === "sr" ? o.sr : l === "de" ? o.de : o.en);
@@ -103,14 +102,9 @@ export default function MarketingPage() {
     const f = new FormData(ev.currentTarget); const g = (k: string) => String(f.get(k) || "").trim();
     if (!g("name")) { setErr("*"); setBusy(false); return; }
     try {
-      const sb = getBrowserClient();
-      if (sb) {
-        const { error } = await sb.from("marketing_leads").insert({
-          name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message"),
-        });
-        if (error) throw error;
-      }
-      fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "lead", name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message") }) }).catch(() => {});
+      const payload = { name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message") };
+      const r = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (!r.ok) throw new Error("save failed");
       setSent(true);
     } catch (x: any) { setErr(x.message || "Greška / Error"); } finally { setBusy(false); }
   }

@@ -34,9 +34,9 @@ export default function UtisciPage() {
     const body = String(f.get("body") || "").trim();
     if (!name || !body) { setErr(L("Ime i utisak su obavezni.", "Name and review are required.", "Name und Eindruck sind erforderlich.")); return; }
     setTBusy(true); setErr("");
-    const { error } = await sb.from("testimonials").insert({ name, city: String(f.get("city") || "").trim() || null, rating, body, lang, status: "pending" });
+    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "testimonial", name, city: String(f.get("city") || "").trim(), rating, body, lang }) });
     setTBusy(false);
-    if (error) setErr(error.message); else { setTSent(true); form.reset(); setRating(5); }
+    if (!r.ok) setErr(L("Greška pri slanju.", "Could not send.", "Senden fehlgeschlagen.")); else { setTSent(true); form.reset(); setRating(5); }
   }
 
   async function submitF(e: React.FormEvent<HTMLFormElement>) {
@@ -47,9 +47,9 @@ export default function UtisciPage() {
     const message = String(f.get("message") || "").trim();
     if (!message) return;
     setFBusy(true);
-    const { error } = await sb.from("feedback").insert({ name: String(f.get("name") || "").trim() || null, email: String(f.get("email") || "").trim() || null, message });
+    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "feedback", name: String(f.get("name") || "").trim(), email: String(f.get("email") || "").trim(), message }) });
     setFBusy(false);
-    if (!error) { setFSent(true); form.reset(); }
+    if (r.ok) { setFSent(true); form.reset(); }
   }
 
   const avg = useMemo(() => {

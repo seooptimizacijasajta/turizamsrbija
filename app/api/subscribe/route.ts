@@ -7,8 +7,12 @@ export async function POST(req: NextRequest) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return NextResponse.json({ error: "invalid email" }, { status: 422 });
   const lang = b.lang === "en" ? "en" : b.lang === "de" ? "de" : "sr";
   const sb = getServerClient();
-  if (!sb) return NextResponse.json({ ok: true, persisted: false });
-  await sb.from("newsletter").upsert({ email, lang }, { onConflict: "email" });
+  let persisted = false;
+  if (sb) {
+    const { error } = await sb.from("newsletter").upsert({ email, lang }, { onConflict: "email" });
+    if (error) console.error("[subscribe] insert error:", error.message);
+    else persisted = true;
+  }
   // Obavesti admina (best-effort, ne blokira odgovor)
   try {
     await sendEmail(
@@ -22,5 +26,5 @@ export async function POST(req: NextRequest) {
       email,
     );
   } catch { /* ignore email failures */ }
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, persisted });
 }
