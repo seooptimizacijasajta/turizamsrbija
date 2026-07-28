@@ -1,5 +1,6 @@
 import { getServerClient } from "./supabase";
 import { STATIC_POSTS } from "./staticPosts";
+import { GUIDE_POSTS } from "./guidePosts";
 export type Post = {
   id: string; slug: string; title_sr: string; title_en: string | null;
   excerpt_sr: string | null; excerpt_en: string | null;
@@ -9,9 +10,10 @@ export type Post = {
   cover_image: string | null; status: string; created_at: string; updated_at: string | null;
   category: string | null;
 };
+const ALL_STATIC: Post[] = [...STATIC_POSTS, ...GUIDE_POSTS];
 function merge(db: Post[]): Post[] {
   const slugs = new Set(db.map((p) => p.slug));
-  const extra = STATIC_POSTS.filter((p) => !slugs.has(p.slug));
+  const extra = ALL_STATIC.filter((p) => !slugs.has(p.slug));
   return [...db, ...extra].sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 }
 
@@ -26,7 +28,7 @@ export async function getPost(slug: string): Promise<Post | null> {
     const { data } = await sb.from("posts").select("*").eq("slug", slug).eq("status", "published").maybeSingle();
     if (data) return data as Post;
   }
-  return STATIC_POSTS.find((p) => p.slug === slug) || null;
+  return ALL_STATIC.find((p) => p.slug === slug) || null;
 }
 
 export async function getPostsByCategory(catId: string): Promise<Post[]> {
@@ -35,6 +37,6 @@ export async function getPostsByCategory(catId: string): Promise<Post[]> {
     ? ((await sb.from("posts").select("*").eq("status", "published").eq("category", catId).order("created_at", { ascending: false })).data || []) as Post[]
     : [];
   const slugs = new Set(db.map((p) => p.slug));
-  const extra = STATIC_POSTS.filter((p) => p.category === catId && !slugs.has(p.slug));
+  const extra = ALL_STATIC.filter((p) => p.category === catId && !slugs.has(p.slug));
   return [...db, ...extra].sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
 }
