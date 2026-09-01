@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/supabase";
 import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
+import { looksLikeSpam } from "@/lib/antispam";
 
 /** Server-side handler for advertising / marketing leads.
  *  Runs with the service role (getServerClient) so RLS never blocks the insert,
@@ -8,6 +9,7 @@ import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
 export async function POST(req: NextRequest) {
   let b: any;
   try { b = await req.json(); } catch { return NextResponse.json({ error: "bad json" }, { status: 400 }); }
+  if (looksLikeSpam(b)) return NextResponse.json({ ok: true, persisted: false });
 
   const name = String(b.name || "").trim();
   if (!name) return NextResponse.json({ error: "name required" }, { status: 422 });

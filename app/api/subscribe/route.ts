@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/supabase";
 import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
+import { looksLikeSpam } from "@/lib/antispam";
 export async function POST(req: NextRequest) {
   let b: any; try { b = await req.json(); } catch { return NextResponse.json({ error: "bad" }, { status: 400 }); }
+  if (looksLikeSpam(b)) return NextResponse.json({ ok: true, persisted: false });
   const email = String(b.email || "").trim().toLowerCase();
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return NextResponse.json({ error: "invalid email" }, { status: 422 });
   const lang = b.lang === "en" ? "en" : b.lang === "de" ? "de" : "sr";

@@ -4,6 +4,7 @@ import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
+import { HONEYPOT_STYLE } from "@/lib/antispam";
 import JsonLd from "./JsonLd";
 
 export default function UtisciPage() {
@@ -34,7 +35,7 @@ export default function UtisciPage() {
     const body = String(f.get("body") || "").trim();
     if (!name || !body) { setErr(L("Ime i utisak su obavezni.", "Name and review are required.", "Name und Eindruck sind erforderlich.")); return; }
     setTBusy(true); setErr("");
-    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "testimonial", name, city: String(f.get("city") || "").trim(), rating, body, lang }) });
+    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "testimonial", name, city: String(f.get("city") || "").trim(), rating, body, lang, hp: String(f.get("hp") || "") }) });
     setTBusy(false);
     if (!r.ok) setErr(L("Greška pri slanju.", "Could not send.", "Senden fehlgeschlagen.")); else { setTSent(true); form.reset(); setRating(5); }
   }
@@ -47,7 +48,7 @@ export default function UtisciPage() {
     const message = String(f.get("message") || "").trim();
     if (!message) return;
     setFBusy(true);
-    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "feedback", name: String(f.get("name") || "").trim(), email: String(f.get("email") || "").trim(), message }) });
+    const r = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind: "feedback", name: String(f.get("name") || "").trim(), email: String(f.get("email") || "").trim(), message, hp: String(f.get("hp") || "") }) });
     setFBusy(false);
     if (r.ok) { setFSent(true); form.reset(); }
   }
@@ -103,6 +104,7 @@ export default function UtisciPage() {
               <div className="form-success show">{L("Hvala! Utisak će biti objavljen nakon odobrenja.", "Thank you! Your review will appear after approval.", "Danke! Ihr Eindruck erscheint nach Freigabe.")}</div>
             ) : (
               <form onSubmit={submitT} style={{ display: "grid", gap: 10 }}>
+                <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" style={HONEYPOT_STYLE} />
                 <div className="field"><label>{L("Ime", "Name", "Name")} *</label><input name="name" required /></div>
                 <div className="field"><label>{L("Grad (opciono)", "City (optional)", "Stadt (optional)")}</label><input name="city" /></div>
                 <div className="field">
@@ -128,6 +130,7 @@ export default function UtisciPage() {
               <div className="form-success show">{L("Hvala na povratnoj informaciji!", "Thanks for your feedback!", "Danke für Ihr Feedback!")}</div>
             ) : (
               <form onSubmit={submitF} style={{ display: "grid", gap: 10 }}>
+                <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" style={HONEYPOT_STYLE} />
                 <div className="field"><label>{L("Ime (opciono)", "Name (optional)", "Name (optional)")}</label><input name="name" /></div>
                 <div className="field"><label>{L("Email (opciono)", "Email (optional)", "E-Mail (optional)")}</label><input name="email" type="email" /></div>
                 <div className="field"><label>{L("Poruka", "Message", "Nachricht")} *</label><textarea name="message" rows={4} required /></div>

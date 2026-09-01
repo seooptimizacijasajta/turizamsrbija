@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/supabase";
 import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
+import { looksLikeSpam } from "@/lib/antispam";
 
 export async function POST(req: NextRequest) {
   let body: any;
   try { body = await req.json(); } catch { return NextResponse.json({ error: "bad json" }, { status: 400 }); }
+  if (looksLikeSpam(body)) return NextResponse.json({ ok: true, persisted: false });
 
   const { guest_name, email } = body || {};
   if (!guest_name || !email) {

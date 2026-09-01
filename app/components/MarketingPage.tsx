@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { useLang } from "@/lib/i18n";
 import Breadcrumbs from "./Breadcrumbs";
 import { homePath } from "@/lib/slug";
+import { HONEYPOT_STYLE } from "@/lib/antispam";
 
 type L3 = { sr: string; en: string; de: string };
 const tt = (o: L3, l: string) => (l === "sr" ? o.sr : l === "de" ? o.de : o.en);
@@ -102,7 +103,7 @@ export default function MarketingPage() {
     const f = new FormData(ev.currentTarget); const g = (k: string) => String(f.get(k) || "").trim();
     if (!g("name")) { setErr("*"); setBusy(false); return; }
     try {
-      const payload = { name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message") };
+      const payload = { name: g("name"), email: g("email"), phone: g("phone"), business_type: g("business_type"), package: g("package"), message: g("message"), hp: g("hp") };
       const r = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (!r.ok) throw new Error("save failed");
       setSent(true);
@@ -213,6 +214,7 @@ export default function MarketingPage() {
           <div className="empty" style={{ color: "var(--green-600)" }}>✓ {tt({ sr: "Hvala! Vaš upit je poslat — javljamo se uskoro.", en: "Thank you! Your enquiry has been sent — we'll be in touch soon.", de: "Danke! Ihre Anfrage wurde gesendet — wir melden uns bald." }, l)}</div>
         ) : (
           <form onSubmit={submit} style={{ display: "grid", gap: 12 }}>
+            <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" style={HONEYPOT_STYLE} />
             <div className="field"><label>{tt({ sr: "Ime i prezime *", en: "Full name *", de: "Name *" }, l)}</label><input name="name" required /></div>
             <div className="field-row">
               <div className="field"><label>Email</label><input name="email" type="email" /></div>

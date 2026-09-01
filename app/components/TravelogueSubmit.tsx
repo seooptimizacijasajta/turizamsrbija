@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
+import { HONEYPOT_STYLE } from "@/lib/antispam";
 
 type L3 = { sr: string; en: string; de: string };
 const tt = (o: L3, l: string) => (l === "sr" ? o.sr : l === "de" ? o.de : o.en);
@@ -22,7 +23,7 @@ export default function TravelogueSubmit() {
     try {
       const r = await fetch("/api/submit", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "travelogue", name: g("name"), destination: g("destination"), title: g("title"), source: g("source"), message: g("message"), lang }),
+        body: JSON.stringify({ kind: "travelogue", name: g("name"), destination: g("destination"), title: g("title"), source: g("source"), message: g("message"), lang, hp: g("hp") }),
       });
       if (!r.ok) throw new Error("save failed");
       setSent(true);
@@ -48,6 +49,7 @@ export default function TravelogueSubmit() {
           </div>
         ) : (
           <form onSubmit={submit} style={{ display: "grid", gap: 12 }}>
+            <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" style={HONEYPOT_STYLE} />
             <div className="field-row">
               <div className="field"><label>{tt({ sr: "Vaše ime *", en: "Your name *", de: "Ihr Name *" }, l)}</label><input name="name" required /></div>
               <div className="field"><label>{tt({ sr: "Destinacija", en: "Destination", de: "Reiseziel" }, l)}</label><input name="destination" placeholder={tt({ sr: "npr. Tara, Grčka…", en: "e.g. Tara, Greece…", de: "z. B. Tara, Griechenland…" }, l)} /></div>

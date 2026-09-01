@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/supabase";
 import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
+import { looksLikeSpam } from "@/lib/antispam";
 
 /** Server-side handler for visitor submissions: testimonials, feedback, travelogues.
  *  Runs with the service role so RLS never blocks the insert. Everything is stored
@@ -8,6 +9,7 @@ import { sendEmail, wrap, ADMIN_EMAIL } from "@/lib/email";
 export async function POST(req: NextRequest) {
   let b: any;
   try { b = await req.json(); } catch { return NextResponse.json({ error: "bad json" }, { status: 400 }); }
+  if (looksLikeSpam(b)) return NextResponse.json({ ok: true, persisted: false });
 
   const kind = String(b.kind || "");
   const lang = b.lang === "en" ? "en" : b.lang === "de" ? "de" : "sr";

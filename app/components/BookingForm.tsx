@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Listing } from "@/lib/types";
 import { useLang, L } from "@/lib/i18n";
 import { useCurrency } from "@/lib/currency";
+import { HONEYPOT_STYLE } from "@/lib/antispam";
 
 export default function BookingForm({ item }: { item: Listing }) {
   const { lang, t } = useLang();
@@ -27,6 +28,7 @@ export default function BookingForm({ item }: { item: Listing }) {
       guests: Number(fd.get("guests")) || 1,
       children: Number(fd.get("children")) || 0,
       message: fd.get("message"),
+      hp: fd.get("hp"),
     };
     try {
       const res = await fetch("/api/inquiries", {
@@ -90,6 +92,7 @@ export default function BookingForm({ item }: { item: Listing }) {
       <h3 style={{ marginTop: 6 }}>{isStay ? t("book_title") : t("inquire_title")}</h3>
       {!sent ? (
         <form onSubmit={onSubmit}>
+          <input type="text" name="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" style={HONEYPOT_STYLE} />
           <div className="field"><label>{t("f_name")} *</label><input required name="name" placeholder={t("f_name")} /></div>
           <div className="field"><label>{t("f_email")} *</label><input required type="email" name="email" placeholder="email@example.com" /></div>
           <div className="field"><label>{t("f_phone")} *</label><input required name="phone" placeholder="+381 ..." /></div>
