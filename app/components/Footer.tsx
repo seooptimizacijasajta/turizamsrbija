@@ -71,11 +71,11 @@ export default function Footer() {
         </div>
         <div style={{ marginTop: 22, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 14px", fontSize: ".85rem", color: "#bfe0d3" }}>
           <span style={{ opacity: 0.7 }}>{lang === "sr" ? "Po pogodnosti:" : lang === "de" ? "Nach Ausstattung:" : "By amenity:"}</span>
-          <Link href={amenityPath("vouchers", lang)}>{lang !== "sr" ? "Accepts vouchers" : "Prima vaučere"}</Link>
-          <Link href={amenityPath("pool", lang)}>{lang !== "sr" ? "With pool" : "Sa bazenom"}</Link>
-          <Link href={amenityPath("pet", lang)}>{lang !== "sr" ? "Pet friendly" : "Pet friendly"}</Link>
-          <Link href={amenityPath("kids", lang)}>{lang !== "sr" ? "Family friendly" : "Za porodice sa decom"}</Link>
-          <Link href={amenityPath("wellness", lang)}>{lang !== "sr" ? "With wellness" : "Sa wellness sadržajem"}</Link>
+          <Link href={amenityPath("vouchers", lang)}>{lang === "sr" ? "Prima vaučere" : lang === "de" ? "Akzeptiert Gutscheine" : "Accepts vouchers"}</Link>
+          <Link href={amenityPath("pool", lang)}>{lang === "sr" ? "Sa bazenom" : lang === "de" ? "Mit Pool" : "With pool"}</Link>
+          <Link href={amenityPath("pet", lang)}>{lang === "sr" ? "Pet friendly" : lang === "de" ? "Haustierfreundlich" : "Pet friendly"}</Link>
+          <Link href={amenityPath("kids", lang)}>{lang === "sr" ? "Za porodice sa decom" : lang === "de" ? "Familienfreundlich" : "Family friendly"}</Link>
+          <Link href={amenityPath("wellness", lang)}>{lang === "sr" ? "Sa wellness sadržajem" : lang === "de" ? "Mit Wellness" : "With wellness"}</Link>
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,.12)", marginTop: 24, paddingTop: 18 }}><PaymentBadges compact /></div>
         <div className="footer-bottom">

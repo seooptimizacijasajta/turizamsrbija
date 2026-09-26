@@ -85,7 +85,7 @@ export default function DetailView({
               {guide && (
                 <p className="guide-callout" style={{ marginTop: 12 }}>
                   📖 <Link href={blogHref(guide.slug, lang)} style={{ color: "var(--green-600)", fontWeight: 700 }}>
-                    {lang !== "sr" ? `Read our guide: ${guide.en}` : `Pročitajte vodič: ${guide.sr}`}
+                    {lang === "sr" ? `Pročitajte vodič: ${guide.sr}` : lang === "de" ? `Unser Reiseführer: ${guide.en}` : `Read our guide: ${guide.en}`}
                   </Link>
                 </p>
               )}

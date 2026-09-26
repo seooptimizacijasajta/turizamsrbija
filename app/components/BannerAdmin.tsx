@@ -2,6 +2,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseBrowser";
 import { BLOG_CATS } from "@/lib/blogCategories";
+import { STATIC_POSTS } from "@/lib/staticPosts";
+import { GUIDE_POSTS } from "@/lib/guidePosts";
 import { slugify } from "@/lib/slug";
 import Turnstile from "./Turnstile";
 
@@ -76,6 +78,10 @@ export default function BannerAdmin() {
     if (!sb || !confirm("Obrisati upit? / Delete inquiry?")) return;
     await sb.from("inquiries").delete().eq("id", id); loadInquiries();
   }
+  async function delAllInquiries() {
+    if (!sb || !inquiries.length || !confirm(`Obrisati SVE upite (${inquiries.length})? / Delete ALL inquiries?`)) return;
+    await sb.from("inquiries").delete().in("id", inquiries.map((q) => q.id)); loadInquiries();
+  }
   const loadTestis = useCallback(async () => {
     if (!sb) return;
     const { data } = await sb.from("testimonials").select("*").order("created_at", { ascending: false });
@@ -140,7 +146,7 @@ export default function BannerAdmin() {
       reviews: await c("reviews"),
       reviewsPending: await c("reviews", (q) => q.eq("status", "pending")),
       subscribers: await c("newsletter"),
-      posts: await c("posts"),
+      posts: (await c("posts")) + STATIC_POSTS.length + GUIDE_POSTS.length,
       leads: await c("marketing_leads"),
     });
   }, [sb]);
@@ -374,7 +380,10 @@ export default function BannerAdmin() {
       {tab === "inquiries" && (
         <div>
           <h1>Upiti gostiju / Guest inquiries ({inquiries.length})</h1>
-          <p style={{ color: "var(--slate)", margin: "6px 0 14px" }}>Upiti poslati preko forme na oglasima. Javite se gostu na email ili telefon.</p>
+          <p style={{ color: "var(--slate)", margin: "6px 0 10px" }}>Upiti poslati preko forme na oglasima. Javite se gostu na email ili telefon.</p>
+          {inquiries.length > 0 && (
+            <button className="btn btn--outline" style={{ marginBottom: 12, color: "var(--danger)", borderColor: "var(--danger)" }} onClick={delAllInquiries}>🗑 Obriši sve / Delete all ({inquiries.length})</button>
+          )}
           {inquiries.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema upita. / No inquiries yet.</div> : (
             <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
               {inquiries.map((q) => (
