@@ -13,12 +13,13 @@ export default function BannerAdmin() {
   const [ready, setReady] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "utisci">("stats");
+  const [tab, setTab] = useState<"stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "inquiries" | "utisci">("stats");
   const [users, setUsers] = useState<any[]>([]);
   const [uListings, setUListings] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
   const [subs, setSubs] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
+  const [inquiries, setInquiries] = useState<any[]>([]);
   const [commPct, setCommPct] = useState("10");
   const [showBk, setShowBk] = useState(false);
   const [testis, setTestis] = useState<any[]>([]);
@@ -66,6 +67,15 @@ export default function BannerAdmin() {
     const { data } = await sb.from("bookings").select("*, listings(name_sr, owner_id)").order("created_at", { ascending: false });
     setBookings(data || []);
   }, [sb]);
+  const loadInquiries = useCallback(async () => {
+    if (!sb) return;
+    const { data } = await sb.from("inquiries").select("*, listings(name_sr)").order("created_at", { ascending: false });
+    setInquiries(data || []);
+  }, [sb]);
+  async function delInquiry(id: string) {
+    if (!sb || !confirm("Obrisati upit? / Delete inquiry?")) return;
+    await sb.from("inquiries").delete().eq("id", id); loadInquiries();
+  }
   const loadTestis = useCallback(async () => {
     if (!sb) return;
     const { data } = await sb.from("testimonials").select("*").order("created_at", { ascending: false });
@@ -158,7 +168,7 @@ export default function BannerAdmin() {
     const { data } = await sb.from("profiles").select("role").eq("id", id).single();
     const admin = data?.role === "admin";
     setIsAdmin(admin);
-    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); loadBookings(); loadSettings(); loadTestis(); loadFeedback(); }
+    if (admin) { load(); loadReviews(); loadPosts(); loadStats(); loadLeads(); loadUsers(); loadSubs(); loadBookings(); loadInquiries(); loadSettings(); loadTestis(); loadFeedback(); }
   }, [sb, load, loadReviews, loadPosts, loadStats, loadLeads, loadUsers]);
 
   useEffect(() => {
@@ -243,7 +253,7 @@ export default function BannerAdmin() {
   }
 
   const e = editing;
-  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "utisci", label: string) => (
+  const tabBtn = (id: "stats" | "banners" | "reviews" | "blog" | "leads" | "users" | "newsletter" | "bookings" | "inquiries" | "utisci", label: string) => (
     <button className={"btn " + (tab === id ? "btn--primary" : "btn--outline")} onClick={() => setTab(id)}>{label}</button>
   );
 
@@ -257,6 +267,7 @@ export default function BannerAdmin() {
         {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
         {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
         {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
+        {tabBtn("inquiries", `Upiti${inquiries.length ? " (" + inquiries.length + ")" : ""}`)}
         {tabBtn("bookings", `Rezervacije${bookings.length ? " (" + bookings.length + ")" : ""}`)}
         {tabBtn("utisci", `Utisci${testis.filter((x) => x.status !== "approved").length ? " (" + testis.filter((x) => x.status !== "approved").length + ")" : ""}`)}
         <a href="/predracun" className="btn btn--outline" style={{ marginLeft: "auto" }}>🧾 Predračun</a>
@@ -354,6 +365,38 @@ export default function BannerAdmin() {
                 <div key={s.id} style={{ display: "flex", justifyContent: "space-between", gap: 10, border: "1px solid var(--line)", borderRadius: 8, padding: "8px 12px", flexWrap: "wrap" }}>
                   <a href={`mailto:${s.email}`}>{s.email}</a>
                   <span style={{ color: "var(--slate)", fontSize: ".82rem" }}>{(s.lang || "sr").toUpperCase()} · {new Date(s.created_at).toLocaleDateString()}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+      {tab === "inquiries" && (
+        <div>
+          <h1>Upiti gostiju / Guest inquiries ({inquiries.length})</h1>
+          <p style={{ color: "var(--slate)", margin: "6px 0 14px" }}>Upiti poslati preko forme na oglasima. Javite se gostu na email ili telefon.</p>
+          {inquiries.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Još nema upita. / No inquiries yet.</div> : (
+            <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
+              {inquiries.map((q) => (
+                <div key={q.id} style={{ border: "1px solid var(--line)", borderRadius: 10, padding: "12px 14px", background: "#fff" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "baseline" }}>
+                    <strong>{q.guest_name || "—"}</strong>
+                    <span style={{ color: "var(--slate)", fontSize: ".8rem" }}>{q.created_at ? new Date(q.created_at).toLocaleString() : ""}</span>
+                  </div>
+                  <div style={{ display: "flex", gap: 14, flexWrap: "wrap", margin: "6px 0", fontSize: ".92rem" }}>
+                    {q.email && <a href={`mailto:${q.email}`}>✉ {q.email}</a>}
+                    {q.phone && <a href={`tel:${q.phone}`}>☎ {q.phone}</a>}
+                    {q.listings?.name_sr && <span style={{ color: "var(--slate)" }}>🏠 {q.listings.name_sr}</span>}
+                  </div>
+                  {(q.checkin || q.checkout || q.guests) && (
+                    <div style={{ color: "var(--slate)", fontSize: ".85rem", marginBottom: 4 }}>
+                      {q.checkin && <>Dolazak: {q.checkin} </>}{q.checkout && <>· Odlazak: {q.checkout} </>}{q.guests ? <>· Osoba: {q.guests}{q.children ? " (+" + q.children + " dece)" : ""}</> : null}
+                    </div>
+                  )}
+                  {q.message && <p style={{ margin: "6px 0 0", lineHeight: 1.6 }}>{q.message}</p>}
+                  <div style={{ marginTop: 8 }}>
+                    <button className="btn btn--outline" style={{ fontSize: ".8rem", padding: "3px 10px" }} onClick={() => delInquiry(q.id)}>Obriši</button>
+                  </div>
                 </div>
               ))}
             </div>
