@@ -228,6 +228,8 @@ export default function BannerAdmin() {
     loadReviews();
   }
   async function rejectReview(r: any) { if (!sb) return; await sb.from("reviews").update({ status: "rejected" }).eq("id", r.id); loadReviews(); }
+  async function approveListing(id: string) { if (!sb) return; await sb.from("listings").update({ status: "approved" }).eq("id", id); loadUsers(); loadStats(); }
+  async function rejectListing(id: string) { if (!sb || !confirm("Odbiti oglas? / Reject listing?")) return; await sb.from("listings").update({ status: "rejected" }).eq("id", id); loadUsers(); loadStats(); }
   async function delReview(r: any) { if (!sb || !confirm("Obrisati? / Delete?")) return; await sb.from("reviews").delete().eq("id", r.id); loadReviews(); }
 
   if (!ready) return <div className="container" style={{ padding: "60px 0" }}>…</div>;
@@ -265,13 +267,13 @@ export default function BannerAdmin() {
 
   return (
     <div className="container admin-wrap" style={{ padding: "40px 0" }}>
-      <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+      <div style={{ display: "flex", gap: 10, marginBottom: 20, flexWrap: "wrap" }}>
         {tabBtn("stats", "Statistika")}
         {tabBtn("banners", "Baneri / Banners")}
         {tabBtn("reviews", `Recenzije / Reviews${reviews.filter((r) => r.status === "pending").length ? " (" + reviews.filter((r) => r.status === "pending").length + ")" : ""}`)}
         {tabBtn("blog", "Blog")}
         {tabBtn("leads", `Marketing upiti / Leads${leads.length ? " (" + leads.length + ")" : ""}`)}
-        {tabBtn("users", `Korisnici / Users${users.length ? " (" + users.length + ")" : ""}`)}
+        {tabBtn("users", `Korisnici${uListings.filter((l) => l.status === "pending").length ? " ⏳" + uListings.filter((l) => l.status === "pending").length : users.length ? " (" + users.length + ")" : ""}`)}
         {tabBtn("newsletter", `Newsletter${subs.length ? " (" + subs.length + ")" : ""}`)}
         {tabBtn("inquiries", `Upiti${inquiries.length ? " (" + inquiries.length + ")" : ""}`)}
         {tabBtn("bookings", `Rezervacije${bookings.length ? " (" + bookings.length + ")" : ""}`)}
@@ -300,6 +302,22 @@ export default function BannerAdmin() {
       {tab === "users" && (
         <div>
           <h1>Korisnici / Registered users</h1>
+          {uListings.filter((l) => l.status === "pending").length > 0 && (
+            <div style={{ border: "2px solid #e0a500", background: "#fff8e6", borderRadius: 12, padding: "14px 16px", marginTop: 12 }}>
+              <h2 style={{ margin: "0 0 8px", fontSize: "1.05rem" }}>⏳ Oglasi na čekanju / Pending listings ({uListings.filter((l) => l.status === "pending").length})</h2>
+              <div style={{ display: "grid", gap: 8 }}>
+                {uListings.filter((l) => l.status === "pending").map((l) => (
+                  <div key={l.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap", background: "#fff", border: "1px solid var(--line)", borderRadius: 8, padding: "8px 12px" }}>
+                    <span><strong>{l.name_sr}</strong> <span style={{ color: "var(--slate)", fontSize: ".85rem" }}>· {l.kind}</span></span>
+                    <span style={{ display: "flex", gap: 8 }}>
+                      <button className="btn btn--primary" style={{ fontSize: ".8rem", padding: "4px 12px" }} onClick={() => approveListing(l.id)}>✓ Odobri</button>
+                      <button className="btn btn--outline" style={{ fontSize: ".8rem", padding: "4px 12px", color: "var(--danger)", borderColor: "var(--danger)" }} onClick={() => rejectListing(l.id)}>✗ Odbij</button>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {users.length === 0 ? <div className="empty" style={{ marginTop: 16 }}>Učitavanje… / Loading…</div> : (
             <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
               {users.map((u) => {
