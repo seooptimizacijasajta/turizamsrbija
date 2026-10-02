@@ -104,7 +104,6 @@ export default function ListingForm({
     const toArr = (s: string) => s.split(",").map((x) => x.trim()).filter(Boolean);
 
     if (!get("name_sr") || !get("name_en")) { setErr(t("fo_required")); setBusy(false); return; }
-    if (descWords < 500) { setErr(`Opis (srpski) mora imati bar 500 reči. Trenutno: ${descWords}. / Description must be at least 500 words.`); setBusy(false); return; }
     if (photos.length === 0) { setErr("Dodajte bar jednu fotografiju. / Add at least one photo."); setBusy(false); return; }
 
     const place = get("place");
@@ -214,7 +213,7 @@ export default function ListingForm({
       <div className="field-row">{field("short_sr", t("fo_short"), e?.short_sr)}{field("short_en", t("fo_short_en"), e?.short_en)}</div>
 
       <div className="field">
-        <label>{t("fo_desc")} — <span style={{ color: descWords >= 500 ? "var(--green-600)" : "var(--danger)" }}>{descWords} / 500 reči</span></label>
+        <label>{t("fo_desc")} <span style={{ color: "var(--slate)", fontWeight: 400 }}>· {descWords} reči</span></label>
         <textarea rows={8} value={descSr} onChange={(ev) => setDescSr(ev.target.value)} />
       </div>
       <div className="field"><label>{t("fo_desc_en")}</label><textarea name="desc_en" rows={5} defaultValue={e?.desc_en || ""} /></div>
