@@ -3,6 +3,7 @@ import { Listing, Kind } from "./types";
 import { getServerClient } from "./supabase";
 import { slugify } from "./slug";
 import { DEST_DE } from "./destDe";
+import { STATIC_DESTINATIONS } from "./staticDestinations";
 
 /** Spaja nemački prevod destinacije iz koda kada u bazi nema DE teksta. */
 function withDe(l: Listing): Listing {
@@ -76,6 +77,7 @@ function rowToListing(r: any): Listing {
 
 export async function getListings(kind?: Kind): Promise<Listing[]> {
   const sb = getServerClient();
+  let base: Listing[] | null = null;
   if (sb) {
     let q = sb
       .from("listings")
@@ -83,9 +85,15 @@ export async function getListings(kind?: Kind): Promise<Listing[]> {
       .eq("status", "approved").order("created_at", { ascending: false });
     if (kind) q = q.eq("kind", kind);
     const { data, error } = await q;
-    if (!error && data && data.length) return data.map(rowToListing);
+    if (!error && data && data.length) base = data.map(rowToListing);
   }
-  return (kind ? FALLBACK.filter((l) => l.type === kind) : FALLBACK).map(withDe);
+  if (!base) base = (kind ? FALLBACK.filter((l) => l.type === kind) : FALLBACK).map(withDe);
+  // Spoji statičke destinacije (npr. Banja Vrujci) kojih nema u rezultatu
+  const have = new Set(base.map((l) => `${l.type}||${slugify(l.name.sr)}`));
+  const extra = STATIC_DESTINATIONS
+    .filter((d) => (!kind || d.type === kind) && !have.has(`${d.type}||${slugify(d.name.sr)}`))
+    .map(withDe);
+  return [...base, ...extra];
 }
 
 export async function getListing(id: string): Promise<Listing | null> {
