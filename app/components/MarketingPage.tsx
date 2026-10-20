@@ -60,7 +60,7 @@ const PLANS: {
       { sr: "Reklamni baner (bočni ili gornji)", en: "Ad banner (sidebar or top)", de: "Werbebanner (Sidebar oder oben)" },
       { sr: "PR članak na blogu (trajan)", en: "PR article on the blog (permanent)", de: "PR-Artikel im Blog (dauerhaft)" },
       { sr: "Objava na našim mrežama", en: "Post on our social media", de: "Beitrag in unseren sozialen Medien" },
-      { sr: "Oglašavanje vašeg linka/smeštaja/firme u 50 turističkih grupa", en: "Your link/stay/business promoted in 50 tourism groups", de: "Ihr Link/Unterkunft/Firma in 50 Tourismus-Gruppen beworben" },
+      { sr: "Oglašavanje vašeg linka/smeštaja/firme u 100 turističkih grupa", en: "Your link/stay/business promoted in 100 tourism groups", de: "Ihr Link/Unterkunft/Firma in 100 Tourismus-Gruppen beworben" },
       { sr: "Dodatna promocija: 7 reela mesečno", en: "Extra promotion: 7 reels per month", de: "Extra-Promo: 7 Reels pro Monat" },
     ],
   },
