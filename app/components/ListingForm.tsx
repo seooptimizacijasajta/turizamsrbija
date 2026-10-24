@@ -290,13 +290,14 @@ export default function ListingForm({
         )}
       </div>
 
-      {/* YouTube */}
+      {/* Video — YouTube, Facebook, Instagram, TikTok */}
       <div className="field">
-        <label>YouTube video linkovi (do 3 / up to 3)</label>
+        <label>Video linkovi — YouTube, Facebook, Instagram, TikTok (do 3 / up to 3)</label>
         {[0, 1, 2].map((i) => (
-          <input key={i} value={videos[i]} placeholder="https://youtube.com/watch?v=..." style={{ marginTop: 6 }}
+          <input key={i} value={videos[i]} placeholder="npr. youtube.com/… · facebook.com/… · instagram.com/… · tiktok.com/…" style={{ marginTop: 6 }}
             onChange={(ev) => { const v = [...videos]; v[i] = ev.target.value; setVideos(v); }} />
         ))}
+        <p className="booking-note" style={{ textAlign: "left", marginTop: 4 }}>Zalepite ceo link objave; sistem sam prepoznaje platformu. / Paste the full post link; the platform is detected automatically.</p>
       </div>
 
       {/* Map */}

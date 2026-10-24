@@ -20,11 +20,7 @@ import { AMENITIES, priceUnitLabel } from "@/lib/amenities";
 import { homePath, sectionPath } from "@/lib/slug";
 import ReviewForm, { Stars } from "./ReviewForm";
 import AvailabilityView from "./AvailabilityView";
-
-function ytId(url: string): string | null {
-  const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
-  return m ? m[1] : null;
-}
+import { videoEmbed } from "@/lib/videoEmbed";
 
 export default function DetailView({
   item, nearby, sidebarBanners = [], reviews = [], reviewAvg = 0, reviewCount = 0, google = null, blocked = [], related = [],
@@ -65,7 +61,7 @@ export default function DetailView({
   if (item.views) meta.push(`👁 ${item.views} ${t("detail_views")}`);
   if (item.deal) meta.push(`🔥 ${dealTypeLabel(item.dealType, lang)}${dealPct(item.price, item.dealPrice) > 0 ? ` −${dealPct(item.price, item.dealPrice)}%` : ""}`);
 
-  const videos = (item.videoUrls || []).map(ytId).filter(Boolean) as string[];
+  const videos = (item.videoUrls || []).map(videoEmbed).filter(Boolean) as { src: string; aspect: number; vertical: boolean }[];
   const hasMap = typeof item.lat === "number" && typeof item.lng === "number";
 
   return (
@@ -116,10 +112,12 @@ export default function DetailView({
               <div className="detail-section">
                 <h2>{t("detail_video")}</h2>
                 <div style={{ display: "grid", gap: 14 }}>
-                  {videos.map((id) => (
-                    <div key={id} style={{ position: "relative", paddingTop: "56.25%", borderRadius: 12, overflow: "hidden" }}>
-                      <iframe src={`https://www.youtube.com/embed/${id}`} title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
-                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }} />
+                  {videos.map((v, i) => (
+                    <div key={i} style={v.vertical ? { maxWidth: 340, width: "100%", margin: "0 auto" } : undefined}>
+                      <div style={{ position: "relative", paddingTop: `${v.aspect}%`, borderRadius: 12, overflow: "hidden" }}>
+                        <iframe src={v.src} title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen scrolling="no"
+                          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }} />
+                      </div>
                     </div>
                   ))}
                 </div>
