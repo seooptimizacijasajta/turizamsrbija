@@ -82,6 +82,13 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} turizamsrbija.com — {t("foot_rights")}</span>
           <span>Beograd · Srbija</span>
         </div>
+        <div style={{ textAlign: "center", marginTop: 10, fontSize: ".82rem", opacity: .72 }}>
+          <a href="https://www.izradasajta.rs" target="_blank" rel="noopener">Izrada sajta</a>
+          {" i "}
+          <a href="https://www.optimizacijasajta.org" target="_blank" rel="noopener">SEO optimizacija</a>
+          {" od "}
+          <a href="https://seohosting.rs" target="_blank" rel="noopener">najjeftiniji hosting u Srbiji</a>
+        </div>
       </div>
     </footer>
   );
